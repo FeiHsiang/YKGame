@@ -1,11 +1,15 @@
-import {checkLoginState, fbLogin, fbLogout} from './api-facebook.js';
+import {fbLogin, fbLogout, fbShare} from './api-facebook.js';
 
-let getStatus = document.getElementById('get-status');
 let login = document.getElementById('login');
 let logout = document.getElementById('logout');
+let share = document.getElementById('share');
 
-getStatus.addEventListener('click', checkLoginState, false);
+login.addEventListener('click', () => {
+  fbLogin(login, logout);
+}, false);
 
-login.addEventListener('click', fbLogin, false);
+logout.addEventListener('click', () => {
+  fbLogout(login, logout);
+}, false);
 
-logout.addEventListener('click', fbLogout, false);
+share.addEventListener('click', fbShare, false);

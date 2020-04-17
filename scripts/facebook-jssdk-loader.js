@@ -8,6 +8,16 @@ window.fbAsyncInit = function() {
 
   FB.AppEvents.logPageView();
 
+  FB.getLoginStatus(function(statusResponse) {
+    if (statusResponse.status === 'connected') {
+      console.log('已經登入了');
+      FB.api('/me', 'GET', {"fields":"id,name,email,picture"}, function(response) {
+        console.log(response);
+      });
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('logout').style.display = 'inline';
+    }
+  });
 };
 
 (function(d, s, id){
