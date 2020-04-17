@@ -7,4 +7,4 @@
 # 檔案部署
 
     cd ~/Sites/facebook-login-test/
-    rsync -avzh --exclude '.git/' . release_webMR:~/FBLogin/
+    rsync -avzh --exclude '.git/' . release_webMR:~/facebook-login-test/
