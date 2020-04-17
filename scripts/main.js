@@ -2,37 +2,49 @@ let getStatus = document.getElementById('get-status');
 let login = document.getElementById('login');
 let logout = document.getElementById('logout');
 
-getStatus.addEventListener('click', function() {
+getStatus.addEventListener('click', checkLoginState, false);
+
+login.addEventListener('click', fbLogin, false);
+
+logout.addEventListener('click', fbLogout, false);
+
+function checkLoginState() {
   FB.getLoginStatus(function(statusResponse) {
     if (statusResponse.status === 'connected') {
       console.log('已經登入了');
-      FB.api('/me', 'GET', {"fields":"id,name,email"}, function(response) {
+      getStatus.style.display = 'none';
+      FB.api('/me', 'GET', {"fields":"id,name,email,picture"}, function(response) {
         console.log(response);
       });
+      logout.style.display = 'inline';
     }
     else {
-      console.log('沒登入， status 為', statusResponse.status);
+      login.style.display = 'inline';
     }
   });
-});
+}
 
-login.addEventListener('click', function() {
+function fbLogin() {
   FB.login(function(loginResponse) {
     if (loginResponse.status === 'connected') {
       // Logged into your webpage and Facebook.
+      getStatus.style.display = 'none';
+      login.style.display = 'none';
       console.log('登入成功');
-      FB.api('/me', 'GET', {"fields":"id,name,email"}, function(response) {
+      FB.api('/me', 'GET', {"fields":"id,name,email,picture"}, function(response) {
         console.log(response);
       });
+      logout.style.display = 'inline';
     } else {
       // The person is not logged into your webpage or we are unable to tell.
       console.log('登入失敗， status 為', loginResponse.status);
     }
   }, {scope: 'public_profile,email'});
-});
+}
 
-logout.addEventListener('click', function() {
+function fbLogout() {
   FB.logout(function(logoutResponse) {
-    console.log(logoutResponse);
+    logout.style.display = 'none';
+    getStatus.style.display = 'inline';
   });
-});
+}
