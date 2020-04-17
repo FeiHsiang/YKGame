@@ -3,15 +3,24 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-signin-client_id" content="923953148455-n97vk70pi4dor1eo3o50680ecu9kb06i.apps.googleusercontent.com">
     <title>facebook-login-test</title>
     <link href="styles/style.css" rel="stylesheet">
   </head>
   <body>
-    <button id="get-status">getLoginStatus()</button>
-    <button id="login">login()</button>
-    <button id="logout">logout()</button>
-    <div class="fb-share-button" data-href="https://ssl-api-makar-apps.miflyservice.com:8080/" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fssl-api-makar-apps.miflyservice.com%3A8080%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">分享</a></div>
+    <div>
+      <button id="get-status">getLoginStatus()</button>
+      <button id="login">login()</button>
+      <button id="logout">logout()</button>
+      <div class="fb-share-button" data-href="https://ssl-api-makar-apps.miflyservice.com:8080/" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fssl-api-makar-apps.miflyservice.com%3A8080%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">分享</a></div>
+    </div>
+    <div>
+      <div class="g-signin2" data-onsuccess="googleOnSignIn"></div>
+      <a href="#" onclick="googleSignOut();">Sign out</a>
+    </div>
     <script src="scripts/facebook-jssdk-loader.js"></script>
-    <script src="scripts/main.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="scripts/main.js" type="module"></script>
+    <script src="scripts/api-google.js"></script>
   </body>
 </html>
