@@ -22,3 +22,8 @@ function googleSignOut() {
     console.log('User signed out.');
   });
 }
+
+function googleRevokeAllScopes() {
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.disconnect();
+}
