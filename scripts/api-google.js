@@ -16,14 +16,11 @@ function googleOnFailure(error) {
   console.log(error);
 }
 
-function googleSignOut() {
-  var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-    console.log('User signed out.');
-  });
-}
-
 function googleRevokeAllScopes() {
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.disconnect();
+}
+
+function googleIsSignedin() {
+  return GoogleAuth.isSignedIn.get();
 }

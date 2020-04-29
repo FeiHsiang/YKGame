@@ -3,22 +3,24 @@ function fbLogin(loginBtn, logoutBtn) {
     if (loginResponse.status === 'connected') {
       // Logged into your webpage and Facebook.
       loginBtn.style.display = 'none';
-      console.log('登入成功');
+      console.log('登入臉書成功');
       FB.api('/me', 'GET', {"fields":"id,name,email,picture"}, function(response) {
         console.log(response);
       });
       logoutBtn.style.display = 'inline';
     } else {
       // The person is not logged into your webpage or we are unable to tell.
-      console.log('登入失敗， status 為', loginResponse.status);
+      console.log('登入臉書失敗， status 為', loginResponse.status);
     }
   }, {scope: 'public_profile,email'});
 }
 
-function fbLogout(loginBtn, logoutBtn) {
-  FB.logout(function() {
-    loginBtn.style.display = 'inline';
-    logoutBtn.style.display = 'none';
+function fbRevokePermission(loginBtn, logoutBtn) {
+  FB.api('/me/permissions', 'DELETE', {}, function(response) {
+    // Reload to clear the access token error.
+    // There is no need to change the styles of the buttons.
+    console.log(response);
+    location.reload();
   });
 }
 
@@ -31,4 +33,4 @@ function fbShare() {
   }, function(response){console.log(response);});
 }
 
-export {fbLogin, fbLogout, fbShare};
+export {fbLogin, fbRevokePermission, fbShare};

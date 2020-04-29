@@ -10,25 +10,17 @@
     <meta property="og:description" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
     <meta property="og:image" content="https://www.makerar.com/banner/1569506677.jpg" />
     <meta property="fb:app_id" content="790562841436344" />
-    <title>facebook-login-test</title>
+    <title>遊戲介紹</title>
     <link href="styles/style.css" rel="stylesheet">
   </head>
   <body>
-    <h1>85 度 C 專案</h1>
-    <h2>Facebook 登入</h2>
-    <div>
-      <button id="login" class="fb-button">fbLogin()</button>
-      <button id="logout" class="fb-button">fbRevokePermission()</button>
-      <button id="share" class="fb-button">fbShare()</button>
-    </div>
-    <h2>Google 登入</h2>
-    <div>
-      <div class="g-signin2" data-onsuccess="googleOnSignIn" data-onfailure="googleOnFailure" data-theme="dark"></div>
-      <a href="#" onclick="googleRevokeAllScopes();">Disconnect</a>
-    </div>
-    <script src="scripts/facebook-jssdk-loader.js"></script>
+    <button id="logout" class="fb-button">fbRevokePermission()</button>
+    <div>遊戲介紹、警語、相關文宣</div>
+    <div>開始遊戲</div>
+    <div>獲獎紀錄</div>
+    <script src="/scripts/game-introduction/facebook-jssdk-loader.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="scripts/main.js" type="module"></script>
-    <script src="scripts/api-google.js"></script>
+    <script src="/scripts/game-introduction/main.js"></script>
+    <script src="/scripts/api-google.js"></script>
   </body>
 </html>

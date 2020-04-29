@@ -1,4 +1,4 @@
-import {fbLogin, fbLogout, fbShare} from './api-facebook.js';
+import {fbLogin, fbRevokePermission, fbShare} from './api-facebook.js';
 
 let login = document.getElementById('login');
 let logout = document.getElementById('logout');
@@ -9,7 +9,7 @@ login.addEventListener('click', () => {
 }, false);
 
 logout.addEventListener('click', () => {
-  fbLogout(login, logout);
+  fbRevokePermission(login, logout);
 }, false);
 
 share.addEventListener('click', fbShare, false);

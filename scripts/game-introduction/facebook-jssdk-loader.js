@@ -14,8 +14,11 @@ window.fbAsyncInit = function() {
       FB.api('/me', 'GET', {"fields":"id,name,email,picture"}, function(response) {
         console.log(response);
       });
-      document.getElementById('login').style.display = 'none';
-      document.getElementById('logout').style.display = 'inline';
+    }
+    else {
+      
+      // alert('請先登入');
+      // location.replace(`${location.protocol}//${location.host}/`);
     }
   });
 };
