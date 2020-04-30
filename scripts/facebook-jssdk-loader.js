@@ -10,12 +10,34 @@ window.fbAsyncInit = function() {
 
   FB.getLoginStatus(function(statusResponse) {
     if (statusResponse.status === 'connected') {
-      console.log('已經登入臉書了');
-      FB.api('/me', 'GET', {"fields":"id,name,email,picture"}, function(response) {
-        console.log(response);
-      });
-      document.getElementById('login').style.display = 'none';
-      document.getElementById('logout').style.display = 'inline';
+      switch (location.pathname) {
+        case '/':
+        case '/index':
+        case '/index.html':
+          location.replace(`${location.protocol}//${location.host}/game-introduction/`);
+          break;
+        default:
+          isFbLoggedIn = true;
+          console.log('已經登入臉書了');
+          FB.api('/me', 'GET', {"fields":"id,name,email,picture"}, function(response) {
+            console.log(response);
+          });
+          break;
+      }
+    }
+    else {
+      isFbLoggedIn = false;
+      console.log('尚未登入臉書');
+      switch (location.pathname) {
+        case '/game-introduction/':
+        case '/game-introduction/index':
+        case '/game-introduction/index.html':
+          // alert('請先登入');
+          // location.replace(`${location.protocol}//${location.host}/`);
+          break;
+        default:
+          break;
+      }
     }
   });
 };

@@ -14,13 +14,16 @@
     <link href="styles/style.css" rel="stylesheet">
   </head>
   <body>
-    <button id="logout" class="fb-button">fbRevokePermission()</button>
+    <button id="logout" class="fb-button">萬用登出</button>
+    <div class="g-signin2" data-onsuccess="googleOnSignIn" data-onfailure="googleOnFailure" data-theme="dark"></div>
     <div>遊戲介紹、警語、相關文宣</div>
     <div>開始遊戲</div>
     <div>獲獎紀錄</div>
-    <script src="/scripts/game-introduction/facebook-jssdk-loader.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="/scripts/game-introduction/main.js"></script>
-    <script src="/scripts/api-google.js"></script>
+    <script src="../scripts/globalVariables.js"></script>
+    <script src="../scripts/facebook-jssdk-loader.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=googleInit" async defer></script>
+    <script src="../scripts/api-facebook.js"></script>
+    <script src="../scripts/api-google.js"></script>
+    <script src="../scripts/game-introduction/main.js"></script>
   </body>
 </html>

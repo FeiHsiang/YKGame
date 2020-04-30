@@ -18,17 +18,19 @@
     <h2>Facebook 登入</h2>
     <div>
       <button id="login" class="fb-button">fbLogin()</button>
-      <button id="logout" class="fb-button">fbRevokePermission()</button>
       <button id="share" class="fb-button">fbShare()</button>
     </div>
     <h2>Google 登入</h2>
     <div>
       <div class="g-signin2" data-onsuccess="googleOnSignIn" data-onfailure="googleOnFailure" data-theme="dark"></div>
       <a href="#" onclick="googleRevokeAllScopes();">Disconnect</a>
+      <div id="name"></div>
     </div>
-    <script src="scripts/facebook-jssdk-loader.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="scripts/main.js" type="module"></script>
-    <script src="scripts/api-google.js"></script>
+    <script src="./scripts/globalVariables.js"></script>
+    <script src="./scripts/facebook-jssdk-loader.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=googleInit" async defer></script>
+    <script src="./scripts/api-facebook.js"></script>
+    <script src="./scripts/api-google.js"></script>
+    <script src="./scripts/main.js"></script>
   </body>
 </html>
