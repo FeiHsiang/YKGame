@@ -14,6 +14,7 @@ window.fbAsyncInit = function() {
         case '/':
         case '/index':
         case '/index.html':
+          // 準備跳轉頁面，有沒有設成 `true` 已經沒差了
           location.replace(`${location.protocol}//${location.host}/game-introduction/`);
           break;
         default:

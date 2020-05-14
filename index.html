@@ -3,28 +3,27 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-signin-client_id" content="923953148455-n97vk70pi4dor1eo3o50680ecu9kb06i.apps.googleusercontent.com">
-    <meta property="og:url" content="https://ssl-api-makar-apps.miflyservice.com:8080/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="It is just a login test website" />
-    <meta property="og:description" content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-    <meta property="og:image" content="https://www.makerar.com/banner/1569506677.jpg" />
-    <meta property="fb:app_id" content="790562841436344" />
-    <title>facebook-login-test</title>
+    <meta name="author" content="MIND & IDEA FLY CO., LTD.">
+    <meta name="description" content="85 度 C 專案">
+    <meta property="og:url" content="https://ssl-api-makar-apps.miflyservice.com:8080/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="It is just a login test website">
+    <meta property="og:description" content="85 度 C 專案">
+    <meta property="og:image" content="https://www.makerar.com/banner/1569506677.jpg">
+    <meta property="fb:app_id" content="790562841436344">
+    <title>登入頁面</title>
     <link href="styles/style.css" rel="stylesheet">
   </head>
   <body>
     <h1>85 度 C 專案</h1>
     <h2>Facebook 登入</h2>
     <div>
-      <button id="login" class="fb-button">fbLogin()</button>
-      <button id="share" class="fb-button">fbShare()</button>
+      <button id="fb-login-button" class="fb-button">fbLogin()</button>
+      <button id="fb-share-button" class="fb-button">fbShare()</button>
     </div>
     <h2>Google 登入</h2>
     <div>
-      <div class="g-signin2" data-onsuccess="googleOnSignIn" data-onfailure="googleOnFailure" data-theme="dark"></div>
-      <a href="#" onclick="googleRevokeAllScopes();">Disconnect</a>
-      <div id="name"></div>
+      <button id="g-login-button" class="fb-button">google sign in</button>
     </div>
     <script src="./scripts/globalVariables.js"></script>
     <script src="./scripts/facebook-jssdk-loader.js"></script>
