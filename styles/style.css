@@ -2,10 +2,6 @@ body {
   text-align: center;
 }
 
-#logout {
-  display: none;
-}
-
 .fb-button {
   cursor: pointer;
 }
