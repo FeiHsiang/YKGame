@@ -54,7 +54,6 @@ function googleOnFailure(error) {
 
 function googleRevokeAllScopes() {
   aGoogleAuth.disconnect();
-  location.replace(`${location.protocol}//${location.host}/`);
 }
 
 function googleSignedinChanged(isLoggedIn) {

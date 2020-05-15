@@ -14,7 +14,6 @@ function fbLogin() {
 function fbRevokePermission() {
   FB.api('/me/permissions', 'DELETE', {}, function(response) {
     console.log(response);
-    location.replace(`${location.protocol}//${location.host}/`);
   });
 }
 
