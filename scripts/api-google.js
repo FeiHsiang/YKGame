@@ -10,13 +10,8 @@ function googleInit() {
       fetch_basic_profile: true,
       ux_mode: 'popup'
     });
-    aGoogleAuth.isSignedIn.listen(googleSignedinChanged);
-    aGoogleAuth.currentUser.listen(googleUserChanged);
-    if (aGoogleAuth.isSignedIn.get()) {
-      aGoogleAuth.signIn();
-    }
     // https://developers.google.com/identity/sign-in/web/listeners
-    refreshValues();
+    aGoogleAuth.currentUser.listen(googleUserChanged);
     switch (location.pathname) {
       case '/':
       case '/index':
@@ -52,15 +47,10 @@ function googleOnFailure(error) {
   console.log(error);
 }
 
-function googleRevokeAllScopes() {
-  aGoogleAuth.disconnect();
-}
-
-function googleSignedinChanged(isLoggedIn) {
-  console.log('googleSignedinChanged()');
-  isGoogleLoggedIn = isLoggedIn;
-  if (isLoggedIn) {
-    console.log('已經登入 Google 了');
+function googleUserChanged(user) {
+  isGoogleChecked = true;
+  aGoogleUser = user;
+  if (user.isSignedIn()) {
     switch (location.pathname) {
       case '/':
       case '/index':
@@ -68,23 +58,35 @@ function googleSignedinChanged(isLoggedIn) {
         location.replace(`${location.protocol}//${location.host}/game-introduction/`);
         break;
       default:
-        // do nothing
+        isGoogleLoggedIn = user.isSignedIn();
+        console.log('已經登入 Google 了');
         break;
     }
   }
   else {
     console.log('尚未登入 Google');
-  }
-}
-
-function googleUserChanged(user) {
-  console.log('User now: ', user);
-  aGoogleUser = user;
-}
-
-function refreshValues() {
-  if (aGoogleAuth){
-    console.log('Refreshing values...');
-    aGoogleUser = aGoogleAuth.currentUser.get();
+    switch (location.pathname) {
+      case '/game-introduction/':
+      case '/game-introduction/index':
+      case '/game-introduction/index.html':
+      case '/game-start/':
+      case '/game-start/index':
+      case '/game-start/index.html':
+      case '/get-prize/':
+      case '/get-prize/index':
+      case '/get-prize/index.html':
+      case '/prize-list/':
+      case '/prize-list/index':
+      case '/prize-list/index.html':
+        // 檢查 Facebook 是否登入，若無則導向到登入頁面
+        console.log('Google is checking facebook.');
+        if (isFbChecked && !isFbLoggedIn) {
+          alert('請先登入');
+          location.replace(`${location.protocol}//${location.host}/`);
+        }
+        break;
+      default:
+        break;
+    }
   }
 }

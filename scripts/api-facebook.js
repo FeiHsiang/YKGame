@@ -11,12 +11,6 @@ function fbLogin() {
   }, {scope: 'public_profile,email'});
 }
 
-function fbRevokePermission() {
-  FB.api('/me/permissions', 'DELETE', {}, function(response) {
-    console.log(response);
-  });
-}
-
 function fbShare() {
   FB.ui({
     method: 'share',

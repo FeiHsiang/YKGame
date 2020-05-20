@@ -46,33 +46,6 @@ switch (location.pathname) {
   case '/prize-list/index.html':
   default:
     let logout = document.getElementById('logout');
-    let checkWhichIsLoggedIn = function() {
-      if (isFbLoggedIn && !isGoogleLoggedIn) {
-        // fbRevokePermission();
-        FB.api('/me/permissions', 'DELETE', {}, function(response) {
-          console.log(response);
-          location.replace(`${location.protocol}//${location.host}/`);
-        });
-      }
-      else if (!isFbLoggedIn && isGoogleLoggedIn) {
-        // googleRevokeAllScopes();
-        aGoogleAuth.disconnect();
-        location.replace(`${location.protocol}//${location.host}/`);
-      }
-      else if (!isFbLoggedIn && !isGoogleLoggedIn) {
-        // 都沒登入，應該要另外處理
-        alert('請先登入');
-        location.replace(`${location.protocol}//${location.host}/`);
-      }
-      else {
-        alert('帳號重複登入');
-        aGoogleAuth.disconnect();
-        FB.api('/me/permissions', 'DELETE', {}, function(response) {
-          console.log(response);
-          location.replace(`${location.protocol}//${location.host}/`);
-        });
-      }
-    };
     logout.addEventListener('click', checkWhichIsLoggedIn, false);
     break;
 }
