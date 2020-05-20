@@ -20,10 +20,22 @@ window.fbAsyncInit = function() {
           break;
         default:
           isFbLoggedIn = true;
-          console.log('已經登入臉書了');
-          FB.api('/me', 'GET', {"fields":"id,name,email,picture"}, function(response) {
-            console.log(response);
-          });
+          // 檢查 Google 是否登入，若有則全部取消授權（也代表， Google 已經載入完成）
+          console.log('FB is checking google.');
+          if (isGoogleChecked && isGoogleLoggedIn) {
+            alert('帳號重複登入');
+            aGoogleAuth.disconnect();
+            FB.api('/me/permissions', 'DELETE', {}, function(response) {
+              console.log(response);
+              location.replace(`${location.protocol}//${location.host}/`);
+            });
+          }
+          else {
+            console.log('已經登入臉書了');
+            FB.api('/me', 'GET', {"fields":"id,name,email,picture"}, function(response) {
+              console.log(response);
+            });
+          }
           break;
       }
     }

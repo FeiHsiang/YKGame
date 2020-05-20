@@ -59,7 +59,19 @@ function googleUserChanged(user) {
         break;
       default:
         isGoogleLoggedIn = user.isSignedIn();
-        console.log('已經登入 Google 了');
+        // 檢查臉書是否登入，若有則全部取消授權（也代表，臉書已經載入完成）
+        console.log('Google is checking facebook.');
+        if (isFbChecked && isFbLoggedIn) {
+          alert('帳號重複登入');
+          aGoogleAuth.disconnect();
+          FB.api('/me/permissions', 'DELETE', {}, function(response) {
+            console.log(response);
+            location.replace(`${location.protocol}//${location.host}/`);
+          });
+        }
+        else {
+          console.log('已經登入 Google 了');
+        }
         break;
     }
   }
