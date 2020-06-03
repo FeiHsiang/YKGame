@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<title> makarXR	</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=1">
+	<link rel="icon" type="image/png" href="favicon.png" />
+	<script type="text/javascript" src="lib/jquery-1.4.4.min.js"></script>
+	<link href="styles/style.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+	<script src="lib/vconsole.min.js"></script>
+	<script>
+		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
+            var vConsole = new VConsole();
+            // console.log("The system is mobile: ", window.navigator.userAgent.toLowerCase() );
+		}else{
+            // console.log("The system is PC: ", window.navigator.userAgent.toLowerCase() );
+		}
+		if ( window.top != window.self ){
+			console.log("makarXR_clean.html: get iframe = " , parent.document.getElementById("xrIframe") );
+		}else{
+			console.log("makarXR_clean.html: get no iframe ,location =" , location  );
+			location.replace(`${location.protocol}//${location.host}/game-introduction/`);
+		}
+	</script>
+
+	<script src="lib/aframe-v0.9.2.min.js"></script>
+	<script src="lib/ObjectControls.js"></script>
+
+	<script>
+		window.serverVersion = "3.0.0";
+		window.serverUrl = "https://ssl-api-makar-apps.miflyservice.com/Makar/"; // AWS test V3 makar server.
+		
+//20200102-start-thonsha-add
+		window.requestDeviceMotionPermission = function (){
+			console.log("makarXR.html: _requestDeviceMotionPermission  " );
+            if (typeof(DeviceMotionEvent) !== 'undefined' && typeof(DeviceMotionEvent.requestPermission) === 'function') {
+				DeviceMotionEvent.requestPermission().then(response => {
+					console.log("makarXR.html: requestPermission response =", response );
+                    if (response == 'granted') {
+                        window.addEventListener('devicemotion', (e) => {
+						})
+					}
+                }).catch(console.error)
+            }else {
+                // alert('DeviceMotionEvent is not defined');
+				console.log("makarVR.html: requestPermission: DeviceMotionEvent is not defined " );
+            }
+		}
+//20200102-end-thonsha-add
+
+	</script>
+ 
+	<script src = "lib/appXR.85c.min.js"> </script>
+
+	<div id = "testDiv" style="position: fixed; bottom: 80px; z-index: 99; text-align: center;" > 
+		<img id = "testButton" src="images/web-ar-coupon.png" alt=""  ></img>
+	</div>
+
+	<div id = "home" class="bgbox_pc" > </div>
+
+	<div id = "leftTopButton"  >
+		<p>
+			<img id="leftTopArrow" src="images/icon/left arrow long/click.png" > </img>
+			關閉遊戲
+		</p>
+	</div>
+
+	<div id = "switchLens" style="display: none;">
+		<img id = switchLensImg src="images/icon/switch lens/click.png"  > </img>
+	</div>
+	
+	<div id = "snapShotCamera" class="" >
+		<img id="snapShotCameraImg" src="images/icon/camera/camera.png"  > </img>
+	</div>
+	
+	<!-- <script src = "js/UI.js"></script> -->
+	<!-- <script src = "lib/UI.min.js"></script> -->
+
+	<script>
+		
+		/////// start the pop note when document ready
+		$(document).ready(function() {
+			setTimeout(function(){				
+ 				// showXRProjList();
+				// document.getElementById("testButton").onclick = showXRProjList;
+				console.log("makarVR.html: set testButton onclick");
+				document.getElementById("testButton").onclick = showXRProjList;
+			}, 50 );
+		});
+
+		let leftTopButton = document.getElementById("leftTopButton");
+		leftTopButton.addEventListener('click', function(event){
+			event.preventDefault();
+			console.log("makarVR.html: leftTopButton click:"   );
+			
+			//// check if in iFrame?
+			if ( window.top != window.self ){
+				console.log("makarXR_clean.html: get iframe = " , parent.document.getElementById("xrIframe") );
+				parent.closeCoreIframe(123);
+			}
+		})
+
+	</script>
+
+	<a href = "tel:666666" id ="phoneCall"></a>
+	<a href = "https://www.miflydesign.com" id ="openWebBrowser" target="_blank" ></a>
+
+	<a href="mailto:infomakar@miflydesign.com" id ="sendEmail"></a>
+
+</body>
+</html>
+
