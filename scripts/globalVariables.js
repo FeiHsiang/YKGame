@@ -20,7 +20,7 @@ let checkWhichIsLoggedIn = function() {
   }
   else if (!isFbLoggedIn && isGoogleLoggedIn) {
     aGoogleAuth.disconnect();
-    location.replace(`${location.protocol}//${location.host}/`);
+    // location.replace(`${location.protocol}//${location.host}/`);
   }
   else if (!isFbLoggedIn && !isGoogleLoggedIn) {
     // 都沒登入，應該要另外處理

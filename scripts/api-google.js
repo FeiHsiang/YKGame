@@ -41,16 +41,6 @@ function googleOnSignIn(user) {
   // The ID token you need to pass to your backend:
   var id_token = user.getAuthResponse().id_token;
   console.log('ID Token: ' + id_token);
-  let postData = {
-    ID: profile.getId() + '@google',
-    name: profile.getName(),
-    request: 'init',
-    requestItem: ''
-  };
-  aNetworkAgent.sendPost(postData).then(myJson => {
-    console.log(myJson[0]);
-    location.replace(`${location.protocol}//${location.host}/game-introduction/`);
-  });
 }
 
 function googleOnFailure(error) {
@@ -65,7 +55,16 @@ function googleUserChanged(user) {
       case '/':
       case '/index':
       case '/index.html':
-        location.replace(`${location.protocol}//${location.host}/game-introduction/`);
+        let postData = {
+          ID: aGoogleUser.getBasicProfile().getId() + '@google',
+          name: aGoogleUser.getBasicProfile().getName(),
+          request: 'init',
+          requestItem: ''
+        };
+        aNetworkAgent.sendPost(postData).then(myJson => {
+          console.log(myJson[0]);
+          location.replace(`${location.protocol}//${location.host}/game-introduction/`);
+        });
         break;
       default:
         isGoogleLoggedIn = user.isSignedIn();
@@ -112,7 +111,7 @@ function googleUserChanged(user) {
         // 檢查 Facebook 是否登入，若無則導向到登入頁面
         console.log('Google is checking facebook.');
         if (isFbChecked && !isFbLoggedIn) {
-          alert('請先登入');
+          console.log('兩者皆未登入');
           location.replace(`${location.protocol}//${location.host}/`);
         }
         break;
