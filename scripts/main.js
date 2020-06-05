@@ -33,15 +33,20 @@ switch (location.pathname) {
     fbLoginButton.addEventListener('click', fbLogin, false);
     fbShareButton.addEventListener('click', fbShare, false);
     break;
+  case '/get-prize/':
+  case '/get-prize/index':
+  case '/get-prize/index.html':
+    let exchangePrize = document.getElementById('exchange-prize');
+    exchangePrize.addEventListener('click', function() {
+      let password = prompt('密碼兌換');
+      console.log(password);
+    })
   case '/game-introduction/':
   case '/game-introduction/index':
   case '/game-introduction/index.html':
   case '/game-start/':
   case '/game-start/index':
   case '/game-start/index.html':
-  case '/get-prize/':
-  case '/get-prize/index':
-  case '/get-prize/index.html':
   case '/prize-list/':
   case '/prize-list/index':
   case '/prize-list/index.html':

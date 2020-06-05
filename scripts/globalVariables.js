@@ -22,7 +22,6 @@ let checkWhichIsLoggedIn = function() {
     console.log('取消授權中 ...');
     aGoogleAuth.disconnect();
     console.log('取消授權完成');
-    // location.replace(`${location.protocol}//${location.host}/`);
   }
   else if (!isFbLoggedIn && !isGoogleLoggedIn) {
     // 都沒登入，應該要另外處理
