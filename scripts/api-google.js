@@ -41,6 +41,16 @@ function googleOnSignIn(user) {
   // The ID token you need to pass to your backend:
   var id_token = user.getAuthResponse().id_token;
   console.log('ID Token: ' + id_token);
+  let postData = {
+    ID: profile.getId() + '@google',
+    name: profile.getName(),
+    request: 'init',
+    requestItem: ''
+  };
+  aNetworkAgent.sendPost(postData).then(myJson => {
+    console.log(myJson[0]);
+    location.replace(`${location.protocol}//${location.host}/game-introduction/`);
+  });
 }
 
 function googleOnFailure(error) {
@@ -70,7 +80,16 @@ function googleUserChanged(user) {
           });
         }
         else {
-          console.log('已經登入 Google 了');
+          console.log('已經登入 Google 了，寫入 ID 以及姓名');
+          userID = aGoogleUser.getBasicProfile().getId() + '@google';
+          userName = aGoogleUser.getBasicProfile().getName();
+          switch (location.pathname) {
+            case '/game-start/':
+            case '/game-start/index':
+            case '/game-start/index.html':
+              openIframe();
+              break;
+          }
         }
         break;
     }

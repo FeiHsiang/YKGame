@@ -32,8 +32,17 @@ window.fbAsyncInit = function() {
           }
           else {
             console.log('已經登入臉書了');
-            FB.api('/me', 'GET', {"fields":"id,name,email,picture"}, function(response) {
-              console.log(response);
+            FB.api('/me', 'GET', {"fields":"id,name,picture"}, function(response) {
+              console.log('寫入 ID 以及姓名');
+              userID = response.id + '@facebook';
+              userName = response.name;
+              switch (location.pathname) {
+                case '/game-start/':
+                case '/game-start/index':
+                case '/game-start/index.html':
+                  openIframe();
+                  break;
+              }
             });
           }
           break;

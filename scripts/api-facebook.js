@@ -3,12 +3,23 @@ function fbLogin() {
     if (loginResponse.status === 'connected') {
       // Logged into your webpage and Facebook.
       console.log('登入臉書成功');
-      location.replace(`${location.protocol}//${location.host}/game-introduction/`);
+      FB.api('/me', 'GET', {"fields":"id,name,email,picture"}, function(response) {
+        let postData = {
+          ID: response.id + '@facebook',
+          name: response.name,
+          request: 'init',
+          requestItem: ''
+        };
+        aNetworkAgent.sendPost(postData).then(myJson => {
+          console.log(myJson[0]);
+          location.replace(`${location.protocol}//${location.host}/game-introduction/`);
+        });
+      });
     } else {
       // The person is not logged into your webpage or we are unable to tell.
       console.log('登入臉書失敗， status 為', loginResponse.status);
     }
-  }, {scope: 'public_profile,email'});
+  }, {scope: 'public_profile'});
 }
 
 function fbShare() {

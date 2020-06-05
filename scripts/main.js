@@ -3,6 +3,7 @@ function isFacebookApp() {
   return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1);
 }
 
+// 檢查使用者是否使用 Facebook App 開啟網頁
 switch (location.pathname) {
   case '/change-your-browser/':
   case '/change-your-browser/index':

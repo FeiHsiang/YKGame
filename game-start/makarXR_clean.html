@@ -9,22 +9,6 @@
 
 </head>
 <body>
-	<script src="lib/vconsole.min.js"></script>
-	<script>
-		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
-            var vConsole = new VConsole();
-            // console.log("The system is mobile: ", window.navigator.userAgent.toLowerCase() );
-		}else{
-            // console.log("The system is PC: ", window.navigator.userAgent.toLowerCase() );
-		}
-		if ( window.top != window.self ){
-			console.log("makarXR_clean.html: get iframe = " , parent.document.getElementById("xrIframe") );
-		}else{
-			console.log("makarXR_clean.html: get no iframe ,location =" , location  );
-			location.replace(`${location.protocol}//${location.host}/game-introduction/`);
-		}
-	</script>
-
 	<script src="lib/aframe-v0.9.2.min.js"></script>
 	<script src="lib/ObjectControls.js"></script>
 
