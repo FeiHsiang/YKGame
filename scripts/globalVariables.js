@@ -19,7 +19,9 @@ let checkWhichIsLoggedIn = function() {
     });
   }
   else if (!isFbLoggedIn && isGoogleLoggedIn) {
+    console.log('取消授權中 ...');
     aGoogleAuth.disconnect();
+    console.log('取消授權完成');
     // location.replace(`${location.protocol}//${location.host}/`);
   }
   else if (!isFbLoggedIn && !isGoogleLoggedIn) {
@@ -44,9 +46,9 @@ let openIframe = function() {
     requestItem: ''
   };
   aNetworkAgent.sendPost(postData).then(myJson => {
-    console.log(myJson[0]);
-    if (isNaN(myJson[0])) {
+    if (!myJson[1]) {
       alert('今天遊戲次數到上限囉！\n歡迎明天再來挑戰！');
+      console.log(myJson);
       location.replace(`${location.protocol}//${location.host}/get-prize/`);
     }
     else {

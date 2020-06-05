@@ -48,6 +48,7 @@ function googleOnFailure(error) {
 }
 
 function googleUserChanged(user) {
+  console.log('googleUserChanged()');
   isGoogleChecked = true;
   aGoogleUser = user;
   if (user.isSignedIn()) {

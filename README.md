@@ -27,6 +27,7 @@
         "request": "draw",
         "requestItem": ""
     }
+    // if 沒抽過 true else false
     {
         "ID": "idFromFbOrGoogle",
         "name": "nameFromFbOrGoogle",
