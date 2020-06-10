@@ -11,6 +11,7 @@ let aGoogleUser;
 let aNetworkAgent = new NetworkAgent();
 let userID;
 let userName;
+
 let checkWhichIsLoggedIn = function() {
   if (isFbLoggedIn && !isGoogleLoggedIn) {
     FB.api('/me/permissions', 'DELETE', {}, function(response) {
@@ -37,6 +38,7 @@ let checkWhichIsLoggedIn = function() {
     });
   }
 };
+
 let openIframe = function() {
   let postData = {
     ID: userID,
@@ -78,8 +80,6 @@ let openIframe = function() {
     
   }
 
-  // startCoreIframe();
-
   //// 由 iframe內部呼叫來關閉 iframe
   var closeCoreIframe = window.closeCoreIframe = function( test ){
     console.log("game-start: closeCoreIframe test=", test );
@@ -87,4 +87,27 @@ let openIframe = function() {
     document.getElementById("xrIframe").remove();
     
   }
-}
+};
+
+let getTodayNewestPrizeInfo = function() {
+  let postData = {
+    ID: userID,
+    name: userName,
+    request: 'read',
+    requestItem: 'userPrizeList'
+  };
+  aNetworkAgent.sendPost(postData).then(myJson => {
+    myJson.forEach(element => {
+      postData = {
+        // 最新的獎項放在最後
+        ID: element[element.length - 1],
+        name: '',
+        request: 'read',
+        requestItem: 'prizeData'
+      };
+      aNetworkAgent.sendPost(postData).then(myJson2 => {
+        console.log(postData, myJson2);
+      })
+    });
+  });
+};

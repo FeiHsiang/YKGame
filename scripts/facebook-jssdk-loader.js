@@ -45,26 +45,7 @@ window.fbAsyncInit = function() {
                 case '/get-prize/':
                 case '/get-prize/index':
                 case '/get-prize/index.html':
-                  let postData = {
-                    ID: userID,
-                    name: userName,
-                    request: 'read',
-                    requestItem: 'userPrizeList'
-                  };
-                  aNetworkAgent.sendPost(postData).then(myJson => {
-                    myJson.forEach(element => {
-                      postData = {
-                        // 最新的獎項放在最後
-                        ID: element[element.length - 1],
-                        name: '',
-                        request: 'read',
-                        requestItem: 'prizeData'
-                      };
-                      aNetworkAgent.sendPost(postData).then(myJson2 => {
-                        console.log(postData, myJson2);
-                      })
-                    });
-                  });
+                  getTodayNewestPrizeInfo();
                   break;
               }
             });
