@@ -48,6 +48,7 @@
     }
 
 傳送（開發模式）
+
     {
         "ID": "idFromFbOrGoogle",
         "name": "",
