@@ -40,7 +40,7 @@ switch (location.pathname) {
     exchangePrize.addEventListener('click', function() {
       let password = prompt('密碼兌換');
       console.log(password);
-    })
+    });
   case '/game-introduction/':
   case '/game-introduction/index':
   case '/game-introduction/index.html':
