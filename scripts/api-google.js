@@ -56,7 +56,7 @@ function googleUserChanged(user) {
       case '/':
       case '/index':
       case '/index.html':
-        let postData = {
+        postData = {
           ID: aGoogleUser.getBasicProfile().getId() + '@google',
           name: aGoogleUser.getBasicProfile().getName(),
           request: 'init',
@@ -93,6 +93,11 @@ function googleUserChanged(user) {
             case '/get-prize/index':
             case '/get-prize/index.html':
               getTodayNewestPrizeInfo();
+              break;
+            case '/prize-list/':
+            case '/prize-list/index':
+            case '/prize-list/index.html':
+              listAllUserPrize();
               break;
           }
         }

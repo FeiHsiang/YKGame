@@ -11,6 +11,8 @@ let aGoogleUser;
 let aNetworkAgent = new NetworkAgent();
 let userID;
 let userName;
+let rewardID;
+let postData;
 
 let checkWhichIsLoggedIn = function() {
   if (isFbLoggedIn && !isGoogleLoggedIn) {
@@ -40,7 +42,7 @@ let checkWhichIsLoggedIn = function() {
 };
 
 let openIframe = function() {
-  let postData = {
+  postData = {
     ID: userID,
     name: userName,
     request: 'draw',
@@ -90,7 +92,29 @@ let openIframe = function() {
 };
 
 let getTodayNewestPrizeInfo = function() {
-  let postData = {
+  postData = {
+    ID: userID,
+    name: userName,
+    request: 'read',
+    requestItem: 'userPrizeList'
+  };
+  aNetworkAgent.sendPost(postData).then(myJson => {
+    rewardID = myJson[myJson.length - 1];
+    postData = {
+      // 最新的獎項放在最後
+      ID: rewardID,
+      name: '',
+      request: 'read',
+      requestItem: 'prizeData'
+    };
+    aNetworkAgent.sendPost(postData).then(myJson2 => {
+      console.log(postData, myJson2);
+    });
+  });
+};
+
+let listAllUserPrize = function() {
+  postData = {
     ID: userID,
     name: userName,
     request: 'read',
@@ -98,16 +122,16 @@ let getTodayNewestPrizeInfo = function() {
   };
   aNetworkAgent.sendPost(postData).then(myJson => {
     myJson.forEach(element => {
+      console.log(element);
       postData = {
-        // 最新的獎項放在最後
-        ID: element[element.length - 1],
+        ID: element,
         name: '',
         request: 'read',
         requestItem: 'prizeData'
       };
       aNetworkAgent.sendPost(postData).then(myJson2 => {
-        console.log(postData, myJson2);
-      })
+        console.log(myJson2);
+      });
     });
   });
 };

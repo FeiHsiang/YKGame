@@ -47,6 +47,11 @@ window.fbAsyncInit = function() {
                 case '/get-prize/index.html':
                   getTodayNewestPrizeInfo();
                   break;
+                case '/prize-list/':
+                case '/prize-list/index':
+                case '/prize-list/index.html':
+                  listAllUserPrize();
+                  break;
               }
             });
           }

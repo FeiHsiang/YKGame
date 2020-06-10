@@ -4,7 +4,7 @@ function fbLogin() {
       // Logged into your webpage and Facebook.
       console.log('登入臉書成功');
       FB.api('/me', 'GET', {"fields":"id,name,email,picture"}, function(response) {
-        let postData = {
+        postData = {
           ID: response.id + '@facebook',
           name: response.name,
           request: 'init',
