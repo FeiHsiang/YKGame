@@ -5,3 +5,18 @@ body {
 .fb-button {
   cursor: pointer;
 }
+
+.change-your-browser {
+  background-image: url("/images/IOS進入示意-720X1280.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.game-intro-btn {
+  max-width: 50%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
