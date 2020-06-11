@@ -10,6 +10,7 @@ window.fbAsyncInit = function() {
 
   FB.getLoginStatus(function(statusResponse) {
     isFbChecked = true;
+    // 有登入
     if (statusResponse.status === 'connected') {
       switch (location.pathname) {
         case '/':
@@ -36,28 +37,13 @@ window.fbAsyncInit = function() {
               console.log('寫入 ID 以及姓名');
               userID = response.id + '@facebook';
               userName = response.name;
-              switch (location.pathname) {
-                case '/game-start/':
-                case '/game-start/index':
-                case '/game-start/index.html':
-                  openIframe();
-                  break;
-                case '/get-prize/':
-                case '/get-prize/index':
-                case '/get-prize/index.html':
-                  getTodayNewestPrizeInfo();
-                  break;
-                case '/prize-list/':
-                case '/prize-list/index':
-                case '/prize-list/index.html':
-                  listAllUserPrize();
-                  break;
-              }
+              selectProgramToRun();
             });
           }
           break;
       }
     }
+    // 沒登入
     else {
       isFbLoggedIn = false;
       console.log('尚未登入臉書');

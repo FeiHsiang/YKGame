@@ -108,7 +108,10 @@ let getTodayNewestPrizeInfo = function() {
       requestItem: 'prizeData'
     };
     aNetworkAgent.sendPost(postData).then(myJson2 => {
-      console.log(postData, myJson2);
+      console.log(myJson2[0].prizeLevel);
+      let prizeDescription = new Image();
+      prizeDescription.src = '/images/description-' + myJson2[0].prizeLevel + '.png';
+      document.body.appendChild(prizeDescription);
     });
   });
 };
@@ -121,17 +124,55 @@ let listAllUserPrize = function() {
     requestItem: 'userPrizeList'
   };
   aNetworkAgent.sendPost(postData).then(myJson => {
-    myJson.forEach(element => {
-      console.log(element);
-      postData = {
-        ID: element,
-        name: '',
-        request: 'read',
-        requestItem: 'prizeData'
-      };
-      aNetworkAgent.sendPost(postData).then(myJson2 => {
-        console.log(myJson2);
-      });
-    });
+    recursiveFetch(myJson, 0);
   });
+};
+
+let recursiveFetch = function(anArray, anIndex) {
+  if (anIndex >= anArray.length) {
+    // end recursive function
+  }
+  else {
+    postData = {
+      ID: anArray[anIndex],
+      name: '',
+      request: 'read',
+      requestItem: 'prizeData'
+    };
+    aNetworkAgent.sendPost(postData).then(myJson2 => {
+      let prizeBtn = new Image();
+      prizeBtn.src = '/images/button-' + myJson2[0].prizeLevel + '.jpg';
+      prizeBtn.classList.add('fb-button');
+      prizeBtn.dataset.prizeLevel = myJson2[0].prizeLevel;
+      prizeBtn.dataset.prizeId = anArray[anIndex];
+      prizeBtn.dataset.hasExchanged = myJson2[0].hasExchanged;
+      prizeBtn.dataset.drawDate = myJson2[0].drawDate;
+      prizeBtn.dataset.exchangeDate = myJson2[0].exchangeDate;
+      prizeBtn.addEventListener('click', function() {
+        // do something...
+      });
+      document.getElementById('user-prize-list').appendChild(prizeBtn);
+      recursiveFetch(anArray, anIndex + 1);
+    });
+  }
+}
+
+let selectProgramToRun = function() {
+  switch (location.pathname) {
+    case '/game-start/':
+    case '/game-start/index':
+    case '/game-start/index.html':
+      openIframe();
+      break;
+    case '/get-prize/':
+    case '/get-prize/index':
+    case '/get-prize/index.html':
+      getTodayNewestPrizeInfo();
+      break;
+    case '/prize-list/':
+    case '/prize-list/index':
+    case '/prize-list/index.html':
+      listAllUserPrize();
+      break;
+  }
 };

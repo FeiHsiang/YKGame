@@ -17,8 +17,7 @@ function googleInit() {
       case '/index':
       case '/index.html':
         aGoogleAuth.attachClickHandler(document.getElementById('g-login-button'), {}, googleOnSignIn, function(error) {
-          // 未來也許紀錄錯誤，可能存到 DB
-          alert(JSON.stringify(error, undefined, 2));
+          console.log(error);
         });
         break;
       default:
@@ -83,23 +82,7 @@ function googleUserChanged(user) {
           console.log('已經登入 Google 了，寫入 ID 以及姓名');
           userID = aGoogleUser.getBasicProfile().getId() + '@google';
           userName = aGoogleUser.getBasicProfile().getName();
-          switch (location.pathname) {
-            case '/game-start/':
-            case '/game-start/index':
-            case '/game-start/index.html':
-              openIframe();
-              break;
-            case '/get-prize/':
-            case '/get-prize/index':
-            case '/get-prize/index.html':
-              getTodayNewestPrizeInfo();
-              break;
-            case '/prize-list/':
-            case '/prize-list/index':
-            case '/prize-list/index.html':
-              listAllUserPrize();
-              break;
-          }
+          selectProgramToRun();
         }
         break;
     }
