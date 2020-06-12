@@ -13,6 +13,8 @@ let userID;
 let userName;
 let rewardID;
 let postData;
+let seconds = 10;
+let intervalId;
 
 let checkWhichIsLoggedIn = function() {
   if (isFbLoggedIn && !isGoogleLoggedIn) {
@@ -45,75 +47,129 @@ let openIframe = function() {
   postData = {
     ID: userID,
     name: userName,
-    request: 'draw',
-    requestItem: ''
+    request: 'read',
+    requestItem: 'hasDrawn'
   };
   aNetworkAgent.sendPost(postData).then(myJson => {
-    if (!myJson[1]) {
-      alert('今天遊戲次數到上限囉！\n歡迎明天再來挑戰！');
-      console.log(myJson);
-      location.replace(`${location.protocol}//${location.host}/get-prize/`);
+    if (myJson[0]) {
+      // 可以玩
+      postData.request = 'draw';
+      postData.requestItem = '';
+      aNetworkAgent.sendPost(postData).then(myJson2 => {
+        // `localStorage` 放開頭疑似被清掉，所以放 `startCoreIframe` 後面
+        startCoreIframe(myJson2[1]);
+        localStorage.setItem('rewardID', myJson2[0]);
+      });
     }
     else {
-      startCoreIframe(parseInt(myJson[0]));
+      // 不可以玩
+      alert('今天遊戲次數到上限囉！\n歡迎明天再來挑戰！');
+      // TODO
+      location.replace(`${location.protocol}//${location.host}/prize-list/`);
     }
   });
-  //// 假如今日還沒玩過，載入 XR iframe 
-      
-  var startCoreIframe = window.startCoreIframe = function(prizeNum){
-    if (document.getElementById("xrIframe")) document.getElementById("xrIframe").remove();
-
-    //// 抽獎  暫時以 random 暫代，必定為 1 - 5 ， 假如這邊 getAward 不設值，則iframe內部會每次點擊random一次
-    // let getAward = window.getAward = Math.floor(Math.random() * 5 ) + 1;
-    let getAward = window.getAward = prizeNum;
-
-    var ifrm = document.createElement("iframe");
-    ifrm.setAttribute("id", "xrIframe" ); 
-    ifrm.setAttribute("src", "makarXR_clean.html");  
-    ifrm.style.position = "absolute";
-    //// set the style
-    ifrm.style.border = "0px";
-    ifrm.style.width = "100%";
-    ifrm.style.height = "70%";
-    // ifrm.style.top = "23%";
-    ifrm.style.left = "0%";
-    ifrm.style.zIndex = 2;
-    document.body.appendChild(ifrm);
-    
-  }
-
-  //// 由 iframe內部呼叫來關閉 iframe
-  var closeCoreIframe = window.closeCoreIframe = function( test ){
-    console.log("game-start: closeCoreIframe test=", test );
-    
-    document.getElementById("xrIframe").remove();
-    
-  }
 };
 
-let getTodayNewestPrizeInfo = function() {
+//// 假如今日還沒玩過，載入 XR iframe
+var startCoreIframe = window.startCoreIframe = function(prizeNum){
+  if (document.getElementById("xrIframe")) document.getElementById("xrIframe").remove();
+
+  //// 抽獎  暫時以 random 暫代，必定為 1 - 5 ， 假如這邊 getAward 不設值，則iframe內部會每次點擊random一次
+  // let getAward = window.getAward = Math.floor(Math.random() * 5 ) + 1;
+  let getAward = window.getAward = prizeNum;
+
+  var ifrm = document.createElement("iframe");
+  ifrm.setAttribute("id", "xrIframe" ); 
+  ifrm.setAttribute("src", "makarXR_clean.html");  
+  ifrm.style.position = "absolute";
+  //// set the style
+  ifrm.style.border = "0px";
+  ifrm.style.width = "100%";
+  ifrm.style.height = "70%";
+  // ifrm.style.top = "23%";
+  ifrm.style.left = "0%";
+  ifrm.style.zIndex = 2;
+  document.body.appendChild(ifrm);
+  
+};
+
+//// 由 iframe內部呼叫來關閉 iframe
+var closeCoreIframe = window.closeCoreIframe = function( test ){
+  console.log("game-start: closeCoreIframe test=", test );
+  
+  document.getElementById("xrIframe").remove();
+  
+};
+
+let getCertainPrizeInfo = function() {
+  rewardID = localStorage.getItem('rewardID');
   postData = {
-    ID: userID,
-    name: userName,
+    ID: rewardID,
+    name: '',
     request: 'read',
-    requestItem: 'userPrizeList'
+    requestItem: 'prizeData'
   };
-  aNetworkAgent.sendPost(postData).then(myJson => {
-    rewardID = myJson[myJson.length - 1];
-    postData = {
-      // 最新的獎項放在最後
-      ID: rewardID,
-      name: '',
-      request: 'read',
-      requestItem: 'prizeData'
-    };
-    aNetworkAgent.sendPost(postData).then(myJson2 => {
-      console.log(myJson2[0].prizeLevel);
-      let prizeDescription = new Image();
-      prizeDescription.src = '/images/description-' + myJson2[0].prizeLevel + '.png';
-      document.body.appendChild(prizeDescription);
-    });
+  aNetworkAgent.sendPost(postData).then(myJson2 => {
+    let prizeDescription = new Image();
+    prizeDescription.src = '/images/description-' + myJson2[0].prizeLevel + '.png';
+    document.getElementById('prize-description').appendChild(prizeDescription);
+    let exchangePrize = document.getElementById('exchange-prize');
+    if (myJson2[0].hasExchanged) {
+      exchangePrize.style.opacity = '0.5';
+    }
+    else {
+      exchangePrize.classList.add('fb-button');
+      exchangePrize.addEventListener('click', function() {
+        let password = prompt('密碼兌換', '5285');
+        if (password === null) {
+          console.log('取消輸入');
+        }
+        else if (password === '5285') {
+          console.log(rewardID);
+          postData = {
+            ID: rewardID,
+            name: '',
+            request: 'exchange',
+            requestItem: ''
+          };
+          aNetworkAgent.sendPost(postData).then(myJson => {
+            console.log(myJson);
+            if (myJson[0]) {
+              let qrcode = new Image();
+              qrcode.id = 'qrcode'
+              qrcode.src = '/images/qrcode-' + myJson[1] + '.jpg';
+              document.body.appendChild(qrcode);
+              let link = document.createElement('a');
+              let backBtn = new Image();
+              backBtn.src = '/images/return-to-prize-list.jpg';
+              backBtn.classList.add('fb-button');
+              link.appendChild(backBtn);
+              document.body.appendChild(link);
+              qrcode.addEventListener('load', function() {
+                document.getElementById("clock").textContent = seconds;
+                intervalId = setInterval(myTimer, 1000);
+                console.log('qrcode loaded');
+                sessionStorage.removeItem('rewardID');
+                window.scrollTo(0, document.body.scrollHeight);
+              });
+            }
+          });
+        }
+        else {
+          console.log('密碼錯誤');
+        }
+      });
+    }
   });
+};
+
+let myTimer = function() {
+  seconds--;
+  document.getElementById("clock").textContent = seconds;
+  if (seconds <= 0) {
+    clearInterval(intervalId);
+    location.replace(`${location.protocol}//${location.host}/prize-list/`);
+  }
 };
 
 let listAllUserPrize = function() {
@@ -124,38 +180,29 @@ let listAllUserPrize = function() {
     requestItem: 'userPrizeList'
   };
   aNetworkAgent.sendPost(postData).then(myJson => {
-    recursiveFetch(myJson, 0);
+    myJson[0].forEach((currentValue, index) => {
+      let prizeBtn = new Image();
+      prizeBtn.src = '/images/button-' + myJson[1][index].prizeLevel + '.jpg';
+      prizeBtn.dataset.prizeLevel = myJson[1][index].prizeLevel;
+      prizeBtn.dataset.prizeId = currentValue;
+      prizeBtn.dataset.hasExchanged = myJson[1][index].hasExchanged;
+      prizeBtn.dataset.drawDate = myJson[1][index].drawDate;
+      prizeBtn.dataset.exchangeDate = myJson[1][index].exchangeDate;
+      if (myJson[1][index].hasExchanged) {
+        // 已經兌換過
+        prizeBtn.style.opacity = '0.5';
+      }
+      else {
+        prizeBtn.classList.add('fb-button');
+        prizeBtn.addEventListener('click', function() {
+          localStorage.setItem('rewardID', currentValue);
+          location.assign(`${location.protocol}//${location.host}/get-prize/`);
+        });
+      }
+      document.getElementById('user-prize-list').appendChild(prizeBtn);
+    });
   });
 };
-
-let recursiveFetch = function(anArray, anIndex) {
-  if (anIndex >= anArray.length) {
-    // end recursive function
-  }
-  else {
-    postData = {
-      ID: anArray[anIndex],
-      name: '',
-      request: 'read',
-      requestItem: 'prizeData'
-    };
-    aNetworkAgent.sendPost(postData).then(myJson2 => {
-      let prizeBtn = new Image();
-      prizeBtn.src = '/images/button-' + myJson2[0].prizeLevel + '.jpg';
-      prizeBtn.classList.add('fb-button');
-      prizeBtn.dataset.prizeLevel = myJson2[0].prizeLevel;
-      prizeBtn.dataset.prizeId = anArray[anIndex];
-      prizeBtn.dataset.hasExchanged = myJson2[0].hasExchanged;
-      prizeBtn.dataset.drawDate = myJson2[0].drawDate;
-      prizeBtn.dataset.exchangeDate = myJson2[0].exchangeDate;
-      prizeBtn.addEventListener('click', function() {
-        // do something...
-      });
-      document.getElementById('user-prize-list').appendChild(prizeBtn);
-      recursiveFetch(anArray, anIndex + 1);
-    });
-  }
-}
 
 let selectProgramToRun = function() {
   switch (location.pathname) {
@@ -167,7 +214,7 @@ let selectProgramToRun = function() {
     case '/get-prize/':
     case '/get-prize/index':
     case '/get-prize/index.html':
-      getTodayNewestPrizeInfo();
+      getCertainPrizeInfo();
       break;
     case '/prize-list/':
     case '/prize-list/index':

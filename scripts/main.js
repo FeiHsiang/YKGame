@@ -36,28 +36,6 @@ switch (location.pathname) {
   case '/get-prize/':
   case '/get-prize/index':
   case '/get-prize/index.html':
-    let exchangePrize = document.getElementById('exchange-prize');
-    exchangePrize.addEventListener('click', function() {
-      let password = prompt('密碼兌換', '5285');
-      if (password === null) {
-        console.log('取消輸入');
-      }
-      else if (password === '5285') {
-        console.log(rewardID);
-        postData = {
-          ID: rewardID,
-          name: '',
-          request: 'exchange',
-          requestItem: ''
-        };
-        aNetworkAgent.sendPost(postData).then(myJson => {
-          console.log(myJson);
-        });
-      }
-      else {
-        console.log('密碼錯誤');
-      }
-    });
   case '/game-introduction/':
   case '/game-introduction/index':
   case '/game-introduction/index.html':

@@ -34,6 +34,13 @@
         "request": "read",
         "requestItem": "userPrizeList"
     }
+    // if 今日可抽 true else false
+    {
+        "ID": "idFromFbOrGoogle",
+        "name": "nameFromFbOrGoogle",
+        "request": "read",
+        "requestItem": "hasDrawn"
+    }
     {
         "ID": "prizeIdFromRead",
         "name": "",
