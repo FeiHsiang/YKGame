@@ -38,7 +38,7 @@
  
 	<script src = "lib/appXR.85c.min.js"> </script>
 
-	<div id = "testDiv" style="position: fixed; bottom: 80px; z-index: 99; text-align: center;" > 
+	<div id = "testDiv" style="position: fixed; bottom: 80px; z-index: 99; text-align: center; display: none;" > 
 		<img id = "testButton" src="images/web-ar-coupon.png" alt=""  ></img>
 	</div>
 
@@ -47,7 +47,7 @@
 	<div id = "leftTopButton"  >
 		<p>
 			<img id="leftTopArrow" src="images/icon/left arrow long/click.png" > </img>
-			關閉遊戲
+			返回
 		</p>
 	</div>
 
@@ -67,10 +67,10 @@
 		/////// start the pop note when document ready
 		$(document).ready(function() {
 			setTimeout(function(){				
- 				// showXRProjList();
+ 				showXRProjList();
+
+				 // console.log("makarVR.html: set testButton onclick");
 				// document.getElementById("testButton").onclick = showXRProjList;
-				console.log("makarVR.html: set testButton onclick");
-				document.getElementById("testButton").onclick = showXRProjList;
 			}, 50 );
 		});
 
@@ -81,8 +81,9 @@
 			
 			//// check if in iFrame?
 			if ( window.top != window.self ){
-				console.log("makarXR_clean.html: get iframe = " , parent.document.getElementById("xrIframe") );
-				parent.closeCoreIframe(123);
+				// console.log("makarVR.html: get iframe = " , parent.document.getElementById("vrIframe") );
+				// parent.document.getElementById("xrIframe").remove();
+				// parent.aUI.closeCoreIframe();
 			}
 		})
 

@@ -23,7 +23,20 @@ switch (location.pathname) {
   case '/change-your-browser/':
   case '/change-your-browser/index':
   case '/change-your-browser/index.html':
-    // do nothing
+    let os = ['iPhone', 'Android'];
+    let browser = ['Safari', 'Chrome'];
+    let content1 = ' 用戶請先於選單（箭頭指引處）選擇 ';
+    let content2 = ' 瀏覽器進行遊戲'
+    let hint = new Image();
+    if (navigator.platform === 'iPhone' || navigator.platform === 'iPad') {
+      hint.src = '../images/ios.jpg';
+      hint.alt = os[0] + content1 + browser[0] + content2;
+    }
+    else {
+      hint.src = '../images/android.jpg';
+      hint.alt = os[1] + content1 + browser[1] + content2;
+    }
+    document.body.insertBefore(hint, document.body.children[0]);
     break;
   case '/':
   case '/index':
@@ -33,19 +46,9 @@ switch (location.pathname) {
     fbLoginButton.addEventListener('click', fbLogin, false);
     fbShareButton.addEventListener('click', fbShare, false);
     break;
-  case '/get-prize/':
-  case '/get-prize/index':
-  case '/get-prize/index.html':
-  case '/game-introduction/':
-  case '/game-introduction/index':
-  case '/game-introduction/index.html':
-  case '/game-start/':
-  case '/game-start/index':
-  case '/game-start/index.html':
   case '/prize-list/':
   case '/prize-list/index':
   case '/prize-list/index.html':
-  default:
     let logout = document.getElementById('logout');
     logout.addEventListener('click', checkWhichIsLoggedIn, false);
     break;

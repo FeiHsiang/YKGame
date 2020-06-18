@@ -2,14 +2,16 @@ body {
   text-align: center;
 }
 
-.fb-button {
+.clickable-button {
   cursor: pointer;
 }
 
-.change-your-browser {
-  background-image: url("/images/IOS進入示意-720X1280.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+.logout-button {
+  text-align: right;
+}
+
+#logout {
+  display: none;
 }
 
 .game-intro-btn {
@@ -19,4 +21,29 @@ body {
 img {
   max-width: 100%;
   height: auto;
+}
+
+.two-button-div {
+  display: flex;
+}
+
+.two-button-div > * {
+  flex: 1;
+}
+
+#before-exchange {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.container {
+  position: relative;
+}
+
+#after-exchange {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }

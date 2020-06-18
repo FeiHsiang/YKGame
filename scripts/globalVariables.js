@@ -55,11 +55,7 @@ let openIframe = function() {
       // 可以玩
       postData.request = 'draw';
       postData.requestItem = '';
-      aNetworkAgent.sendPost(postData).then(myJson2 => {
-        // `localStorage` 放開頭疑似被清掉，所以放 `startCoreIframe` 後面
-        startCoreIframe(myJson2[1]);
-        localStorage.setItem('rewardID', myJson2[0]);
-      });
+      startCoreIframe(postData, aNetworkAgent);
     }
     else {
       // 不可以玩
@@ -71,12 +67,10 @@ let openIframe = function() {
 };
 
 //// 假如今日還沒玩過，載入 XR iframe
-var startCoreIframe = window.startCoreIframe = function(prizeNum){
+var startCoreIframe = window.startCoreIframe = function(postBody, NAClass){
   if (document.getElementById("xrIframe")) document.getElementById("xrIframe").remove();
-
-  //// 抽獎  暫時以 random 暫代，必定為 1 - 5 ， 假如這邊 getAward 不設值，則iframe內部會每次點擊random一次
-  // let getAward = window.getAward = Math.floor(Math.random() * 5 ) + 1;
-  let getAward = window.getAward = prizeNum;
+  let jsonObj = window.jsonObj = postBody;
+  let aNAClass = window.aNAClass = NAClass;
 
   var ifrm = document.createElement("iframe");
   ifrm.setAttribute("id", "xrIframe" ); 
@@ -111,14 +105,14 @@ let getCertainPrizeInfo = function() {
   };
   aNetworkAgent.sendPost(postData).then(myJson2 => {
     let prizeDescription = new Image();
-    prizeDescription.src = '/images/description-' + myJson2[0].prizeLevel + '.png';
+    prizeDescription.src = '/images/description-' + myJson2[0].prizeLevel + '.jpg';
     document.getElementById('prize-description').appendChild(prizeDescription);
     let exchangePrize = document.getElementById('exchange-prize');
     if (myJson2[0].hasExchanged) {
       exchangePrize.style.opacity = '0.5';
     }
     else {
-      exchangePrize.classList.add('fb-button');
+      exchangePrize.classList.add('clickable-button');
       exchangePrize.addEventListener('click', function() {
         let password = prompt('密碼兌換', '5285');
         if (password === null) {
@@ -135,18 +129,14 @@ let getCertainPrizeInfo = function() {
           aNetworkAgent.sendPost(postData).then(myJson => {
             console.log(myJson);
             if (myJson[0]) {
+              document.getElementById('before-exchange').style.display = 'none';
+              document.getElementById('after-exchange').style.display = 'block';
               let qrcode = new Image();
               qrcode.id = 'qrcode'
               qrcode.src = '/images/qrcode-' + myJson[1] + '.jpg';
-              document.body.appendChild(qrcode);
-              let link = document.createElement('a');
-              let backBtn = new Image();
-              backBtn.src = '/images/return-to-prize-list.jpg';
-              backBtn.classList.add('fb-button');
-              link.appendChild(backBtn);
-              document.body.appendChild(link);
+              document.getElementById('qrcode').appendChild(qrcode);
               qrcode.addEventListener('load', function() {
-                document.getElementById("clock").textContent = seconds;
+                document.getElementById("clock").textContent = '00:' + seconds;
                 intervalId = setInterval(myTimer, 1000);
                 console.log('qrcode loaded');
                 sessionStorage.removeItem('rewardID');
@@ -165,7 +155,8 @@ let getCertainPrizeInfo = function() {
 
 let myTimer = function() {
   seconds--;
-  document.getElementById("clock").textContent = seconds;
+  let clockString = ('0' + seconds).slice(-2);
+  document.getElementById("clock").textContent = '00:' + clockString;
   if (seconds <= 0) {
     clearInterval(intervalId);
     location.replace(`${location.protocol}//${location.host}/prize-list/`);
@@ -193,7 +184,7 @@ let listAllUserPrize = function() {
         prizeBtn.style.opacity = '0.5';
       }
       else {
-        prizeBtn.classList.add('fb-button');
+        prizeBtn.classList.add('clickable-button');
         prizeBtn.addEventListener('click', function() {
           localStorage.setItem('rewardID', currentValue);
           location.assign(`${location.protocol}//${location.host}/get-prize/`);
@@ -201,6 +192,17 @@ let listAllUserPrize = function() {
       }
       document.getElementById('user-prize-list').appendChild(prizeBtn);
     });
+    if (myJson[0].length === 0) {
+      logout.style.display = 'initial';
+    }
+    else {
+      document.getElementById('user-prize-list').children[0].onload = function(event) {
+        logout.style.width = 'auto';
+        logout.style.maxHeight = event.target.height + 'px';
+        logout.style.display = 'initial';
+        event.target.style.marginTop = event.target.height + 'px';
+      }
+    }
   });
 };
 

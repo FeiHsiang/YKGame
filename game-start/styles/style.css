@@ -132,9 +132,10 @@ hr {
   border-radius: 3px;
 }
 
-.bgbox_pc {
-  background-image: url("../images/makar_pc_bg.jpg");
-  /* background-color: #cccccc; */
+#home {
+  background-image: url("../images/85c_back.jpeg");
+  /* background-color: rgba(100,100,100,0.5); */
+  opacity: 0.5 ;
   width:100%;
   height: 720px;  
   /* height: 100%;   */

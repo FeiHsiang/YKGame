@@ -63,7 +63,7 @@ window.fbAsyncInit = function() {
           // 檢查 Google 是否登入，若無則導向到登入頁面
           console.log('FB is checking google.');
           if (isGoogleChecked && !isGoogleLoggedIn) {
-            alert('請先登入');
+            console.log('兩者皆未登入');
             location.replace(`${location.protocol}//${location.host}/`);
           }
           break;

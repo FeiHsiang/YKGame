@@ -15,10 +15,19 @@
     <link href="../styles/style.css" rel="stylesheet">
   </head>
   <body>
-    <img src="/images/logout.jpg" alt="登出" id="logout" class="fb-button"><br>
-    <span id="prize-description"></span><br>
-    <a href="../prize-list/"><img src="/images/check-list.jpg" alt="查看獎項" class="fb-button game-intro-btn"></a><span><img src="/images/exchange-with-password.jpg" alt="立即兌換" id="exchange-prize" class="game-intro-btn"></span><br>
-    <span id="clock"></span>
+    <div class="container">
+      <div id="prize-description"></div>
+      <div class="two-button-div" id="before-exchange">
+        <a href="../prize-list/"><img src="/images/check-list.jpg" alt="查看獎項" class="clickable-button game-intro-btn"></a><span><img src="/images/exchange-with-password.jpg" alt="立即兌換" id="exchange-prize" class="game-intro-btn"></span>
+      </div>
+      <div id="after-exchange">
+        <div id="clock"></div>
+        <div id="qrcode"></div>
+        <div>
+          <a href="../prize-list/"><img src="/images/return-to-prize-list.jpg" alt="恭喜兌換成功" class="game-intro-btn"></a>
+        </div>
+      </div>
+    </div>
     <script src="../scripts/NetworkAgent.js"></script>
     <script src="../scripts/globalVariables.js"></script>
     <script src="../scripts/facebook-jssdk-loader.js"></script>
