@@ -206,8 +206,18 @@ let listAllUserPrize = function() {
   });
 };
 
+let changeLoginPageUI = function() {
+  document.getElementById('before-login').style.display = 'none';
+  document.getElementById('after-login').style.display = 'flex';
+};
+
 let selectProgramToRun = function() {
   switch (location.pathname) {
+    case '/':
+    case '/index':
+    case '/index.html':
+      changeLoginPageUI();
+      break;
     case '/game-start/':
     case '/game-start/index':
     case '/game-start/index.html':

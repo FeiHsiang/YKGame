@@ -63,7 +63,7 @@ function googleUserChanged(user) {
         };
         aNetworkAgent.sendPost(postData).then(myJson => {
           console.log(myJson[0]);
-          location.replace(`${location.protocol}//${location.host}/game-introduction/`);
+          changeLoginPageUI();
         });
         break;
       default:
@@ -90,9 +90,6 @@ function googleUserChanged(user) {
   else {
     console.log('尚未登入 Google');
     switch (location.pathname) {
-      case '/game-introduction/':
-      case '/game-introduction/index':
-      case '/game-introduction/index.html':
       case '/game-start/':
       case '/game-start/index':
       case '/game-start/index.html':

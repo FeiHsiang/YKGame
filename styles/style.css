@@ -47,3 +47,7 @@ img {
   bottom: 0;
   width: 100%;
 }
+
+#after-login {
+  display: none;
+}

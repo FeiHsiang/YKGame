@@ -11,19 +11,21 @@
     <meta property="og:description" content="85 度 C 專案">
     <meta property="og:image" content="https://www.makerar.com/banner/1569506677.jpg">
     <meta property="fb:app_id" content="790562841436344">
-    <title>登入頁面</title>
-    <link href="styles/style.css" rel="stylesheet">
+    <title>遊戲介紹</title>
+    <link href="../styles/style.css" rel="stylesheet">
   </head>
   <body>
-    <h1>85 度 C 專案</h1>
-    <h2>Facebook 登入</h2>
-    <div>
-      <button id="fb-login-button" class="clickable-button">fbLogin()</button>
-      <button id="fb-share-button" class="clickable-button">fbShare()</button>
+    <div><img src="/images/game-intro.jpg" alt="遊戲說明"></div>
+    <div class="two-button-div" id="before-login">
+      <div>
+        <button id="fb-login-button" class="clickable-button">fbLogin()</button>
+      </div>
+      <div>
+        <button id="g-login-button" class="clickable-button">google sign in</button>
+      </div>
     </div>
-    <h2>Google 登入</h2>
-    <div>
-      <button id="g-login-button" class="clickable-button">google sign in</button>
+    <div class="two-button-div" id="after-login">
+      <a href="../game-start/"><img src="/images/start.jpg" alt="開始遊戲" class="game-intro-btn"></a><a href="../prize-list/"><img src="/images/my-coupon.jpg" alt="我的優惠券" class="clickable-button game-intro-btn"></a>
     </div>
     <script src="./scripts/NetworkAgent.js"></script>
     <script src="./scripts/globalVariables.js"></script>

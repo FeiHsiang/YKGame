@@ -12,35 +12,25 @@ window.fbAsyncInit = function() {
     isFbChecked = true;
     // 有登入
     if (statusResponse.status === 'connected') {
-      switch (location.pathname) {
-        case '/':
-        case '/index':
-        case '/index.html':
-          // 準備跳轉頁面，有沒有設成 `true` 已經沒差了
-          location.replace(`${location.protocol}//${location.host}/game-introduction/`);
-          break;
-        default:
-          isFbLoggedIn = true;
-          // 檢查 Google 是否登入，若有則全部取消授權（也代表， Google 已經載入完成）
-          console.log('FB is checking google.');
-          if (isGoogleChecked && isGoogleLoggedIn) {
-            alert('帳號重複登入');
-            aGoogleAuth.disconnect();
-            FB.api('/me/permissions', 'DELETE', {}, function(response) {
-              console.log(response);
-              location.replace(`${location.protocol}//${location.host}/`);
-            });
-          }
-          else {
-            console.log('已經登入臉書了');
-            FB.api('/me', 'GET', {"fields":"id,name,picture"}, function(response) {
-              console.log('寫入 ID 以及姓名');
-              userID = response.id + '@facebook';
-              userName = response.name;
-              selectProgramToRun();
-            });
-          }
-          break;
+      isFbLoggedIn = true;
+      // 檢查 Google 是否登入，若有則全部取消授權（也代表， Google 已經載入完成）
+      console.log('FB is checking google.');
+      if (isGoogleChecked && isGoogleLoggedIn) {
+        alert('帳號重複登入');
+        aGoogleAuth.disconnect();
+        FB.api('/me/permissions', 'DELETE', {}, function(response) {
+          console.log(response);
+          location.replace(`${location.protocol}//${location.host}/`);
+        });
+      }
+      else {
+        console.log('已經登入臉書了');
+        FB.api('/me', 'GET', {"fields":"id,name,picture"}, function(response) {
+          console.log('寫入 ID 以及姓名');
+          userID = response.id + '@facebook';
+          userName = response.name;
+          selectProgramToRun();
+        });
       }
     }
     // 沒登入
@@ -48,9 +38,6 @@ window.fbAsyncInit = function() {
       isFbLoggedIn = false;
       console.log('尚未登入臉書');
       switch (location.pathname) {
-        case '/game-introduction/':
-        case '/game-introduction/index':
-        case '/game-introduction/index.html':
         case '/game-start/':
         case '/game-start/index':
         case '/game-start/index.html':

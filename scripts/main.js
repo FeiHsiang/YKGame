@@ -42,9 +42,7 @@ switch (location.pathname) {
   case '/index':
   case '/index.html':
     let fbLoginButton = document.getElementById('fb-login-button');
-    let fbShareButton = document.getElementById('fb-share-button');
     fbLoginButton.addEventListener('click', fbLogin, false);
-    fbShareButton.addEventListener('click', fbShare, false);
     break;
   case '/prize-list/':
   case '/prize-list/index':

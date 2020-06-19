@@ -12,7 +12,7 @@ function fbLogin() {
         };
         aNetworkAgent.sendPost(postData).then(myJson => {
           console.log(myJson[0]);
-          location.replace(`${location.protocol}//${location.host}/game-introduction/`);
+          changeLoginPageUI();
         });
       });
     } else {
