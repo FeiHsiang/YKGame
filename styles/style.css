@@ -1,5 +1,12 @@
+html {
+  width: 100vw;
+  min-height: 100vh;
+}
+
 body {
   text-align: center;
+  background-image: url("../images/純橘色背景圖.jpg");
+  background-size: 100% 100%;
 }
 
 .clickable-button {
@@ -15,7 +22,7 @@ body {
 }
 
 .game-intro-btn {
-  max-width: 50%;
+  max-width: 75%;
 }
 
 img {

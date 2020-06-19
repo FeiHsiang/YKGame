@@ -59,9 +59,21 @@ let openIframe = function() {
     }
     else {
       // 不可以玩
-      alert('今天遊戲次數到上限囉！\n歡迎明天再來挑戰！');
-      // TODO
-      location.replace(`${location.protocol}//${location.host}/prize-list/`);
+      let played = new Image();
+      played.src = '../images/played.jpg';
+      played.alt = '今天遊戲次數到上限囉！歡迎明天再來挑戰';
+      document.body.insertBefore(played, document.body.children[0]);
+      let gameBtnDiv = document.createElement('div');
+      gameBtnDiv.classList.add('two-button-div');
+      let back = document.createElement('a');
+      back.textContent = '返回首頁';
+      back.href = '../';
+      gameBtnDiv.appendChild(back);
+      let prizeList = document.createElement('a');
+      prizeList.textContent = '查看獎項列表';
+      prizeList.href = '../prize-list/';
+      gameBtnDiv.appendChild(prizeList);
+      document.body.insertBefore(gameBtnDiv, document.body.children[1]);
     }
   });
 };
@@ -172,6 +184,11 @@ let listAllUserPrize = function() {
   };
   aNetworkAgent.sendPost(postData).then(myJson => {
     myJson[0].forEach((currentValue, index) => {
+      let oneRowData = document.createElement('div');
+      oneRowData.classList.add('two-button-div');
+      let imgDiv = document.createElement('div');
+      let dateDiv = document.createElement('div');
+      let drawDate = document.createElement('span');
       let prizeBtn = new Image();
       prizeBtn.src = '/images/button-' + myJson[1][index].prizeLevel + '.jpg';
       prizeBtn.dataset.prizeLevel = myJson[1][index].prizeLevel;
@@ -190,17 +207,22 @@ let listAllUserPrize = function() {
           location.assign(`${location.protocol}//${location.host}/get-prize/`);
         });
       }
-      document.getElementById('user-prize-list').appendChild(prizeBtn);
+      imgDiv.appendChild(prizeBtn);
+      drawDate.textContent = myJson[1][index].drawDate;
+      dateDiv.appendChild(drawDate);
+      oneRowData.appendChild(imgDiv);
+      oneRowData.appendChild(dateDiv);
+      document.getElementById('user-prize-list').appendChild(oneRowData);
     });
     if (myJson[0].length === 0) {
       logout.style.display = 'initial';
     }
     else {
-      document.getElementById('user-prize-list').children[0].onload = function(event) {
+      document.getElementById('user-prize-list').children[0].children[0].children[0].onload = function(event) {
         logout.style.width = 'auto';
         logout.style.maxHeight = event.target.height + 'px';
         logout.style.display = 'initial';
-        event.target.style.marginTop = event.target.height + 'px';
+        logout.parentElement.parentElement.style.marginBottom = event.target.height + 'px';
       }
     }
   });
