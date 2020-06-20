@@ -1,26 +1,65 @@
 function fbLogin() {
   FB.login(function(loginResponse) {
     if (loginResponse.status === 'connected') {
-      // Logged into your webpage and Facebook.
-      console.log('登入臉書成功');
-      FB.api('/me', 'GET', {"fields":"id,name,email,picture"}, function(response) {
-        postData = {
-          ID: response.id + '@facebook',
-          name: response.name,
-          request: 'init',
-          requestItem: ''
-        };
-        aNetworkAgent.sendPost(postData).then(myJson => {
-          console.log(myJson[0]);
-          changeLoginPageUI();
-        });
-      });
+      checkLoginState();
     } else {
       // The person is not logged into your webpage or we are unable to tell.
       console.log('登入臉書失敗， status 為', loginResponse.status);
     }
   }, {scope: 'public_profile'});
 }
+
+function checkLoginState() {
+  FB.getLoginStatus(function(statusResponse) {
+    isFbChecked = true;
+    // 有登入
+    if (statusResponse.status === 'connected') {
+      handleFbIsLoggedIn();
+    }
+    // 沒登入
+    else {
+      handleFbIsNotLoggedIn();
+    }
+  });
+}
+
+function handleFbIsLoggedIn() {
+  isFbLoggedIn = true;
+  // 檢查 Google 是否登入，若有則全部取消授權（也代表， Google 已經載入完成）
+  console.log('FB is checking google.');
+  if (isGoogleChecked && isGoogleLoggedIn) {
+    handleDuplicateLogin();
+  }
+  else {
+    console.log('已經登入臉書了');
+    FB.api('/me', 'GET', {"fields":"id,name,picture"}, function(response) {
+      console.log('寫入 ID 以及姓名');
+      userID = response.id + '@facebook';
+      userName = response.name;
+      selectProgramToRun();
+    });
+  }
+}
+
+function handleFbIsNotLoggedIn() {
+  isFbLoggedIn = false;
+  console.log('尚未登入臉書');
+  switch (location.pathname) {
+    case '/':
+    case '/index':
+    case '/index.html':
+      // do nothing...
+      break;
+    default:
+      // 檢查 Google 是否登入，若無則導向到登入頁面
+      console.log('FB is checking google.');
+      if (isGoogleChecked && !isGoogleLoggedIn) {
+        console.log('兩者皆未登入');
+        location.replace(`${location.protocol}//${location.host}/`);
+      }
+      break;
+  }
+};
 
 function fbShare() {
   FB.ui({

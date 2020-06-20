@@ -51,63 +51,44 @@ function googleUserChanged(user) {
   isGoogleChecked = true;
   aGoogleUser = user;
   if (user.isSignedIn()) {
-    switch (location.pathname) {
-      case '/':
-      case '/index':
-      case '/index.html':
-        postData = {
-          ID: aGoogleUser.getBasicProfile().getId() + '@google',
-          name: aGoogleUser.getBasicProfile().getName(),
-          request: 'init',
-          requestItem: ''
-        };
-        aNetworkAgent.sendPost(postData).then(myJson => {
-          console.log(myJson[0]);
-          changeLoginPageUI();
-        });
-        break;
-      default:
-        isGoogleLoggedIn = user.isSignedIn();
-        // 檢查臉書是否登入，若有則全部取消授權（也代表，臉書已經載入完成）
-        console.log('Google is checking facebook.');
-        if (isFbChecked && isFbLoggedIn) {
-          alert('帳號重複登入');
-          aGoogleAuth.disconnect();
-          FB.api('/me/permissions', 'DELETE', {}, function(response) {
-            console.log(response);
-            location.replace(`${location.protocol}//${location.host}/`);
-          });
-        }
-        else {
-          console.log('已經登入 Google 了，寫入 ID 以及姓名');
-          userID = aGoogleUser.getBasicProfile().getId() + '@google';
-          userName = aGoogleUser.getBasicProfile().getName();
-          selectProgramToRun();
-        }
-        break;
-    }
+    handleGoogleIsLoggedIn();
   }
   else {
-    console.log('尚未登入 Google');
-    switch (location.pathname) {
-      case '/game-start/':
-      case '/game-start/index':
-      case '/game-start/index.html':
-      case '/get-prize/':
-      case '/get-prize/index':
-      case '/get-prize/index.html':
-      case '/prize-list/':
-      case '/prize-list/index':
-      case '/prize-list/index.html':
-        // 檢查 Facebook 是否登入，若無則導向到登入頁面
-        console.log('Google is checking facebook.');
-        if (isFbChecked && !isFbLoggedIn) {
-          console.log('兩者皆未登入');
-          location.replace(`${location.protocol}//${location.host}/`);
-        }
-        break;
-      default:
-        break;
-    }
+    handleGoogleIsNotLoggedIn();
+  }
+}
+
+function handleGoogleIsLoggedIn() {
+  isGoogleLoggedIn = true;
+  // 檢查臉書是否登入，若有則全部取消授權（也代表，臉書已經載入完成）
+  console.log('Google is checking facebook.');
+  if (isFbChecked && isFbLoggedIn) {
+    handleDuplicateLogin();
+  }
+  else {
+    console.log('已經登入 Google 了，寫入 ID 以及姓名');
+    userID = aGoogleUser.getBasicProfile().getId() + '@google';
+    userName = aGoogleUser.getBasicProfile().getName();
+    selectProgramToRun();
+  }
+}
+
+function handleGoogleIsNotLoggedIn() {
+  isGoogleLoggedIn = false;
+  console.log('尚未登入 Google');
+  switch (location.pathname) {
+    case '/':
+    case '/index':
+    case '/index.html':
+      // do nothing...
+      break;
+    default:
+      // 檢查 Facebook 是否登入，若無則導向到登入頁面
+      console.log('Google is checking facebook.');
+      if (isFbChecked && !isFbLoggedIn) {
+        console.log('兩者皆未登入');
+        location.replace(`${location.protocol}//${location.host}/`);
+      }
+      break;
   }
 }

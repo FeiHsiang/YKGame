@@ -34,12 +34,7 @@ let checkWhichIsLoggedIn = function() {
     location.replace(`${location.protocol}//${location.host}/`);
   }
   else {
-    alert('帳號重複登入');
-    aGoogleAuth.disconnect();
-    FB.api('/me/permissions', 'DELETE', {}, function(response) {
-      console.log(response);
-      location.replace(`${location.protocol}//${location.host}/`);
-    });
+    handleDuplicateLogin();
   }
 };
 
@@ -185,10 +180,10 @@ let listAllUserPrize = function() {
   aNetworkAgent.sendPost(postData).then(myJson => {
     myJson[0].forEach((currentValue, index) => {
       let oneRowData = document.createElement('div');
-      oneRowData.classList.add('two-button-div');
+      // oneRowData.classList.add('two-button-div');
       let imgDiv = document.createElement('div');
-      let dateDiv = document.createElement('div');
-      let drawDate = document.createElement('span');
+      // let dateDiv = document.createElement('div');
+      // let drawDate = document.createElement('span');
       let prizeBtn = new Image();
       prizeBtn.src = '/images/button-' + myJson[1][index].prizeLevel + '.jpg';
       prizeBtn.dataset.prizeLevel = myJson[1][index].prizeLevel;
@@ -208,10 +203,10 @@ let listAllUserPrize = function() {
         });
       }
       imgDiv.appendChild(prizeBtn);
-      drawDate.textContent = myJson[1][index].drawDate;
-      dateDiv.appendChild(drawDate);
+      // drawDate.textContent = myJson[1][index].drawDate;
+      // dateDiv.appendChild(drawDate);
       oneRowData.appendChild(imgDiv);
-      oneRowData.appendChild(dateDiv);
+      // oneRowData.appendChild(dateDiv);
       document.getElementById('user-prize-list').appendChild(oneRowData);
     });
     if (myJson[0].length === 0) {
@@ -223,6 +218,7 @@ let listAllUserPrize = function() {
         logout.style.maxHeight = event.target.height + 'px';
         logout.style.display = 'initial';
         logout.parentElement.parentElement.style.marginBottom = event.target.height + 'px';
+        // dateDiv.style.height = logout.style.maxHeight = event.target.height / 2 + 'px';
       }
     }
   });
@@ -231,6 +227,16 @@ let listAllUserPrize = function() {
 let changeLoginPageUI = function() {
   document.getElementById('before-login').style.display = 'none';
   document.getElementById('after-login').style.display = 'flex';
+  document.getElementById('account-info').textContent = `Hello ${userName}. Your ID is ${userID}.`;
+  postData = {
+    ID: userID,
+    name: userName,
+    request: 'init',
+    requestItem: ''
+  };
+  aNetworkAgent.sendPost(postData).then(myJson => {
+    console.log(myJson[0]);
+  });
 };
 
 let selectProgramToRun = function() {
@@ -256,4 +262,13 @@ let selectProgramToRun = function() {
       listAllUserPrize();
       break;
   }
+};
+
+let handleDuplicateLogin = function() {
+  alert('帳號重複登入');
+  aGoogleAuth.disconnect();
+  FB.api('/me/permissions', 'DELETE', {}, function(response) {
+    console.log(response);
+    location.replace(`${location.protocol}//${location.host}/`);
+  });
 };
