@@ -63,10 +63,12 @@ let openIframe = function() {
       let back = document.createElement('a');
       back.textContent = '返回首頁';
       back.href = '../';
+      back.classList.add('no-image');
       gameBtnDiv.appendChild(back);
       let prizeList = document.createElement('a');
       prizeList.textContent = '查看獎項列表';
       prizeList.href = '../prize-list/';
+      prizeList.classList.add('no-image');
       gameBtnDiv.appendChild(prizeList);
       document.body.insertBefore(gameBtnDiv, document.body.children[1]);
     }
@@ -214,6 +216,7 @@ let listAllUserPrize = function() {
     }
     else {
       document.getElementById('user-prize-list').children[0].children[0].children[0].onload = function(event) {
+        console.log(event.target.height);
         logout.style.width = 'auto';
         logout.style.maxHeight = event.target.height + 'px';
         logout.style.display = 'initial';
@@ -272,3 +275,7 @@ let handleDuplicateLogin = function() {
     location.replace(`${location.protocol}//${location.host}/`);
   });
 };
+
+let showLoginButton = function() {
+  document.getElementById('before-login').style.display = 'flex';
+}

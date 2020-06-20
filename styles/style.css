@@ -55,10 +55,16 @@ img {
   width: 100%;
 }
 
-#after-login {
+#before-login, #after-login {
   display: none;
 }
 
 #user-prize-list {
   padding: 0 10%;
+}
+
+.no-image {
+  border: 5px solid rgb(179, 118, 2);
+  font-size: 72px;
+  background-color: rgb(250, 249, 0);
 }

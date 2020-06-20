@@ -44,20 +44,20 @@ function handleFbIsLoggedIn() {
 function handleFbIsNotLoggedIn() {
   isFbLoggedIn = false;
   console.log('尚未登入臉書');
-  switch (location.pathname) {
-    case '/':
-    case '/index':
-    case '/index.html':
-      // do nothing...
-      break;
-    default:
-      // 檢查 Google 是否登入，若無則導向到登入頁面
-      console.log('FB is checking google.');
-      if (isGoogleChecked && !isGoogleLoggedIn) {
+  // 檢查 Google 是否登入，若無則導向到登入頁面
+  console.log('FB is checking google.');
+  if (isGoogleChecked && !isGoogleLoggedIn) {
+    switch (location.pathname) {
+      case '/':
+      case '/index':
+      case '/index.html':
+        showLoginButton();
+        break;
+      default:
         console.log('兩者皆未登入');
         location.replace(`${location.protocol}//${location.host}/`);
-      }
-      break;
+        break;
+    }
   }
 };
 
