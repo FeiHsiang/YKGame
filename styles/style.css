@@ -5,7 +5,7 @@ html {
 
 body {
   text-align: center;
-  background-image: url("../images/純橘色背景圖.jpg");
+  background-image: url("../images/background.jpg");
   background-size: 100% 100%;
 }
 
@@ -18,7 +18,7 @@ body {
 }
 
 #logout {
-  display: none;
+  height: 7vh;
 }
 
 .game-intro-btn {
@@ -63,8 +63,21 @@ img {
   padding: 0 10%;
 }
 
-.no-image {
+/* .no-image {
   border: 5px solid rgb(179, 118, 2);
   font-size: 72px;
   background-color: rgb(250, 249, 0);
+} */
+
+.return-btn {
+  width: 37.5%;
+}
+
+#logout-div {
+  margin-bottom: 7vh;
+}
+
+#xrIframe {
+  width: 100vw;
+  height: 100vh;
 }

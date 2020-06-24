@@ -13,7 +13,7 @@ let userID;
 let userName;
 let rewardID;
 let postData;
-let seconds = 10;
+let seconds = 20;
 let intervalId;
 
 let checkWhichIsLoggedIn = function() {
@@ -211,19 +211,6 @@ let listAllUserPrize = function() {
       // oneRowData.appendChild(dateDiv);
       document.getElementById('user-prize-list').appendChild(oneRowData);
     });
-    if (myJson[0].length === 0) {
-      logout.style.display = 'initial';
-    }
-    else {
-      document.getElementById('user-prize-list').children[0].children[0].children[0].onload = function(event) {
-        console.log(event.target.height);
-        logout.style.width = 'auto';
-        logout.style.maxHeight = event.target.height + 'px';
-        logout.style.display = 'initial';
-        logout.parentElement.parentElement.style.marginBottom = event.target.height + 'px';
-        // dateDiv.style.height = logout.style.maxHeight = event.target.height / 2 + 'px';
-      }
-    }
   });
 };
 
