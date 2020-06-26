@@ -88,8 +88,8 @@ var startCoreIframe = window.startCoreIframe = function(postBody, NAClass){
   //// set the style
   ifrm.style.border = "0px";
   ifrm.style.width = "100%";
-  ifrm.style.height = "70%";
-  // ifrm.style.top = "23%";
+  ifrm.style.height = "100%";
+  ifrm.style.top = "0px";
   ifrm.style.left = "0%";
   ifrm.style.zIndex = 2;
   document.body.appendChild(ifrm);
