@@ -7,6 +7,7 @@ body {
   text-align: center;
   background-image: url("../images/background.jpg");
   background-size: 100% 100%;
+  font-size:20pt;
 }
 
 .clickable-button {
@@ -39,7 +40,7 @@ img {
 }
 
 #before-exchange {
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
 }
@@ -50,7 +51,7 @@ img {
 
 #after-exchange {
   display: none;
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
 }
@@ -80,4 +81,58 @@ img {
 #xrIframe {
   width: 100vw;
   height: 100vh;
+}
+
+#account-info{
+  position: absolute;
+  font-size: 5pt;
+  color:rgba( 0 , 0 , 0 , 0.5);
+}
+
+#gameIntro{
+  width:100vw;
+  max-width: 900px;
+}
+
+#prize-description > img{
+  width:100vw;
+  max-width: 900px;
+}
+
+@media screen and (min-width:900px) {
+
+  .game-intro-btn {
+    max-width: 320px;
+  }
+
+
+  #gameStartImg{
+    position: relative;
+    left: calc(50% - 220px);
+  }
+
+  #prizeListImg{
+    position: relative;
+    right: calc(50% - 220px);
+  }
+
+  #prizeListImg2{
+    position: relative;
+    left: calc(50% - 220px);
+  }
+
+  #exchange-prize{
+    position: relative;
+    right: calc(50% - 220px);
+  }
+
+  #fb-login-button{
+    position: relative;
+    left: calc(50% - 220px);
+  }
+  
+  #g-login-button{
+    position: relative;
+    right: calc(50% - 220px);
+  }
 }

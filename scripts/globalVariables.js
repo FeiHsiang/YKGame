@@ -13,7 +13,7 @@ let userID;
 let userName;
 let rewardID;
 let postData;
-let seconds = 20;
+let seconds = 300;
 let intervalId;
 
 let checkWhichIsLoggedIn = function() {
@@ -60,6 +60,7 @@ let openIframe = function() {
       document.body.insertBefore(played, document.body.children[0]);
       let gameBtnDiv = document.createElement('div');
       gameBtnDiv.classList.add('two-button-div');
+      gameBtnDiv.style.margin = "20px";
       let back = document.createElement('a');
       back.textContent = '返回首頁';
       back.href = '../';
@@ -123,7 +124,7 @@ let getCertainPrizeInfo = function() {
     else {
       exchangePrize.classList.add('clickable-button');
       exchangePrize.addEventListener('click', function() {
-        let password = prompt('密碼兌換', '5285');
+        let password = prompt('密碼兌換，五分鐘內請出示給結帳人員，逾時即失效', '');
         if (password === null) {
           console.log('取消輸入');
         }
@@ -145,7 +146,10 @@ let getCertainPrizeInfo = function() {
               qrcode.src = '/images/qrcode-' + myJson[1] + '.jpg';
               document.getElementById('qrcode').appendChild(qrcode);
               qrcode.addEventListener('load', function() {
-                document.getElementById("clock").textContent = '00:' + seconds;
+                var minute = Math.floor(seconds/60);
+                var second = seconds - minute*60;
+                document.getElementById("clock").textContent = ('0' + minute).slice(-2) + ':' + ('0' + second).slice(-2);
+                // document.getElementById("clock").textContent = '00:' + seconds;
                 intervalId = setInterval(myTimer, 1000);
                 console.log('qrcode loaded');
                 sessionStorage.removeItem('rewardID');
@@ -164,8 +168,11 @@ let getCertainPrizeInfo = function() {
 
 let myTimer = function() {
   seconds--;
-  let clockString = ('0' + seconds).slice(-2);
-  document.getElementById("clock").textContent = '00:' + clockString;
+  var minute = Math.floor(seconds/60);
+  var second = seconds - minute*60;
+  document.getElementById("clock").textContent = ('0' + minute).slice(-2) + ':' + ('0' + second).slice(-2);
+  // let clockString = ('0' + seconds).slice(-2);
+  // document.getElementById("clock").textContent = '00:' + clockString;
   if (seconds <= 0) {
     clearInterval(intervalId);
     location.replace(`${location.protocol}//${location.host}/prize-list/`);
@@ -217,7 +224,7 @@ let listAllUserPrize = function() {
 let changeLoginPageUI = function() {
   document.getElementById('before-login').style.display = 'none';
   document.getElementById('after-login').style.display = 'flex';
-  document.getElementById('account-info').textContent = `Hello ${userName}. Your ID is ${userID}.`;
+  document.getElementById('account-info').textContent = `Hello ${userName}. ${userID}`;
   postData = {
     ID: userID,
     name: userName,
