@@ -54,6 +54,11 @@ body {
   font-size:20pt;
 }
 
+#pwdError {
+  color: #ff0000;
+  display: none;
+}
+
 #pwdModalButtonDiv {
   position: absolute;
   bottom: 10px;

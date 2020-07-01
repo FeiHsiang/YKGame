@@ -124,11 +124,19 @@ let getCertainPrizeInfo = function() {
     else {
       exchangePrize.classList.add('clickable-button');
       exchangePrize.addEventListener('click', function() {
-        let password = prompt('密碼兌換，五分鐘內請出示給結帳人員，逾時即失效', '');
+        document.getElementById('pwdModal').style.display = 'block';
+      });
+      document.getElementById('pwdButtonCancel').addEventListener('click', function() {
+        document.getElementById('pwdModal').style.display = 'none';
+        document.getElementById('pwdError').style.display = 'none';
+      });
+      document.getElementById('pwdButtonComfirm').addEventListener('click', function() {
+        let password = document.getElementById('inputPassword').value;
         if (password === null) {
           console.log('取消輸入');
         }
         else if (password === '5285') {
+          document.getElementById('pwdModal').style.display = 'none';
           console.log(rewardID);
           postData = {
             ID: rewardID,
@@ -159,7 +167,7 @@ let getCertainPrizeInfo = function() {
           });
         }
         else {
-          console.log('密碼錯誤');
+          document.getElementById('pwdError').style.display = 'block';
         }
       });
     }
