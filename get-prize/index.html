@@ -15,6 +15,19 @@
     <link href="../styles/style.css" rel="stylesheet">
   </head>
   <body>
+    <div id="pwdModal"  style="display: none;">
+      <div id="pwdModalContent"  >
+        <p id = "pwdModalInfo"> 
+          密碼兌換，五分鐘內請出示給結帳人員，逾時即失效
+        </p>
+        <input type="number" id="inputPassword" value="" min="1000" max="9999">
+        <div id = "pwdModalButtonDiv">
+          <p id = "pwdButtonComfirm"> 取消 </p>
+          <p id = "pwdButtonCancel"> 確認 </p>
+        </div>
+      </div>
+    </div>
+
     <div class="container">
       <div id="prize-description"></div>
       <div class="two-button-div" id="before-exchange">
