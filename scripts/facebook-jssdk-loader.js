@@ -6,7 +6,7 @@ window.fbAsyncInit = function() {
     version    : 'v6.0'
   });
 
-  checkLoginState();
+  // checkLoginState();
 };
 
 (function(d, s, id){

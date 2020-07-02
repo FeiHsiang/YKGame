@@ -10,8 +10,8 @@ function googleInit() {
       fetch_basic_profile: true,
       ux_mode: 'popup'
     });
-    // https://developers.google.com/identity/sign-in/web/listeners
-    aGoogleAuth.currentUser.listen(googleUserChanged);
+    // // https://developers.google.com/identity/sign-in/web/listeners
+    // aGoogleAuth.currentUser.listen(googleUserChanged);
     switch (location.pathname) {
       case '/':
       case '/index':
@@ -40,55 +40,21 @@ function googleOnSignIn(user) {
   // The ID token you need to pass to your backend:
   var id_token = user.getAuthResponse().id_token;
   console.log('ID Token: ' + id_token);
+  localStorage.setItem('token', user.getAuthResponse().id_token);
+  localStorage.setItem('userID', user.getBasicProfile().getId());
+  localStorage.setItem('vendor', 'google');
+  postData = {
+    ID: user.getBasicProfile().getId() + '@google',
+    name: profile.getName(),
+    request: 'init',
+    requestItem: ''
+  };
+  aNetworkAgent.sendPost(postData).then(myJson => {
+    console.log(myJson[0]);
+  });
+  checkLogin();
 }
 
 function googleOnFailure(error) {
   console.log(error);
-}
-
-function googleUserChanged(user) {
-  console.log('googleUserChanged()');
-  isGoogleChecked = true;
-  aGoogleUser = user;
-  if (user.isSignedIn()) {
-    handleGoogleIsLoggedIn();
-  }
-  else {
-    handleGoogleIsNotLoggedIn();
-  }
-}
-
-function handleGoogleIsLoggedIn() {
-  isGoogleLoggedIn = true;
-  // 檢查臉書是否登入，若有則全部取消授權（也代表，臉書已經載入完成）
-  console.log('Google is checking facebook.');
-  if (isFbChecked && isFbLoggedIn) {
-    handleDuplicateLogin();
-  }
-  else {
-    console.log('已經登入 Google 了，寫入 ID 以及姓名');
-    userID = aGoogleUser.getBasicProfile().getId() + '@google';
-    userName = aGoogleUser.getBasicProfile().getName();
-    selectProgramToRun();
-  }
-}
-
-function handleGoogleIsNotLoggedIn() {
-  isGoogleLoggedIn = false;
-  console.log('尚未登入 Google');
-  // 檢查 Facebook 是否登入，若無則導向到登入頁面
-  console.log('Google is checking facebook.');
-  if (isFbChecked && !isFbLoggedIn) {
-    switch (location.pathname) {
-      case '/':
-      case '/index':
-      case '/index.html':
-        showLoginButton();
-        break;
-      default:
-        console.log('兩者皆未登入');
-        location.replace(`${location.protocol}//${location.host}/`);
-        break;
-    }
-  }
 }

@@ -9,6 +9,7 @@ let isGoogleChecked = false;
 let aGoogleAuth;
 let aGoogleUser;
 let aNetworkAgent = new NetworkAgent();
+let aUI = new UI();
 let userID;
 let userName;
 let rewardID;
@@ -17,25 +18,8 @@ let seconds = 300;
 let intervalId;
 
 let checkWhichIsLoggedIn = function() {
-  if (isFbLoggedIn && !isGoogleLoggedIn) {
-    FB.api('/me/permissions', 'DELETE', {}, function(response) {
-      console.log(response);
-      location.replace(`${location.protocol}//${location.host}/`);
-    });
-  }
-  else if (!isFbLoggedIn && isGoogleLoggedIn) {
-    console.log('取消授權中 ...');
-    aGoogleAuth.disconnect();
-    console.log('取消授權完成');
-  }
-  else if (!isFbLoggedIn && !isGoogleLoggedIn) {
-    // 都沒登入，應該要另外處理
-    alert('請先登入');
-    location.replace(`${location.protocol}//${location.host}/`);
-  }
-  else {
-    handleDuplicateLogin();
-  }
+  localStorage.clear();
+  location.replace(`${location.protocol}//${location.host}/`);
 };
 
 let openIframe = function() {
@@ -229,27 +213,12 @@ let listAllUserPrize = function() {
   });
 };
 
-let changeLoginPageUI = function() {
-  document.getElementById('before-login').style.display = 'none';
-  document.getElementById('after-login').style.display = 'flex';
-  document.getElementById('account-info').textContent = `Hello ${userName}. ${userID}`;
-  postData = {
-    ID: userID,
-    name: userName,
-    request: 'init',
-    requestItem: ''
-  };
-  aNetworkAgent.sendPost(postData).then(myJson => {
-    console.log(myJson[0]);
-  });
-};
-
 let selectProgramToRun = function() {
   switch (location.pathname) {
     case '/':
     case '/index':
     case '/index.html':
-      changeLoginPageUI();
+      aUI.showAfterLogin();
       break;
     case '/game-start/':
     case '/game-start/index':
@@ -277,7 +246,3 @@ let handleDuplicateLogin = function() {
     location.replace(`${location.protocol}//${location.host}/`);
   });
 };
-
-let showLoginButton = function() {
-  document.getElementById('before-login').style.display = 'flex';
-}
