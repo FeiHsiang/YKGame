@@ -1,11 +1,3 @@
-// 臉書是否登入
-let isFbLoggedIn = false;
-// Google 是否登入
-let isGoogleLoggedIn = false;
-// 臉書是否判斷過登入狀況
-let isFbChecked = false;
-// Google 是否判斷過登入
-let isGoogleChecked = false;
 let aGoogleAuth;
 let aGoogleUser;
 let aNetworkAgent = new NetworkAgent();
@@ -38,24 +30,7 @@ let openIframe = function() {
     }
     else {
       // 不可以玩
-      let played = new Image();
-      played.src = '../images/played.jpg';
-      played.alt = '今天遊戲次數到上限囉！歡迎明天再來挑戰';
-      document.body.insertBefore(played, document.body.children[0]);
-      let gameBtnDiv = document.createElement('div');
-      gameBtnDiv.classList.add('two-button-div');
-      gameBtnDiv.style.margin = "20px";
-      let back = document.createElement('a');
-      back.textContent = '返回首頁';
-      back.href = '../';
-      back.classList.add('no-image');
-      gameBtnDiv.appendChild(back);
-      let prizeList = document.createElement('a');
-      prizeList.textContent = '查看獎項列表';
-      prizeList.href = '../prize-list/';
-      prizeList.classList.add('no-image');
-      gameBtnDiv.appendChild(prizeList);
-      document.body.insertBefore(gameBtnDiv, document.body.children[1]);
+      aUI.showPlayedToday();
     }
   });
 };
@@ -98,77 +73,8 @@ let getCertainPrizeInfo = function() {
     requestItem: 'prizeData'
   };
   aNetworkAgent.sendPost(postData).then(myJson2 => {
-    let prizeDescription = new Image();
-    prizeDescription.src = '/images/description-' + myJson2[0].prizeLevel + '.jpg';
-    document.getElementById('prize-description').appendChild(prizeDescription);
-    let exchangePrize = document.getElementById('exchange-prize');
-    if (myJson2[0].hasExchanged) {
-      exchangePrize.style.opacity = '0.5';
-    }
-    else {
-      exchangePrize.classList.add('clickable-button');
-      exchangePrize.addEventListener('click', function() {
-        document.getElementById('pwdModal').style.display = 'block';
-      });
-      document.getElementById('pwdButtonCancel').addEventListener('click', function() {
-        document.getElementById('pwdModal').style.display = 'none';
-        document.getElementById('pwdError').style.display = 'none';
-      });
-      document.getElementById('pwdButtonComfirm').addEventListener('click', function() {
-        let password = document.getElementById('inputPassword').value;
-        if (password === null) {
-          console.log('取消輸入');
-        }
-        else if (password === '5285') {
-          document.getElementById('pwdModal').style.display = 'none';
-          console.log(rewardID);
-          postData = {
-            ID: rewardID,
-            name: '',
-            request: 'exchange',
-            requestItem: ''
-          };
-          aNetworkAgent.sendPost(postData).then(myJson => {
-            console.log(myJson);
-            if (myJson[0]) {
-              document.getElementById('before-exchange').style.display = 'none';
-              document.getElementById('after-exchange').style.display = 'block';
-              let qrcode = new Image();
-              qrcode.id = 'qrcode'
-              qrcode.src = '/images/qrcode-' + myJson[1] + '.jpg';
-              document.getElementById('qrcode').appendChild(qrcode);
-              qrcode.addEventListener('load', function() {
-                var minute = Math.floor(seconds/60);
-                var second = seconds - minute*60;
-                document.getElementById("clock").textContent = ('0' + minute).slice(-2) + ':' + ('0' + second).slice(-2);
-                // document.getElementById("clock").textContent = '00:' + seconds;
-                intervalId = setInterval(myTimer, 1000);
-                console.log('qrcode loaded');
-                sessionStorage.removeItem('rewardID');
-                window.scrollTo(0, document.body.scrollHeight);
-              });
-            }
-          });
-        }
-        else {
-          document.getElementById('pwdError').style.display = 'block';
-        }
-      });
-    }
+    aUI.showPrizeInfo(myJson2);
   });
-};
-
-let myTimer = function() {
-  seconds--;
-  var minute = Math.floor(seconds/60);
-  var second = seconds - minute*60;
-  document.getElementById("clock").textContent = ('0' + minute).slice(-2) + ':' + ('0' + second).slice(-2);
-  // let clockString = ('0' + seconds).slice(-2);
-  // document.getElementById("clock").textContent = '00:' + clockString;
-  if (seconds <= 0) {
-    clearInterval(intervalId);
-    location.replace(`${location.protocol}//${location.host}/prize-list/`);
-  }
 };
 
 let listAllUserPrize = function() {
@@ -179,37 +85,7 @@ let listAllUserPrize = function() {
     requestItem: 'userPrizeList'
   };
   aNetworkAgent.sendPost(postData).then(myJson => {
-    myJson[0].forEach((currentValue, index) => {
-      let oneRowData = document.createElement('div');
-      // oneRowData.classList.add('two-button-div');
-      let imgDiv = document.createElement('div');
-      // let dateDiv = document.createElement('div');
-      // let drawDate = document.createElement('span');
-      let prizeBtn = new Image();
-      prizeBtn.src = '/images/button-' + myJson[1][index].prizeLevel + '.png';
-      prizeBtn.dataset.prizeLevel = myJson[1][index].prizeLevel;
-      prizeBtn.dataset.prizeId = currentValue;
-      prizeBtn.dataset.hasExchanged = myJson[1][index].hasExchanged;
-      prizeBtn.dataset.drawDate = myJson[1][index].drawDate;
-      prizeBtn.dataset.exchangeDate = myJson[1][index].exchangeDate;
-      if (myJson[1][index].hasExchanged) {
-        // 已經兌換過
-        prizeBtn.style.opacity = '0.5';
-      }
-      else {
-        prizeBtn.classList.add('clickable-button');
-        prizeBtn.addEventListener('click', function() {
-          localStorage.setItem('rewardID', currentValue);
-          location.assign(`${location.protocol}//${location.host}/get-prize/`);
-        });
-      }
-      imgDiv.appendChild(prizeBtn);
-      // drawDate.textContent = myJson[1][index].drawDate;
-      // dateDiv.appendChild(drawDate);
-      oneRowData.appendChild(imgDiv);
-      // oneRowData.appendChild(dateDiv);
-      document.getElementById('user-prize-list').appendChild(oneRowData);
-    });
+    aUI.showAllUserPrize(myJson);
   });
 };
 
@@ -236,13 +112,4 @@ let selectProgramToRun = function() {
       listAllUserPrize();
       break;
   }
-};
-
-let handleDuplicateLogin = function() {
-  alert('帳號重複登入');
-  aGoogleAuth.disconnect();
-  FB.api('/me/permissions', 'DELETE', {}, function(response) {
-    console.log(response);
-    location.replace(`${location.protocol}//${location.host}/`);
-  });
 };
