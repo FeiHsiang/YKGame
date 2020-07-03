@@ -79,15 +79,19 @@ class UI {
     gameBtnDiv.classList.add('two-button-div');
     gameBtnDiv.style.margin = "20px";
     let back = document.createElement('a');
-    back.textContent = '返回首頁';
     back.href = '../';
-    back.classList.add('no-image');
     gameBtnDiv.appendChild(back);
+    let backImg = new Image();
+    backImg.src = '../images/back-to-main-page.png';
+    backImg.alt = '返回首頁';
+    back.appendChild(backImg);
     let prizeList = document.createElement('a');
-    prizeList.textContent = '查看獎項列表';
     prizeList.href = '../prize-list/';
-    prizeList.classList.add('no-image');
     gameBtnDiv.appendChild(prizeList);
+    let prizeListImg = new Image();
+    prizeListImg.src = '../images/check-prize-list.png';
+    prizeListImg.alt = '查看獎項列表';
+    prizeList.appendChild(prizeListImg);
     document.body.insertBefore(gameBtnDiv, document.body.children[1]);
   }
 

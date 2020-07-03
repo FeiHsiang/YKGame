@@ -112,11 +112,33 @@ input[type=number] {
 }
 
 .logout-button {
+  width: 50vw;
+  display: inline-block;
   text-align: right;
+  margin-bottom: 6vh;
+  margin-left: 40vw;
+}
+
+.back-main-div {
+  width: 50vw;
+  display: inline-block;
+  text-align: left;
+  margin-bottom: 6vh;
+  margin-right: 40vw;
+}
+
+#special-two-button > a {
+  display: inline-block;
+  margin-right: 30vw;
+}
+
+#special-two-button > span {
+  display: inline-block;
+  margin-left: 30vw;
 }
 
 #logout {
-  height: 7vh;
+  height: 6vh;
 }
 
 .game-intro-btn {
@@ -161,18 +183,13 @@ img {
   padding: 0 10%;
 }
 
-/* .no-image {
-  border: 5px solid rgb(179, 118, 2);
-  font-size: 72px;
-  background-color: rgb(250, 249, 0);
-} */
-
 .return-btn {
   width: 37.5%;
 }
 
-#logout-div {
-  margin-bottom: 7vh;
+#back-to-main-page {
+  height: 6vh;
+  width: auto;
 }
 
 #xrIframe {
