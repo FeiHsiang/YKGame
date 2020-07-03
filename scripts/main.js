@@ -16,7 +16,14 @@ let checkLogin = function() {
           userID = `${myJson.id}@${localStorage.getItem('vendor')}`;
           userName = myJson.name;
           // 驗證完成
-          selectProgramToRun();
+          if (userID !== undefined && userName !== undefined) {
+            selectProgramToRun();
+          }
+          else {
+            alert('登入時效已過，請重新登入！');
+            localStorage.clear();
+            location.replace(`${location.protocol}//${location.host}/`);
+          }
         });
         break;
       case 'google':
@@ -26,7 +33,14 @@ let checkLogin = function() {
           userID = `${myJson.sub}@${localStorage.getItem('vendor')}`;
           userName = myJson.name;
           // 驗證完成
-          selectProgramToRun();
+          if (userID !== undefined && userName !== undefined) {
+            selectProgramToRun();
+          }
+          else {
+            alert('登入時效已過，請重新登入！');
+            localStorage.clear();
+            location.replace(`${location.protocol}//${location.host}/`);
+          }
         });
         break;
       default:
