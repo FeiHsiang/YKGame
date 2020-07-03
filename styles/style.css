@@ -127,14 +127,18 @@ input[type=number] {
   margin-right: 40vw;
 }
 
+#special-two-button {
+  width: auto;
+  height: 6vh;
+  margin-bottom: 6vh;
+}
+
 #special-two-button > a {
-  display: inline-block;
-  margin-right: 30vw;
+  float: left;
 }
 
 #special-two-button > span {
-  display: inline-block;
-  margin-left: 30vw;
+  float: right;
 }
 
 #logout {
