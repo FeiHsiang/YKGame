@@ -47,6 +47,9 @@ class UI {
       oneRowData.appendChild(imgDiv);
       document.getElementById('user-prize-list').appendChild(oneRowData);
     });
+    if (myJson[0].length === 0) {
+      document.getElementById('user-prize-list').textContent = '您目前沒有獎項';
+    }
   }
 
   showChangeBrowserPage() {
