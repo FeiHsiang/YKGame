@@ -140,24 +140,25 @@ class UI {
 
   validatePassword(rewardID) {
     let password = document.getElementById('inputPassword').value;
-    if (password === '5285') {
-      document.getElementById('pwdModal').style.display = 'none';
-      console.log(rewardID);
-      postData = {
-        ID: rewardID,
-        name: '',
-        request: 'exchange',
-        requestItem: ''
-      };
-      this.aNetworkAgent.sendPost(postData).then(myJson => {
-        console.log(myJson);
-        if (myJson[0]) {
-          this.showQRCode(myJson);
-        }
-      });
-    }
-    else {
-      document.getElementById('pwdError').style.display = 'block';
-    }
+    postData = {
+      ID: rewardID,
+      name: '',
+      request: 'exchange',
+      requestItem: password
+    };
+    this.aNetworkAgent.sendPost(postData).then(myJson => {
+      console.log(myJson);
+      if (myJson[0] && myJson.length === 2) {
+        document.getElementById('pwdModal').style.display = 'none';
+        this.showQRCode(myJson);
+      }
+      else if (myJson[0] === 'Incorrect code!' && myJson.length === 1) {
+        document.getElementById('pwdError').style.display = 'block';
+      }
+      else {
+        // 基本上不會發生，除非重複對獎
+        alert('似乎你已經兌換獎項過了喔！');
+      }
+    });
   }
 }
