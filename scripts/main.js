@@ -51,6 +51,12 @@ let checkLogin = function() {
     }
   }
   else {
+//[start-20201119- fei -0001-debug]//
+    console.log("main.js: call selectProgramToRun ");
+    selectProgramToRun();
+    return;
+//[end---20201119- fei -0001-debug]//
+
     // 沒登入
     switch (location.pathname) {
       case '/':

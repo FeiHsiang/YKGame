@@ -16,17 +16,32 @@
   </head>
   <body>
     <div id="account-info"></div>
-    <div><img id="gameIntro" src="/images/game-intro.jpg" alt="遊戲說明"></div>
+    <div id = "gameIntoContainer">
+      <br>
+      <span id ="game_list" style="font-size: 32pt; " > 永康街小遊戲 </span> <br><br>
+      
+      <a href="games/shooting.html">
+        <span id ="game1" style="left:20%; position:absolute; "> 1. 射箭 </span> <br><br>
+      </a> 
+      
+      <a href="games/baseballNine.html">
+        <span id ="game2" style="left:20%; position:absolute; "> 2. 棒球九宮格 </span> <br><br>
+      </a>
+      <span id ="game3" style="left:20%; position:absolute; "> 3. 丟沙包 </span> <br><br>
+      <span id ="game4" style="left:20%; position:absolute; "> 4. 拉霸機 </span> <br><br>
+
+      <!-- <img id="gameIntro" src="/images2/game_intro.png" alt="遊戲說明"> -->
+    </div>
     <div class="two-button-div" id="before-login">
-      <div>
+      <div id = "fb-login-div">
         <img src="./images/fb.png" alt="FB 登入" id="fb-login-button" class="clickable-button">
       </div>
-      <div>
+      <div id = "g-login-div">
         <img src="./images/google.png" alt="Google 登入" id="g-login-button" class="clickable-button">
       </div>
     </div>
     <div class="two-button-div" id="after-login">
-      <a href="./game-start/">
+      <a id = "gameStartlink" href="./game-start/">
         <img id="gameStartImg" src="/images/start.png" alt="開始遊戲" class="game-intro-btn">
       </a>
       <a href="./prize-list/">

@@ -5,9 +5,11 @@ html {
 
 body {
   text-align: center;
-  background-image: url("../images/background.jpg");
+  /* background-image: url("../images/background.jpg"); */
+  background-color: cyan;
   background-size: 100% 100%;
   font-size:20pt;
+  margin:0px;
 }
 
 
@@ -181,6 +183,24 @@ img {
 
 #before-login, #after-login {
   display: none;
+  position: fixed;
+  width:100%;
+  height:10%;
+  bottom: 0%;
+}
+
+#fb-login-div{
+  width: 50%;
+  left: 0%;
+  bottom: 0px;
+  position: absolute;
+}
+
+#g-login-div{
+  width: 50%;
+  right: 0%;
+  bottom: 0px;
+  position: absolute;
 }
 
 #user-prize-list {
@@ -207,8 +227,15 @@ img {
   color:rgba( 0 , 0 , 0 , 0.5);
 }
 
+#gameIntoContainer{
+  width: 100%;
+  height: 100vh;
+}
+
 #gameIntro{
-  width:100vw;
+  color:cyan;
+  width:100%;
+  height:auto;
   max-width: 900px;
 }
 

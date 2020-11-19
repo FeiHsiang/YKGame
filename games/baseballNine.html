@@ -1,0 +1,548 @@
+ <!doctype html>
+<html >
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>upload sky</title>
+	<style>
+
+		html, body {
+			background: #fff;
+			color: #000;
+			font-family: sans-serif;
+			text-align: center;
+			width:100%;
+			height:100%;
+			margin: 0;
+		}
+
+		#myEmbeddedScene{
+			/* margin: 20px 10px; */
+			/* width:800px; */
+			/* height:600px; */
+			width:100%;
+			height:100%;
+		}
+
+		@media screen and (min-width: 300px) and (max-width: 700px) {
+			#myEmbeddedScene{
+				/* margin: 20px 10px; */
+				/* width:400px; */
+				/* height:300px; */
+				width:100%;
+				height:100%;
+			}
+		}
+
+		#blocker {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1;
+        }
+		.instructions {
+			width: 100%;
+			height: 100%;
+		}
+
+		#blocker_score {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1;
+        }
+
+		#score{
+			position: absolute;
+			z-index: 2;
+			left :0%;
+			bottom: 5%;		
+			font-size: 14;
+		}
+
+	</style>
+
+
+</head>
+<body>
+	
+	<a href="/index.html">
+		<div style="position: absolute;z-index: 2;font-size: 15pt; color:rgba(255,255,255,0.8); background-color: rgba(0,0,0,0.5);"	>
+			返回首頁
+		</div>
+	</a>
+
+	<div id="score">
+		分數: 0
+	</div>
+
+
+	<script src="js/vconsole.min.js"></script>
+	<script>
+		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
+			var vConsole = new VConsole();
+			console.log("The system is mobile: ", window.navigator.userAgent.toLowerCase() );
+		}else{
+			console.log("The system is PC: ", window.navigator.userAgent.toLowerCase() );
+		}
+
+		window.requestDeviceMotionPermission = function (){
+            // console.log("makarVR.html: requestDeviceMotionPermission  " );
+            if (typeof(DeviceMotionEvent) !== 'undefined' && typeof(DeviceMotionEvent.requestPermission) === 'function') {
+                DeviceMotionEvent.requestPermission().then(response => {
+                    console.log("makarVR.html: requestPermission response =", response );
+                    // alert('Orientation tracking '+ response);
+                    if (response == 'granted') {
+                        window.addEventListener('devicemotion', (e) => {
+                            // but.style.visibility='hidden';
+                        })
+                    }
+                }).catch(console.error)
+            }else {
+                // alert('DeviceMotionEvent is not defined');
+                // console.log("makarVR.html: requestPermission: DeviceMotionEvent is not defined " );
+            }
+		}
+
+		document.body.onclick = function(){
+			requestDeviceMotionPermission();
+		}
+		
+	</script>
+
+	<script src="js/aframe-v1.0.4.js"></script>
+	<script src="js/aframe-extras.js"></script>
+
+	<script src="js/aframe-physics-system.js"></script>
+
+	<!-- <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script> -->
+
+	<div id = "myEmbeddedScene"  >
+		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
+		device-orientation-permission-ui="enabled: true"  background="color: #ECECEC" shadow="type: pcfsoft"
+		physics="debug: false" >
+			<a-assets id = "aAssets">
+
+				<a-asset-item id="robot" src="model/robot.glb"></a-asset-item>
+				
+				<a-asset-item id="sphere" src="model/Sphere.glb"></a-asset-item>
+				<a-asset-item id="baseball" src="model/baseball1.glb"></a-asset-item>
+
+			</a-assets>
+
+			<a-entity id="rig" position="0 0.8 0" rotation="0 0 0">
+				<!-- <a-entity id="aCamera" camera  look-controls wasd-controls></a-entity> -->
+				<a-entity id="aCamera" camera="fov:80; zoom:1" ></a-entity>
+			</a-entity>
+
+			<!-- <a-box id = "ground" width="8" height="0.1" depth="20" position="0 -5 0" static-body visible="true"></a-box> -->
+			<!-- <a-entity id="ball" dynamic-body velocity="0 0 -10" linearDamping="0.0001" position="0 2 100.2" 
+			material="roughness: 0.48; color:	#00FF00;" geometry="primitive: sphere; radius: 0.1" shadow="cast:true;receive:true"></a-entity> -->
+
+			<!-- <a-entity visible = "true"  id = "aSphere" position="0 0.9 -1.0" rotation="0 0 0" scale=" 0.1 0.1 0.1 " gltf-model="#sphere" ></a-entity> -->
+			<a-entity visible = "true" id = "aSphere" position="0 0.1 -1.0" rotation="0 0 0" scale=" 0.0005 0.0005 0.0005 " gltf-model="#baseball" ></a-entity>
+			<!-- <a-entity visible = "true" id = "aSphere" position="0 0.9 -1.0" rotation="0 0 0" scale=" 0.2 0.2 0.2 " gltf-model="#worn_baseball_ball" ></a-entity> -->
+
+			<!-- <a-plane  position="1.5 1.7 -2.6" rotation="0 0 0" width="0.2" height="0.2" color="#00FF00" opacity="0.5" side="double" id ="imgBG2" shadow="receive: true" static-body ></a-plane> -->
+
+			<!-- <a-entity id="aRobot" position="-0.5 0 -4.0" rotation="0 0 0" scale=" 0.2 0.2 0.2 " gltf-model="#robot" animation-mixer="clip: Walking" static-body></a-entity> -->
+
+
+			<!-- <a-text id = "t1" value="分數: 0" position="0.0 0 -1.5" rotation="0 0 0"side="double" color="#FF0000" negate="false"shadow="cast:false;"></a-text> -->
+
+			<!-- <a-plane  position="0 2 -7.1" rotation="0 0 0" width="10" height="10" color="#96FFFF" opacity="1.0" side="double" id ="imgBG" 
+			shadow="receive: true" material="shader: flat;" static-body ></a-plane> -->
+			
+			<!-- 棒球九宮格 -->
+
+			<!-- 板子 -->
+
+			<a-plane  position="-1.05 2.575 -3" rotation="0 0 0" width="1" height="1" color="#FF00FF" opacity="1.0" side="double" id ="board1" 
+			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+
+			<a-plane  position="0 2.575 -3" rotation="0 0 0" width="1" height="1" color="#FF00FF" opacity="1.0" side="double" id ="board2" 
+			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+
+			<a-plane  position="1.05 2.575 -3" rotation="0 0 0" width="1" height="1" color="#FF00FF" opacity="1.0" side="double" id ="board3" 
+			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+
+			<a-plane  position="-1.05 1.55 -3" rotation="0 0 0" width="1" height="1" color="#FF00FF" opacity="1.0" side="double" id ="board4" 
+			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+
+			<a-plane  position="0 1.55 -3" rotation="0 0 0" width="1" height="1" color="#FF00FF" opacity="1.0" side="double" id ="board5" 
+			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+
+			<a-plane  position="1.05 1.55 -3" rotation="0 0 0" width="1" height="1" color="#FF00FF" opacity="1.0" side="double" id ="board6" 
+			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>			
+			
+			<a-plane  position="-1.05 0.5 -3" rotation="0 0 0" width="1" height="1" color="#FF00FF" opacity="1.0" side="double" id ="board7" 
+			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+
+			<a-plane  position="0 0.5 -3" rotation="0 0 0" width="1" height="1" color="#FF00FF" opacity="1.0" side="double" id ="board8" 
+			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+
+			<a-plane  position="1.05 0.5 -3" rotation="0 0 0" width="1" height="1" color="#FF00FF" opacity="1.0" side="double" id ="board9" 
+			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+
+
+			<!-- 框 -->
+
+			<a-box id = "frame1" width="3.1" height="0.05" depth="0.1" position="-0.525 1.55 -3" rotation="0 0 90" static-body visible="true" color="#ADADAD"></a-box>
+
+			<a-box id = "frame2" width="3.1" height="0.05" depth="0.1" position="0.525 1.55 -3" rotation="0 0 90" static-body visible="true" color="#ADADAD"></a-box>
+
+			<a-box id = "frame3" width="3.1" height="0.05" depth="0.1" position="-1.575 1.55 -3" rotation="0 0 90" static-body visible="true" color="#ADADAD"></a-box>
+
+			<a-box id = "frame4" width="3.1" height="0.05" depth="0.1" position="1.575 1.55 -3" rotation="0 0 90" static-body visible="true" color="#ADADAD"></a-box>
+
+			<a-box id = "frame5" width="3.2" height="0.05" depth="0.1" position="0 1.025 -3" static-body visible="true" color="#ADADAD"></a-box>
+
+			<a-box id = "frame6" width="3.2" height="0.05" depth="0.1" position="0 2.075 -3" static-body visible="true" color="#ADADAD"></a-box>
+
+			<a-box id = "frame7" width="3.2" height="0.05" depth="0.1" position="0 3.125 -3" static-body visible="true" color="#ADADAD"></a-box>
+
+			<a-box id = "frame8" width="3.2" height="0.05" depth="0.1" position="0 -0.025 -3" static-body visible="true" color="#ADADAD"></a-box>
+
+
+
+			<!-- 棒球九宮格 -->
+
+			<a-plane id="underplane" position="0 -1 0" rotation="-90 0 0" width="50" height="50" color="#7BC8A4" opacity="0.5" shadow="receive: true" static-body></a-plane>
+
+			<a-sky id = "aSky" color="#ECECEC"></a-sky>
+			<a-entity light="type: ambient; color: #FFFFFF"></a-entity>
+			<a-entity light="type: directional; color: #FFFFFF; intensity: 0.9;
+								   castShadow: true; 
+								   shadowCameraVisible: false;
+								   shadowBias:-0.0005; 
+								   shadowCameraTop:10; shadowCameraBottom:-10; 
+								   shadowCameraRight:10; shadowCameraLeft:-10; 
+								   shadowMapHeight:3072; shadowMapWidth:3072; 
+								   shadowCameraFar: 500; shadowCameraNear: 0.5;" 
+			          position="0 0 1"></a-entity>
+			<!-- <a-entity camera="active: true" look-controls wasd-controls position="0 1.6 0"></a-entity> -->
+		</a-scene>
+
+	</div>	
+
+	<script>
+		var fonts;
+		// fonts = [  "font/1-msdf.json" , "font/2-msdf.json" , "font/3-msdf.json", "font/4-msdf.json" , "font/5-msdf.json" , "font/6-msdf.json", "font/7-msdf.json" , "font/8-msdf.json" , "font/9-msdf.json", "font/10-msdf.json" , "font/11-msdf.json" , "font/12-msdf.json" ];
+		
+		// fonts = [ "font/11-msdf.json", "font/12-msdf.json"  ];
+		// fonts = [  "font/12-msdf.json" ];
+		var s3url = "https://s3-ap-northeast-1.amazonaws.com/makar.webar.defaultobject/resource/fonts/"
+		fonts = [  s3url + "1-msdf.json", s3url + "2-msdf.json" , s3url + "3-msdf.json", s3url + "4-msdf.json", s3url + "5-msdf.json", s3url + "6-msdf.json"
+				 , s3url + "7-msdf.json" , s3url + "8-msdf.json", s3url + "9-msdf.json", s3url + "10-msdf.json", s3url + "11-msdf.json", s3url + "12-msdf.json" ];
+		// fonts = [  s3url + "1-msdf.json"  ];
+		// fonts = [  s3url + "1-msdf.json" , s3url + "2-msdf.json" ];
+
+		if (document.getElementById("t1")) t1.setAttribute("font", fonts );
+		if (document.getElementById("t2")) t2.setAttribute("font", fonts );
+
+		let yr , pr ;
+		function getCameraR (){
+
+			// rig.setAttribute("rotation", {x:45,y:45,z:0} );
+			aCamera.components["look-controls"].yawObject.rotation.set( 0, Math.PI*1/180, 0 );
+			aCamera.components["look-controls"].pitchObject.rotation.set( Math.PI*1/180, 0, 0);
+
+			yr  = aCamera.components["look-controls"].yawObject.rotation; // only y direction
+			pr = aCamera.components["look-controls"].pitchObject.rotation;// only x direction
+			console.log(" aCamera yr=" , yr.x , yr.y , yr.z  );
+			console.log(" aCamera pr=" , pr.x , pr.y , pr.z  );
+			// console.log(" aCamera ypr=" , yr.x + pr.x ,  yr.y + pr.y ,  yr.z + pr.z  );
+			// console.log(" aCamera ypr=" , aCamera.object3D  );
+
+		}
+		// setTimeout(getCameraR, 2000 );
+
+		//// 設定場景功能，分為 
+		//// 1. 按住滑鼠/觸控 來拖拉物件，不可拖拉出特定圓圈範圍。
+		//// 2. 放開滑鼠/觸控 來拋射物件，依照移動參數來設定拋射參數。
+		//// 3. 設定拋射物件的後續狀況。
+		////
+
+		let aScene = document.getElementById("aScene");
+		let aRig =  document.getElementById("rig"); //// 原始位置為 (0, 1.6, 0)
+		let aSphere =  document.getElementById("aSphere"); //// 原始位置為 (0, 1, -1)
+		let aRobot = document.getElementById("aRobot");
+		let underplane = document.getElementById("underplane");
+		let scoreText = document.getElementById("score")
+		let aSphereOriginPosition = aSphere.object3D.position.clone();
+		aSphere.addEventListener("loaded" , function(evt){
+			aSphereOriginPosition = aSphere.object3D.position.clone();
+			console.log("aSphereOriginPosition = " , aSphereOriginPosition );
+		});
+		
+		// let ball = document.getElementById("ball");
+
+		let preMouse = new THREE.Vector2();
+		let mouse = new THREE.Vector2();
+		let mouseStart = new THREE.Vector2();
+		let mouseEnd = new THREE.Vector2();
+		let pdiff = new THREE.Vector2();
+		let raycaster = new THREE.Raycaster();
+
+		let touchMoveTime = Date.now();
+		//// 預設原始固定長度為 3 的array 來紀錄滑鼠或觸碰的y值，
+		let preMouses = [[0,0],[0,0],[0,0],[0,0]];
+		
+		//// 機器人物件遭遇碰撞後的反應，切換動畫。
+		// aRobot.addEventListener('collide', function(e){
+		// 	console.log('Player has collided with body #', e.detail.target.el.object3D );
+		// 	aRobot.setAttribute("animation-mixer" , "clip: Death");
+		// 	setTimeout(function(){
+		// 		aRobot.setAttribute("animation-mixer" , "clip: Walking");
+		// 	}, 1000);
+		// });
+		let boardTable = [0,0,0,0,0,0,0,0,0];
+		let score = 0;
+		// 下方平面被撞到 算分並重置
+		underplane.addEventListener('collide', function(e){
+			if (e.detail.contact.bj.el.id == "underplane"){
+				// console.log(e.detail.contact.bi.el.id )
+				boardNum = e.detail.contact.bi.el.id[5];
+				if(boardTable[boardNum]==0){
+					boardTable[boardNum] = 1;
+					score += 1
+					// console.log(score)
+					scoreText.innerText = "分數: "+score.toString();
+				}
+			}
+			// console.log('score',e.detail)
+			// console.log('plane is hit', e.detail.target.el.object3D );
+
+		});
+		
+
+		document.body.addEventListener("mouseup", clearTouchState, false);
+		document.body.addEventListener("touchend", clearTouchState, false);
+
+		aScene.canvas.addEventListener("touchstart", vrSceneTouchStart, false);
+		aScene.canvas.addEventListener("mousedown", vrSceneTouchStart, false);
+
+		aScene.canvas.addEventListener("mousemove", vrSceneTouchMove, false);
+		aScene.canvas.addEventListener("touchmove", vrSceneTouchMove, false);
+
+		aScene.canvas.addEventListener("mouseup", vrSceneTouchEnd, false);
+		aScene.canvas.addEventListener("touchend", vrSceneTouchEnd, false);
+
+		let touchState = 0; //// 0: 滑鼠沒有按下/手指沒有點擊, 1: 滑鼠已經按下/手指正在點擊, 2: 滑鼠剛剛放開/手指剛剛離開，注意 0 - 2 狀態轉移
+		function vrSceneTouchStart(event){
+
+			if (touchState == 0){
+				touchState = 1;
+				event.preventDefault();
+
+				let rect = aScene.renderer.domElement.getBoundingClientRect();
+				switch ( event.type ) {
+					case "mousedown": ////// 20190709 Fei: add this event type for PC mouse
+						mouseStart.x = ( (event.clientX - rect.left) / aScene.renderer.domElement.clientWidth ) * 2 - 1;
+						mouseStart.y = - ( (event.clientY - rect.top) / aScene.renderer.domElement.clientHeight ) * 2 + 1;
+						break;
+					case "touchstart": ////// 20190709 Fei: add this event type for cellphone
+						// console.log("endEvent: touchend: event.touches  = ", event.changedTouches[0].clientX, event.changedTouches[0].clientY );
+						mouseStart.x = ( (event.changedTouches[0].clientX - rect.left) / aScene.renderer.domElement.clientWidth ) * 2 - 1;
+						mouseStart.y = - ( (event.changedTouches[0].clientY - rect.top) / aScene.renderer.domElement.clientHeight ) * 2 + 1;
+						break;
+
+					default:
+						console.log(" startEvent: event.type=", event.type, " not mousedown/touchstart, return ");
+						return ;
+
+				}
+
+				//// 點擊即把球物件移動到滑鼠/觸碰位置 
+				let planeHeight = Math.tan( aCamera.object3DMap.camera.fov/2/180*Math.PI) * Math.abs(aSphereOriginPosition.z) * 1 ;
+				let planeWidth = planeHeight * aCamera.object3DMap.camera.aspect;
+				aSphere.object3D.position.x = mouseStart.x * planeWidth ;
+				aSphere.object3D.position.y = aRig.object3D.position.y + mouseStart.y * planeHeight ;
+
+				//// 發射子彈的測試
+				// raycaster.setFromCamera( mouseStart, aScene.camera );
+				// let velocityYZ = 1 + (mouseStart.y);
+				// let velocity = new THREE.Vector3( mouseStart.x*0.9 , 1 , -1 ).normalize().multiplyScalar(10);
+				// let planeHeight = Math.tan( aCamera.object3DMap.camera.fov/2/180*Math.PI) * Math.abs(aSphereOriginPosition.z) * 1 ;
+				// let planeWidth = planeHeight * aCamera.object3DMap.camera.aspect;
+				// let clickPosition = new THREE.Vector3( mouseStart.x*planeWidth , raycaster.ray.origin.y + mouseStart.y*planeHeight, -1 );
+
+				// let bullet = document.createElement('a-entity');
+				// bullet.setAttribute("dynamic-body", "mass: 1000");
+				// // bullet.setAttribute("velocity",raycaster.ray.direction.multiplyScalar(10));
+				// // bullet.setAttribute("position",raycaster.ray.origin);
+
+				// bullet.setAttribute("velocity", velocity );
+				// bullet.setAttribute("position",  clickPosition);
+
+				// bullet.setAttribute("geometry","primitive: sphere; radius: 0.1" );
+				// bullet.setAttribute("material","roughness: 0.48; color:	#00FF00");
+				// bullet.setAttribute("shadow","cast:true; receive:true");
+				// aScene.appendChild(bullet);
+
+				// let vector = raycaster.ray.direction.multiplyScalar(10);
+				
+				// ball.body.velocity.set( vector.x, vector.y, vector.z );
+				// ball.body.position.set(0, 1, -1);
+
+				// console.log("vrSceneTouchMove , mouseStart =" , raycaster.ray.origin  );
+				// console.log("vrSceneTouchMove , set 1 mouseStart=", mouseStart );
+
+			}
+			
+		}
+	
+		function vrSceneTouchMove(event){
+			if (touchState == 1){
+				event.preventDefault();
+
+				let rect = aScene.renderer.domElement.getBoundingClientRect();
+				switch ( event.type ) {
+					case "mousemove": ////// 20190709 Fei: add this event type for PC mouse
+						mouse.x = ( (event.clientX - rect.left) / aScene.renderer.domElement.clientWidth ) * 2 - 1;
+						mouse.y = - ( (event.clientY - rect.top) / aScene.renderer.domElement.clientHeight ) * 2 + 1;
+
+						preMouses.push([mouse.x, mouse.y]);
+						preMouses.shift();
+						
+						break;
+					case "touchmove": ////// 20190709 Fei: add this event type for cellphone
+						mouse.x = ( (event.changedTouches[0].clientX - rect.left) / aScene.renderer.domElement.clientWidth ) * 2 - 1;
+						mouse.y = - ( (event.changedTouches[0].clientY - rect.top) / aScene.renderer.domElement.clientHeight ) * 2 + 1;
+
+						preMouses.push([mouse.x, mouse.y]);
+						preMouses.shift();
+						break;
+
+					default:
+						console.log(" startEvent: event.type=", event.type, " not mousemove/touchmove, return ");
+						return ;
+
+				}
+
+				//// 球物件的起始位置為 (0, 1, -1)
+				pdiff = mouse.clone().sub(mouseStart) ;
+				//// 計算出應該要呈現的位置，從『原始球的位置的z軸數值』與『當前相機垂直fov角度的一半』可以算出『與原始球的xy平面的高度』
+				//// 再使用『畫面比例所造成的相機比例』算出『與原始球的xy平面的寬度』
+				//// 因為拖拉移動有正負，所以當滑鼠拖拉『從中心到寬邊最距離』對應於『原始球位置到相機最外緣』
+				let planeHeight = Math.tan( aCamera.object3DMap.camera.fov/2/180*Math.PI) * Math.abs(aSphereOriginPosition.z) * 1 ;
+				let planeWidth = planeHeight * aCamera.object3DMap.camera.aspect;
+
+				// aSphere.object3D.position.x = aSphereOriginPosition.x + pdiff.x * planeWidth;
+				// aSphere.object3D.position.y = aSphereOriginPosition.y + pdiff.y * planeHeight;
+				
+				//// 點擊即把球物件移動到滑鼠/觸碰位置
+				aSphere.object3D.position.x = mouse.x * planeWidth ;
+				aSphere.object3D.position.y = aRig.object3D.position.y + mouse.y * planeHeight ;
+
+				touchMoveTime = Date.now();
+				// console.log("vrSceneTouchMove , pdiff =" , pdiff );
+
+			}
+		}
+	
+		function vrSceneTouchEnd(event){
+			if (touchState == 1){
+				event.preventDefault();
+				event.stopPropagation();
+
+
+				let rect = aScene.renderer.domElement.getBoundingClientRect();
+				switch ( event.type ) {
+					case "mouseup": ////// 20190709 Fei: add this event type for PC mouse
+						mouseEnd.x = ( (event.clientX - rect.left) / aScene.renderer.domElement.clientWidth ) * 2 - 1;
+						mouseEnd.y = - ( (event.clientY - rect.top) / aScene.renderer.domElement.clientHeight ) * 2 + 1;
+						break;
+					case "touchend": ////// 20190709 Fei: add this event type for cellphone
+						// console.log("endEvent: touchend: event.touches  = ", event.changedTouches[0].clientX, event.changedTouches[0].clientY );
+						mouseEnd.x = ( (event.changedTouches[0].clientX - rect.left) / aScene.renderer.domElement.clientWidth ) * 2 - 1;
+						mouseEnd.y = - ( (event.changedTouches[0].clientY - rect.top) / aScene.renderer.domElement.clientHeight ) * 2 + 1;
+						break;
+
+					default:
+						console.log(" startEvent: event.type=", event.type, " not mousedown/touchstart, return ");
+						return ;
+
+				}
+
+				//// 假如使用者『持球』過久，則判定沒有選定方向，重來
+				if ( Date.now() - touchMoveTime > 200){
+					console.log(" ********** touchMove stay too long "  );
+					clearTouchState();
+					return;
+				}
+
+				//// 假如使用者『不是往上投擲』，重來
+				if (preMouses[0][1]+0.001 < preMouses[1][1] && preMouses[1][1]+0.001 < preMouses[2][1] ){
+					console.log(" ********** direction y up = " , preMouses );
+					
+				}else if (preMouses[0][1] > preMouses[1][1]+0.001 && preMouses[1][1] > preMouses[2][1]+0.001 ){
+					console.log(" ********** direction y down " , preMouses );
+					clearTouchState();
+					return;
+				}else{
+					console.log(" ********** direction y not up not down " , preMouses );
+					clearTouchState();
+					return;
+				}
+				
+
+				touchState = 2;
+				
+
+				//// 投擲預設的球物件
+				raycaster.setFromCamera( mouseEnd, aScene.camera );
+
+
+				let dragX = preMouses[3][0] - preMouses[0][0];
+				let dragY = preMouses[3][1] - preMouses[0][1];
+				let dragLength = Math.pow( dragX*dragX+dragY*dragY , 0.5);
+				let velocity = new THREE.Vector3( dragX , dragY , -dragY ).normalize().multiplyScalar(dragLength*20);
+				
+
+				let vector = raycaster.ray.direction.multiplyScalar(10);
+				aSphere.setAttribute( "dynamic-body", "mass: 1000" );
+
+				// aSphere.body.velocity.set( vector.x, vector.y, vector.z );
+				aSphere.body.velocity.set( velocity.x, velocity.y, velocity.z );
+
+				resetSphere(3000);
+				
+				console.log("vrSceneTouchEnd set 2 " , pdiff , "\n", preMouses[3][0] - preMouses[0][0] , preMouses[3][1] - preMouses[0][1] );
+				preMouses = [[0,0],[0,0],[0,0],[0,0]];
+
+				// aSphere.object3D.position.x = 0 ;
+				// aSphere.object3D.position.y = 1 ;
+			}
+
+		}
+
+		function clearTouchState(event){
+			if (touchState == 1){
+				touchState = 0;
+				resetSphere(10);
+				console.log("clearTouchState" );
+			}
+		}
+
+		function resetSphere(time){
+			let delay = time? time: 3000;
+			setTimeout(function(){
+				//// 移除物理性，並且重設位置
+				aSphere.removeAttribute( "dynamic-body");
+				aSphere.object3D.position.copy(aSphereOriginPosition);
+				aSphere.object3D.rotation.set(0, 0, 0);
+
+				touchState = 0;
+				console.log("resetSphere set 0" );
+			}, delay);
+		}
+
+	</script>
+
+</body>
+</html>
+

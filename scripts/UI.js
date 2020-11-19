@@ -18,6 +18,10 @@ class UI {
   showAfterLogin() {
     document.getElementById('before-login').style.display = 'none';
     document.getElementById('after-login').style.display = 'flex';
+//[start-20201118- fei -0001-debug]//
+    document.getElementById("after-login").style.display = "none";
+//[end---20201118- fei -0001-debug]//
+
     document.getElementById('account-info').textContent = `Hello ${userName}. ${userID}`;
   }
 

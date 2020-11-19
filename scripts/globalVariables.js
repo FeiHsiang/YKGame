@@ -133,3 +133,24 @@ let selectProgramToRun = function() {
       break;
   }
 };
+
+window.requestDeviceMotionPermission = function (){
+  if (typeof(DeviceMotionEvent) !== 'undefined' && typeof(DeviceMotionEvent.requestPermission) === 'function') {
+    DeviceMotionEvent.requestPermission().then(response => {
+      console.log("globalVariables.js: requestPermission response =", response );
+      if (response == 'granted') {
+        window.addEventListener('devicemotion', (e) => {
+        })
+      }
+    }).catch(console.error)
+  }else {
+    console.log("globalVariables.js: requestPermission: DeviceMotionEvent is not defined "  );
+  }
+}
+
+if (document.getElementById("gameStartlink")){
+  document.getElementById("gameStartlink").onclick = function(){
+    console.log(" gameStartlink click ");
+    requestDeviceMotionPermission();
+  }
+}

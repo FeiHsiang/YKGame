@@ -1,0 +1,587 @@
+<!doctype html>
+<html >
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>upload sky</title>
+	<style>
+
+		html, body {
+			background: #fff;
+			color: #000;
+			font-family: sans-serif;
+			text-align: center;
+			width:100vw;
+			height:100vh;
+			margin: 0;
+		}
+
+		#myEmbeddedScene{
+			/* margin: 20px 10px; */
+			/* width:800px; */
+			/* height:600px; */
+			width:100vw;
+			height:100vh;
+		}
+
+		#blocker {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,0.5);
+			z-index: 1;
+		}
+
+		#blocker_score {
+			display: none;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,0.5);
+			z-index: 1;
+		}
+
+		.instructions {
+			width: 100%;
+			height: 100%;
+
+			display: -webkit-box;
+			display: -moz-box;
+			display: box;
+
+			-webkit-box-orient: horizontal;
+			-moz-box-orient: horizontal;
+			box-orient: horizontal;
+
+			-webkit-box-pack: center;
+			-moz-box-pack: center;
+			box-pack: center;
+
+			-webkit-box-align: center;
+			-moz-box-align: center;
+			box-align: center;
+
+			color: #ffffff;
+			text-align: center;
+			font-family: Arial;
+			font-size: 24px;
+			line-height: 34px;
+
+			cursor: pointer;
+		}
+
+		@media screen and (min-width: 300px) and (max-width: 700px) {
+			#myEmbeddedScene{
+				/* margin: 20px 10px; */
+				/* width:400px; */
+				/* height:300px; */
+				width:100vw;
+				height:100vh;
+			}
+		}
+
+	</style>
+
+
+</head>
+<body>
+
+	<div id="blocker">
+		<div class="instructions" id = "blocker_info">
+			<span style="font-size:36px">Click to play</span>
+			<br /><br />
+			滑鼠/手指點擊螢幕來丟球<br/>
+			在10秒鐘內擊中從天而降的禮物<br/>
+			
+		</div>
+	</div>
+
+	<div id="blocker_score">
+		<div class="instructions" >
+			<span style="font-size:36px">Click to play again</span>
+			<br /><br />
+			<span style="font-size:36px; color:#00c99c" id = "score_info"> </span>
+			<br/>
+			點擊畫面再玩一遍<br/>
+			
+		</div>
+	</div>
+
+	<a href="/index.html">
+		<div style="position: absolute;z-index: 2;font-size: 15pt; color:rgba(0,0,0,0.5); "	>
+			返回首頁
+		</div>
+	</a>
+
+	<script src="js/vconsole.min.js"></script>
+	<script>
+		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
+			var vConsole = new VConsole();
+			console.log("The system is mobile: ", window.navigator.userAgent.toLowerCase() );
+		}else{
+			console.log("The system is PC: ", window.navigator.userAgent.toLowerCase() );
+		}
+
+		window.requestDeviceMotionPermission = function (){
+            // console.log("makarVR.html: requestDeviceMotionPermission  " );
+            if (typeof(DeviceMotionEvent) !== 'undefined' && typeof(DeviceMotionEvent.requestPermission) === 'function') {
+                DeviceMotionEvent.requestPermission().then(response => {
+                    console.log("makarVR.html: requestPermission response =", response );
+                    // alert('Orientation tracking '+ response);
+                    if (response == 'granted') {
+						document.body.onclick = "";
+                        window.addEventListener('devicemotion', (e) => {
+                            // but.style.visibility='hidden';
+                        })
+                    }
+                }).catch(console.error)
+            }else {
+                // alert('DeviceMotionEvent is not defined');
+                // console.log("makarVR.html: requestPermission: DeviceMotionEvent is not defined " );
+            }
+		}
+
+		document.body.onclick = function(){
+			requestDeviceMotionPermission();
+		}
+		
+	</script>
+
+	<script src="js/aframe-v1.0.4.js"></script>
+	<script src="js/aframe-extras.js"></script>
+
+	<script src="js/aframe-physics-system.js"></script>
+
+
+	<!-- <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script> -->
+
+	<div id = "myEmbeddedScene"  >
+		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
+		device-orientation-permission-ui="enabled: true"  background="color: #ECECEC" shadow="type: pcfsoft"
+		physics="debug: false; friction: 50.0 ; restitution: 0.2; gravity: -9.0 " >
+			<a-assets id = "aAssets">
+
+				<a-asset-item id="robot" src="model/robot.glb"></a-asset-item>
+				
+				<a-asset-item id="spiked_ball" src="model/spiked_ball/scene.gltf"></a-asset-item>
+				<img id="texture_bullet" src="images/t1.jpg">
+				<img id="texture_gun" src="images/t2.jpg">
+				<img id="texture_gift_1" src="images/texture1.png">
+				<img id="texture_gift_2" src="images/texture2.png">
+				<img id="texture_gift_3" src="images/texture3.png">
+				<img id="texture_gift_x2" src="images/texturex2.png">
+
+
+			</a-assets>
+
+			<a-entity id="rig" position="0 1.6 0" rotation="0 0 0">
+				<a-entity id="aCamera" camera  look-controls="touchEnabled:false" wasd-controls></a-entity>
+				<!-- <a-entity id="aCamera" camera  ></a-entity> -->
+			</a-entity>
+
+			<!-- <a-box id = "ground" width="8" height="0.1" depth="20" position="0 -5 0" static-body visible="false" ></a-box> -->
+			<a-plane id = "ground" position="0 -2 -4" rotation="-90 0 0" width="8" height="10" color="#7BC8A4" opacity="0.5" shadow="receive: true" static-body ></a-plane>
+
+			<!-- <a-text id = "t1" value="滑鼠/手指點擊來丟球\n調整方向來擊中從天而降的禮物" position="0.0 1.9 -2.50" rotation="0 0 0"side="double" color="#FF0000" negate="false"shadow="cast:false;"></a-text> -->
+
+			<a-entity id = "pivotGun" position="0 1 -0.8" rotation="-45 0 0" >
+				<a-entity id = "gun" position="0 0.05 0" rotation="0 0 0" 
+				geometry="primitive: cylinder; height: 0.2; radius: 0.05" material="shader: flat; src: #texture_gun " ></a-entity>
+	
+			</a-entity>
+
+
+			<a-sky id = "aSky" color="#ECECEC"></a-sky>
+			<a-entity light="type: ambient; color: #FFFFFF"></a-entity>
+			<a-entity light="type: directional; color: #FFFFFF; intensity: 0.9;
+								   castShadow: true; 
+								   shadowCameraVisible: false;
+								   shadowBias:-0.0005; 
+								   shadowCameraTop:10; shadowCameraBottom:-10; 
+								   shadowCameraRight:10; shadowCameraLeft:-10; 
+								   shadowMapHeight:3072; shadowMapWidth:3072; 
+								   shadowCameraFar: 500; shadowCameraNear: 0.5;" 
+			          position="0 0 1"></a-entity>
+			<!-- <a-entity camera="active: true" look-controls wasd-controls position="0 1.6 0"></a-entity> -->
+		</a-scene>
+
+	</div>	
+
+	<script>
+		var fonts;
+		// fonts = [  "font/1-msdf.json" , "font/2-msdf.json" , "font/3-msdf.json", "font/4-msdf.json" , "font/5-msdf.json" , "font/6-msdf.json", "font/7-msdf.json" , "font/8-msdf.json" , "font/9-msdf.json", "font/10-msdf.json" , "font/11-msdf.json" , "font/12-msdf.json" ];
+		
+		// fonts = [ "font/11-msdf.json", "font/12-msdf.json"  ];
+		// fonts = [  "font/12-msdf.json" ];
+		var s3url = "https://s3-ap-northeast-1.amazonaws.com/makar.webar.defaultobject/resource/fonts/"
+		fonts = [  s3url + "1-msdf.json", s3url + "2-msdf.json" , s3url + "3-msdf.json", s3url + "4-msdf.json", s3url + "5-msdf.json", s3url + "6-msdf.json"
+				 , s3url + "7-msdf.json" , s3url + "8-msdf.json", s3url + "9-msdf.json", s3url + "10-msdf.json", s3url + "11-msdf.json", s3url + "12-msdf.json" ];
+		// fonts = [  s3url + "1-msdf.json"  ];
+		// fonts = [  s3url + "1-msdf.json" , s3url + "2-msdf.json" ];
+
+		if (document.getElementById("t1")) t1.setAttribute("font", fonts );
+		if (document.getElementById("t2")) t2.setAttribute("font", fonts );
+
+		let yr , pr ;
+		function getCameraR (){
+
+			// rig.setAttribute("rotation", {x:45,y:45,z:0} );
+			aCamera.components["look-controls"].yawObject.rotation.set( 0, Math.PI*1/180, 0 );
+			aCamera.components["look-controls"].pitchObject.rotation.set( Math.PI*1/180, 0, 0);
+
+			yr  = aCamera.components["look-controls"].yawObject.rotation; // only y direction
+			pr = aCamera.components["look-controls"].pitchObject.rotation;// only x direction
+			console.log(" aCamera yr=" , yr.x , yr.y , yr.z  );
+			console.log(" aCamera pr=" , pr.x , pr.y , pr.z  );
+			// console.log(" aCamera ypr=" , yr.x + pr.x ,  yr.y + pr.y ,  yr.z + pr.z  );
+			// console.log(" aCamera ypr=" , aCamera.object3D  );
+
+		}
+		// setTimeout(getCameraR, 2000 );
+
+
+
+		//// 設定場景功能，分為 
+		//// 1. 按住滑鼠/觸控 來拖拉物件，不可拖拉出特定圓圈範圍。
+		//// 2. 放開滑鼠/觸控 來拋射物件，依照移動參數來設定拋射參數。
+		//// 3. 設定拋射物件的後續狀況。
+		////
+
+		let aScene = document.getElementById("aScene");
+		let aRig =  document.getElementById("rig"); //// 原始位置為 (0, 1.6, 0)
+		let pivotGun = document.getElementById("pivotGun");
+		
+		//// 假如在電腦上，取消 look-control 功能，假如在手機上，隱藏槍
+		let controls;
+		aCamera.addEventListener('loaded', function(evt) { 
+			if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
+				console.log(" PC, remove look wasd control ");
+				aCamera.removeAttribute("look-controls");
+				aCamera.removeAttribute("wasd-controls");
+			}else{
+				pivotGun.setAttribute("visible", "false");
+			}
+		});
+		
+
+		let mouse = new THREE.Vector2();
+		let mouseEnd = new THREE.Vector2();
+		let raycaster = new THREE.Raycaster();
+		
+
+		// document.body.addEventListener("mouseup", clearTouchState, false);
+		// document.body.addEventListener("touchend", clearTouchState, false);
+
+		aScene.canvas.addEventListener("touchstart", vrSceneTouchStart, false);
+		aScene.canvas.addEventListener("mousedown", vrSceneTouchStart, false);
+
+		
+		aScene.canvas.addEventListener("mousemove", vrSceneTouchMove, false);
+		aScene.canvas.addEventListener("touchmove", vrSceneTouchMove, false);
+
+		aScene.canvas.addEventListener("mouseup", vrSceneTouchEnd, false);
+		aScene.canvas.addEventListener("touchend", vrSceneTouchEnd, false);
+
+		let touchState = 0; //// 0: 滑鼠沒有按下/手指沒有點擊, 1: 滑鼠已經按下/手指正在點擊, 2: 滑鼠/手指正在移動 3: 滑鼠剛剛放開/手指剛剛離開，注意 0 - 2 狀態轉移
+		function vrSceneTouchStart(event){
+			// console.log("vrSceneTouchStart");
+			if (touchState == 0){
+				touchState = 1;
+				event.preventDefault();
+			}
+			
+		}
+	
+		let touchMoveCount = 0;
+		function vrSceneTouchMove(event){
+			
+			touchMoveCount += 1;
+
+			event.preventDefault();
+
+			let rect = aScene.renderer.domElement.getBoundingClientRect();
+			switch ( event.type ) {
+				case "mousemove": ////// 20190709 Fei: add this event type for PC mouse
+					mouse.x = ( (event.clientX - rect.left) / aScene.renderer.domElement.clientWidth ) * 2 - 1;
+					mouse.y = - ( (event.clientY - rect.top) / aScene.renderer.domElement.clientHeight ) * 2 + 1;
+					
+					break;
+				case "touchmove": ////// 20190709 Fei: add this event type for cellphone
+					mouse.x = ( (event.changedTouches[0].clientX - rect.left) / aScene.renderer.domElement.clientWidth ) * 2 - 1;
+					mouse.y = - ( (event.changedTouches[0].clientY - rect.top) / aScene.renderer.domElement.clientHeight ) * 2 + 1;
+
+					break;
+
+				default:
+					console.log(" startEvent: event.type=", event.type, " not mousemove/touchmove, return ");
+					return ;
+
+			}
+
+			if (aScene.camera){
+				raycaster.setFromCamera( mouse, aScene.camera );
+					//// 電腦端，需要用滑鼠控制槍管， x[-90, 60], y[-90, 90];
+				if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
+					pivotGun.object3D.rotation.x = (-90 + 30*(1+mouse.y) )/180*Math.PI;
+					pivotGun.object3D.rotation.y = -90*mouse.x/180*Math.PI;
+
+					// pivotGun.object3D.rotation.setFromVector3(raycaster.ray.direction)
+				}
+			}
+
+		
+
+			//// 滑鼠控制第一人稱視角，暫時不考慮
+			// var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+			// var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+
+			// var camera = aCamera.object3DMap.camera;
+			// var euler = new THREE.Euler( 0, 0, 0, 'YXZ' );
+			// euler.setFromQuaternion( camera.quaternion );
+
+			// euler.y -= movementX * 0.002;
+			// euler.x -= movementY * 0.002;
+			// var PI_2 = Math.PI / 2;
+			// euler.x = Math.max( PI_2 - Math.PI, Math.min( PI_2 - 0, euler.x ) );
+
+			// camera.quaternion.setFromEuler( euler );
+
+			// console.log("vrSceneTouchMove ");
+			
+		}
+		
+		let shootState = 0;
+		function vrSceneTouchEnd(event){
+			if (shootState == 0){
+				// event.preventDefault();
+				// event.stopPropagation();
+				shootState = 1;
+
+				let rect = aScene.renderer.domElement.getBoundingClientRect();
+				switch ( event.type ) {
+					case "mouseup": ////// 20190709 Fei: add this event type for PC mouse
+						mouseEnd.x = ( (event.clientX - rect.left) / aScene.renderer.domElement.clientWidth ) * 2 - 1;
+						mouseEnd.y = - ( (event.clientY - rect.top) / aScene.renderer.domElement.clientHeight ) * 2 + 1;
+						break;
+					case "touchend": ////// 20190709 Fei: add this event type for cellphone
+						// console.log("endEvent: touchend: event.touches  = ", event.changedTouches[0].clientX, event.changedTouches[0].clientY );
+						mouseEnd.x = ( (event.changedTouches[0].clientX - rect.left) / aScene.renderer.domElement.clientWidth ) * 2 - 1;
+						mouseEnd.y = - ( (event.changedTouches[0].clientY - rect.top) / aScene.renderer.domElement.clientHeight ) * 2 + 1;
+						break;
+
+					default:
+						console.log(" startEvent: event.type=", event.type, " not mousedown/touchstart, return ");
+						return ;
+
+				}
+				//// 發射子彈的測試
+				raycaster.setFromCamera( mouseEnd, aScene.camera );
+
+				let bullet = document.createElement('a-entity');
+				bullet.setAttribute("dynamic-body", "mass: 1");
+				bullet.setAttribute("object-type", "bullet"); //// 自行設定的類別，為了碰撞時候區隔
+				
+				if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
+					//// 電腦端： 計算點擊的位置遠近來調整發射的速度，8只是經驗參數
+					// let strength = 8 * Math.pow( mouseEnd.x*mouseEnd.x + (1+mouseEnd.y)*(1+mouseEnd.y) , 0.5 );
+					// let velocity = new THREE.Vector3(0,1,0).applyEuler( pivotGun.object3D.rotation ).multiplyScalar( strength ); //// 方向為朝著槍管方向指向射出
+
+					let strength = 15; // 固定子彈速度
+					let velocity = raycaster.ray.direction.clone().multiplyScalar(strength*1.8); //// 方向為朝著ray 的指向射出
+
+					let qrot = new THREE.Quaternion().setFromUnitVectors( new THREE.Vector3(0,1,0) , raycaster.ray.direction );
+
+					let tempEuler = new THREE.Euler().setFromQuaternion(qrot) ;
+					// console.log(" *** pivotGun.object3D.rotation=" , pivotGun.object3D.rotation , raycaster.ray.direction , qrot , tempEuler );
+					// pivotGun.object3D.rotation.setFromVector3(tempEuler);
+
+					bullet.setAttribute("velocity", velocity );
+					bullet.setAttribute("position", pivotGun.object3D.position ); //// 從槍的固定位置射出
+				}else{
+					//// 手機端：透過點擊的位置決定發射的起點，透過轉動手機來調整方向，固定發射的速度。12只是經驗參數
+					let velocity = raycaster.ray.direction.clone().multiplyScalar(12);
+					bullet.setAttribute("velocity", velocity );
+					bullet.setAttribute("position",raycaster.ray.origin); //// 從點擊的位置射出
+					console.log("vrSceneTouchEnd , velocity=" , raycaster.ray.direction );
+				}
+			
+				bullet.setAttribute("geometry","primitive: sphere; radius: 0.1" );
+				bullet.setAttribute("material","shader: flat; src: #texture_bullet");
+				bullet.setAttribute("shadow","cast:true; receive:true");
+				aScene.appendChild(bullet);
+
+				//// 兩秒後刪除射出的子彈
+				setTimeout(function(){
+					// console.log(" bullet = " , bullet.object3D.el );
+					if (bullet.object3D.el){
+						bullet.remove();
+					}
+				}, 5000);
+
+				//// 一秒後才能射出下一發
+				setTimeout(function(){
+					shootState = 0;
+				}, 100);
+				//// 紀錄滑鼠移動歸零
+				
+			}
+		 
+		
+		}
+
+		function clearTouchState(event){
+			if (touchState == 1){
+				touchState = 0;
+				resetSphere(10);
+				console.log("clearTouchState" );
+			}
+		}
+
+		function resetSphere(time){
+			let delay = time? time: 3000;
+			setTimeout(function(){
+				//// 移除物理性，並且重設位置
+				touchState = 0;
+				console.log("resetSphere set 0" );
+			}, delay);
+		}
+
+		blocker.addEventListener("click", function(){
+			blocker.style.display = "none";
+			randomGenerateObject();
+		});
+
+		//// 隨機掉落『禮物』，控制固定速度的功能寫在外面，寫在個別會造成卡頓，在固定的時間內尋找場景中所有符合條件的物件賦予固定落下速度
+		// randomGenerateObject();
+		function randomGenerateObject(_duration , _rate){
+			let duration = _duration? _duration: 3000; //// 總共時間
+			let rate = _rate? _rate: 5; //// 一秒鐘有幾次
+			console.log("randomGenerateObject start ", duration , rate );
+
+			let period = 1/rate*1000; //// 每次的間隔時間
+			let totalCount = duration/1000*rate; //// 總共幾次
+			
+			let score = 0;
+			let doubles = 0;
+			let generatedCount = 0;
+			let timer = setInterval( genObject , period);
+			function genObject(){
+				// console.log("randomGenerateObject , generatedCount =" , generatedCount );
+				generatedCount += 1;
+
+				//// 計算隨機生成的位置。
+				let randomPosition = new THREE.Vector3(0, 6, -5);
+				randomPosition.x += Math.random()*4 -2;
+				randomPosition.z += Math.random()*4 -2;
+
+				let velocity = new THREE.Vector3(0, -0.5, 0);
+
+				let gift = document.createElement('a-entity');
+				gift.setAttribute("dynamic-body", "mass: 1;");
+				gift.setAttribute("object-type", "gift");
+
+				gift.setAttribute("linearDamping", "1000");
+				gift.setAttribute("angularDamping", "1000");
+				
+				//// 隨機生出不同貼圖的球，同時要帶入資訊
+				let prob = Math.random();
+				if ( prob <= 0.4 ){
+					gift.setAttribute("material","shader: flat; src: #texture_gift_1; repeat: 3 1");
+					gift.setAttribute("score", "1" );
+				}else if ( prob > 0.4 && prob <= 0.7 ){
+					gift.setAttribute("material","shader: flat; src: #texture_gift_2; repeat: 3 1");
+					gift.setAttribute("score", "2" );
+				}else if ( prob > 0.7 && prob <= 0.9 ){
+					gift.setAttribute("material","shader: flat; src: #texture_gift_3; repeat: 3 1");
+					gift.setAttribute("score", "3" );
+				}else{
+					gift.setAttribute("material","shader: flat; src: #texture_gift_x2; repeat: 3 1");
+					gift.setAttribute("score", "double" );
+				}
+
+
+				gift.setAttribute("position", randomPosition);
+				gift.setAttribute("velocity", velocity );
+				gift.setAttribute("geometry","primitive: sphere; radius: 0.2; segmentsWidth: 18; segmentsHeight: 36 ");
+				
+				gift.setAttribute("shadow","cast:true; receive:true");
+
+				gift.addEventListener('collide', function(e){					
+					// console.log("gift collide: ", e.detail.target.el.object3D , e.detail.body.el.object3D , e.detail.body.el.getAttribute("id") );
+					//// 可能會碰撞的物件是球跟地板還有『其他禮物』
+					//// 假如『禮物』受到『子彈』碰撞，刪除兩者，並且清除
+					if (e.detail.body.el.getAttribute("object-type") == "bullet"){
+						//// 刪除子彈
+						e.detail.body.el.remove();
+						//// 刪除禮物
+						e.detail.target.el.remove();
+
+						let note = e.detail.target.el.getAttribute("score");
+						console.log(" score note = " , note );
+						
+						if (note == "double"){
+							doubles += 1;
+						}else {
+							score += Number(note);
+						}
+
+					}
+					//// 假如『禮物』受到『地板』碰撞，刪除禮物
+					if (e.detail.body.el.getAttribute("id") == "ground"){
+						e.detail.target.el.remove();
+					}
+
+					
+
+				});
+
+				aScene.appendChild(gift);
+				//// 達到上限，結束生成
+				if (generatedCount == totalCount){
+					clearInterval(timer);
+
+					//// 最後一波釋放後九秒結算
+					setTimeout(function(){
+						console.log(" ctrlObj call clearInterval ")
+						clearInterval(ctrlObj);
+
+						if (doubles > 0){
+							score*= ( Math.pow(2 , doubles) );
+						}
+						blocker_score.style.display = "block";
+						score_info.innerText = "恭喜獲得" + score + "分";
+
+						blocker_score.onclick = function(){
+							blocker_score.style.display = "none";
+							randomGenerateObject();
+						}
+					}, 9000);
+				}
+			}
+
+			//// 控制場景中的『禮物』落下速度，
+			let velocity = new THREE.Vector3(0, -0.5, 0);
+			var ctrlObj = setInterval(controlObjects, 100 );
+			function controlObjects(){
+				for (let i = 0, len = aScene.children.length; i< len; i++ ){
+					if (aScene.children[i].getAttribute("object-type") == "gift" ){
+						if (aScene.children[i].body ){
+							// console.log(" ***  " , aScene.children[i].body );
+							aScene.children[i].body.velocity.set( velocity.x, velocity.y, velocity.z );
+						}
+					}
+				}
+				 
+				
+			}
+			
+
+
+		}
+
+
+	</script>
+
+</body>
+</html>
+
