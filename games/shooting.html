@@ -484,6 +484,8 @@
 				gift.setAttribute("angularDamping", "1000");
 				
 				//// 隨機生出不同貼圖的球，同時要帶入資訊
+				//// x2 的球最多只能出現兩次
+				let doubleCount = 0;
 				let prob = Math.random();
 				if ( prob <= 0.4 ){
 					gift.setAttribute("material","shader: flat; src: #texture_gift_1; repeat: 3 1");
@@ -494,9 +496,13 @@
 				}else if ( prob > 0.7 && prob <= 0.9 ){
 					gift.setAttribute("material","shader: flat; src: #texture_gift_3; repeat: 3 1");
 					gift.setAttribute("score", "3" );
-				}else{
+				}else if ( prob > 0.9 && doubleCount < 2  ){
 					gift.setAttribute("material","shader: flat; src: #texture_gift_x2; repeat: 3 1");
 					gift.setAttribute("score", "double" );
+					doubleCount += 1;
+				} else {
+					gift.setAttribute("material","shader: flat; src: #texture_gift_1; repeat: 3 1");
+					gift.setAttribute("score", "1" );
 				}
 
 
