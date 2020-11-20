@@ -15,9 +15,30 @@
     <link href="../styles/style.css" rel="stylesheet">
   </head>
   <body>
-    <div id="special-two-button">
+    <!-- <div id="special-two-button">
       <a href="../"><img src="/images/back-to-main-page.png" alt="回首頁" id="back-to-main-page"></a><span><img src="/images/logout.jpg" alt="登出" id="logout" class="clickable-button"></span>
+    </div> -->
+
+    <div id = "topBar" class="tab">
+      <input id="radio3" class="tablinksToggle" type="radio" name="tablinksSearch" checked>
+      <label for="radio3" id="labelDesigner" class="tablinksButton">兌換卷</label>
+      <input id="radio4" class="tablinksToggle" type="radio" name="tablinksSearch">
+      <label for="radio4" id="labelProject" class="tablinksButton">票夾</label>
     </div>
+
+    <div id = "bottomBar">
+      <div id="playeDiv" >
+        <p id = "playtext" class = "centerText" >玩遊戲</p> 
+      </div>
+      <div id="coinDiv" >
+        <img id = "coin" class="fillImg" src="/images/coin.png">
+        <p id = "coinNumber" class = "centerText" > 1 </p>
+      </div>
+      <div id="leadBn" >
+        <img id = "crown" class="fillImg" src="/images/crown.png">
+      </div>
+    </div>
+
     <div id="user-prize-list"></div>
     <script src="../scripts/NetworkAgent.js"></script>
     <script src="../scripts/UI.js"></script>

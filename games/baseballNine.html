@@ -1,4 +1,4 @@
- <!doctype html>
+<!doctype html>
 <html >
 <head>
 	<meta charset="utf-8">
@@ -38,29 +38,62 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.7);
             z-index: 1;
         }
+
+		#blocker_score {
+			display: none;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,0.7);
+			z-index: 1;
+		}
+
 		.instructions {
 			width: 100%;
 			height: 100%;
-		}
 
-		#blocker_score {
-            display: none;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 1;
-        }
+			display: -webkit-box;
+			display: -moz-box;
+			display: box;
+
+			-webkit-box-orient: horizontal;
+			-moz-box-orient: horizontal;
+			box-orient: horizontal;
+
+			-webkit-box-pack: center;
+			-moz-box-pack: center;
+			box-pack: center;
+
+			-webkit-box-align: center;
+			-moz-box-align: center;
+			box-align: center;
+
+			color: #ffffff;
+			text-align: center;
+			font-family: Arial;
+			font-size: 24px;
+			line-height: 34px;
+
+			cursor: pointer;
+		}
 
 		#score{
 			position: absolute;
 			z-index: 2;
-			left :0%;
+			left :5%;
 			bottom: 5%;		
-			font-size: 14;
+			font-size: 20;
+		}
+
+		#ballAmount{
+			position: absolute;
+			z-index: 2;
+			left :80%;
+			bottom: 5%;		
+			font-size: 20;
 		}
 
 	</style>
@@ -69,16 +102,36 @@
 </head>
 <body>
 	
+	<div id="blocker">
+        <div class="instructions" id = "blocker_info">
+            <span style="font-size:36px">Click to play</span>
+            <br /><br />
+            滑鼠/手指滑動螢幕來丟球<br/>
+            總共12球，看看你能夠得到幾分吧<br/>
+        </div>
+    </div>
+    <div id="blocker_score">
+        <div class="instructions" >
+            <span style="font-size:36px">Click to play again</span>
+            <br /><br />
+            <span style="font-size:36px" id = "score_info"> </span>
+            <br/>
+            點擊畫面再玩一遍<br/>
+        </div>
+	</div>
+	<div id="score">
+		分數: 0
+	</div>
+
+	<div id="ballAmount">
+		球數: 12
+	</div>
+
 	<a href="/index.html">
 		<div style="position: absolute;z-index: 2;font-size: 15pt; color:rgba(255,255,255,0.8); background-color: rgba(0,0,0,0.5);"	>
 			返回首頁
 		</div>
 	</a>
-
-	<div id="score">
-		分數: 0
-	</div>
-
 
 	<script src="js/vconsole.min.js"></script>
 	<script>
@@ -123,7 +176,7 @@
 	<div id = "myEmbeddedScene"  >
 		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
 		device-orientation-permission-ui="enabled: true"  background="color: #ECECEC" shadow="type: pcfsoft"
-		physics="debug: false" >
+		physics="debug: false; friction: 0.005; " >
 			<a-assets id = "aAssets">
 
 				<a-asset-item id="robot" src="model/robot.glb"></a-asset-item>
@@ -131,86 +184,82 @@
 				<a-asset-item id="sphere" src="model/Sphere.glb"></a-asset-item>
 				<a-asset-item id="baseball" src="model/baseball1.glb"></a-asset-item>
 
+				<img id="n1" src="images/n1.png">
+				<img id="n2" src="images/n2.png">
+				<img id="n3" src="images/n3.png">
+				<img id="n4" src="images/n4.png">
+				<img id="n5" src="images/n5.png">
+				<img id="n6" src="images/n6.png">
+				<img id="n7" src="images/n7.png">
+				<img id="n8" src="images/n8.png">
+				<img id="n9" src="images/n9.png">
+
 			</a-assets>
 
 			<a-entity id="rig" position="0 0.8 0" rotation="0 0 0">
 				<!-- <a-entity id="aCamera" camera  look-controls wasd-controls></a-entity> -->
 				<a-entity id="aCamera" camera="fov:80; zoom:1" ></a-entity>
 			</a-entity>
-
-			<!-- <a-box id = "ground" width="8" height="0.1" depth="20" position="0 -5 0" static-body visible="true"></a-box> -->
-			<!-- <a-entity id="ball" dynamic-body velocity="0 0 -10" linearDamping="0.0001" position="0 2 100.2" 
-			material="roughness: 0.48; color:	#00FF00;" geometry="primitive: sphere; radius: 0.1" shadow="cast:true;receive:true"></a-entity> -->
-
-			<!-- <a-entity visible = "true"  id = "aSphere" position="0 0.9 -1.0" rotation="0 0 0" scale=" 0.1 0.1 0.1 " gltf-model="#sphere" ></a-entity> -->
+			
+			<!-- 棒球本身 -->
 			<a-entity visible = "true" id = "aSphere" position="0 0.1 -1.0" rotation="0 0 0" scale=" 0.0005 0.0005 0.0005 " gltf-model="#baseball" ></a-entity>
-			<!-- <a-entity visible = "true" id = "aSphere" position="0 0.9 -1.0" rotation="0 0 0" scale=" 0.2 0.2 0.2 " gltf-model="#worn_baseball_ball" ></a-entity> -->
 
-			<!-- <a-plane  position="1.5 1.7 -2.6" rotation="0 0 0" width="0.2" height="0.2" color="#00FF00" opacity="0.5" side="double" id ="imgBG2" shadow="receive: true" static-body ></a-plane> -->
-
-			<!-- <a-entity id="aRobot" position="-0.5 0 -4.0" rotation="0 0 0" scale=" 0.2 0.2 0.2 " gltf-model="#robot" animation-mixer="clip: Walking" static-body></a-entity> -->
-
-
-			<!-- <a-text id = "t1" value="分數: 0" position="0.0 0 -1.5" rotation="0 0 0"side="double" color="#FF0000" negate="false"shadow="cast:false;"></a-text> -->
-
-			<!-- <a-plane  position="0 2 -7.1" rotation="0 0 0" width="10" height="10" color="#96FFFF" opacity="1.0" side="double" id ="imgBG" 
-			shadow="receive: true" material="shader: flat;" static-body ></a-plane> -->
 			
 			<!-- 棒球九宮格 -->
 
 			<!-- 板子 -->
 
-			<a-plane  position="-1.05 2.575 -3" rotation="0 0 0" width="1" height="1" color="#1ADAD6" opacity="1.0" side="double" id ="board1" 
-			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+			<a-plane  position="-1.05 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board1" 
+			shadow="receive: true" material="shader: flat; src: #n1;" dynamic-body="mass:500" ></a-plane>
 
-			<a-plane  position="0 2.575 -3" rotation="0 0 0" width="1" height="1" color="#1ADAD6" opacity="1.0" side="double" id ="board2" 
-			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+			<a-plane  position="0 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board2" 
+			shadow="receive: true" material="shader: flat; src: #n2;" dynamic-body="mass:500" ></a-plane>
 
-			<a-plane  position="1.05 2.575 -3" rotation="0 0 0" width="1" height="1" color="#1ADAD6" opacity="1.0" side="double" id ="board3" 
-			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+			<a-plane  position="1.05 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board3" 
+			shadow="receive: true" material="shader: flat; src: #n3;" dynamic-body="mass:500" ></a-plane>
 
-			<a-plane  position="-1.05 1.55 -3" rotation="0 0 0" width="1" height="1" color="#1ADAD6" opacity="1.0" side="double" id ="board4" 
-			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+			<a-plane  position="-1.05 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board4" 
+			shadow="receive: true" material="shader: flat; src: #n4;" dynamic-body="mass:500" ></a-plane>
 
-			<a-plane  position="0 1.55 -3" rotation="0 0 0" width="1" height="1" color="#1ADAD6" opacity="1.0" side="double" id ="board5" 
-			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+			<a-plane  position="0 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board5" 
+			shadow="receive: true" material="shader: flat; src: #n5;" dynamic-body="mass:500" ></a-plane>
 
-			<a-plane  position="1.05 1.55 -3" rotation="0 0 0" width="1" height="1" color="#1ADAD6" opacity="1.0" side="double" id ="board6" 
-			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>			
+			<a-plane  position="1.05 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board6" 
+			shadow="receive: true" material="shader: flat; src: #n6;" dynamic-body="mass:500" ></a-plane>			
 			
-			<a-plane  position="-1.05 0.5 -3" rotation="0 0 0" width="1" height="1" color="#1ADAD6" opacity="1.0" side="double" id ="board7" 
-			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+			<a-plane  position="-1.05 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board7" 
+			shadow="receive: true" material="shader: flat; src: #n7;" dynamic-body="mass:500" ></a-plane>
 
-			<a-plane  position="0 0.5 -3" rotation="0 0 0" width="1" height="1" color="#1ADAD6" opacity="1.0" side="double" id ="board8" 
-			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+			<a-plane  position="0 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board8" 
+			shadow="receive: true" material="shader: flat; src: #n8;" dynamic-body="mass:500" ></a-plane>
 
-			<a-plane  position="1.05 0.5 -3" rotation="0 0 0" width="1" height="1" color="#1ADAD6" opacity="1.0" side="double" id ="board9" 
-			shadow="receive: true" material="shader: flat;" dynamic-body="mass:500" ></a-plane>
+			<a-plane  position="1.05 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board9" 
+			shadow="receive: true" material="shader: flat; src: #n9;" dynamic-body="mass:500" ></a-plane>
 
 
 			<!-- 框 -->
 
-			<a-box id = "frame1" width="3.1" height="0.05" depth="0.1" position="-0.525 1.55 -3" rotation="0 0 90" static-body visible="true" color="#ADADAD"></a-box>
+			<a-box id = "frame1" width="3.1" height="0.05" depth="0.05" position="-0.525 1.55 -3" rotation="0 0 90" static-body visible="true" color="#333333"></a-box>
 
-			<a-box id = "frame2" width="3.1" height="0.05" depth="0.1" position="0.525 1.55 -3" rotation="0 0 90" static-body visible="true" color="#ADADAD"></a-box>
+			<a-box id = "frame2" width="3.1" height="0.05" depth="0.05" position="0.525 1.55 -3" rotation="0 0 90" static-body visible="true" color="#333333"></a-box>
 
-			<a-box id = "frame3" width="3.1" height="0.05" depth="0.1" position="-1.575 1.55 -3" rotation="0 0 90" static-body visible="true" color="#ADADAD"></a-box>
+			<a-box id = "frame3" width="3.1" height="0.05" depth="0.05" position="-1.575 1.55 -3" rotation="0 0 90" static-body visible="true" color="#333333"></a-box>
 
-			<a-box id = "frame4" width="3.1" height="0.05" depth="0.1" position="1.575 1.55 -3" rotation="0 0 90" static-body visible="true" color="#ADADAD"></a-box>
+			<a-box id = "frame4" width="3.1" height="0.05" depth="0.05" position="1.575 1.55 -3" rotation="0 0 90" static-body visible="true" color="#333333"></a-box>
 
-			<a-box id = "frame5" width="3.2" height="0.05" depth="0.1" position="0 1.025 -3" static-body visible="true" color="#ADADAD"></a-box>
+			<a-box id = "frame5" width="3.2" height="0.05" depth="0.05" position="0 1.025 -3" static-body visible="true" color="#333333"></a-box>
 
-			<a-box id = "frame6" width="3.2" height="0.05" depth="0.1" position="0 2.075 -3" static-body visible="true" color="#ADADAD"></a-box>
+			<a-box id = "frame6" width="3.2" height="0.05" depth="0.05" position="0 2.075 -3" static-body visible="true" color="#333333"></a-box>
 
-			<a-box id = "frame7" width="3.2" height="0.05" depth="0.1" position="0 3.125 -3" static-body visible="true" color="#ADADAD"></a-box>
+			<a-box id = "frame7" width="3.2" height="0.05" depth="0.05" position="0 3.125 -3" static-body visible="true" color="#333333"></a-box>
 
-			<a-box id = "frame8" width="3.2" height="0.05" depth="0.1" position="0 -0.025 -3" static-body visible="true" color="#ADADAD"></a-box>
+			<a-box id = "frame8" width="3.2" height="0.05" depth="0.05" position="0 -0.025 -3" static-body visible="true" color="#333333"></a-box>
 
 
 
 			<!-- 棒球九宮格 -->
 
-			<a-plane id="underplane" position="0 -1 0" rotation="-90 0 0" width="50" height="50" color="#7BC8A4" opacity="0.5" shadow="receive: true" static-body></a-plane>
+			<a-plane id="underplane" position="0 -3 0" rotation="-90 0 0" width="50" height="50" color="#7BC8A4" opacity="0.5" shadow="receive: true" static-body></a-plane>
 
 			<a-sky id = "aSky" color="#ECECEC"></a-sky>
 			<a-entity light="type: ambient; color: #FFFFFF"></a-entity>
@@ -229,36 +278,11 @@
 	</div>	
 
 	<script>
-		var fonts;
-		// fonts = [  "font/1-msdf.json" , "font/2-msdf.json" , "font/3-msdf.json", "font/4-msdf.json" , "font/5-msdf.json" , "font/6-msdf.json", "font/7-msdf.json" , "font/8-msdf.json" , "font/9-msdf.json", "font/10-msdf.json" , "font/11-msdf.json" , "font/12-msdf.json" ];
 		
-		// fonts = [ "font/11-msdf.json", "font/12-msdf.json"  ];
-		// fonts = [  "font/12-msdf.json" ];
-		var s3url = "https://s3-ap-northeast-1.amazonaws.com/makar.webar.defaultobject/resource/fonts/"
-		fonts = [  s3url + "1-msdf.json", s3url + "2-msdf.json" , s3url + "3-msdf.json", s3url + "4-msdf.json", s3url + "5-msdf.json", s3url + "6-msdf.json"
-				 , s3url + "7-msdf.json" , s3url + "8-msdf.json", s3url + "9-msdf.json", s3url + "10-msdf.json", s3url + "11-msdf.json", s3url + "12-msdf.json" ];
-		// fonts = [  s3url + "1-msdf.json"  ];
-		// fonts = [  s3url + "1-msdf.json" , s3url + "2-msdf.json" ];
 
-		if (document.getElementById("t1")) t1.setAttribute("font", fonts );
-		if (document.getElementById("t2")) t2.setAttribute("font", fonts );
-
-		let yr , pr ;
-		function getCameraR (){
-
-			// rig.setAttribute("rotation", {x:45,y:45,z:0} );
-			aCamera.components["look-controls"].yawObject.rotation.set( 0, Math.PI*1/180, 0 );
-			aCamera.components["look-controls"].pitchObject.rotation.set( Math.PI*1/180, 0, 0);
-
-			yr  = aCamera.components["look-controls"].yawObject.rotation; // only y direction
-			pr = aCamera.components["look-controls"].pitchObject.rotation;// only x direction
-			console.log(" aCamera yr=" , yr.x , yr.y , yr.z  );
-			console.log(" aCamera pr=" , pr.x , pr.y , pr.z  );
-			// console.log(" aCamera ypr=" , yr.x + pr.x ,  yr.y + pr.y ,  yr.z + pr.z  );
-			// console.log(" aCamera ypr=" , aCamera.object3D  );
-
-		}
-		// setTimeout(getCameraR, 2000 );
+		blocker.addEventListener("click", function(){
+			blocker.style.display = "none";
+		});
 
 		//// 設定場景功能，分為 
 		//// 1. 按住滑鼠/觸控 來拖拉物件，不可拖拉出特定圓圈範圍。
@@ -272,6 +296,8 @@
 		let aRobot = document.getElementById("aRobot");
 		let underplane = document.getElementById("underplane");
 		let scoreText = document.getElementById("score")
+		let ballAmountText = document.getElementById("ballAmount")
+		let board1 = document.getElementById("board1");
 		let aSphereOriginPosition = aSphere.object3D.position.clone();
 		aSphere.addEventListener("loaded" , function(evt){
 			aSphereOriginPosition = aSphere.object3D.position.clone();
@@ -300,23 +326,134 @@
 		// 	}, 1000);
 		// });
 		let boardTable = [0,0,0,0,0,0,0,0,0];
+		let ballAmount = 12;
 		let score = 0;
 		// 下方平面被撞到 算分並重置
-		underplane.addEventListener('collide', function(e){
-			if (e.detail.contact.bj.el.id == "underplane"){
-				// console.log(e.detail.contact.bi.el.id )
-				boardNum = e.detail.contact.bi.el.id[5];
-				if(boardTable[boardNum]==0){
-					boardTable[boardNum] = 1;
+		// underplane.addEventListener('collide', function(e){
+		// 	if (e.detail.contact.bj.el.id == "underplane"){
+		// 		// console.log(e.detail.contact.bi.el.id )
+		// 		boardNum = e.detail.contact.bi.el.id[5]-1;
+		// 		if(boardTable[boardNum]==0){
+		// 			boardTable[boardNum] = 1;
+		// 			score += 1
+		// 			// console.log(score)
+		// 			scoreText.innerText = "分數: "+score.toString();
+		// 		}
+		// 	}
+		// 	// console.log('score',e.detail)
+		// 	// console.log('plane is hit', e.detail.target.el.object3D );
+
+		// });
+
+		board1.addEventListener('collide', function(e){
+			if (e.detail.contact.bi.el.id == "board1"){
+				// console.log(e.detail.contact.bi.el.object3D.position )
+				pos = e.detail.contact.bi.el.object3D.position
+				if(pos.y < 0 && boardTable[0]==0){
+					boardTable[0] = 1;
 					score += 1
-					// console.log(score)
 					scoreText.innerText = "分數: "+score.toString();
 				}
 			}
-			// console.log('score',e.detail)
-			// console.log('plane is hit', e.detail.target.el.object3D );
-
 		});
+
+		board2.addEventListener('collide', function(e){
+			if (e.detail.contact.bi.el.id == "board2"){
+				// console.log(e.detail.contact.bi.el.object3D.position )
+				pos = e.detail.contact.bi.el.object3D.position
+				if(pos.y < 0 && boardTable[1]==0){
+					boardTable[1] = 1;
+					score += 1
+					scoreText.innerText = "分數: "+score.toString();
+				}
+			}
+		});
+
+		board3.addEventListener('collide', function(e){
+			if (e.detail.contact.bi.el.id == "board3"){
+				// console.log(e.detail.contact.bi.el.object3D.position )
+				pos = e.detail.contact.bi.el.object3D.position
+				if(pos.y < 0 && boardTable[2]==0){
+					boardTable[2] = 1;
+					score += 1
+					scoreText.innerText = "分數: "+score.toString();
+				}
+			}
+		});
+
+		board4.addEventListener('collide', function(e){
+			if (e.detail.contact.bi.el.id == "board4"){
+				// console.log(e.detail.contact.bi.el.object3D.position )
+				pos = e.detail.contact.bi.el.object3D.position
+				if(pos.y < 0 && boardTable[3]==0){
+					boardTable[3] = 1;
+					score += 1
+					scoreText.innerText = "分數: "+score.toString();
+				}
+			}
+		});
+
+		board5.addEventListener('collide', function(e){
+			if (e.detail.contact.bi.el.id == "board5"){
+				// console.log(e.detail.contact.bi.el.object3D.position )
+				pos = e.detail.contact.bi.el.object3D.position
+				if(pos.y < 0 && boardTable[4]==0){
+					boardTable[4] = 1;
+					score += 1
+					scoreText.innerText = "分數: "+score.toString();
+				}
+			}
+		});
+
+		board6.addEventListener('collide', function(e){
+			if (e.detail.contact.bi.el.id == "board6"){
+				// console.log(e.detail.contact.bi.el.object3D.position )
+				pos = e.detail.contact.bi.el.object3D.position
+				if(pos.y < 0 && boardTable[5]==0){
+					boardTable[5] = 1;
+					score += 1
+					scoreText.innerText = "分數: "+score.toString();
+				}
+			}
+		});
+
+		board7.addEventListener('collide', function(e){
+			if (e.detail.contact.bi.el.id == "board7"){
+				// console.log(e.detail.contact.bi.el.object3D.position )
+				pos = e.detail.contact.bi.el.object3D.position
+				if(pos.y < 0 && boardTable[6]==0){
+					boardTable[6] = 1;
+					score += 1
+					scoreText.innerText = "分數: "+score.toString();
+				}
+			}
+		});
+
+		board8.addEventListener('collide', function(e){
+			if (e.detail.contact.bi.el.id == "board8"){
+				// console.log(e.detail.contact.bi.el.object3D.position )
+				pos = e.detail.contact.bi.el.object3D.position
+				if(pos.y < 0 && boardTable[7]==0){
+					boardTable[7] = 1;
+					score += 1
+					scoreText.innerText = "分數: "+score.toString();
+				}
+			}
+		});
+
+		board9.addEventListener('collide', function(e){
+			if (e.detail.contact.bi.el.id == "board9"){
+				// console.log(e.detail.contact.bi.el.object3D.position )
+				pos = e.detail.contact.bi.el.object3D.position
+				if(pos.y < 0 && boardTable[8]==0){
+					boardTable[8] = 1;
+					score += 1
+					scoreText.innerText = "分數: "+score.toString();
+				}
+			}
+		});
+
+
 		
 
 		document.body.addEventListener("mouseup", clearTouchState, false);
@@ -509,7 +646,20 @@
 				// aSphere.body.velocity.set( vector.x, vector.y, vector.z );
 				aSphere.body.velocity.set( velocity.x, velocity.y, velocity.z );
 
-				resetSphere(3000);
+				ballAmount -= 1;
+				ballAmountText.innerText = "球數: "+ballAmount.toString();
+				// resetSphere(2000);
+				if(ballAmount>0){
+					resetSphere(2000);
+				} else{
+					setTimeout(function(){
+						blocker_score.style.display = "block";
+						score_info.innerText = "恭喜獲得" + score + "分";
+						blocker_score.onclick = function(){
+							location.reload();
+						}
+					}, 2500);
+				}
 				
 				console.log("vrSceneTouchEnd set 2 " , pdiff , "\n", preMouses[3][0] - preMouses[0][0] , preMouses[3][1] - preMouses[0][1] );
 				preMouses = [[0,0],[0,0],[0,0],[0,0]];
