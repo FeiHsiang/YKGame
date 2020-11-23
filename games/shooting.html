@@ -70,6 +70,22 @@
 			cursor: pointer;
 		}
 
+		#scoreNow{
+			position: absolute;
+			z-index: 2;
+			left :5%;
+			bottom: 5%;		
+			font-size: 20;
+		}
+
+		#countdown{
+			position: absolute;
+			z-index: 2;
+			left :80%;
+			bottom: 5%;		
+			font-size: 20;
+		}
+
 		@media screen and (min-width: 300px) and (max-width: 700px) {
 			#myEmbeddedScene{
 				/* margin: 20px 10px; */
@@ -105,6 +121,14 @@
 			點擊畫面再玩一遍<br/>
 			
 		</div>
+	</div>
+
+	<div id = "scoreNow">
+		分數：0
+	</div>
+
+	<div id = "countdown">
+		剩餘時間：20
 	</div>
 
 	<div id = "closeIframe" style="position: absolute;z-index: 2;font-size: 15pt; color:rgba(0,0,0,0.5); "	>
@@ -185,7 +209,7 @@
 			</a-entity>
 
 			<!-- <a-box id = "ground" width="8" height="0.1" depth="20" position="0 -5 0" static-body visible="false" ></a-box> -->
-			<a-plane id = "ground" position="0 -2 -4" rotation="-90 0 0" width="8" height="10" color="#7BC8A4" opacity="0.5" shadow="receive: true" static-body ></a-plane>
+			<a-plane id = "ground" material="side:double;" position="0 6 -4" rotation="-90 0 0" width="200" height="200" color="#7BC8A4" opacity="0.5" shadow="receive: true" visible="false" ></a-plane>
 
 			<!-- <a-text id = "t1" value="滑鼠/手指點擊來丟球\n調整方向來擊中從天而降的禮物" position="0.0 1.9 -2.50" rotation="0 0 0"side="double" color="#FF0000" negate="false"shadow="cast:false;"></a-text> -->
 
@@ -454,6 +478,16 @@
 		blocker.addEventListener("click", function(){
 			blocker.style.display = "none";
 			randomGenerateObject();
+
+			let timeLeft = 19;
+			intervalId = setInterval(countdownTick, 1000);
+			function countdownTick(){
+				timeLeft--;
+				countdown.textContent = "剩餘時間：" + timeLeft;
+				if (timeLeft <= 0){
+					clearInterval(intervalId);
+				}
+			}
 		});
 
 		//// 隨機掉落『禮物』，控制固定速度的功能寫在外面，寫在個別會造成卡頓，在固定的時間內尋找場景中所有符合條件的物件賦予固定落下速度
@@ -469,28 +503,28 @@
 			let score = 0;
 			let doubles = 0;
 			let generatedCount = 0;
+			//// x2 的球最多只能出現兩次
+			let doubleCount = 0;
 			let timer = setInterval( genObject , period);
 			function genObject(){
 				// console.log("randomGenerateObject , generatedCount =" , generatedCount );
 				generatedCount += 1;
 
 				//// 計算隨機生成的位置。
-				let randomPosition = new THREE.Vector3(0, 6, -5);
+				let randomPosition = new THREE.Vector3(0, -1, -6);
 				randomPosition.x += Math.random()*4 -2;
 				randomPosition.z += Math.random()*4 -2;
 
-				let velocity = new THREE.Vector3(0, -0.5, 0);
+				let velocity = new THREE.Vector3(0, 0.5, 0);
 
 				let gift = document.createElement('a-entity');
-				gift.setAttribute("dynamic-body", "mass: 1;");
+				gift.setAttribute("static-body", "mass: 1;");
 				gift.setAttribute("object-type", "gift");
 
 				gift.setAttribute("linearDamping", "1000");
 				gift.setAttribute("angularDamping", "1000");
 				
 				//// 隨機生出不同貼圖的球，同時要帶入資訊
-				//// x2 的球最多只能出現兩次
-				let doubleCount = 0;
 				let prob = Math.random();
 				if ( prob <= 0.4 ){
 					gift.setAttribute("material","shader: flat; src: #texture_gift_1; repeat: 3 1");
@@ -536,6 +570,8 @@
 							score += Number(note);
 						}
 
+						scoreNow.innerText = "分數："+(score*(Math.pow(2, doubles)));
+
 					}
 					//// 假如『禮物』受到『地板』碰撞，刪除禮物
 					if (e.detail.body.el.getAttribute("id") == "ground"){
@@ -566,23 +602,30 @@
 							blocker_score.style.display = "none";
 							randomGenerateObject();
 						}
-					}, 9000);
+					}, 16000);
 				}
 			}
 
-			//// 控制場景中的『禮物』落下速度，
-			let velocity = new THREE.Vector3(0, -0.5, 0);
+			//// 控制場景中的『禮物』上升速度，
+			let velocity = new THREE.Vector3(0, 0.5, 0);
+			let heightThreshold = ground.object3D.position.y;
 			var ctrlObj = setInterval(controlObjects, 100 );
 			function controlObjects(){
+				let needRemoved = [];
 				for (let i = 0, len = aScene.children.length; i< len; i++ ){
 					if (aScene.children[i].getAttribute("object-type") == "gift" ){
 						if (aScene.children[i].body ){
 							// console.log(" ***  " , aScene.children[i].body );
 							aScene.children[i].body.velocity.set( velocity.x, velocity.y, velocity.z );
 						}
+						if (aScene.children[i].body.position.y > heightThreshold){
+							needRemoved.push(aScene.children[i]);
+						}
 					}
 				}
-				 
+				for (let i = 0, len=needRemoved.length; i< len; i++){
+					needRemoved[i].remove();
+				}
 				
 			}
 			

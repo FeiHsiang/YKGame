@@ -30,6 +30,7 @@ class UI {
     console.log("UI.js: _showAllCoupons ret=" , ret );
     if (!ret){
       document.getElementById('couponPool').textContent = '錯誤, ret not exist';
+      return;
     }
     if (ret.errorMessage != ""){
       document.getElementById('couponPool').textContent = '錯誤, ' + ret.errorType + ", " + ret.errorMessage ;

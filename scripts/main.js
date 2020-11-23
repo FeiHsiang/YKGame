@@ -148,8 +148,6 @@ switch (location.pathname) {
       console.log(" couponsPoolInfo click ");
       document.getElementById("user-prize-list").style.display = "none";
       document.getElementById("couponPool").style.display = "block";
-
-      
       aUI.showAllCoupons();
     });
     //// 我的兌換券
@@ -164,9 +162,10 @@ switch (location.pathname) {
       console.log(" leadBn click ");
       document.getElementById("leadBnModal").style.display = "block";
     });
+    //// 關閉排行榜
     closeLeadBnModal.addEventListener('click', function(){
       document.getElementById("leadBnModal").style.display = "none";
-    })
+    });
 
     break;
   default:
