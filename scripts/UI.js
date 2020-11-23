@@ -171,29 +171,37 @@ class UI {
 
 //[start-20201123- fei -0001-add]//
   //// 以 iframe 方式開啟遊戲
-  startGameIframe( _gameName ){
-
+  startPlayingGame( _gameName ){
+    console.log("UI.js: startPlayingGame ");
     let gameName = _gameName? _gameName: "baseballNine";
 
-    if (document.getElementById("game")) document.getElementById("game").remove();
+    ////直接跳轉到遊戲頁面
+    location.replace("/games/" + gameName + ".html" );
 
-    let ifrm = document.createElement("iframe");
-    ifrm.setAttribute("id", "game" ); 
-    ifrm.setAttribute("src", "/games/" + gameName +".html");  
-    ifrm.style.position = "absolute";
-    //// set the style
-    ifrm.style.border = "0px";
-    ifrm.style.width = "100%";
-    ifrm.style.height = "100%";
-    ifrm.style.top = "0%";
-    ifrm.style.left = "0%";
-    ifrm.style.zIndex = 1; //
-    document.body.appendChild(ifrm);
+    //// 使用iframe開啟遊戲頁面。
+    // if (document.getElementById("game")) document.getElementById("game").remove();
+
+    // let ifrm = document.createElement("iframe");
+    // ifrm.setAttribute("id", "game" ); 
+    // ifrm.setAttribute("src", "/games/" + gameName +".html");  
+    // ifrm.style.position = "absolute";
+    // //// set the style
+    // ifrm.style.border = "0px";
+    // ifrm.style.width = "100%";
+    // ifrm.style.height = "100%";
+    // ifrm.style.top = "0%";
+    // ifrm.style.left = "0%";
+    // ifrm.style.zIndex = 1; //
+    // document.body.appendChild(ifrm);
 
   }
 
   closeGameIframe(){
-    if (document.getElementById("game")) document.getElementById("game").remove();
+    //// 直接跳轉回主頁面
+    location.replace("/prize-list");
+
+    //// 關閉iframe 回到主頁面
+    // if (document.getElementById("game")) document.getElementById("game").remove();
   }
 
 

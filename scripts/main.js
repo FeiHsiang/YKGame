@@ -52,9 +52,10 @@ let checkLogin = function() {
   }
   else {
 //[start-20201119- fei -0001-debug]//
-    // console.log("main.js: call selectProgramToRun ");
-    // selectProgramToRun();
-    // return;
+    //// 測試：不論登入與否，直接顯示
+    console.log("main.js: call selectProgramToRun ");
+    selectProgramToRun();
+    return;
 //[end---20201119- fei -0001-debug]//
 
     // 沒登入
@@ -111,15 +112,19 @@ switch (location.pathname) {
 
 //[start-20201123- fei -0001-adddebug]//
     gameStartImg.addEventListener('click', function(){
-      aUI.startGameIframe("");
+      aUI.startPlayingGame("");
     },false);
 
+    myCoupon.addEventListener('click', function(){
+      location.replace("/prize-list");
+    });
+
     game1.addEventListener('click', function(){
-      aUI.startGameIframe("shooting");
+      aUI.startPlayingGame("shooting");
     },false);
     
     game2.addEventListener('click', function(){
-      aUI.startGameIframe("baseballNine");
+      aUI.startPlayingGame("baseballNine");
     },false);
 
 //[end---20201123- fei -0001-adddebug]//
@@ -132,6 +137,11 @@ switch (location.pathname) {
     isChangeBrowserPage = false;
     let logout = document.getElementById('logout');
     logout.addEventListener('click', checkWhichIsLoggedIn, false);
+
+    playeDiv.addEventListener('click', function(){
+      aUI.startPlayingGame();
+    }, false);
+
     break;
   default:
     isChangeBrowserPage = false;

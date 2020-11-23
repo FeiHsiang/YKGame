@@ -110,20 +110,6 @@ let selectProgramToRun = function() {
 
       aUI.showAfterLogin();
       break;
-    case '/game-start/':
-    case '/game-start/index':
-    case '/game-start/index.html':
-
-      var currectDate = new Date();
-      console.log(" date over: " , currectDate.getMonth() , currectDate.getDate() );
-      if ( currectDate.getMonth() > 7 || currectDate.getDate() > 9 ){ //// 月 0-11 日 1-31
-        console.log(" date over: "  );
-        location.replace(`${location.protocol}//${location.host}/`);
-      }else{
-        openIframe();
-      }
-      
-      break;
     case '/get-prize/':
     case '/get-prize/index':
     case '/get-prize/index.html':
@@ -134,7 +120,10 @@ let selectProgramToRun = function() {
     case '/prize-list/index.html':
       listAllUserPrize();
       break;
-  }
+    default:
+      console.log("globalVariabiles.js: the location unknown, back home ");
+      location.replace(`${location.protocol}//${location.host}/`);
+    }
 };
 
 window.requestDeviceMotionPermission = function (){

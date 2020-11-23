@@ -108,7 +108,7 @@
 	</div>
 
 	<div id = "closeIframe" style="position: absolute;z-index: 2;font-size: 15pt; color:rgba(0,0,0,0.5); "	>
-		返回首頁
+		返回主頁面
 	</div>
 
 	<script src="js/vconsole.min.js"></script>
@@ -144,9 +144,10 @@
 		}
 		
 		document.getElementById("closeIframe").addEventListener('click', function(){
-			if (parent){
-				parent.aUI.closeGameIframe();
-			}
+			// if (parent){
+			// 	parent.aUI.closeGameIframe();
+			// }
+			location.replace("/prize-list");
 		});
 
 	</script>
