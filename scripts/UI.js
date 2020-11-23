@@ -25,7 +25,30 @@ class UI {
     document.getElementById('account-info').textContent = `Hello ${userName}. ${userID}`;
   }
 
-  showAllUserPrize(myJson) {
+  //// 顯示當前所有可兌換的段換券
+  showAllCoupons(ret){
+    console.log("UI.js: _showAllCoupons ret=" , ret );
+    if (!ret){
+      document.getElementById('couponPool').textContent = '錯誤, ret not exist';
+    }
+    if (ret.errorMessage != ""){
+      document.getElementById('couponPool').textContent = '錯誤, ' + ret.errorType + ", " + ret.errorMessage ;
+      return;
+    }
+  }
+
+  //// 顯示用戶本身含有的兌換券
+  showMyCoupons(myJson) {
+    console.log("UI.js: _showAllUserPrize myJson=" , myJson );
+    if (!myJson){
+      document.getElementById('user-prize-list').textContent = '錯誤, myJson not exist' ;
+      return;
+    } 
+    if (myJson.errorMessage != ""){
+      console.log(" _showAllUserPrize error ");
+      document.getElementById('user-prize-list').textContent = '錯誤, ' + myJson.errorType + ", " + myJson.errorMessage ;
+      return;
+    }
     myJson[0].forEach((currentValue, index) => {
       let oneRowData = document.createElement('div');
       let imgDiv = document.createElement('div');

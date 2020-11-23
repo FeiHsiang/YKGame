@@ -23,10 +23,10 @@
     </div>
 
     <div id = "topBar" class="tab">
-      <input id="ticksPool" class="tablinksToggle" type="radio" name="tablinksSearch" checked>
-      <label for="ticksPool" id="labelDesigner" class="tablinksButton">兌換卷</label>
-      <input id="myTicks" class="tablinksToggle" type="radio" name="tablinksSearch">
-      <label for="myTicks" id="labelProject" class="tablinksButton">票夾</label>
+      <input id="couponsPool" class="tablinksToggle" type="radio" name="tablinksSearch" checked>
+      <label for="couponsPool" id="couponsPoolInfo" class="tablinksButton">兌換卷</label>
+      <input id="myCoupons" class="tablinksToggle" type="radio" name="tablinksSearch">
+      <label for="myCoupons" id="myCouponsInfo" class="tablinksButton">票夾</label>
     </div>
 
     <div id = "bottomBar">
@@ -42,7 +42,20 @@
       </div>
     </div>
 
+    <div id="couponPool"></div>
     <div id="user-prize-list"></div>
+
+    
+    <div id="leadBnModal" class="modal">
+        <div class="modal-content">
+          <span id = "closeLeadBnModal" class="close">&times;</span>
+          <div id="leadBnTitle">
+            <img id="leadBnImg" src="/images/crown.png">
+            <span id="leadBnInfo">永康幣排行榜</span>
+          </div>
+        </div>
+    </div>
+
     <script src="../scripts/NetworkAgent.js"></script>
     <script src="../scripts/UI.js"></script>
     <script src="../scripts/globalVariables.js"></script>

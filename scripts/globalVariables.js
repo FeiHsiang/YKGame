@@ -86,7 +86,7 @@ let listAllUserPrize = function() {
     requestItem: 'userPrizeList'
   };
   aNetworkAgent.sendPost(postData).then(myJson => {
-    aUI.showAllUserPrize(myJson);
+    aUI.showAllCoupons(myJson);
   });
 };
 

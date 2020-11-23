@@ -53,9 +53,9 @@ let checkLogin = function() {
   else {
 //[start-20201119- fei -0001-debug]//
     //// 測試：不論登入與否，直接顯示
-    // console.log("main.js: call selectProgramToRun ");
-    // selectProgramToRun();
-    // return;
+    console.log("main.js: call selectProgramToRun ");
+    selectProgramToRun();
+    return;
 //[end---20201119- fei -0001-debug]//
 
     // 沒登入
@@ -138,9 +138,35 @@ switch (location.pathname) {
     let logout = document.getElementById('logout');
     logout.addEventListener('click', checkWhichIsLoggedIn, false);
 
+    //// 玩遊戲
     playeDiv.addEventListener('click', function(){
       aUI.startPlayingGame();
     }, false);
+
+    //// 兌換券池
+    couponsPoolInfo.addEventListener('click', function(){
+      console.log(" couponsPoolInfo click ");
+      document.getElementById("user-prize-list").style.display = "none";
+      document.getElementById("couponPool").style.display = "block";
+
+      
+      aUI.showAllCoupons();
+    });
+    //// 我的兌換券
+    myCoupons.addEventListener('click', function(){
+      console.log(" myCoupons click ");
+      document.getElementById("user-prize-list").style.display = "block";
+      document.getElementById("couponPool").style.display = "none";
+      aUI.showMyCoupons();
+    });
+    //// 查看排行榜
+    leadBn.addEventListener('click', function(){
+      console.log(" leadBn click ");
+      document.getElementById("leadBnModal").style.display = "block";
+    });
+    closeLeadBnModal.addEventListener('click', function(){
+      document.getElementById("leadBnModal").style.display = "none";
+    })
 
     break;
   default:

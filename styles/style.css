@@ -105,6 +105,77 @@ body {
   object-fit :cover;
 }
 
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  /* https://stackoverflow.com/questions/10075524/sizing-div-based-on-window-width/35237091#35237091 */
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height */
+  background-color: rgba( 74 , 77 , 84 , 0.85 ); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  position: relative;
+  background-color: #202125;
+  margin: 3% auto;
+  border-radius: 16px;
+  width: 85vw;
+  height: 85vh;
+  overflow: auto;
+}
+
+.modal-content > div {
+  position: relative;
+  margin-left: 2%;
+  margin-right: 2%;
+  width: 90%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  /* float: right; */
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+} 
+
+#leadBnTitle{
+  position: relative;
+  margin-top: 15px;
+  min-height: 30px;
+}
+
+#leadBnImg{
+  position: absolute;
+  width:60px;
+  height:60px;
+  left:5px ;
+}
+
+#leadBnInfo{
+  position: relative;
+  font-size: 30px;
+  color: #8b93a6;
+  left:  45px ;
+  top:15px;
+}
+
 /* 兌換頁面 end */
 
 
