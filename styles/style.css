@@ -228,6 +228,7 @@ input[type=number] {
   width: auto;
   height: 6vh;
   margin-bottom: 6vh;
+  color:rgba(255,255,255,0.5);
 }
 
 #special-two-button > a {
@@ -244,6 +245,22 @@ input[type=number] {
 
 .game-intro-btn {
   max-width: 75%;
+}
+
+#gameStartImg{
+  position: relative;
+  width:100%;
+  left: 0%;
+  color:rgba(200,180,200,1.0);
+  font-size: 18pt;
+}
+
+#myCoupon{
+  position: relative;
+  width:100%;
+  left: 0%;
+  color:rgba(200,180,200,1.0);
+  font-size: 18pt;
 }
 
 img {
@@ -282,6 +299,7 @@ img {
   width:100%;
   height:10%;
   bottom: 0%;
+  background-color: rgba(20,20,20,1.0);
 }
 
 #fb-login-div{
@@ -327,6 +345,16 @@ img {
   height: 100vh;
 }
 
+.alignLeftText{
+  font-size: 16pt;
+  color:white; 
+  left:10%;
+  width:80%; 
+  position:absolute;
+  text-align: left;
+  cursor: pointer;
+}
+
 #gameIntro{
   color:cyan;
   width:100%;
@@ -341,19 +369,22 @@ img {
 
 @media screen and (min-width:900px) {
 
-  .game-intro-btn {
+  /* .game-intro-btn {
     max-width: 320px;
-  }
+  } */
 
 
-  #gameStartImg{
+  /* #gameStartImg{
     position: relative;
-    left: calc(50% - 220px);
-  }
+    width:50%;
+    left: 25%;
+  } */
 
   #prizeListImg{
     position: relative;
-    right: calc(50% - 220px);
+    /* right: calc(50% - 220px); */
+    width:50%;
+    left: 25%;
   }
 
   #prizeListImg2{

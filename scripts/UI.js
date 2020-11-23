@@ -19,7 +19,7 @@ class UI {
     document.getElementById('before-login').style.display = 'none';
     document.getElementById('after-login').style.display = 'flex';
 //[start-20201118- fei -0001-debug]//
-    document.getElementById("after-login").style.display = "none";
+    // document.getElementById("after-login").style.display = "none";
 //[end---20201118- fei -0001-debug]//
 
     document.getElementById('account-info').textContent = `Hello ${userName}. ${userID}`;
@@ -168,4 +168,35 @@ class UI {
       }
     });
   }
+
+//[start-20201123- fei -0001-add]//
+  //// 以 iframe 方式開啟遊戲
+  startGameIframe( _gameName ){
+
+    let gameName = _gameName? _gameName: "baseballNine";
+
+    if (document.getElementById("game")) document.getElementById("game").remove();
+
+    let ifrm = document.createElement("iframe");
+    ifrm.setAttribute("id", "game" ); 
+    ifrm.setAttribute("src", "/games/" + gameName +".html");  
+    ifrm.style.position = "absolute";
+    //// set the style
+    ifrm.style.border = "0px";
+    ifrm.style.width = "100%";
+    ifrm.style.height = "100%";
+    ifrm.style.top = "0%";
+    ifrm.style.left = "0%";
+    ifrm.style.zIndex = 1; //
+    document.body.appendChild(ifrm);
+
+  }
+
+  closeGameIframe(){
+    if (document.getElementById("game")) document.getElementById("game").remove();
+  }
+
+
+//[end----20201123- fei -0001-add]//
+
 }

@@ -52,9 +52,9 @@ let checkLogin = function() {
   }
   else {
 //[start-20201119- fei -0001-debug]//
-    console.log("main.js: call selectProgramToRun ");
-    selectProgramToRun();
-    return;
+    // console.log("main.js: call selectProgramToRun ");
+    // selectProgramToRun();
+    // return;
 //[end---20201119- fei -0001-debug]//
 
     // 沒登入
@@ -108,6 +108,23 @@ switch (location.pathname) {
     isChangeBrowserPage = false;
     let fbLoginButton = document.getElementById('fb-login-button');
     fbLoginButton.addEventListener('click', fbLogin, false);
+
+//[start-20201123- fei -0001-adddebug]//
+    gameStartImg.addEventListener('click', function(){
+      aUI.startGameIframe("");
+    },false);
+
+    game1.addEventListener('click', function(){
+      aUI.startGameIframe("shooting");
+    },false);
+    
+    game2.addEventListener('click', function(){
+      aUI.startGameIframe("baseballNine");
+    },false);
+
+//[end---20201123- fei -0001-adddebug]//
+
+
     break;
   case '/prize-list/':
   case '/prize-list/index':

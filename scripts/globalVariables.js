@@ -2,6 +2,7 @@ let aGoogleAuth;
 let aGoogleUser;
 let aNetworkAgent = new NetworkAgent();
 let aUI = new UI();
+window.aUI = aUI;
 let userID;
 let userName;
 let rewardID;
@@ -95,15 +96,17 @@ let selectProgramToRun = function() {
     case '/index':
     case '/index.html':
 
-      var currectDate = new Date();
-      console.log(" date over: " , currectDate.getMonth() , currectDate.getDate() );
-      if ( currectDate.getMonth() > 7 || currectDate.getDate() > 9 ){ //// 月 0-11 日 1-31
-        console.log(" date over: "  );
-        if ( document.getElementById("after-login").children[0].getAttribute("href") == "./game-start/"  ){
-          document.getElementById("after-login").children[0].style.pointerEvents = "none";
-          document.getElementById("gameStartImg").style.opacity = 0.5;
-        }
-      }
+//[start-20201120- fei - 0001-adddebug]//
+      // var currectDate = new Date();
+      // console.log(" date over: " , currectDate.getMonth() , currectDate.getDate() );
+      // if ( currectDate.getMonth() > 7 || currectDate.getDate() > 9 ){ //// 月 0-11 日 1-31
+      //   console.log(" date over: "  );
+      //   if ( document.getElementById("after-login").children[0].getAttribute("href") == "./game-start/"  ){
+      //     document.getElementById("after-login").children[0].style.pointerEvents = "none";
+      //     document.getElementById("gameStartImg").style.opacity = 0.5;
+      //   }
+      // }
+//[end---20201120- fei - 0001-adddebug]//
 
       aUI.showAfterLogin();
       break;

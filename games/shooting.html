@@ -107,11 +107,9 @@
 		</div>
 	</div>
 
-	<a href="/index.html">
-		<div style="position: absolute;z-index: 2;font-size: 15pt; color:rgba(0,0,0,0.5); "	>
-			返回首頁
-		</div>
-	</a>
+	<div id = "closeIframe" style="position: absolute;z-index: 2;font-size: 15pt; color:rgba(0,0,0,0.5); "	>
+		返回首頁
+	</div>
 
 	<script src="js/vconsole.min.js"></script>
 	<script>
@@ -145,6 +143,12 @@
 			requestDeviceMotionPermission();
 		}
 		
+		document.getElementById("closeIframe").addEventListener('click', function(){
+			if (parent){
+				parent.aUI.closeGameIframe();
+			}
+		});
+
 	</script>
 
 	<script src="js/aframe-v1.0.4.js"></script>

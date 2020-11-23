@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="MIND & IDEA FLY CO., LTD.">
-    <meta name="description" content="85 度 C 專案">
+    <meta name="description" content="永康 商圈 專案">
     <meta property="og:url" content="https://ssl-api-makar-apps.miflyservice.com:8080/">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="It is just a login test website">
-    <meta property="og:description" content="85 度 C 專案">
+    <meta property="og:title" content="yongkong market website">
+    <meta property="og:description" content="永康 商圈 專案">
     <meta property="og:image" content="https://www.makerar.com/banner/1569506677.jpg">
     <meta property="fb:app_id" content="790562841436344">
     <title>遊戲介紹</title>
@@ -18,17 +18,15 @@
     <div id="account-info"></div>
     <div id = "gameIntoContainer">
       <br>
-      <span id ="game_list" style="font-size: 32pt; " > 永康街小遊戲 </span> <br><br>
+      <span id ="game_list" style="font-size: 32pt; color:white;" > 永康街小遊戲 </span> <br><br>
       
-      <a href="games/shooting.html">
-        <span id ="game1" style="color:white; left:20%; position:absolute; "> 1. 射箭 </span> <br><br>
-      </a> 
-      
-      <a href="games/baseballNine.html">
-        <span id ="game2" style="color:white; left:20%; position:absolute; "> 2. 棒球九宮格 </span> <br><br>
-      </a>
-      <span id ="game3" style="color:gray; left:20%; position:absolute; "> 3. 丟沙包 </span> <br><br>
-      <span id ="game4" style="color:gray; left:20%; position:absolute; "> 4. 拉霸機 </span> <br><br>
+        <span id ="game1" class = "alignLeftText"> 1. 射箭 <br> 
+          點擊銀幕來射箭，擊中禮物即可獲得代幣 </span> <br><br><br>
+        
+        <span id ="game2" class = "alignLeftText"> 2. 棒球九宮格<br> 滑動銀幕來丟球，打中越多格子獲得越多代幣 </span> <br><br><br>
+ 
+      <span id ="game3" class = "alignLeftText"> 3. 丟沙包 </span> <br><br>
+      <span id ="game4" class = "alignLeftText"> 4. 拉霸機 </span> <br><br>
 
       <!-- <img id="gameIntro" src="/images2/game_intro.png" alt="遊戲說明"> -->
     </div>
@@ -41,12 +39,12 @@
       </div>
     </div>
     <div class="two-button-div" id="after-login">
-      <a id = "gameStartlink" href="./game-start/">
-        <img id="gameStartImg" src="/images/start.png" alt="開始遊戲" class="game-intro-btn">
-      </a>
-      <a href="./prize-list/">
-        <img id="prizeListImg" src="/images/my-coupon.png" alt="我的優惠券" class="clickable-button game-intro-btn">
-      </a>
+      <div id = "gameStartImg" class="clickable-button game-intro-btn">
+       <p class = "centerText">開始遊戲</p>
+      </div>
+      <div id = "myCoupon" class="clickable-button game-intro-btn">
+       <p class = "centerText"> 我的優惠券</p>
+      </div>
     </div>
     <script src="./scripts/NetworkAgent.js"></script>
     <script src="./scripts/UI.js"></script>
