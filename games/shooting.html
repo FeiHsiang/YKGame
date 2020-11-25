@@ -7,6 +7,7 @@
 	<style>
 
 		html, body {
+			overflow: hidden;
 			background: #fff;
 			color: #000;
 			font-family: sans-serif;
@@ -16,29 +17,32 @@
 			margin: 0;
 		}
 
-		#myEmbeddedScene{
+		#aDiv{
 			/* margin: 20px 10px; */
 			/* width:800px; */
 			/* height:600px; */
+			position: relative;
 			width:100vw;
 			height:100vh;
 		}
 
 		#blocker {
 			position: absolute;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0,0,0,0.5);
+			width: 100vw;
+			height: 100vh;
+			background-color: rgba(0,0,0,0.8);
 			z-index: 1;
+			pointer-events: none;
 		}
 
 		#blocker_score {
 			display: none;
 			position: absolute;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0,0,0,0.5);
+			width: 100vw;
+			height: 100vh;
+			background-color: rgba(0,0,0,0.8);
 			z-index: 1;
+			pointer-events: none;
 		}
 
 		.instructions {
@@ -74,23 +78,32 @@
 			position: absolute;
 			z-index: 2;
 			left :5%;
-			bottom: 5%;		
-			font-size: 20;
+			bottom: 2%;		
+			font-size: 18pt;
+			color:white;
+			background-color: rgba(0,0,0,0.5);
 		}
 
 		#countdown{
 			position: absolute;
 			z-index: 2;
-			left :80%;
-			bottom: 5%;		
-			font-size: 20;
+			right :5%;
+			bottom: 2%;		
+			font-size: 18pt;
+			color:white;
+			background-color: rgba(0,0,0,0.5);
+		}
+
+		.a-dialog-allow-button {
+		  background-color: red;
 		}
 
 		@media screen and (min-width: 300px) and (max-width: 700px) {
-			#myEmbeddedScene{
+			#aDiv{
 				/* margin: 20px 10px; */
 				/* width:400px; */
 				/* height:300px; */
+				position: relative;
 				width:100vw;
 				height:100vh;
 			}
@@ -102,13 +115,18 @@
 </head>
 <body>
 
+	<div id = "closeIframe" style="position: absolute;z-index: 2;font-size: 15pt; color:rgba(0,0,0,0.5); cursor:pointer">
+		返回主頁面
+	</div>
+
 	<div id="blocker">
 		<div class="instructions" id = "blocker_info">
 			<span style="font-size:36px">Click to play</span>
 			<br /><br />
-			滑鼠/手指點擊螢幕來丟球<br/>
-			在10秒鐘內擊中從天而降的禮物<br/>
-			
+			<span style="color:#00c99c">
+				滑鼠/手指點擊螢幕來丟球<br/>
+				在15秒鐘內擊中禮物氣球<br/>
+			</span>
 		</div>
 	</div>
 
@@ -128,11 +146,7 @@
 	</div>
 
 	<div id = "countdown">
-		剩餘時間：20
-	</div>
-
-	<div id = "closeIframe" style="position: absolute;z-index: 2;font-size: 15pt; color:rgba(0,0,0,0.5); "	>
-		返回主頁面
+		時間： 15
 	</div>
 
 	<script src="js/vconsole.min.js"></script>
@@ -166,7 +180,7 @@
 		document.body.onclick = function(){
 			requestDeviceMotionPermission();
 		}
-		
+
 		document.getElementById("closeIframe").addEventListener('click', function(){
 			// if (parent){
 			// 	parent.aUI.closeGameIframe();
@@ -174,6 +188,7 @@
 			location.replace("/prize-list");
 		});
 
+		// blocker.style.display = "none";
 	</script>
 
 	<script src="js/aframe-v1.0.4.js"></script>
@@ -182,47 +197,38 @@
 	<script src="js/aframe-physics-system.js"></script>
 
 
-	<!-- <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script> -->
-
-	<div id = "myEmbeddedScene"  >
+	<div id = "aDiv"  >
 		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
-		device-orientation-permission-ui="enabled: true"  background="color: #ECECEC" shadow="type: pcfsoft"
-		physics="debug: false; friction: 50.0 ; restitution: 0.2; gravity: -9.0 " >
+		device-orientation-permission-ui="enabled: true"  shadow="type: pcfsoft"
+		physics="debug: false; friction: 50.0 ; restitution: 0.2; gravity: -4.0 " >
 			<a-assets id = "aAssets">
 
-				<a-asset-item id="robot" src="model/robot.glb"></a-asset-item>
-				
-				<a-asset-item id="spiked_ball" src="model/spiked_ball/scene.gltf"></a-asset-item>
-				<img id="texture_bullet" src="images/t1.jpg">
-				<img id="texture_gun" src="images/t2.jpg">
-				<img id="texture_gift_1" src="images/texture1.png">
-				<img id="texture_gift_2" src="images/texture2.png">
-				<img id="texture_gift_3" src="images/texture3.png">
-				<img id="texture_gift_x2" src="images/texturex2.png">
-
+				<a-asset-item id="_arrow" src="model/Arrow.glb"></a-asset-item>
+				<a-asset-item id="_bow" src="model/Bow.glb"></a-asset-item>
+				<a-asset-item id="b1" src="model/balloon01.glb"></a-asset-item>
+				<a-asset-item id="b2" src="model/balloon02.glb"></a-asset-item>
+				<a-asset-item id="b3" src="model/balloon03.glb"></a-asset-item>
 
 			</a-assets>
 
 			<a-entity id="rig" position="0 1.6 0" rotation="0 0 0">
-				<a-entity id="aCamera" camera  look-controls="touchEnabled:false" wasd-controls></a-entity>
-				<!-- <a-entity id="aCamera" camera  ></a-entity> -->
+				<a-entity id="aCamera" camera  look-controls="touchEnabled:false" wasd-controls>
+					<a-entity id = "pivotGun" position="0 -0.6 -1.2" rotation="135 0 0" >
+						<a-entity id = "bow" visible = "true" position="0.0 0.05 .0" rotation="0 0 90" scale=" 0.2 0.2 0.2 " gltf-model="#_bow" ></a-entity>
+						<a-entity id = "arrow" visible = "true" position="0 0.13 0" rotation="180 0 0" scale=" 0.6 0.2 0.6 " gltf-model="#_arrow" ></a-entity>
+					</a-entity>
+				</a-entity>
 			</a-entity>
 
-			<!-- <a-box id = "ground" width="8" height="0.1" depth="20" position="0 -5 0" static-body visible="false" ></a-box> -->
-			<a-plane id = "ground" material="side:double;" position="0 6 -4" rotation="-90 0 0" width="200" height="200" color="#7BC8A4" opacity="0.5" shadow="receive: true" visible="false" ></a-plane>
-
-			<!-- <a-text id = "t1" value="滑鼠/手指點擊來丟球\n調整方向來擊中從天而降的禮物" position="0.0 1.9 -2.50" rotation="0 0 0"side="double" color="#FF0000" negate="false"shadow="cast:false;"></a-text> -->
-
-			<a-entity id = "pivotGun" position="0 1 -0.8" rotation="-45 0 0" >
-				<a-entity id = "gun" position="0 0.05 0" rotation="0 0 0" 
-				geometry="primitive: cylinder; height: 0.2; radius: 0.05" material="shader: flat; src: #texture_gun " ></a-entity>
-	
-			</a-entity>
+			<!-- <a-box id = "ground2" width="8" height="0.1" depth="20" position="0 -5 0" visible="true" shadow="receive: true"></a-box> -->
+			<a-plane id = "ground" material="side:double;" position="0 4 -4" rotation="-90 0 0" width="180" height="200" color="#7BC8A4" opacity="1.0" shadow="receive: true" visible="false"></a-plane>
 
 
-			<a-sky id = "aSky" color="#ECECEC"></a-sky>
+			
+			<!-- <a-sky id = "aSky" color="#ECECEC"></a-sky> -->
+
 			<a-entity light="type: ambient; color: #FFFFFF"></a-entity>
-			<a-entity light="type: directional; color: #FFFFFF; intensity: 0.9;
+			<a-entity light="type: directional; color: #FFFFFF; intensity: 0.7;
 								   castShadow: true; 
 								   shadowCameraVisible: false;
 								   shadowBias:-0.0005; 
@@ -230,45 +236,13 @@
 								   shadowCameraRight:10; shadowCameraLeft:-10; 
 								   shadowMapHeight:3072; shadowMapWidth:3072; 
 								   shadowCameraFar: 500; shadowCameraNear: 0.5;" 
-			          position="0 0 1"></a-entity>
+			          position="0 -1 1" ></a-entity>
 			<!-- <a-entity camera="active: true" look-controls wasd-controls position="0 1.6 0"></a-entity> -->
 		</a-scene>
 
 	</div>	
 
 	<script>
-		var fonts;
-		// fonts = [  "font/1-msdf.json" , "font/2-msdf.json" , "font/3-msdf.json", "font/4-msdf.json" , "font/5-msdf.json" , "font/6-msdf.json", "font/7-msdf.json" , "font/8-msdf.json" , "font/9-msdf.json", "font/10-msdf.json" , "font/11-msdf.json" , "font/12-msdf.json" ];
-		
-		// fonts = [ "font/11-msdf.json", "font/12-msdf.json"  ];
-		// fonts = [  "font/12-msdf.json" ];
-		var s3url = "https://s3-ap-northeast-1.amazonaws.com/makar.webar.defaultobject/resource/fonts/"
-		fonts = [  s3url + "1-msdf.json", s3url + "2-msdf.json" , s3url + "3-msdf.json", s3url + "4-msdf.json", s3url + "5-msdf.json", s3url + "6-msdf.json"
-				 , s3url + "7-msdf.json" , s3url + "8-msdf.json", s3url + "9-msdf.json", s3url + "10-msdf.json", s3url + "11-msdf.json", s3url + "12-msdf.json" ];
-		// fonts = [  s3url + "1-msdf.json"  ];
-		// fonts = [  s3url + "1-msdf.json" , s3url + "2-msdf.json" ];
-
-		if (document.getElementById("t1")) t1.setAttribute("font", fonts );
-		if (document.getElementById("t2")) t2.setAttribute("font", fonts );
-
-		let yr , pr ;
-		function getCameraR (){
-
-			// rig.setAttribute("rotation", {x:45,y:45,z:0} );
-			aCamera.components["look-controls"].yawObject.rotation.set( 0, Math.PI*1/180, 0 );
-			aCamera.components["look-controls"].pitchObject.rotation.set( Math.PI*1/180, 0, 0);
-
-			yr  = aCamera.components["look-controls"].yawObject.rotation; // only y direction
-			pr = aCamera.components["look-controls"].pitchObject.rotation;// only x direction
-			console.log(" aCamera yr=" , yr.x , yr.y , yr.z  );
-			console.log(" aCamera pr=" , pr.x , pr.y , pr.z  );
-			// console.log(" aCamera ypr=" , yr.x + pr.x ,  yr.y + pr.y ,  yr.z + pr.z  );
-			// console.log(" aCamera ypr=" , aCamera.object3D  );
-
-		}
-		// setTimeout(getCameraR, 2000 );
-
-
 
 		//// 設定場景功能，分為 
 		//// 1. 按住滑鼠/觸控 來拖拉物件，不可拖拉出特定圓圈範圍。
@@ -288,44 +262,23 @@
 				aCamera.removeAttribute("look-controls");
 				aCamera.removeAttribute("wasd-controls");
 			}else{
-				pivotGun.setAttribute("visible", "false");
+				// pivotGun.setAttribute("visible", "false");
 			}
 		});
 		
 
 		let mouse = new THREE.Vector2();
 		let mouseEnd = new THREE.Vector2();
-		let raycaster = new THREE.Raycaster();
 		
+		aScene.canvas.style.cursor = "crosshair";
 
-		// document.body.addEventListener("mouseup", clearTouchState, false);
-		// document.body.addEventListener("touchend", clearTouchState, false);
-
-		aScene.canvas.addEventListener("touchstart", vrSceneTouchStart, false);
-		aScene.canvas.addEventListener("mousedown", vrSceneTouchStart, false);
-
-		
 		aScene.canvas.addEventListener("mousemove", vrSceneTouchMove, false);
 		aScene.canvas.addEventListener("touchmove", vrSceneTouchMove, false);
 
 		aScene.canvas.addEventListener("mouseup", vrSceneTouchEnd, false);
 		aScene.canvas.addEventListener("touchend", vrSceneTouchEnd, false);
 
-		let touchState = 0; //// 0: 滑鼠沒有按下/手指沒有點擊, 1: 滑鼠已經按下/手指正在點擊, 2: 滑鼠/手指正在移動 3: 滑鼠剛剛放開/手指剛剛離開，注意 0 - 2 狀態轉移
-		function vrSceneTouchStart(event){
-			// console.log("vrSceneTouchStart");
-			if (touchState == 0){
-				touchState = 1;
-				event.preventDefault();
-			}
-			
-		}
-	
-		let touchMoveCount = 0;
 		function vrSceneTouchMove(event){
-			
-			touchMoveCount += 1;
-
 			event.preventDefault();
 
 			let rect = aScene.renderer.domElement.getBoundingClientRect();
@@ -348,34 +301,15 @@
 			}
 
 			if (aScene.camera){
-				raycaster.setFromCamera( mouse, aScene.camera );
-					//// 電腦端，需要用滑鼠控制槍管， x[-90, 60], y[-90, 90];
+					//// 電腦端，需要用滑鼠控制槍管， x[70, 150], y[-90, 90];
 				if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
-					pivotGun.object3D.rotation.x = (-90 + 30*(1+mouse.y) )/180*Math.PI;
+					pivotGun.object3D.rotation.x = (70 + 40*(1+mouse.y) )/180*Math.PI;
 					pivotGun.object3D.rotation.y = -90*mouse.x/180*Math.PI;
 
-					// pivotGun.object3D.rotation.setFromVector3(raycaster.ray.direction)
+					// let pr = pivotGun.object3D.rotation;
+					// console.log("mR=" , pr.x*180/Math.PI , pr.y*180/Math.PI );
 				}
 			}
-
-		
-
-			//// 滑鼠控制第一人稱視角，暫時不考慮
-			// var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-			// var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-
-			// var camera = aCamera.object3DMap.camera;
-			// var euler = new THREE.Euler( 0, 0, 0, 'YXZ' );
-			// euler.setFromQuaternion( camera.quaternion );
-
-			// euler.y -= movementX * 0.002;
-			// euler.x -= movementY * 0.002;
-			// var PI_2 = Math.PI / 2;
-			// euler.x = Math.max( PI_2 - Math.PI, Math.min( PI_2 - 0, euler.x ) );
-
-			// camera.quaternion.setFromEuler( euler );
-
-			// console.log("vrSceneTouchMove ");
 			
 		}
 		
@@ -404,41 +338,72 @@
 
 				}
 				//// 發射子彈的測試
-				raycaster.setFromCamera( mouseEnd, aScene.camera );
 
 				let bullet = document.createElement('a-entity');
-				bullet.setAttribute("dynamic-body", "mass: 1");
+				bullet.setAttribute("dynamic-body", "mass: 1; shape: sphere;"); //// 碰撞形狀設為球形，才不會有多次碰撞
 				bullet.setAttribute("object-type", "bullet"); //// 自行設定的類別，為了碰撞時候區隔
-				
+				bullet.setAttribute("scale", "0.6 0.2 0.6");
+				bullet.setAttribute("gltf-model", "#_arrow");
+
+				let strength = 8.1; // 固定子彈速度
 				if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
-					//// 電腦端： 計算點擊的位置遠近來調整發射的速度，8只是經驗參數
-					// let strength = 8 * Math.pow( mouseEnd.x*mouseEnd.x + (1+mouseEnd.y)*(1+mouseEnd.y) , 0.5 );
-					// let velocity = new THREE.Vector3(0,1,0).applyEuler( pivotGun.object3D.rotation ).multiplyScalar( strength ); //// 方向為朝著槍管方向指向射出
+					//// 電腦端： 透過點擊的位置決定發射的方向，固定畫面視角。
 
-					let strength = 15; // 固定子彈速度
-					let velocity = raycaster.ray.direction.clone().multiplyScalar(strength*1.8); //// 方向為朝著ray 的指向射出
+					let bulletQuat = new THREE.Quaternion();
+					pivotGun.object3D.getWorldQuaternion(bulletQuat);
 
-					let qrot = new THREE.Quaternion().setFromUnitVectors( new THREE.Vector3(0,1,0) , raycaster.ray.direction );
+					let bulletRotation = pivotGun.object3D.rotation.clone();
+					bulletRotation.z += Math.PI;
+					let rr = {x:  bulletRotation.x*180/Math.PI, y: bulletRotation.y*180/Math.PI, z: bulletRotation.z*180/Math.PI } ;
+					// console.log("rr = " , rr );
 
-					let tempEuler = new THREE.Euler().setFromQuaternion(qrot) ;
-					// console.log(" *** pivotGun.object3D.rotation=" , pivotGun.object3D.rotation , raycaster.ray.direction , qrot , tempEuler );
-					// pivotGun.object3D.rotation.setFromVector3(tempEuler);
+					let velocity = new THREE.Vector3(0,1,0).applyEuler( bulletRotation ).multiplyScalar( strength ); //// 方向為朝著槍管方向指向射出
+					// console.log(" velocity = " , rr, bulletRotation, velocity);
+					
+					let arrWP = new THREE.Vector3();
+					arrow.object3D.getWorldPosition(arrWP);
 
+					bullet.setAttribute("rotation",  rr );
 					bullet.setAttribute("velocity", velocity );
-					bullet.setAttribute("position", pivotGun.object3D.position ); //// 從槍的固定位置射出
+					bullet.setAttribute("position", arrWP ); //// 從槍的固定位置射出
+					aScene.appendChild(bullet);
 				}else{
-					//// 手機端：透過點擊的位置決定發射的起點，透過轉動手機來調整方向，固定發射的速度。12只是經驗參數
-					let velocity = raycaster.ray.direction.clone().multiplyScalar(12);
+					//// 手機端：透過點擊的位置決定發射的方向，透過轉動手機來調整視角。
+
+					////
+					//// 方案一：不論畫面轉動，依照點擊銀幕位置決定箭矢的射出角度。
+					////
+					//// 計算箭矢的角度
+					// let bulletRotation = new THREE.Euler();
+					// bulletRotation.order = "YXZ";
+					// bulletRotation.x = (70 + 40*(1+mouseEnd.y) )/180*Math.PI;
+					// bulletRotation.y = -90*mouseEnd.x/180*Math.PI;
+					// bulletRotation.z = Math.PI;
+					// let rr = {x:  bulletRotation.x*180/Math.PI + 0 , y: bulletRotation.y*180/Math.PI + 0, z: bulletRotation.z*180/Math.PI + 0 } ;					
+					// let velocity = new THREE.Vector3(0,1,0).applyEuler( bulletRotation ).multiplyScalar( strength ); //// 方向為朝著槍管方向指向射出
+
+					////
+					//// 方案二：不論點擊銀幕位置，箭矢保持從預設弓的位置射出，方向也固定。角度從相機來
+					////
+					
+					let bulletRotation = aCamera.object3D.rotation.clone();
+					bulletRotation.x += 120/180*Math.PI; //// x方向角度多120，等同於夾角30度
+					bulletRotation.z = Math.PI; //// z 方向需要顛倒
+
+					let rr = {x: bulletRotation.x*180/Math.PI, y: bulletRotation.y*180/Math.PI, z: bulletRotation.z*180/Math.PI};
+					let velocity = new THREE.Vector3(0,1,0).applyEuler( bulletRotation ).multiplyScalar( strength ); //// 方向為朝著槍管方向指向射出
+					// console.log("rr = ", rr  );
+
+					let arrWP = new THREE.Vector3();
+					arrow.object3D.getWorldPosition(arrWP);
+					bullet.setAttribute("position", arrWP ); //// 從箭的固定位置射出
+					bullet.setAttribute("rotation",  rr );
+
 					bullet.setAttribute("velocity", velocity );
-					bullet.setAttribute("position",raycaster.ray.origin); //// 從點擊的位置射出
-					console.log("vrSceneTouchEnd , velocity=" , raycaster.ray.direction );
+
+					aScene.appendChild(bullet);
 				}
 			
-				bullet.setAttribute("geometry","primitive: sphere; radius: 0.1" );
-				bullet.setAttribute("material","shader: flat; src: #texture_bullet");
-				bullet.setAttribute("shadow","cast:true; receive:true");
-				aScene.appendChild(bullet);
-
 				//// 兩秒後刪除射出的子彈
 				setTimeout(function(){
 					// console.log(" bullet = " , bullet.object3D.el );
@@ -447,107 +412,78 @@
 					}
 				}, 5000);
 
-				//// 一秒後才能射出下一發
+				//// 一段時間後才能射出下一發
 				setTimeout(function(){
 					shootState = 0;
-				}, 100);
-				//// 紀錄滑鼠移動歸零
+				}, 200);
 				
 			}
-		 
-		
 		}
 
-		function clearTouchState(event){
-			if (touchState == 1){
-				touchState = 0;
-				resetSphere(10);
-				console.log("clearTouchState" );
-			}
-		}
-
-		function resetSphere(time){
-			let delay = time? time: 3000;
-			setTimeout(function(){
-				//// 移除物理性，並且重設位置
-				touchState = 0;
-				console.log("resetSphere set 0" );
-			}, delay);
-		}
-
-		blocker.addEventListener("click", function(){
+		//// 點擊跳出的提示樣板後開始遊戲
+		blocker.onclick =  function(){
+			console.log(" _blocker clicked");
 			blocker.style.display = "none";
 			randomGenerateObject();
-
-			let timeLeft = 19;
-			intervalId = setInterval(countdownTick, 1000);
-			function countdownTick(){
-				timeLeft--;
-				countdown.textContent = "剩餘時間：" + timeLeft;
-				if (timeLeft <= 0){
-					clearInterval(intervalId);
-				}
-			}
-		});
+		};
 
 		//// 隨機掉落『禮物』，控制固定速度的功能寫在外面，寫在個別會造成卡頓，在固定的時間內尋找場景中所有符合條件的物件賦予固定落下速度
-		// randomGenerateObject();
 		function randomGenerateObject(_duration , _rate){
 			let duration = _duration? _duration: 3000; //// 總共時間
 			let rate = _rate? _rate: 5; //// 一秒鐘有幾次
-			console.log("randomGenerateObject start ", duration , rate );
+			console.log("_randomGenerateObject start ", duration , rate );
 
 			let period = 1/rate*1000; //// 每次的間隔時間
 			let totalCount = duration/1000*rate; //// 總共幾次
 			
 			let score = 0;
-			let doubles = 0;
 			let generatedCount = 0;
-			//// x2 的球最多只能出現兩次
-			let doubleCount = 0;
+			let posArray = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 			let timer = setInterval( genObject , period);
 			function genObject(){
-				// console.log("randomGenerateObject , generatedCount =" , generatedCount );
+				// console.log("_randomGenerateObject , generatedCount =" , generatedCount );
 				generatedCount += 1;
 
 				//// 計算隨機生成的位置。
-				let randomPosition = new THREE.Vector3(0, -1, -6);
-				randomPosition.x += Math.random()*4 -2;
-				randomPosition.z += Math.random()*4 -2;
+				//// 使用預先開好的『可選位置』來抽籤決定每個禮物生成的位置。需要限制禮物數量在 15 個。
+				let pIndex = Math.floor( Math.random()*posArray.length );//// 從現有『可選位置』中隨機選一個
+				let getPIndex = posArray[pIndex];//// 取得選中的位置編號 [0-15]
+				let px = Math.floor(getPIndex/4);//// 依照編號計算 x [0-3]
+				let pz = getPIndex%4;            //// 依照編號計算 z [0-3] 
+				posArray.splice(pIndex, 1); //// 刪除『可選位置』中被選到的位置，代表已經被選過
+				let randomPosition = new THREE.Vector3( -1.5 + px, -4 , -8 + pz);
 
-				let velocity = new THREE.Vector3(0, 0.5, 0);
+				//// 完全隨機，可能會造成物件重疊，暫時不使用
+				// let randomPosition = new THREE.Vector3( 0, -2, -6);
+				// randomPosition.x += Math.random()*4 -2;
+				// randomPosition.z += Math.random()*4 -2;
+
+				let velocity = new THREE.Vector3(0, 0.75, 0);
 
 				let gift = document.createElement('a-entity');
 				gift.setAttribute("static-body", "mass: 1;");
-				gift.setAttribute("object-type", "gift");
+			
+				gift.setAttribute("object-type", "gift"); ////自行設置的物件型態
 
 				gift.setAttribute("linearDamping", "1000");
 				gift.setAttribute("angularDamping", "1000");
 				
-				//// 隨機生出不同貼圖的球，同時要帶入資訊
-				let prob = Math.random();
-				if ( prob <= 0.4 ){
-					gift.setAttribute("material","shader: flat; src: #texture_gift_1; repeat: 3 1");
+				//// 依照排序生成 [1 2 3]分數的氣球各 5 個
+				if (generatedCount%3 == 0){
+					gift.setAttribute("gltf-model", "#b1");
 					gift.setAttribute("score", "1" );
-				}else if ( prob > 0.4 && prob <= 0.7 ){
-					gift.setAttribute("material","shader: flat; src: #texture_gift_2; repeat: 3 1");
+				}else if (generatedCount%3 == 1){
+					gift.setAttribute("gltf-model", "#b2");
 					gift.setAttribute("score", "2" );
-				}else if ( prob > 0.7 && prob <= 0.9 ){
-					gift.setAttribute("material","shader: flat; src: #texture_gift_3; repeat: 3 1");
+				}else {
+					gift.setAttribute("gltf-model", "#b3");
 					gift.setAttribute("score", "3" );
-				}else if ( prob > 0.9 && doubleCount < 2  ){
-					gift.setAttribute("material","shader: flat; src: #texture_gift_x2; repeat: 3 1");
-					gift.setAttribute("score", "double" );
-					doubleCount += 1;
-				} else {
-					gift.setAttribute("material","shader: flat; src: #texture_gift_1; repeat: 3 1");
-					gift.setAttribute("score", "1" );
 				}
 
-
 				gift.setAttribute("position", randomPosition);
+				gift.setAttribute("scale", "0.5 0.5 0.5");
 				gift.setAttribute("velocity", velocity );
-				gift.setAttribute("geometry","primitive: sphere; radius: 0.2; segmentsWidth: 18; segmentsHeight: 36 ");
+				// gift.setAttribute("geometry","primitive: sphere; radius: 0.2; segmentsWidth: 18; segmentsHeight: 36 ");
 				
 				gift.setAttribute("shadow","cast:true; receive:true");
 
@@ -557,20 +493,24 @@
 					//// 假如『禮物』受到『子彈』碰撞，刪除兩者，並且清除
 					if (e.detail.body.el.getAttribute("object-type") == "bullet"){
 						//// 刪除子彈
-						e.detail.body.el.remove();
+						if (e.detail.body.el.parentEl){
+							// console.log(" remove body " , e.detail.body.el.object3D  );
+							// e.detail.body.el.remove();
+							e.detail.body.el.object3D.el.remove();
+						}
 						//// 刪除禮物
-						e.detail.target.el.remove();
+						if (e.detail.target.el.object3D.el){
+							// console.log(" remove target " , e.detail.target.el.object3D  );
+							// e.detail.target.el.remove();
+							e.detail.target.el.object3D.el.remove();
+						}
 
 						let note = e.detail.target.el.getAttribute("score");
 						console.log(" score note = " , note );
 						
-						if (note == "double"){
-							doubles += 1;
-						}else {
-							score += Number(note);
-						}
+						score += Number(note);
 
-						scoreNow.innerText = "分數："+(score*(Math.pow(2, doubles)));
+						scoreNow.innerText = "分數："+(score);
 
 					}
 					//// 假如『禮物』受到『地板』碰撞，刪除禮物
@@ -589,12 +529,13 @@
 
 					//// 最後一波釋放後九秒結算
 					setTimeout(function(){
-						console.log(" ctrlObj call clearInterval ")
+						console.log(" ctrlObj call clearInterval ");
 						clearInterval(ctrlObj);
 
-						if (doubles > 0){
-							score*= ( Math.pow(2 , doubles) );
-						}
+						blocker_score.style.pointerEvents = "none";
+						setTimeout(function(){
+							blocker_score.style.pointerEvents = "auto";
+						}, 3000);
 						blocker_score.style.display = "block";
 						score_info.innerText = "恭喜獲得" + score + "分";
 
@@ -602,36 +543,244 @@
 							blocker_score.style.display = "none";
 							randomGenerateObject();
 						}
-					}, 16000);
+					}, 13000);
 				}
 			}
 
 			//// 控制場景中的『禮物』上升速度，
-			let velocity = new THREE.Vector3(0, 0.5, 0);
+			let velocity = new THREE.Vector3(0, 0.75, 0); //// 這邊設置貌似沒有用..
 			let heightThreshold = ground.object3D.position.y;
-			var ctrlObj = setInterval(controlObjects, 100 );
+			var ctrlObj = setInterval(controlObjects, 500 );
 			function controlObjects(){
 				let needRemoved = [];
 				for (let i = 0, len = aScene.children.length; i< len; i++ ){
-					if (aScene.children[i].getAttribute("object-type") == "gift" ){
-						if (aScene.children[i].body ){
-							// console.log(" ***  " , aScene.children[i].body );
-							aScene.children[i].body.velocity.set( velocity.x, velocity.y, velocity.z );
-						}
-						if (aScene.children[i].body.position.y > heightThreshold){
-							needRemoved.push(aScene.children[i]);
+					if (aScene.children[i]){
+						if (aScene.children[i].getAttribute("object-type") == "gift" ){
+							if (aScene.children[i].body ){
+								// console.log(" ***  " , aScene.children[i].body );
+								aScene.children[i].body.velocity.set( velocity.x, velocity.y, velocity.z );
+
+								if (aScene.children[i].body.position.y > heightThreshold){
+									needRemoved.push(aScene.children[i]);
+								}
+							}
+							
 						}
 					}
 				}
 				for (let i = 0, len=needRemoved.length; i< len; i++){
 					needRemoved[i].remove();
 				}
+
+				 
 				
 			}
 			
+			let timeLeft = 15;
+			let intervalId = setInterval(countdownTick, 1000);
+			function countdownTick(){
+				timeLeft--;
+				countdown.textContent = "時間： " + timeLeft;
+				if (timeLeft <= 0){
+					clearInterval(intervalId);
+				}
+			}
 
 
 		}
+
+		let self = {};
+		let videoScene = new THREE.Scene();
+		self.videoScene = videoScene;
+		self.GLRenderer = aScene.renderer;
+		aScene.renderer.autoClear = false;
+		self.aScene = aScene;
+
+		// renderTick();
+		startCamera( function(){
+			renderTick();
+			//// 即使沒開相機，也能玩
+			if (self.video){
+				self.video.play();
+			}
+			
+			console.log(" _startCamera callback ");
+			blocker.style.pointerEvents = "auto";
+			blocker_score.style.pointerEvents = "auto";
+			
+		});
+
+		function startCamera( callback ){
+
+			let video = document.createElement('video');
+			let configuration = { facing: "environment" };
+			let texture = new THREE.VideoTexture(video);
+			texture.minFilter = THREE.LinearFilter;
+			texture.flipY = false;
+			texture.format = THREE.RGBFormat; // THREE.RGBAFormat
+
+
+
+			console.log(" _startCamera dcwh= " , document.documentElement.clientWidth , document.documentElement.clientHeight );
+
+			if ( navigator.mediaDevices  ) {
+				let onError = function(err) { 
+					console.error(" _startCamera error:", err); 
+					//// 即使沒開相機，也能玩
+					if (callback){
+						callback();
+					}
+				};
+
+				let videoSuccess = function(stream){
+					window.videoStream = stream;
+					video.srcObject = stream;
+					video.playsInline = true;
+					video.onloadedmetadata = function() {
+						function tick_video(){
+							if (video.videoWidth > 200 || video.videoHeight > 200){
+								console.log("XRFunc.js: tick_video play video[w, h]=", video.videoWidth, video.videoHeight );
+								//// 將video 物件記錄下來，在後面等 renderer 開始工作後再啟動
+								self.video  = video;
+								// video.play();
+
+								//////// set the div size depend on video
+								let videoWidth, videoHeight;
+								let aDiv = document.getElementById("aDiv");
+								let w, h;
+								if ( document.documentElement.clientWidth/document.documentElement.clientHeight > video.videoWidth/video.videoHeight ){
+									
+									w = window.innerWidth  ;
+									h = (window.innerWidth/video.videoWidth)* video.videoHeight;
+
+									console.log(" 1 set div size = ", innerWidth, innerHeight, w ,h, videoWidth, videoHeight );
+								}else{
+									
+									w = (window.innerHeight/video.videoHeight) * video.videoWidth ;
+									h = window.innerHeight;
+									
+									console.log(" 2 set div size = ", innerWidth, innerHeight, w ,h, videoWidth, videoHeight );
+								}
+
+								//// full fill, left nothing blank
+								aDiv.style.width  = w + "px" ;
+								aDiv.style.height = h + "px" ;
+								//// align the div and body
+								aDiv.style.left = ( innerWidth - w )/2 + "px" ;
+								aDiv.style.top  = ( innerHeight - h )/2 + "px" ;
+								
+
+								aScene.resize(); ////// it must call after renderer resize
+
+								////// setup the camera for 2D scene( 20200314 useless )
+								// let camera2D = new THREE.OrthographicCamera( -w/2, w/2, -h/2, h/2, -10, 20000);
+								//// 20201110 fei: 設定相機跟背景的時候直接使用『實體相機畫面尺寸』作為設定，手機端基本是[480, 640] 電腦端基本是[640, 480]
+								videoWidth = texture.image.videoWidth,  videoHeight = texture.image.videoHeight;
+
+								
+								////// setup the camera for background video
+								let videoCamera = new THREE.OrthographicCamera( -videoWidth/2, videoWidth/2, -videoHeight/2, videoHeight/2, -10, 20000);
+								self.videoCamera = videoCamera;
+								
+								////// setup videoPlane
+								let videoPlane = new THREE.Mesh(
+									new THREE.PlaneBufferGeometry( videoWidth , videoHeight ),
+									new THREE.MeshBasicMaterial( { map:texture, side: THREE.DoubleSide } ) ,
+								);
+								// videoPlane.material.depthTest = false;
+								// videoPlane.material.depthWrite = false;
+								videoPlane.position.set(0, 0, -1 );
+								self.videoScene.add( videoPlane );
+								
+								if ( callback ) { callback(); }
+
+							}else{
+								console.log("tick_video else video[w, h]=", video.videoWidth, video.videoHeight );
+								setTimeout(tick_video, 100);
+							}
+						}
+
+						if ( self.videoCamera ){
+							console.log("_startCamera: videoCamera exist, donothing ");
+						}else{
+							console.log("_startCamera: videoCamera not exist, start video ");
+							tick_video();
+						}
+						
+					}
+					
+				}
+
+				
+				navigator.mediaDevices.enumerateDevices().then(function(devices) {
+					let useDeviceID = false;
+					let cameraID, facingString, video_constraints;
+					devices = devices.filter(function(devices) { return devices.kind === 'videoinput'; });
+					if ( configuration.facing == "environment" ){facingString = "back";} 
+					else if (configuration.facing == "user" ){facingString = "front";} 
+					else{facingString = "back";}
+					for (let i in devices){
+						if( devices[i].label.toLowerCase().search( facingString ) != -1  ){ // front back
+							cameraID = devices[i].deviceId;
+							useDeviceID = true;
+						}
+					}
+					if (useDeviceID){ // PC, android chrome/FireFox, use the specific id by labels.
+						console.log("useDeviceID true, cameraID=", cameraID );
+						video_constraints = {
+							video: {
+								width: { min: 320, ideal: 640, max: 1280 },
+								height: { min: 240, ideal: 480, max: 800 }, 
+								frameRate: { min:15, ideal: 30, max: 60 },
+								deviceId: {'exact':cameraID }
+							}
+						};
+					}else{
+						let facing;
+						if ( configuration.facing ){ //// usually iOS safari and QQ, use "user"/"environment" to start
+							facing = configuration.facing;
+							console.log("configuration.facing do exist: set facing = ", facing );
+							video_constraints = {
+								video: {
+									width: { min: 320, ideal: 640, max: 1280 },
+									height: { min: 240, ideal: 480, max: 800 }, 
+									frameRate: { min:15, ideal: 30, max: 60 },
+									facingMode: facing
+								}
+							};
+						}else{
+							console.log("configuration.facing dosent exist: set facing = environment" );
+							video_constraints = {
+								video: {
+									width: { min: 320, ideal: 640, max: 1280 },
+									height: { min: 240, ideal: 480, max: 800 }, 
+									frameRate: { min:15, ideal: 30, max: 60 },
+									facingMode: 'environment'
+								}
+							};
+						}
+					}
+
+					navigator.mediaDevices.getUserMedia( video_constraints ).then(videoSuccess, onError); // successCallback
+				
+				});
+
+			}
+
+			console.log(" +++++++ ");
+		}
+
+		function renderTick(){
+			if (self.videoCamera){
+				self.GLRenderer.render( self.videoScene, self.videoCamera);
+			}	
+			self.GLRenderer.clearDepth();
+			if (self.aScene.object3D && self.aScene.camera){
+				self.GLRenderer.render( self.aScene.object3D, self.aScene.camera );
+			}
+			// console.log("renderTick");
+			requestAnimationFrame(renderTick); // dont use it, because of the haning problem
+		};
 
 
 	</script>

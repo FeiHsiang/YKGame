@@ -83,17 +83,21 @@
 		#score{
 			position: absolute;
 			z-index: 2;
-			left :5%;
-			bottom: 5%;		
-			font-size: 20;
+			left :15%;
+			bottom: 20%;		
+			font-family: Arial;
+			font-size: 20px;
+			/* color: #FFFFFF; */
 		}
 
 		#ballAmount{
 			position: absolute;
 			z-index: 2;
-			left :80%;
-			bottom: 5%;		
-			font-size: 20;
+			left :65%;
+			bottom: 20%;		
+			font-family: Arial;
+			font-size: 20px;
+			/* color: #FF0000; */
 		}
 
 	</style>
@@ -102,6 +106,10 @@
 </head>
 <body>
 	
+	<div id = "closeIframe" style="position: absolute;z-index: 2;font-size: 15pt; color:rgba(0,0,0,0.5); cursor:pointer;"	>
+		返回主頁面
+	</div>
+
 	<div id="blocker">
         <div class="instructions" id = "blocker_info">
             <span style="font-size:36px">Click to play</span>
@@ -127,9 +135,6 @@
 		球數: 12
 	</div>
 
-	<div id = "closeIframe" style="position: absolute;z-index: 2;font-size: 15pt; color:rgba(255,255,255,0.8); background-color: rgba(0,0,0,0.5);"	>
-		返回主頁面
-	</div>
 
 	<script src="js/vconsole.min.js"></script>
 	<script>
@@ -168,7 +173,7 @@
 			// }
 			location.replace("/prize-list");
 		});
-		
+
 	</script>
 
 	<script src="js/aframe-v1.0.4.js"></script>
@@ -184,10 +189,8 @@
 		physics="debug: false; friction: 0.005; " >
 			<a-assets id = "aAssets">
 
-				<a-asset-item id="robot" src="model/robot.glb"></a-asset-item>
-				
-				<a-asset-item id="sphere" src="model/Sphere.glb"></a-asset-item>
 				<a-asset-item id="baseball" src="model/baseball1.glb"></a-asset-item>
+				<a-asset-item id="baseballShelf" src="model/baseballShelf.glb"></a-asset-item>
 
 				<img id="n1" src="images/n1.png">
 				<img id="n2" src="images/n2.png">
@@ -211,6 +214,10 @@
 
 			
 			<!-- 棒球九宮格 -->
+
+			<!-- 架子 -->
+			<a-entity visible = "true" id = "shelf" position="0 -2 -3" rotation="0 0 0" scale="2 2 2" gltf-model="#baseballShelf" ></a-entity>
+
 
 			<!-- 板子 -->
 
@@ -504,34 +511,7 @@
 				aSphere.object3D.position.x = mouseStart.x * planeWidth ;
 				aSphere.object3D.position.y = aRig.object3D.position.y + mouseStart.y * planeHeight ;
 
-				//// 發射子彈的測試
-				// raycaster.setFromCamera( mouseStart, aScene.camera );
-				// let velocityYZ = 1 + (mouseStart.y);
-				// let velocity = new THREE.Vector3( mouseStart.x*0.9 , 1 , -1 ).normalize().multiplyScalar(10);
-				// let planeHeight = Math.tan( aCamera.object3DMap.camera.fov/2/180*Math.PI) * Math.abs(aSphereOriginPosition.z) * 1 ;
-				// let planeWidth = planeHeight * aCamera.object3DMap.camera.aspect;
-				// let clickPosition = new THREE.Vector3( mouseStart.x*planeWidth , raycaster.ray.origin.y + mouseStart.y*planeHeight, -1 );
-
-				// let bullet = document.createElement('a-entity');
-				// bullet.setAttribute("dynamic-body", "mass: 1000");
-				// // bullet.setAttribute("velocity",raycaster.ray.direction.multiplyScalar(10));
-				// // bullet.setAttribute("position",raycaster.ray.origin);
-
-				// bullet.setAttribute("velocity", velocity );
-				// bullet.setAttribute("position",  clickPosition);
-
-				// bullet.setAttribute("geometry","primitive: sphere; radius: 0.1" );
-				// bullet.setAttribute("material","roughness: 0.48; color:	#00FF00");
-				// bullet.setAttribute("shadow","cast:true; receive:true");
-				// aScene.appendChild(bullet);
-
-				// let vector = raycaster.ray.direction.multiplyScalar(10);
 				
-				// ball.body.velocity.set( vector.x, vector.y, vector.z );
-				// ball.body.position.set(0, 1, -1);
-
-				// console.log("vrSceneTouchMove , mouseStart =" , raycaster.ray.origin  );
-				// console.log("vrSceneTouchMove , set 1 mouseStart=", mouseStart );
 
 			}
 			
@@ -654,15 +634,20 @@
 				ballAmount -= 1;
 				ballAmountText.innerText = "球數: "+ballAmount.toString();
 				// resetSphere(2000);
-				if(ballAmount>0){
-					resetSphere(2000);
-				} else{
+		
+				if(score<9){
 					setTimeout(function(){
-						blocker_score.style.display = "block";
-						score_info.innerText = "恭喜獲得" + score + "分";
-						blocker_score.onclick = function(){
-							location.reload();
+						if(score==9 || ballAmount == 0){
+							blocker_score.style.display = "block";
+							score_info.innerText = "恭喜獲得" + score + "分";
+							blocker_score.onclick = function(){
+								location.reload();
+							}
 						}
+						else{
+							resetSphere(1);
+						}
+						
 					}, 2500);
 				}
 				
@@ -695,6 +680,15 @@
 				console.log("resetSphere set 0" );
 			}, delay);
 		}
+
+		renderTick();
+		function renderTick(){
+			if (aScene.object3D && aScene.camera){
+				aScene.renderer.render( aScene.object3D, aScene.camera );
+			}
+			// console.log("renderTick");
+			requestAnimationFrame(renderTick); // dont use it, because of the haning problem
+		};
 
 	</script>
 

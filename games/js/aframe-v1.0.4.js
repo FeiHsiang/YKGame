@@ -76055,6 +76055,12 @@ var proto = Object.create(ANode.prototype, {
       if (el) {
         this.object3D.remove(el.object3D);
       } else {
+//[start-20201124- fei -0001-add]//
+        if (!this.parentNode){
+          // console.log("aframe-v1.0.4.js: remove error", this.object3D );
+          return;
+        } 
+//[end---20201124- fei -0001-add]//
         this.parentNode.removeChild(this);
       }
     }
@@ -79168,7 +79174,10 @@ module.exports.AScene = registerElement('a-scene', {
           savedBackground = this.object3D.background;
           this.object3D.background = null;
         }
-        renderer.render(this.object3D, this.camera);
+//[start-20201125- fei -0001-remove]//
+        //// 在這邊取消，於我們自己定義的位置啟動
+        // renderer.render(this.object3D, this.camera);
+//[end---20201125- fei -0001-remove]//
         if (savedBackground) {
           this.object3D.background = savedBackground;
         }
