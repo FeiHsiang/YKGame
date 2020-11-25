@@ -375,6 +375,7 @@ img {
 
 #fb-login-div{
   width: 50%;
+  height: 100%;
   left: 0%;
   bottom: 0px;
   position: absolute;
@@ -382,6 +383,7 @@ img {
 
 #g-login-div{
   width: 50%;
+  height: 100%;
   right: 0%;
   bottom: 0px;
   position: absolute;
@@ -471,10 +473,16 @@ img {
   #fb-login-button{
     position: relative;
     left: calc(50% - 220px);
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
   }
   
   #g-login-button{
     position: relative;
     right: calc(50% - 220px);
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
   }
 }

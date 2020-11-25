@@ -222,13 +222,13 @@
 			<!-- 板子 -->
 
 			<a-plane  position="-1.05 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board1" 
-			shadow="receive: true" material="shader: flat; src: #n1;" dynamic-body="mass:500" ></a-plane>
+			shadow="receive: true" material="shader: flat; src: #n1;" ></a-plane>
 
 			<a-plane  position="0 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board2" 
-			shadow="receive: true" material="shader: flat; src: #n2;" dynamic-body="mass:500" ></a-plane>
+			shadow="receive: true" material="shader: flat; src: #n2;" ></a-plane>
 
 			<a-plane  position="1.05 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board3" 
-			shadow="receive: true" material="shader: flat; src: #n3;" dynamic-body="mass:500" ></a-plane>
+			shadow="receive: true" material="shader: flat; src: #n3;" ></a-plane>
 
 			<a-plane  position="-1.05 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board4" 
 			shadow="receive: true" material="shader: flat; src: #n4;" dynamic-body="mass:500" ></a-plane>
@@ -291,6 +291,10 @@
 
 	<script>
 		
+		document.getElementById("board1").setAttribute("dynamic-body", "mass:500");
+		document.getElementById("board2").setAttribute("dynamic-body", "mass:500");
+		document.getElementById("board3").setAttribute("dynamic-body", "mass:500");
+
 
 		blocker.addEventListener("click", function(){
 			blocker.style.display = "none";
