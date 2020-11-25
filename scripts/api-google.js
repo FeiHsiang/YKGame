@@ -46,7 +46,8 @@ function googleOnSignIn(user) {
   postData = {
     ID: user.getBasicProfile().getId() + '@google',
     name: profile.getName(),
-    request: 'init',
+    email: profile.getEmail(),
+    request: 'login',
     requestItem: ''
   };
   aNetworkAgent.sendPost(postData).then(myJson => {

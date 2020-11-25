@@ -6,14 +6,16 @@ function fbLogin() {
       localStorage.setItem('token', loginResponse.authResponse.accessToken);
       localStorage.setItem('userID', loginResponse.authResponse.userID);
       localStorage.setItem('vendor', 'facebook');
-      FB.api(`/${loginResponse.authResponse.userID}`, 'GET', {"fields":"id,name"}, function(response) {
-        console.log('寫入 ID 以及姓名');
+      FB.api(`/${loginResponse.authResponse.userID}`, 'GET', {"fields":"id,name,email"}, function(response) {
+        console.log('寫入 ID 以及姓名' , response );
         userID = response.id + '@facebook';
         userName = response.name;
+        email = response.email;
         postData = {
           ID: userID,
           name: userName,
-          request: 'init',
+          email: "",
+          request: 'login',
           requestItem: ''
         };
         aNetworkAgent.sendPost(postData).then(myJson => {

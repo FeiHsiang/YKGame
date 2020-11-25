@@ -204,7 +204,7 @@
 
 			</a-assets>
 
-			<a-entity id="rig" position="0 0.8 0" rotation="0 0 0">
+			<a-entity id="rig" position="0 0.8 0.2" rotation="0 0 0">
 				<!-- <a-entity id="aCamera" camera  look-controls wasd-controls></a-entity> -->
 				<a-entity id="aCamera" camera="fov:80; zoom:1" ></a-entity>
 			</a-entity>
@@ -510,7 +510,7 @@
 				}
 
 				//// 點擊即把球物件移動到滑鼠/觸碰位置 
-				let planeHeight = Math.tan( aCamera.object3DMap.camera.fov/2/180*Math.PI) * Math.abs(aSphereOriginPosition.z) * 1 ;
+				let planeHeight = Math.tan( aCamera.object3DMap.camera.fov/2/180*Math.PI) * Math.abs(aRig.object3D.position.z - aSphereOriginPosition.z) * 1 ;
 				let planeWidth = planeHeight * aCamera.object3DMap.camera.aspect;
 				aSphere.object3D.position.x = mouseStart.x * planeWidth ;
 				aSphere.object3D.position.y = aRig.object3D.position.y + mouseStart.y * planeHeight ;
@@ -554,7 +554,7 @@
 				//// 計算出應該要呈現的位置，從『原始球的位置的z軸數值』與『當前相機垂直fov角度的一半』可以算出『與原始球的xy平面的高度』
 				//// 再使用『畫面比例所造成的相機比例』算出『與原始球的xy平面的寬度』
 				//// 因為拖拉移動有正負，所以當滑鼠拖拉『從中心到寬邊最距離』對應於『原始球位置到相機最外緣』
-				let planeHeight = Math.tan( aCamera.object3DMap.camera.fov/2/180*Math.PI) * Math.abs(aSphereOriginPosition.z) * 1 ;
+				let planeHeight = Math.tan( aCamera.object3DMap.camera.fov/2/180*Math.PI) * Math.abs(aRig.object3D.position.z - aSphereOriginPosition.z) * 1 ;
 				let planeWidth = planeHeight * aCamera.object3DMap.camera.aspect;
 
 				// aSphere.object3D.position.x = aSphereOriginPosition.x + pdiff.x * planeWidth;
