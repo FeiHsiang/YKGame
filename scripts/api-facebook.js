@@ -6,7 +6,8 @@ function fbLogin() {
       localStorage.setItem('token', loginResponse.authResponse.accessToken);
       localStorage.setItem('userID', loginResponse.authResponse.userID);
       localStorage.setItem('vendor', 'facebook');
-      FB.api(`/${loginResponse.authResponse.userID}`, 'GET', {"fields":"id,name,email"}, function(response) {
+      // FB.api(`/${loginResponse.authResponse.userID}`, 'GET', {"fields":"id,name,email"}, function(response) {
+      FB.api('/me?fields=id,name,email', function(response) {
         console.log('寫入 ID 以及姓名' , response );
         userID = response.id + '@facebook';
         userName = response.name;
