@@ -7,7 +7,7 @@ function fbLogin() {
       localStorage.setItem('userID', loginResponse.authResponse.userID);
       localStorage.setItem('vendor', 'facebook');
       // FB.api(`/${loginResponse.authResponse.userID}`, 'GET', {"fields":"id,name,email"}, function(response) {
-      FB.api('/me?fields=id,name,email', function(response) {
+      FB.api('/me', {fields:'id,name,email,gender'} , function(response) {
         console.log('寫入 ID 以及姓名' , response );
         userID = response.id + '@facebook';
         userName = response.name;
@@ -28,5 +28,5 @@ function fbLogin() {
       // The person is not logged into your webpage or we are unable to tell.
       console.log('登入臉書失敗， status 為', loginResponse.status);
     }
-  }, {scope: 'public_profile'});
+  }, {scope: 'public_profile, email'});
 }
