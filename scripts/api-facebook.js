@@ -1,8 +1,8 @@
 function fbLogin() {
   FB.login(function(loginResponse) {
-    console.log(loginResponse);
+    console.log("FB.login: loginResponse=" , loginResponse);
     if (loginResponse.status === 'connected') {
-      console.log(loginResponse);
+      console.log("FB.login: connected, loginResponse=", loginResponse);
       localStorage.setItem('token', loginResponse.authResponse.accessToken);
       localStorage.setItem('userID', loginResponse.authResponse.userID);
       localStorage.setItem('vendor', 'facebook');
@@ -10,11 +10,11 @@ function fbLogin() {
         console.log('寫入 ID 以及姓名' , response );
         userID = response.id + '@facebook';
         userName = response.name;
-        email = response.email;
+        email = response.email? response.email: "";
         postData = {
           ID: userID,
           name: userName,
-          email: "",
+          email: email,
           request: 'login',
           requestItem: ''
         };
