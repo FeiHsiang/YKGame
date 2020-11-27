@@ -137,7 +137,7 @@
 			<br /><br />
 			<span style="font-size:36px; color:#00c99c" id = "score_info"> </span>
 			<br/>
-			點擊畫面再玩一遍<br/>
+			點擊畫面前往兌換區<br/>
 			
 		</div>
 	</div>
@@ -186,7 +186,7 @@
 			// if (parent){
 			// 	parent.aUI.closeGameIframe();
 			// }
-			location.replace("/prize-list");
+			location.replace("/");
 		});
 
 		// blocker.style.display = "none";
@@ -228,16 +228,16 @@
 			
 			<!-- <a-sky id = "aSky" color="#ECECEC"></a-sky> -->
 
-			<a-entity light="type: ambient; color: #FFFFFF"></a-entity>
-			<a-entity light="type: directional; color: #FFFFFF; intensity: 0.7;
-								   castShadow: true; 
+			<a-entity light="type: ambient; color: #FFFFFF intensity: 1.5" ></a-entity>
+			<a-entity light="type: directional; color: #FFFFFF; intensity: 0.5;
+								   castShadow: false; 
 								   shadowCameraVisible: false;
 								   shadowBias:-0.0005; 
 								   shadowCameraTop:10; shadowCameraBottom:-10; 
 								   shadowCameraRight:10; shadowCameraLeft:-10; 
 								   shadowMapHeight:3072; shadowMapWidth:3072; 
 								   shadowCameraFar: 500; shadowCameraNear: 0.5;" 
-			          position="0 -1 1" ></a-entity>
+			          position="0 0 1" ></a-entity>
 			<!-- <a-entity camera="active: true" look-controls wasd-controls position="0 1.6 0"></a-entity> -->
 		</a-scene>
 
@@ -534,15 +534,51 @@
 						clearInterval(ctrlObj);
 
 						blocker_score.style.pointerEvents = "none";
-						setTimeout(function(){
-							blocker_score.style.pointerEvents = "auto";
-						}, 3000);
+						
+
 						blocker_score.style.display = "block";
-						score_info.innerText = "恭喜獲得" + score + "分";
+
+						let userID;
+						if ( !localStorage.getItem('userID') || !localStorage.getItem('vendor') ){
+							userID = "test1@google";
+						}else{
+							userID = localStorage.getItem('userID')+"@"+localStorage.getItem('vendor');
+						}
+
+						let serverUrl = "https://7leyf90jbd.execute-api.ap-northeast-1.amazonaws.com/prod/yongkangMongoAccess";
+						let	postData = {
+							// ID: "test3"+"@"+"google",
+							ID:  userID, 
+							coins: Math.ceil(score/10),
+							gameType: "shoot",
+							request: 'play',
+							requestItem: ''
+						};
+						fetch( serverUrl , {
+							method: 'POST', 
+							headers: { 'Content-Type': 'application/json'},
+							body: JSON.stringify(postData)
+						} ).then(function(response) {
+							return response.json();
+						}).then(function(myJson) {
+							console.log("shooting.html, play myJson " , myJson );
+							if ( myJson[0] == true ){
+								score_info.innerHTML = "恭喜獲得" + score + "分<br>取得" + Math.ceil(score/10) + "枚代幣";
+							}else{
+								score_info.innerHTML = "恭喜獲得" + score + "分<br>今日已經遊玩過了，無法獲得代幣";
+							}
+							//// 一秒後可以點擊畫面
+							setTimeout(function(){
+								blocker_score.style.pointerEvents = "auto";
+							}, 2000);
+
+						});
 
 						blocker_score.onclick = function(){
-							blocker_score.style.display = "none";
-							randomGenerateObject();
+							// blocker_score.style.display = "none";
+							// randomGenerateObject();
+
+							location.replace("/");
 						}
 					}, 13000);
 				}

@@ -15,6 +15,15 @@ body {
 /* 兌換頁面 start */
 
 /* Reference: https://www.w3schools.com/howto/howto_js_tabs.asp */
+
+#topBar{
+  color: white;
+}
+
+#couponTable{
+  margin-bottom: 10px;
+}
+
 /* Style the tab */
 .tab {
   border-bottom: 1px solid #4a4d54;
@@ -51,7 +60,7 @@ body {
   position: fixed;
   bottom: 1%;
   width:100%;
-  height:5%;
+  height:8%;
 }
 
 #playeDiv{
@@ -61,6 +70,8 @@ body {
   height:100%;
   bottom:0px;
   background-color: #69918b;
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 .centerText {
@@ -155,9 +166,72 @@ body {
   cursor: pointer;
 } 
 
+
+/* 購買兌換券 start */
+
+#buyCouponDov{
+  font-size: 18pt;
+  color:white;
+}
+
+#couponImg{
+  width:80%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#couponNumberDiv{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 24pt;
+}
+
+#couponNumberDiv > p{
+  margin: 0;
+  display: inline;
+  /* white-space:nowrap;  */
+}
+
+#exchangeNumber{
+  font-size: 18pt;
+}
+
+#buyCouponNote{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 14pt;
+}
+
+#buyCouponConfirm{
+  position:absolute;
+  bottom: 15px;
+  left:3px;
+  width:40%;
+  height:20%;
+  max-height: 50px;
+  background-color: rgba(80, 160, 150, 1.0);
+  cursor: pointer;
+}
+
+#buyCouponCancel{
+  position:absolute;
+  bottom: 15px;
+  right:3px;
+  width:40%;
+  height:20%;
+  max-height: 50px;
+  background-color: rgba(80, 110, 150, 1.0);
+  cursor: pointer;
+}
+
+/* 購買兌換券 end */
+
+
+/* 排行榜 */
 #leadBnTitle{
   position: relative;
   margin-top: 15px;
+  margin-bottom: 30px;
   min-height: 30px;
 }
 
@@ -171,9 +245,17 @@ body {
 #leadBnInfo{
   position: relative;
   font-size: 30px;
-  color: #8b93a6;
-  left:  45px ;
+  color: #afb4f9;
+  left: 32px ;
   top:15px;
+}
+
+#leaderTable{
+  margin: auto;
+  width:90%;
+  color:white;
+  font-size:14pt;
+  overflow-wrap:anywhere;
 }
 
 /* 兌換頁面 end */
@@ -213,6 +295,9 @@ body {
   color: white;
   text-align: center;
   font-size: 16pt;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  display: inline-block;
 }
 
 #inputPassword{
@@ -220,11 +305,15 @@ body {
   width: 80%;
   height:36px;
   font-size:20pt;
+  margin-top: 20px;
 }
+
+/* 使用兌換券 start */
 
 #pwdError {
   color: #ff0000;
   display: none;
+  margin-top: 20px;
 }
 
 #pwdModalButtonDiv {
@@ -298,7 +387,7 @@ input[type=number] {
 #special-two-button {
   width: auto;
   height: 6vh;
-  margin-bottom: 6vh;
+  margin-bottom: 10px;
   color:rgba(255,255,255,0.5);
 }
 
@@ -390,7 +479,9 @@ img {
 }
 
 #user-prize-list {
+  color:white;
   padding: 0 10%;
+  font-size: 18pt;
 }
 
 .return-btn {
@@ -410,7 +501,7 @@ img {
 #account-info{
   position: absolute;
   font-size: 5pt;
-  color:rgba( 0 , 0 , 0 , 0.5);
+  color:rgba( 255 , 255 , 255 , 0.5);
 }
 
 #gameIntoContainer{

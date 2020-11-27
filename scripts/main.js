@@ -127,6 +127,10 @@ switch (location.pathname) {
       aUI.startPlayingGame("baseballNine");
     },false);
 
+    game3.addEventListener('click', function(){
+      aUI.startPlayingGame("canKnockdown");
+    },false);
+
 //[end---20201123- fei -0001-adddebug]//
 
 
@@ -138,34 +142,75 @@ switch (location.pathname) {
     let logout = document.getElementById('logout');
     logout.addEventListener('click', checkWhichIsLoggedIn, false);
 
-    //// 玩遊戲
-    playeDiv.addEventListener('click', function(){
-      aUI.startPlayingGame();
-    }, false);
+    //// 假如 localStorage 內的使用者登入資訊有誤，則返回首頁
+    if (localStorage.getItem('vendor') != "google" && localStorage.getItem('vendor') != "facebook" ){
+      // alert('登入供應商有誤，請重新登入！');
+      console.log('登入供應商有誤，請重新登入！', location.href , location.origin );
+      localStorage.clear();
+      if (location.href != location.origin){
+        location.replace("/index.html");
+      }
+      
+    }else{
+      //// 取得使用者資訊來建構『票夾頁面』與下方欄位的『代幣數』。
+      //// 同時存入 localStorage，只要使用者沒有作『玩遊戲』『用代幣購買兌換卷』『兌換兌換卷』『使用兌換卷』就不會重新發request
+      postData = {
+        ID: localStorage.getItem('userID')+"@"+localStorage.getItem('vendor'), 
+        // ID: "test1"+"@"+"google", 
+        name: localStorage.getItem('userName'),
+        email: "",
+        request: 'login',
+        requestItem: ''
+      };
+      aNetworkAgent.sendPost(postData).then(userInfo => {
+        console.log("prize-list login, userInfo=" , userInfo );
+        localStorage.setItem("_userInfo" , JSON.stringify(userInfo) );
+        aUI.showMyCoupons();
+      });
 
-    //// 兌換券池
-    couponsPoolInfo.addEventListener('click', function(){
-      console.log(" couponsPoolInfo click ");
-      document.getElementById("user-prize-list").style.display = "none";
-      document.getElementById("couponPool").style.display = "block";
-      aUI.showAllCoupons();
-    });
-    //// 我的兌換券
-    myCoupons.addEventListener('click', function(){
-      console.log(" myCoupons click ");
-      document.getElementById("user-prize-list").style.display = "block";
-      document.getElementById("couponPool").style.display = "none";
-      aUI.showMyCoupons();
-    });
-    //// 查看排行榜
-    leadBn.addEventListener('click', function(){
-      console.log(" leadBn click ");
-      document.getElementById("leadBnModal").style.display = "block";
-    });
-    //// 關閉排行榜
-    closeLeadBnModal.addEventListener('click', function(){
-      document.getElementById("leadBnModal").style.display = "none";
-    });
+      //// 取得目前池中兌換券數量來建構『兌換卷』頁面
+      postData = {
+        request: 'get',
+        requestItem: 'couponTotal'
+      };
+      aNetworkAgent.sendPost(postData).then(couponTotal => {
+        console.log("prize-list get couponTotal, couponTotal=" , couponTotal );
+        aUI.showAllCoupons(couponTotal);
+      });
+
+      //// 玩遊戲
+      playeDiv.addEventListener('click', function(){
+        aUI.startPlayingGame();
+      }, false);
+
+      //// 點擊金幣開啟『兌換區』
+      coinDiv.addEventListener('click' , function(){
+        console.log(" _coinDiv click ");
+        document.getElementById("buyCouponDov").style.display = "block";
+      },false);
+      //// 確認兌換
+      buyCouponConfirm.addEventListener('click', function(){
+        aUI.buyCoupons();
+      });
+      //// 點擊取消關閉兌換區
+      buyCouponCancel.addEventListener('click', function(){
+        console.log("buyCouponCancel click");
+        document.getElementById("buyCouponDov").style.display = "none";
+      });
+      //// 查看排行榜
+      leadBn.addEventListener('click', function(){
+        console.log(" leadBn click ");
+        document.getElementById("leadBnModal").style.display = "block";
+        aUI.showLeaders();
+      });
+      //// 關閉排行榜
+      closeLeadBnModal.addEventListener('click', function(){
+        document.getElementById("leadBnModal").style.display = "none";
+      });
+
+    }
+
+    
 
     break;
   default:

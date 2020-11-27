@@ -22,11 +22,11 @@
       <span id = "logout">登出</span>
     </div>
 
-    <div id = "topBar" class="tab">
-      <input id="couponsPool" class="tablinksToggle" type="radio" name="tablinksSearch" checked>
-      <label for="couponsPool" id="couponsPoolInfo" class="tablinksButton">兌換卷</label>
-      <input id="myCoupons" class="tablinksToggle" type="radio" name="tablinksSearch">
-      <label for="myCoupons" id="myCouponsInfo" class="tablinksButton">票夾</label>
+    <div id="user-prize-list">
+      點擊金幣按鈕來購買兌換券<br>
+      點擊兌換券來使用折價優惠<br>
+      <hr id = "user-prize-list-note-line">
+      <div id = mycouponDiv></div>
     </div>
 
     <div id = "bottomBar">
@@ -35,16 +35,12 @@
       </div>
       <div id="coinDiv" >
         <img id = "coin" class="fillImg" src="/images/coin.png">
-        <p id = "coinNumber" class = "centerText" > 1 </p>
+        <p id = "coinNumber" class = "centerText" >  </p>
       </div>
       <div id="leadBn" >
         <img id = "crown" class="fillImg" src="/images/crown.png">
       </div>
     </div>
-
-    <div id="couponPool"></div>
-    <div id="user-prize-list"></div>
-
     
     <div id="leadBnModal" class="modal">
         <div class="modal-content">
@@ -53,7 +49,43 @@
             <img id="leadBnImg" src="/images/crown.png">
             <span id="leadBnInfo">永康幣排行榜</span>
           </div>
+          <table id = "leaderTable" ></table>
+          
         </div>
+    </div>
+
+    <div id = "buyCouponDov" class = "modal">
+      <div class="modal-content">
+        <img id="couponImg" src="/images/c1.jpg">
+
+        <div id = "couponNumberDiv">
+          <p>今日剩餘兌換券數量：</p>
+          <p id = couponNumber >0</p>
+        </div>
+        <hr>
+        <label for="exchangeNumber">要兌換的數量：</label>
+        <input type="number" id="exchangeNumber" name="exchangeNumber" min="1" max="10" value="0">  
+
+        <div id = "buyCouponNote">  </div>
+        <div id = "buyCouponConfirm"> <div class="centerText">確認</div></div>
+        <div id = "buyCouponCancel" > <div class="centerText">取消</div></div>
+      </div>
+    </div>
+
+    <div id="useCouponDiv" class = "modal">
+      <div class="modal-content">
+        <label for="inputPassword" id="pwdModalInfo">
+          密碼兌換，五分鐘內請出示給結帳人員，並請將螢幕亮度調至最亮，逾時即失效
+        </label>
+        <input type="number" id="inputPassword" value="" min="1000" max="9999">
+        <div id="pwdError">
+          密碼錯誤
+        </div>
+        <div id="pwdModalButtonDiv">
+          <p id="pwdButtonCancel">取消</p>
+          <p id="pwdButtonComfirm">確認</p>
+        </div>
+      </div>  
     </div>
 
     <script src="../scripts/NetworkAgent.js"></script>

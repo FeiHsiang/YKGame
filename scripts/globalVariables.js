@@ -78,17 +78,6 @@ let getCertainPrizeInfo = function() {
   });
 };
 
-let listAllUserPrize = function() {
-  postData = {
-    ID: userID,
-    name: userName,
-    request: 'read',
-    requestItem: 'userPrizeList'
-  };
-  aNetworkAgent.sendPost(postData).then(myJson => {
-    aUI.showAllCoupons(myJson);
-  });
-};
 
 let selectProgramToRun = function() {
   switch (location.pathname) {
@@ -118,7 +107,6 @@ let selectProgramToRun = function() {
     case '/prize-list/':
     case '/prize-list/index':
     case '/prize-list/index.html':
-      listAllUserPrize();
       break;
     default:
       console.log("globalVariabiles.js: the location unknown, back home ");

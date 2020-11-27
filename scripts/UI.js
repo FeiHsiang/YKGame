@@ -26,58 +26,254 @@ class UI {
   }
 
   //// 顯示當前所有可兌換的段換券
-  showAllCoupons(ret){
-    console.log("UI.js: _showAllCoupons ret=" , ret );
-    if (!ret){
-      document.getElementById('couponPool').textContent = '錯誤, ret not exist';
+  showAllCoupons(couponTotal){
+    console.log("UI.js: _showAllCoupons couponTotal=" , couponTotal );
+    if (!couponTotal){
       return;
     }
-    if (ret.errorMessage != ""){
-      document.getElementById('couponPool').textContent = '錯誤, ' + ret.errorType + ", " + ret.errorMessage ;
+    if (couponTotal.errorMessage){
       return;
     }
+    document.getElementById("couponNumber").innerHTML = couponTotal[0].coupon001;
+  }
+
+  //// 使用代幣購買兌換券
+  buyCoupons(){
+    console.log("UI.js: _buyCoupons, [wanted, pool]", document.getElementById("exchangeNumber").value , document.getElementById("couponNumber").innerHTML  );
+    ////
+    let currentPoolNumber =  Number(document.getElementById("couponNumber").innerHTML );
+    let buyNumber =  Number(document.getElementById("exchangeNumber").value );
+
+    if (buyNumber == 0 ){
+      console.log("請輸入想要兌換的數量");
+      document.getElementById("buyCouponNote").innerHTML = "請輸入想要兌換的數量";
+      return;
+    }
+    if (buyNumber > currentPoolNumber ){
+      console.log("你無法購買超過線上現有兌換券數量");
+      document.getElementById("buyCouponNote").innerHTML = "你無法購買超過線上現有兌換券數量";
+      return;
+    }
+
+    //// 嘗試購買兌換券
+    postData = {
+      ID: localStorage.getItem('userID')+"@"+localStorage.getItem('vendor'), 
+      request: 'buy',
+      requestItem: {coupon001: buyNumber},
+    };
+    aNetworkAgent.sendPost(postData).then( buyRet => {
+      console.log("buyRet=" , buyRet);
+      //// 處理線上剩餘兌換券數量
+      if (buyRet[0]){
+        if (buyRet[0].couponRemain.coupon001){
+          document.getElementById("couponNumber").innerHTML = buyRet[0].couponRemain.coupon001;
+        }
+
+        if (buyRet[0].status){
+          //// 購買成功
+          document.getElementById("buyCouponNote").innerHTML = "成功購買了" + buyNumber + "張";
+          aUI.showMyCoupons();
+        }else{
+          //// 購買失敗，依照各個狀態顯示
+          switch(buyRet[0].result){
+            case "Sold out!":
+              document.getElementById("buyCouponNote").innerHTML = "今日線上兌換券已經換完";
+            break;
+
+            case "Not enough coin!":
+              document.getElementById("buyCouponNote").innerHTML = "您的代幣不足";              
+            break;
+
+            default:
+              document.getElementById("buyCouponNote").innerHTML = "等待後端回應";   
+
+          }
+         
+        }
+
+      }
+ 
+    });
+  }
+
+  //// 顯示排行榜
+  showLeaders(){
+    postData = {
+      request: 'get',
+      requestItem: 'coinLeaderboard',
+    };
+    aNetworkAgent.sendPost(postData).then(leaderList => {
+      console.log("leaderList = " , leaderList );
+      let leaderTable = document.getElementById("leaderTable");
+      leaderTable.innerHTML = "";
+      let thr = leaderTable.insertRow( 0 );
+      let t1 = document.createElement('th') , t2 = document.createElement('th') , t3 = document.createElement('th');
+      t1.innerHTML = "排名";
+      t2.innerHTML = "用戶名稱";
+      t3.innerHTML = "代幣數量";
+      thr.appendChild(t1);
+      thr.appendChild(t2);
+      thr.appendChild(t3);
+      leaderList.forEach((currentValue, index) => {
+        let row = leaderTable.insertRow( index + 1);
+        let rankR = row.insertCell(0);
+        let nameR = row.insertCell(1);
+        let coinsR = row.insertCell(2);
+        rankR.style.width = "20%";
+        nameR.style.width = "50%";
+        coinsR.style.width = "25%";
+
+        let userName;
+        if (currentValue.name == ""){
+          userName = "user";
+        }else{
+          userName = currentValue.name;
+        }
+        rankR.innerHTML = index + 1;
+        nameR.innerHTML = userName;
+        coinsR.innerHTML = currentValue.cumulativeCoins;
+
+      });
+    });
+
   }
 
   //// 顯示用戶本身含有的兌換券
-  showMyCoupons(myJson) {
-    console.log("UI.js: _showAllUserPrize myJson=" , myJson );
-    if (!myJson){
-      document.getElementById('user-prize-list').textContent = '錯誤, myJson not exist' ;
-      return;
-    } 
-    if (myJson.errorMessage != ""){
-      console.log(" _showAllUserPrize error ");
-      document.getElementById('user-prize-list').textContent = '錯誤, ' + myJson.errorType + ", " + myJson.errorMessage ;
+  showMyCoupons() {
+    let userInfo = JSON.parse( localStorage.getItem("_userInfo") );
+    console.log("UI.js: _showMyCoupons userInfo=" , userInfo );
+
+    if (!userInfo){
+      document.getElementById('user-prize-list').textContent = '錯誤, userInfo not exist' ;
       return;
     }
-    myJson[0].forEach((currentValue, index) => {
-      let oneRowData = document.createElement('div');
-      let imgDiv = document.createElement('div');
-      let prizeBtn = new Image();
-      prizeBtn.src = '/images/button-' + myJson[1][index].prizeLevel + '.png';
-      prizeBtn.dataset.prizeLevel = myJson[1][index].prizeLevel;
-      prizeBtn.dataset.prizeId = currentValue;
-      prizeBtn.dataset.hasExchanged = myJson[1][index].hasExchanged;
-      prizeBtn.dataset.drawDate = myJson[1][index].drawDate;
-      prizeBtn.dataset.exchangeDate = myJson[1][index].exchangeDate;
-      if (myJson[1][index].hasExchanged) {
-        // 已經兌換過
-        prizeBtn.style.opacity = '0.5';
+    if (!userInfo[0]){
+      document.getElementById('user-prize-list').textContent = '錯誤, userInfo not exist' ;
+      return;
+    }
+    if (userInfo.errorMessage){
+      console.log(" _showMyCoupons error ", userInfo.errorMessage );
+      document.getElementById('user-prize-list').textContent = '錯誤, ' + userInfo.errorType + ", " + userInfo.errorMessage ;
+      return;
+    }
+
+    //// 填入擁有代幣
+    if (userInfo[0].currentCoins != undefined){
+      document.getElementById("coinNumber").innerText = userInfo[0].currentCoins;
+    }
+    
+    //// 依照遊玩紀錄決定『玩遊戲按鈕』可否使用
+    postData = {
+      ID: localStorage.getItem('userID')+"@"+localStorage.getItem('vendor'), 
+      request: 'get',
+      requestItem: 'playedGame',
+    };
+    aNetworkAgent.sendPost(postData).then(isplayed => {
+      console.log(" isplayed = " , isplayed );
+      if (isplayed[0] == true){
+        document.getElementById("playeDiv").style.opacity = 0.5;
+        document.getElementById("playeDiv").style.pointerEvents = "none";
+      }else{
+        document.getElementById("playeDiv").style.opacity = 1.0;
+        document.getElementById("playeDiv").style.pointerEvents = "auto";
       }
-      else {
-        prizeBtn.classList.add('clickable-button');
-        prizeBtn.addEventListener('click', function() {
-          localStorage.setItem('rewardID', currentValue);
-          location.assign(`${location.protocol}//${location.host}/get-prize/`);
-        });
-      }
-      imgDiv.appendChild(prizeBtn);
-      oneRowData.appendChild(imgDiv);
-      document.getElementById('user-prize-list').appendChild(oneRowData);
     });
-    if (myJson[0].length === 0) {
-      document.getElementById('user-prize-list').textContent = '您目前沒有獎項';
-    }
+
+
+    postData = {
+      ID: localStorage.getItem('userID')+"@"+localStorage.getItem('vendor'), 
+      request: 'get',
+      requestItem: 'userCouponList',
+    };
+    aNetworkAgent.sendPost(postData).then(userCouponList => {
+      console.log("userCouponList = " , userCouponList );
+
+      //// 清空列表
+      document.getElementById('mycouponDiv').innerHTML = "";
+
+      //// 填入擁有兌換卷
+      if (userCouponList.length == 0){
+        document.getElementById("mycouponDiv").innerHTML = "您尚未擁有兌換券"
+      }
+
+      //// 重新向後端查找並填入
+      userCouponList.forEach((currentValue, index) => {
+        console.log(" _couponList: " , currentValue , index );
+        
+        let oneRowData = document.createElement('div');
+        let imgDiv = document.createElement('div');
+        let couponBtn = new Image();
+        couponBtn.src = '/images/c1.jpg';
+        
+        couponBtn.dataset.hasExchanged = currentValue.exchangeDate == ""? false : true
+        couponBtn.dataset.drawDate = currentValue.purchaseDate;
+        couponBtn.dataset.exchangeDate = currentValue.exchangeDate;
+        couponBtn.dataset.couponID = currentValue._id;
+
+
+        if (currentValue.exchangeDate != ""){
+          couponBtn.style.opacity = '0.5';
+        }else{
+          couponBtn.classList.add('clickable-button');
+          couponBtn.onclick =  function() {
+            console.log(" couponBtn click " , couponBtn.dataset );
+
+            document.getElementById("useCouponDiv").style.display = "block";
+
+            //// 為求統一，確認與取消按鈕都在這裡架構
+            document.getElementById("pwdButtonComfirm").onclick = function(){
+              let password = Number(document.getElementById('inputPassword').value);
+              console.log(" password = " , password , couponBtn.dataset );
+              if (password < 1000 || password > 9999 ){
+                document.getElementById("pwdError").style.display = "block";
+                document.getElementById("pwdError").innerHTML = "密碼長度必須為4";
+              }else {
+                //// 向後端發送『使用兌換券』事件
+                postData = {
+                  ID: couponBtn.dataset.couponID, 
+                  request: 'exchange',
+                  requestItem: password.toString(),
+                };
+                aNetworkAgent.sendPost(postData).then(exchangeRet => {
+                  console.log("exchangeRet = " , exchangeRet , exchangeRet[0].status );
+                  if (exchangeRet[0].status == true){
+                    document.getElementById("pwdError").style.display = "none";
+                  }else{
+                    document.getElementById("pwdError").style.display = "block";
+                    switch(exchangeRet[0].result){
+                      case "Incorrect code!" :
+                        document.getElementById("pwdError").innerHTML = "密碼錯誤";
+                        break;
+                      case "Prize not found!":
+                        document.getElementById("pwdError").innerHTML = "此獎項不存在";
+                        break;
+                      case "Already exchanged!":
+                        document.getElementById("pwdError").innerHTML = "此獎項已經兌換過";
+                        break;
+                      
+                      default:
+                        document.getElementById("pwdError").innerHTML = "密碼後端錯誤";
+                    }
+                  }
+                });
+
+              }
+
+            }
+
+            document.getElementById("pwdButtonCancel").onclick = function(){
+              document.getElementById("useCouponDiv").style.display = "none";
+            }
+
+          };
+        }
+
+        imgDiv.appendChild(couponBtn);
+        oneRowData.appendChild(imgDiv);
+        document.getElementById('mycouponDiv').appendChild(oneRowData);
+      });
+    });
+   
   }
 
   showChangeBrowserPage() {
@@ -196,8 +392,8 @@ class UI {
 //[start-20201123- fei -0001-add]//
   //// 以 iframe 方式開啟遊戲
   startPlayingGame( _gameName ){
-    console.log("UI.js: startPlayingGame ");
-    let gameName = _gameName? _gameName: "baseballNine";
+    console.log("UI.js: —startPlayingGame ");
+    let gameName = _gameName? _gameName: "shooting";
 
     ////直接跳轉到遊戲頁面
     location.replace("/games/" + gameName + ".html" );
