@@ -12,7 +12,7 @@ body {
   margin:0px;
 }
 
-/* 兌換頁面 start */
+/* 兌換頁面 -------------- start ------------------ */
 
 /* Reference: https://www.w3schools.com/howto/howto_js_tabs.asp */
 
@@ -258,7 +258,7 @@ body {
   overflow-wrap:anywhere;
 }
 
-/* 兌換頁面 end */
+/* 兌換頁面  ----------------------- end -------------------- */
 
 
 #pwdModal {
@@ -453,6 +453,65 @@ img {
   width: 100%;
 }
 
+#user-prize-list {
+  color:white;
+  padding: 0 10%;
+  font-size: 18pt;
+}
+
+.return-btn {
+  width: 37.5%;
+}
+
+#back-to-main-page {
+  height: 6vh;
+  width: auto;
+}
+
+#xrIframe {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* 兌換區首頁 --------------------- start ------------------ */
+
+#account-info{
+  position: absolute;
+  font-size: 5pt;
+  color:rgba( 255 , 255 , 255 , 0.5);
+}
+
+
+#couponIntroContainer{
+  width: 60%;
+  height: auto;
+  position: absolute;
+  top:3%;
+  right:1%;
+  background-color: white;
+  text-align: justify;
+  font-size:16pt;
+  line-height: 150%;
+}
+
+#gameIntoContainer{
+  position: absolute;
+  left:2%;
+  width: 35%;
+  height: auto;
+  font-size: 12pt;
+}
+
+.alignLeftText{
+  font-size: 14pt;
+  color:white; 
+  left:10%;
+  width:50%; 
+  /* position:absolute; */
+  text-align: left;
+  cursor: pointer;
+}
+
 #before-login, #after-login {
   display: none;
   position: fixed;
@@ -477,54 +536,25 @@ img {
   bottom: 0px;
   position: absolute;
 }
+@media screen and (min-width:900px) {
+  #fb-login-button{
+    position: relative;
+    left: calc(50% - 220px);
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+  }
 
-#user-prize-list {
-  color:white;
-  padding: 0 10%;
-  font-size: 18pt;
+  #g-login-button{
+    position: relative;
+    right: calc(50% - 220px);
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+  }
 }
 
-.return-btn {
-  width: 37.5%;
-}
-
-#back-to-main-page {
-  height: 6vh;
-  width: auto;
-}
-
-#xrIframe {
-  width: 100vw;
-  height: 100vh;
-}
-
-#account-info{
-  position: absolute;
-  font-size: 5pt;
-  color:rgba( 255 , 255 , 255 , 0.5);
-}
-
-#gameIntoContainer{
-  width: 100%;
-  height: 100vh;
-}
-
-.alignLeftText{
-  font-size: 16pt;
-  color:white; 
-  left:10%;
-  width:80%; 
-  position:absolute;
-  text-align: left;
-  cursor: pointer;
-}
-
-#gameIntro{
-  color:cyan;
-  width:100%;
-  height:auto;
-  max-width: 900px;
-}
+/* 兌換區首頁 --------------------- end ------------------ */
 
 #prize-description > img{
   width:100vw;
@@ -561,19 +591,5 @@ img {
     right: calc(50% - 220px);
   }
 
-  #fb-login-button{
-    position: relative;
-    left: calc(50% - 220px);
-    object-fit: cover;
-    max-width: 100%;
-    max-height: 100%;
-  }
   
-  #g-login-button{
-    position: relative;
-    right: calc(50% - 220px);
-    object-fit: cover;
-    max-width: 100%;
-    max-height: 100%;
-  }
 }

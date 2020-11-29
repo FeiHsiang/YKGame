@@ -15,15 +15,55 @@ class UI {
     }
   }
 
-  showAfterLogin() {
+  showAfterLoginCoupon() {
     document.getElementById('before-login').style.display = 'none';
     document.getElementById('after-login').style.display = 'flex';
-//[start-20201118- fei -0001-debug]//
-    // document.getElementById("after-login").style.display = "none";
-//[end---20201118- fei -0001-debug]//
-
     document.getElementById('account-info').textContent = `Hello ${userName}. ${userID}`;
+    let couponIntroText = "歡迎來到永康幣兌換區！獲得的永康幣除了同時增加抽iphone 12的機會，也可用來兌換永康商圈指定店家的15元折價券喔！";
+    document.getElementById('couponIntroContainer').innerHTML = couponIntroText;
   }
+
+  //// AR遊戲頁面顯示登入之後畫面
+  showAfterLoginGames() {
+    document.getElementById('before-login').style.display = 'none';
+    document.getElementById('after-login').style.display = 'flex';
+    document.getElementById('account-info').textContent = `Hello ${userName}. ${userID}`;
+
+    //// 依照不同的遊戲類別，顯示提示文字
+    let introText , gameTip;
+    let gameType , _gameType = localStorage.getItem("gameType"); 
+    if (_gameType == "slot" || _gameType == "shooting" || _gameType == "baseballNine" || _gameType == "canKnockdown" ){
+      gameType = _gameType;
+    }else{
+      gameType = "shooting"; //// 預設為射擊
+      localStorage.setItem("gameType" , "shooting" ); 
+    }
+    
+    switch(gameType){
+      case "slot":
+        introText = '歡迎來到拉霸機小遊戲！<br>進入遊戲後點擊螢幕，拉霸機即開始運轉，拉中三個相同的圖案即可獲得該獎項<br>最高為3個永康幣，快來試試手氣吧';
+        gameTip = '進入遊戲後點擊螢幕<br>拉霸機即開始運轉<br>按下確認後開始遊戲';
+        break;
+      case "shooting":
+        introText = '歡迎來到射氣球小遊戲！<br>玩家共有10秒的時間，請透過滑鼠或手指點擊螢幕射擊前方的氣球，每個氣球上有代表的分數射擊越多分數越高<br>最高可獲得3個永康幣，快來挑戰看看吧！';
+        gameTip = '玩家共有15秒的時間射擊<br>按下確認後即開始遊戲';
+        break;
+      case "baseballNine":
+        introText = '歡迎來到棒球九宮格！<br>玩家手上共有12顆球，請透過滑鼠或手指滑動螢幕丟向前方的九宮格，丟中越多分數越高<br>最高可獲得3個永康幣，快來挑戰看看吧！';
+        gameTip = '玩家共有12顆球的機會<br>按下確認後即開始遊戲';
+        break;
+      case "canKnockdown":
+        introText = '歡迎來到丟罐子小遊戲！<br>玩家共有三次機會，請透過滑鼠或手指滑動螢幕丟向前方的罐子，丟倒越多分數越高<br>最高可獲得3個永康幣，快來挑戰看看吧！';
+        gameTip = '玩家共有三次機會<br>按下確認後即開始遊戲';
+        break;
+
+    }
+ 
+    document.getElementById('gameIntroContainer').innerHTML = introText;
+    document.getElementById('gamesGameStartInfo').innerHTML = gameTip;
+    
+  }
+
 
   //// 顯示當前所有可兌換的段換券
   showAllCoupons(couponTotal){
@@ -392,7 +432,7 @@ class UI {
 //[start-20201123- fei -0001-add]//
   //// 以 iframe 方式開啟遊戲
   startPlayingGame( _gameName ){
-    console.log("UI.js: —startPlayingGame ");
+    console.log("UI.js: _startPlayingGame ");
     let gameName = _gameName? _gameName: "shooting";
 
     ////直接跳轉到遊戲頁面

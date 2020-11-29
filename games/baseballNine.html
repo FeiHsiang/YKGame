@@ -40,7 +40,53 @@
             height: 100%;
             background-color: rgba(0,0,0,0.7);
             z-index: 1;
+			display: none;
         }
+
+		.modal {
+			display: none; /* Hidden by default */
+			position: fixed; /* Stay in place */
+			z-index: 1; /* Sit on top */
+			left: 0;
+			top: 0;
+			/* https://stackoverflow.com/questions/10075524/sizing-div-based-on-window-width/35237091#35237091 */
+			width: 100vw; /* Full width */
+			height: 100vh; /* Full height */
+			background-color: rgba( 74 , 77 , 84 , 0.85 ); /* Black w/ opacity */
+		}
+
+		/* Modal Content/Box */
+		.modal-content {
+			position: relative;
+			background-color: #202125;
+			margin: 10% auto;
+			border-radius: 16px;
+			width: 85vw;
+			height: 85vh;
+			overflow: auto;
+		}
+
+		.modal-content > div {
+			position: relative;
+			margin-left: 2%;
+			margin-right: 2%;
+			width: 90%;
+			color:white;
+			text-align: left;
+			font-size: 20pt;
+		}
+
+
+		.centerText {
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			white-space:nowrap;
+		}
+		
+		/* 結算畫面  ----------------------- start ---------------------------  */
 
 		#blocker_score {
 			display: none;
@@ -51,34 +97,109 @@
 			z-index: 1;
 		}
 
-		.instructions {
-			width: 100%;
-			height: 100%;
+		#previousCoins{
+			margin-top: 40px;
+		}
 
-			display: -webkit-box;
-			display: -moz-box;
-			display: box;
+		#getCoins{
+			margin-top: 20px;
+		}
 
-			-webkit-box-orient: horizontal;
-			-moz-box-orient: horizontal;
-			box-orient: horizontal;
+		#currentCoins{
+			margin-top: 20px;
+		}
 
-			-webkit-box-pack: center;
-			-moz-box-pack: center;
-			box-pack: center;
+		#score_info{
+			right:-40%;
+			width:50%;
+			height:auto;
+			font-size:18px; 
+			color:#00c99c;
+			border: 2px solid white;
+			padding:10px;
+		}
 
-			-webkit-box-align: center;
-			-moz-box-align: center;
-			box-align: center;
-
-			color: #ffffff;
-			text-align: center;
-			font-family: Arial;
-			font-size: 24px;
-			line-height: 34px;
-
+		#leaderBn , #leaveConfirm {
+			position:absolute;
+			bottom: 15px;
+			left:3px;
+			width:40%;
+			height:20%;
+			max-height: 50px;
+			border-radius: 20px;
+			background-color: rgba(80, 160, 150, 1.0);
 			cursor: pointer;
 		}
+
+		#couponPage, #leaveCancel{
+			position:absolute;
+			bottom: 15px;
+			right:3px;
+			width:40%;
+			height:20%;
+			max-height: 50px;
+			border-radius: 20px;
+			background-color: rgba(80, 110, 150, 1.0);
+			cursor: pointer;
+		}
+
+		/* 結算畫面  ----------------------- end ---------------------------  */
+
+		/* 排行榜    ----------------------- start --------------------------- */
+
+		#leadBnTitle{
+			position: relative;
+			margin-top: 15px;
+			margin-bottom: 30px;
+			min-height: 30px;
+			text-align: center;
+		}
+
+		#leadBnImg{
+			position: absolute;
+			width:60px;
+			height:60px;
+			left:5px ;
+		}
+
+		#leadBnInfo{
+			position: relative;
+			font-size: 30px;
+			color: #afb4f9;
+			left: 32px ;
+			top:15px;
+		}
+
+		#leaderTable{
+			margin: auto;
+			width:90%;
+			color:white;
+			font-size:14pt;
+			overflow-wrap:anywhere;
+		}
+
+		#closeLeadBnModal{
+			color: rgba(20,20,20,1.0);
+			background-color: rgba(200,200,200,1.0);
+			position: absolute;
+			bottom: 10px;
+			width: 40%;
+			height:30px;
+			left:30%;
+			font-size: 18px;
+			cursor: pointer;
+		}
+
+		/* 排行榜    ----------------------- end --------------------------- */
+
+		/* 離開警告  ----------------------- start --------------------------- */
+
+		#warningInfo{
+			text-align: center;
+			top: 40%;
+		}
+ 
+		/* 離開警告  ----------------------- end --------------------------- */
 
 		#score{
 			position: absolute;
@@ -100,14 +221,24 @@
 			/* color: #FF0000; */
 		}
 
+		#leaveButton{
+			position: absolute;
+			z-index: 2;
+			font-size: 15pt;
+			color:rgba(0,0,0,0.9);
+			background-color:rgba(220,220,220,1.0);
+			padding: 5px;
+			cursor:pointer;
+		}
+
 	</style>
 
 
 </head>
 <body>
 	
-	<div id = "closeIframe" style="position: absolute;z-index: 2;font-size: 15pt; color:rgba(0,0,0,0.5); cursor:pointer;"	>
-		返回主頁面
+	<div id = "leaveButton">
+		回遊戲首頁
 	</div>
 
 	<div id="blocker">
@@ -117,16 +248,49 @@
             滑鼠/手指滑動螢幕來丟球<br/>
             總共12球，看看你能夠得到幾分吧<br/>
         </div>
-    </div>
-    <div id="blocker_score">
-        <div class="instructions" >
-            <span style="font-size:36px">Click to play again</span>
-            <br /><br />
-            <span style="font-size:36px; color:#00c99c" id = "score_info"> </span>
-            <br/>
-            點擊畫面前往兌換區<br/>
+	</div>
+	
+	<div id="blocker_score" class="modal">
+		<div class="modal-content">
+			<div id = "previousCoins">原有代幣：</div>
+			<div id = "getCoins">新增代幣：</div>
+			<hr>
+			<div id = "currentCoins">結算代幣：</div>
+			<div id = "score_info"> </div>
+			<div id = "leaderBn"> <div class="centerText">排行榜</div></div>
+			<div id = "couponPage" > <div class="centerText">去兌換</div></div>
+		</div>
+	</div>
+
+	<div id="leadBnModal" class="modal">
+        <div class="modal-content">
+			<div id="leadBnTitle">
+				<img id="leadBnImg" src="/images/crown.png">
+				<span id="leadBnInfo">永康幣排行榜</span>
+			</div>
+			<table id = "leaderTable" ></table>
+
+			<div id="closeLeadBnModal" >
+				<p  class = "centerText" >關閉</p> 
+			</div>
+		  
         </div>
 	</div>
+	
+	<div id="leaveWarning" class="modal">
+		<div class="modal-content">
+			
+			<div id = "warningInfo"> 確認回到遊戲首頁嘛？ </div>
+
+
+			<div id = "leaveConfirm"> <div class="centerText">確認</div></div>
+			<div id = "leaveCancel" > <div class="centerText">取消</div></div>
+
+		</div>
+	</div>
+
+
+
 	<div id="score">
 		分數: 0
 	</div>
@@ -167,11 +331,20 @@
 			requestDeviceMotionPermission();
 		}
 
-		document.getElementById("closeIframe").addEventListener('click', function(){
-			// if (parent){
-			// 	parent.aUI.closeGameIframe();
-			// }
-			location.replace("/");
+		document.getElementById("leaveButton").addEventListener('click', function(){
+			
+			if (blocker_score.style.display == "block"){
+				location.replace("/games");
+			}else{
+				leaveWarning.style.display = "block";
+				leaveConfirm.onclick = function(){
+					location.replace("/games");
+				}
+				leaveCancel.onclick = function(){
+					leaveWarning.style.display = "none";
+				}
+			}
+
 		});
 
 	</script>
@@ -204,13 +377,13 @@
 
 			</a-assets>
 
-			<a-entity id="rig" position="0 0.8 1.0" rotation="0 0 0">
+			<a-entity id="rig" position="0.0 0.8 3" rotation="0 0 0">
 				<!-- <a-entity id="aCamera" camera  look-controls wasd-controls></a-entity> -->
 				<a-entity id="aCamera" camera="fov:80; zoom:1" ></a-entity>
 			</a-entity>
 			
 			<!-- 棒球本身 -->
-			<a-entity visible = "true" id = "aSphere" position="0 0.1 -1.0" rotation="0 0 0" scale=" 0.0005 0.0005 0.0005 " gltf-model="#baseball" ></a-entity>
+			<a-entity visible = "true" id = "aSphere" position="0 0.0 -1.0" rotation="0 0 0" scale=" 0.0007 0.0007 0.0007 " gltf-model="#baseball" ></a-entity>
 
 			
 			<!-- 棒球九宮格 -->
@@ -633,7 +806,8 @@
 				
 
 				let vector = raycaster.ray.direction.multiplyScalar(10);
-				aSphere.setAttribute( "dynamic-body", "mass: 1000" );
+				// aSphere.setAttribute( "dynamic-body", "mass: 1000" );
+				aSphere.setAttribute( "dynamic-body", "mass: 1000; shape: sphere;" );
 
 				// aSphere.body.velocity.set( vector.x, vector.y, vector.z );
 				aSphere.body.velocity.set( velocity.x, velocity.y, velocity.z );
@@ -653,10 +827,11 @@
 						userID = localStorage.getItem('userID')+"@"+localStorage.getItem('vendor');
 					}
 
+					let coins = Math.ceil(score/3);
 					let serverUrl = "https://7leyf90jbd.execute-api.ap-northeast-1.amazonaws.com/prod/yongkangMongoAccess";
 					let	postData = {
 						ID:  userID, 
-						coins: Math.ceil(score/3),
+						coins: coins,
 						gameType: "baseballNine",
 						request: 'play',
 						requestItem: ''
@@ -667,24 +842,118 @@
 						body: JSON.stringify(postData)
 					} ).then(function(response) {
 						return response.json();
-					}).then(function(myJson) {
-						console.log("baseballNone.html, play myJson " , myJson );
-						if ( myJson[0] == true ){
-							score_info.innerHTML = "恭喜獲得" + score + "分<br>取得" + Math.ceil(score/3) + "枚代幣";
-						}else{
-							score_info.innerHTML = "恭喜獲得" + score + "分<br>今日已經遊玩過了，無法獲得代幣";
-						}
-						//// 一秒後可以點擊畫面
-						setTimeout(function(){
-							blocker_score.style.pointerEvents = "auto";
-						}, 2000);
+					}).then(function(isPlayed) {
+						console.log("baseballNone.html, play isPlayed " , isPlayed );
+
+						postData = {
+							ID:  userID, 
+							request: 'get',
+							requestItem: 'userCoins'
+						};
+						fetch( serverUrl , {
+							method: 'POST', 
+							headers: { 'Content-Type': 'application/json'},
+							body: JSON.stringify(postData)
+						} ).then(function(response) {
+							return response.json();
+						}).then(function(userCoins) {
+							let userCurrentCounts = Number(userCoins[0].currentCoins);
+
+							currentCoins.innerHTML = "結算代幣：" + userCurrentCounts + "枚";
+
+							if ( isPlayed[0] == true ){
+
+								if (score == 0){
+									previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
+									getCoins.innerHTML = "新增代幣：" + 1 + "枚";
+									score_info.innerHTML = "Sorry! 一個都沒有擊中<br>不過參與遊戲還是可以獲得一個永康幣喔";
+								}else{
+									previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts - coins) + "枚";
+									getCoins.innerHTML = "新增代幣：" + coins + "枚";
+									score_info.innerHTML = "恭喜你！擊中" + score + " 格<br>獲得" + coins + "個永康幣";
+								}
+
+
+							}else{
+								
+								if (score == 0){
+									previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
+									getCoins.innerHTML = "新增代幣：" + 1 + "枚";
+									score_info.innerHTML = "Sorry! 一個都沒有擊中<br>今日已經遊玩過了，無法獲得永康幣";
+								}else{
+									previousCoins.innerHTML = "原有代幣：" + userCurrentCounts + "枚";
+									getCoins.innerHTML = "新增代幣：" + 0 + "枚";
+									score_info.innerHTML = "恭喜你！擊中 " + score + " 格<br>今日已經遊玩過了，無法獲得永康幣";
+								}
+
+							}
+
+						});
+						
 
 					});
 
-					blocker_score.onclick = function(){
-						// location.reload();
+					//// 點擊『去兌換』
+					couponPage.onclick = function(){
 						location.replace("/prize-list");
 					}
+
+					//// 點擊『排行榜』
+					leaderBn.onclick = function(){
+						postData = {
+							ID:  userID, 
+							request: 'get',
+							requestItem: 'coinLeaderboard'
+						};
+						fetch( serverUrl , {
+							method: 'POST', 
+							headers: { 'Content-Type': 'application/json'},
+							body: JSON.stringify(postData)
+						} ).then(function(response) {
+							return response.json();
+						}).then(function(leaderList) {
+							
+							leadBnModal.style.display = 'block';
+
+							console.log("leaderList = " , leaderList );
+							let leaderTable = document.getElementById("leaderTable");
+							leaderTable.innerHTML = "";
+							let thr = leaderTable.insertRow( 0 );
+							let t1 = document.createElement('th') , t2 = document.createElement('th') , t3 = document.createElement('th');
+							t1.innerHTML = "排名";
+							t2.innerHTML = "用戶名稱";
+							t3.innerHTML = "代幣數量";
+							thr.appendChild(t1);
+							thr.appendChild(t2);
+							thr.appendChild(t3);
+							leaderList.forEach((currentValue, index) => {
+								let row = leaderTable.insertRow( index + 1);
+								let rankR = row.insertCell(0);
+								let nameR = row.insertCell(1);
+								let coinsR = row.insertCell(2);
+								rankR.style.width = "20%";
+								nameR.style.width = "50%";
+								coinsR.style.width = "25%";
+
+								let userName;
+								if (currentValue.name == ""){
+								userName = "user";
+								}else{
+								userName = currentValue.name;
+								}
+								rankR.innerHTML = index + 1;
+								nameR.innerHTML = userName;
+								coinsR.innerHTML = currentValue.cumulativeCoins;
+							});
+						});
+
+					}
+
+					closeLeadBnModal.onclick = function(){
+						leadBnModal.style.display = 'none';
+					}
+
+
 				}
 
 				if(score<9){

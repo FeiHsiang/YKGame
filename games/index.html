@@ -1,9 +1,59 @@
-<!doctype html>
-<html >
-<body>
-	<script>
-		location.replace("/index.html");
-	</script>
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="MIND & IDEA FLY CO., LTD.">
+    <meta name="description" content="永康 商圈 專案">
+    <meta property="og:url" content="https://ssl-api-makar-apps.miflyservice.com:8080/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="yongkong market website">
+    <meta property="og:description" content="永康 商圈 專案">
+    <meta property="og:image" content="https://www.makerar.com/banner/1569506677.jpg">
+    <meta property="fb:app_id" content="790562841436344">
+    <title>遊戲介紹</title>
+    <link href="styles/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="account-info"></div>
+    <div id = "gameIntroContainer">
+      開始前，可選擇 <br>Google或是FB登入<br>請點擊下方按鈕進入吧！<br>GOGO!
+	  
+	  </div>
 
+    <div id="gamesGameStartDiv" class="modal">
+      <div class="modal-content">
+        <div id="gamesGameStartInfo"> 123 </div>
+
+        <div id = "gamesButtonComfirm"> <div class="centerText">確認</div></div>
+        <div id = "gamesButtonCancel" > <div class="centerText">取消</div></div>
+      </div>
+    </div>
+
+
+    <div class="two-button-div" id="before-login">
+      <div id = "fb-login-div">
+        <img src="/images/fb.png" alt="FB 登入" id="fb-login-button" class="clickable-button">
+      </div>
+      <div id = "g-login-div">
+        <img src="/images/google.png" alt="Google 登入" id="g-login-button" class="clickable-button">
+      </div>
+    </div>
+    <div class="two-button-div" id="after-login">
+      <div id = "gamesGameStart" class="clickable-button game-intro-btn">
+        <p class = "centerText">開始遊戲</p>
+      </div>
+      <div id = "gamesMyCoupon" class="clickable-button game-intro-btn">
+        <p class = "centerText"> 獎券兌換</p>
+      </div>
+    </div>
+    <script src="/scripts/NetworkAgent.js"></script>
+    <script src="/scripts/UI.js"></script>
+    <script src="/scripts/globalVariables.js"></script>
+    <script src="/scripts/facebook-jssdk-loader.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=googleInit" async defer></script>
+    <script src="/scripts/api-facebook.js"></script>
+    <script src="/scripts/api-google.js"></script>
+    <script src="/scripts/main.js"></script>
+  </body>
+</html>

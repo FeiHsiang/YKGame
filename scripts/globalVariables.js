@@ -10,7 +10,7 @@ let postData;
 let seconds = 300;
 let intervalId;
 
-let checkWhichIsLoggedIn = function() {
+let clearLSLogout = function() {
   localStorage.clear();
   location.replace(`${location.protocol}//${location.host}/`);
 };
@@ -97,7 +97,7 @@ let selectProgramToRun = function() {
       // }
 //[end---20201120- fei - 0001-adddebug]//
 
-      aUI.showAfterLogin();
+      aUI.showAfterLoginCoupon();
       break;
     case '/get-prize/':
     case '/get-prize/index':
@@ -108,9 +108,15 @@ let selectProgramToRun = function() {
     case '/prize-list/index':
     case '/prize-list/index.html':
       break;
+    case '/games/':
+    case '/games/index':
+    case '/games/index.html':
+      aUI.showAfterLoginGames();
+      break;
     default:
       console.log("globalVariabiles.js: the location unknown, back home ");
-      location.replace(`${location.protocol}//${location.host}/`);
+      // location.replace(`${location.protocol}//${location.host}/`);
+      location.replace("/games");
     }
 };
 

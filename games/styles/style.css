@@ -1,0 +1,183 @@
+html {
+  max-width: 100vw;
+  min-height: 100vh;
+}
+
+body {
+  text-align: center;
+  /* background-image: url("../images/background.jpg"); */
+  background-color: #202125;
+  background-size: 100% 100%; 
+  font-size:20pt;
+  margin:0px;
+}
+
+
+#account-info{
+  position: absolute;
+  font-size: 5pt;
+  color:rgba( 255 , 255 , 255 , 0.5);
+}
+
+
+#gameIntroContainer{
+  width: 60%;
+  height: auto;
+  position: absolute;
+  top:3%;
+  right:1%;
+  background-color: white;
+  text-align: justify;
+  font-size:16pt;
+  line-height: 150%;
+}
+
+.two-button-div {
+  display: flex;
+}
+
+.two-button-div > * {
+  flex: 1;
+}
+
+#before-login, #after-login {
+  display: none;
+  position: fixed;
+  width:100%;
+  height:10%;
+  bottom: 0%;
+  background-color: rgba(20,20,20,1.0);
+}
+
+#fb-login-div{
+  width: 50%;
+  height: 100%;
+  left: 0%;
+  bottom: 0px;
+  position: absolute;
+}
+
+#g-login-div{
+  width: 50%;
+  height: 100%;
+  right: 0%;
+  bottom: 0px;
+  position: absolute;
+}
+@media screen and (min-width:900px) {
+
+  #fb-login-button{
+    position: relative;
+    left: calc(50% - 220px);
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  #g-login-button{
+    position: relative;
+    right: calc(50% - 220px);
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+}
+
+
+.clickable-button {
+  cursor: pointer;
+}
+
+#gamesGameStart{
+  position: relative;
+  width:100%;
+  left: 0%;
+  color:rgba(200,180,200,1.0);
+  font-size: 18pt;
+}
+
+.game-intro-btn {
+  max-width: 75%;
+}
+
+.centerText {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space:nowrap;
+}
+
+#gamesMyCoupon{
+  position: relative;
+  width:100%;
+  left: 0%;
+  color:rgba(200,180,200,1.0);
+  font-size: 18pt;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  /* https://stackoverflow.com/questions/10075524/sizing-div-based-on-window-width/35237091#35237091 */
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height */
+  background-color: rgba( 74 , 77 , 84 , 0.85 ); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  position: relative;
+  background-color: #202125;
+  margin: 25% auto;
+  border-radius: 16px;
+  width: 75vw;
+  height: 60vh;
+  overflow: auto;
+}
+
+.modal-content > div {
+  position: relative;
+  margin-left: 2%;
+  margin-right: 2%;
+  width: 90%;
+}
+
+#gamesGameStartInfo{
+  width:90%;
+  margin-top: 20px;
+  text-align: center;
+  color:white;
+  font-size: 16pt;
+}
+
+#gamesButtonComfirm{
+  position:absolute;
+  bottom: 15px;
+  left:3px;
+  width:40%;
+  height:20%;
+  max-height: 50px;
+  border-radius: 20px;
+  background-color: rgba(80, 160, 150, 1.0);
+  cursor: pointer;
+}
+
+#gamesButtonCancel{
+  position:absolute;
+  bottom: 15px;
+  right:3px;
+  width:40%;
+  height:20%;
+  max-height: 50px;
+  border-radius: 20px;
+  background-color: rgba(80, 110, 150, 1.0);
+  cursor: pointer;
+}
+
+

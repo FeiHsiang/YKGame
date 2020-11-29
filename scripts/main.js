@@ -53,9 +53,9 @@ let checkLogin = function() {
   else {
 //[start-20201119- fei -0001-debug]//
     //// 測試：不論登入與否，直接顯示
-    // console.log("main.js: call selectProgramToRun ");
-    // selectProgramToRun();
-    // return;
+    console.log("main.js: call selectProgramToRun ");
+    selectProgramToRun(); 
+    return;
 //[end---20201119- fei -0001-debug]//
 
     // 沒登入
@@ -65,6 +65,12 @@ let checkLogin = function() {
       case '/index.html':
         aUI.showLoginButton();
         break;
+      case '/games/':
+      case '/games/index':
+      case '/games/index.html':
+        aUI.showLoginButton();
+        break;
+ 
       case '/change-your-browser/':
       case '/change-your-browser/index':
       case '/change-your-browser/index.html':
@@ -112,7 +118,7 @@ switch (location.pathname) {
 
 //[start-20201123- fei -0001-adddebug]//
     gameStartImg.addEventListener('click', function(){
-      aUI.startPlayingGame("");
+      location.replace("/games");
     },false);
 
     myCoupon.addEventListener('click', function(){
@@ -120,15 +126,23 @@ switch (location.pathname) {
     });
 
     game1.addEventListener('click', function(){
-      aUI.startPlayingGame("shooting");
+      localStorage.setItem("gameType" , "shooting" ); 
+      location.replace("/games");
     },false);
     
     game2.addEventListener('click', function(){
-      aUI.startPlayingGame("baseballNine");
+      localStorage.setItem("gameType" , "baseballNine" ); 
+      location.replace("/games");
     },false);
 
     game3.addEventListener('click', function(){
-      aUI.startPlayingGame("canKnockdown");
+      localStorage.setItem("gameType" , "canKnockdown" ); 
+      location.replace("/games");
+    },false);
+
+    game4.addEventListener('click', function(){
+      localStorage.setItem("gameType" , "slot" ); 
+      location.replace("/games");
     },false);
 
 //[end---20201123- fei -0001-adddebug]//
@@ -140,7 +154,7 @@ switch (location.pathname) {
   case '/prize-list/index.html':
     isChangeBrowserPage = false;
     let logout = document.getElementById('logout');
-    logout.addEventListener('click', checkWhichIsLoggedIn, false);
+    logout.addEventListener('click', clearLSLogout, false);
 
     //// 假如 localStorage 內的使用者登入資訊有誤，則返回首頁
     if (localStorage.getItem('vendor') != "google" && localStorage.getItem('vendor') != "facebook" ){
@@ -148,7 +162,7 @@ switch (location.pathname) {
       console.log('登入供應商有誤，請重新登入！', location.href , location.origin );
       localStorage.clear();
       if (location.href != location.origin){
-        location.replace("/index.html");
+        location.replace("/");
       }
       
     }else{
@@ -180,7 +194,7 @@ switch (location.pathname) {
 
       //// 玩遊戲
       playeDiv.addEventListener('click', function(){
-        aUI.startPlayingGame();
+        location.replace("/games");
       }, false);
 
       //// 點擊金幣開啟『兌換區』
@@ -213,6 +227,32 @@ switch (location.pathname) {
     
 
     break;
+  case '/games/':
+  case '/games/index':
+  case '/games/index.html':
+    //// 點擊『開始遊戲』跳出提示視窗
+    gamesGameStart.onclick = function(){
+      console.log(" gamesGameStart click ");
+      gamesGameStartDiv.style.display = 'block';
+    }
+    //// 點擊『確認』來進入遊戲場景
+    gamesButtonComfirm.onclick = function(){
+      console.log(" gamesButtonComfirm click ");
+      aUI.startPlayingGame( localStorage.getItem("gameType") );
+    }
+    //// 點擊『取消』來返回遊戲首頁
+    gamesButtonCancel.onclick = function(){
+      gamesGameStartDiv.style.display = 'none';
+    }
+
+    //// 點擊『獎券兌換』
+    gamesMyCoupon.onclick = function(){
+      console.log(" gamesMyCoupon click ");
+      location.replace("/prize-list");
+    }
+
+    break;
+
   default:
     isChangeBrowserPage = false;
     break;
