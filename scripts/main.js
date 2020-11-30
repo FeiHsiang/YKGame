@@ -53,9 +53,9 @@ let checkLogin = function() {
   else {
 //[start-20201119- fei -0001-debug]//
     //// 測試：不論登入與否，直接顯示
-    console.log("main.js: call selectProgramToRun ");
-    selectProgramToRun(); 
-    return;
+    // console.log("main.js: call selectProgramToRun ");
+    // selectProgramToRun(); 
+    // return;
 //[end---20201119- fei -0001-debug]//
 
     // 沒登入
@@ -157,7 +157,7 @@ switch (location.pathname) {
     logout.addEventListener('click', clearLSLogout, false);
 
     //// 假如 localStorage 內的使用者登入資訊有誤，則返回首頁
-    if (localStorage.getItem('vendor') != "google" && localStorage.getItem('vendor') != "facebook" ){
+    if (localStorage.getItem('vendor') != "google" && localStorage.getItem('vendor') != "facebook" && false  ){
       // alert('登入供應商有誤，請重新登入！');
       console.log('登入供應商有誤，請重新登入！', location.href , location.origin );
       localStorage.clear();
@@ -179,7 +179,7 @@ switch (location.pathname) {
       aNetworkAgent.sendPost(postData).then(userInfo => {
         console.log("prize-list login, userInfo=" , userInfo );
         localStorage.setItem("_userInfo" , JSON.stringify(userInfo) );
-        aUI.showMyCoupons();
+        aUI.updateUserInfo();
       });
 
       //// 取得目前池中兌換券數量來建構『兌換卷』頁面
@@ -221,6 +221,24 @@ switch (location.pathname) {
       closeLeadBnModal.addEventListener('click', function(){
         document.getElementById("leadBnModal").style.display = "none";
       });
+      //// 『查看說明』
+      checkDescriptionDiv.onclick = function(){
+        document.getElementById("couponDescriptionDiv").style.display = "block";
+      };
+      //// 關閉『查看說明』
+      couponDescriptionConfirm.onclick = function(){
+        document.getElementById("couponDescriptionDiv").style.display = "none";
+      }
+      //// 點擊『購買折價券』開啟『兌換區』
+      buyCouponDiv.addEventListener('click' , function(){
+        console.log(" _buyCouponDiv click ");
+        document.getElementById("buyCouponDov").style.display = "block";
+      },false);
+      //// 關閉『個資說明頁』
+      personalIntroConfirm.onclick = function(){
+        document.getElementById("personalIntroDiv").style.display = "none"; 
+      }
+
 
     }
 

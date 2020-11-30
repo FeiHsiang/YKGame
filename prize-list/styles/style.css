@@ -1,0 +1,472 @@
+html {
+  max-width: 100vw;
+  min-height: 100vh;
+}
+
+body {
+  text-align: center;
+  /* background-image: url("../images/background.jpg"); */
+  background-color: #202125;
+  background-size: 100% 100%; 
+  font-size:20pt;
+  margin:0px;
+}
+
+/* 上方『回首頁』『登出』按鈕區域 start */
+#special-two-button {
+  width: auto;
+  height: 6vh;
+  margin-bottom: 10px;
+  color:rgba(255,255,255,0.5);
+}
+
+#special-two-button > a {
+  float: left;
+}
+
+#special-two-button > span {
+  float: right;
+}
+/* 上方『回首頁』『登出』按鈕區域 end */
+
+/* 我的兌換券資訊區域 start */
+#couponPoolDiv{
+  position: relative;
+  text-align: left;
+  color:white;
+  font-size:16pt;
+}
+
+#currentCoinsNumberDiv ,
+#cumulativeCoinsNumberDiv,
+#todayLeftCouponsDiv {
+  position: relative;
+  width:80%;
+  left:10%;
+}
+
+#buyCouponDiv{
+  position: absolute;
+  width:30%;
+  top:0%;
+  right:0%;
+  height:40%;
+  color:white;
+  background-color: black;
+  cursor: pointer;
+}
+
+#checkDescriptionDiv{
+  position: absolute;
+  width:30%;
+  bottom:0%;
+  right:0%;
+  height:40%;
+  color:white;
+  background-color: black;
+  cursor: pointer;
+}
+
+
+#logout {
+  height: 6vh;
+}
+
+#pool_my_line{
+  text-align: center;
+}
+
+#mycouponDiv{
+  width:80%;
+  left:10%;
+  position: relative;
+  border: 3px;
+  border-radius: 40px;
+  border-style: solid;
+  border-color: rgba(80,180,160,1.0);
+  color:white;
+}
+
+#couponImgDiv{
+  width:80%;
+  position: relative;
+  left:0%;
+  border-right-style: solid;
+  border-right-width: 3px;
+  border-right-color: rgba(80,180,160,1.0);
+}
+
+#myCouponImg{
+  width:90%;
+  margin: 15px;
+}
+
+#myCouponNumberDiv{
+  position: absolute;
+  top:0%;
+  left:80%;
+  width:20%;
+  height:100%;
+  color:white;
+}
+
+
+/* 我的兌換券資訊區域 end */
+
+#bottomBar {
+  position: fixed;
+  bottom: 1%;
+  width:100%;
+  height:8%;
+}
+
+#playeDiv{
+  position: absolute;
+  left: 2%;
+  width:30%;
+  height:100%;
+  bottom:0px;
+  background-color: #69918b;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.centerText {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space:nowrap;
+}
+
+#coinDiv{
+  position: absolute;
+  left: 34%;
+  width:30% ;
+  height:100%;
+  bottom:0px;
+  background-color: #69918b; 
+  visibility: hidden;
+}
+
+#coin{
+  position: relative;
+  left:-30px;
+}
+
+.fillImg{
+  max-width: 100%;
+  max-height: 100%;
+  object-fit :cover;
+}
+
+#coinNumber{
+  left: calc(50% + 30px );
+}
+
+#leadBn{
+  position: absolute;
+  right: 2%;
+  width:30% ;
+  height:100%;
+  bottom:0px;
+  background-color: #69918b; 
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  /* https://stackoverflow.com/questions/10075524/sizing-div-based-on-window-width/35237091#35237091 */
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height */
+  background-color: rgba( 74 , 77 , 84 , 0.85 ); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  position: relative;
+  background-color: #202125;
+  margin: auto;
+  top:12%;
+  border-radius: 16px;
+  width: 85vw;
+  height: 75vh;
+  overflow: auto;
+}
+
+.modal-content > div {
+  position: relative;
+  margin-left: 2%;
+  margin-right: 2%;
+  width: 90%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  /* float: right; */
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+} 
+
+/* 排行榜 start */
+#leadBnTitle{
+  position: relative;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  min-height: 30px;
+}
+
+#leadBnImg{
+  position: absolute;
+  width:60px;
+  height:60px;
+  left:5px ;
+}
+
+#leadBnInfo{
+  position: relative;
+  font-size: 30px;
+  color: #afb4f9;
+  left: 32px ;
+  top:15px;
+}
+
+#leaderTable{
+  margin: auto;
+  width:90%;
+  color:white;
+  font-size:14pt;
+  overflow-wrap:anywhere;
+}
+/* 排行榜 end */
+
+/* 購買兌換券 start */
+
+#buyCouponDov{
+  font-size: 16pt;
+  color:white;
+}
+
+#couponImg{
+  width:80%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#buyCouponDovIntro{
+  font-size: 12pt;
+}
+
+#couponNumberDiv{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 24pt;
+}
+
+#couponNumberDiv > p{
+  margin: 0;
+  display: inline;
+  /* white-space:nowrap;  */
+}
+
+#exchangeNumber{
+  font-size: 18pt;
+}
+
+#buyCouponNote{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 14pt;
+}
+
+#buyCouponConfirm{
+  position:absolute;
+  bottom: 15px;
+  left:3px;
+  width:40%;
+  height:20%;
+  max-height: 50px;
+  background-color: rgba(80, 160, 150, 1.0);
+  cursor: pointer;
+}
+
+#buyCouponCancel{
+  position:absolute;
+  bottom: 15px;
+  right:3px;
+  width:40%;
+  height:20%;
+  max-height: 50px;
+  background-color: rgba(80, 110, 150, 1.0);
+  cursor: pointer;
+}
+
+/* 購買兌換券 end */
+
+
+/* 使用兌換券 start */
+
+#useCoupons{
+  position: relative;
+  color: white;
+  text-align: center;
+  font-size: 16pt;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+#inputUseCoupons{
+  position: relative;
+  width: 80%;
+  height:36px;
+  font-size:20pt;
+  margin-top: 2px;
+  text-align: center;
+}
+
+#inputUseCouponError{
+  visibility: hidden;
+  color:red;
+  font-size: 16pt;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+#pwdModalInfo{
+  position: relative;
+  color: white;
+  text-align: center;
+  font-size: 16pt;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+#inputPassword{
+  position: relative;
+  width: 80%;
+  height:36px;
+  font-size:20pt;
+  margin-top: 2px;
+  text-align: center;
+}
+
+#pwdError {
+  color: #ff0000;
+  display: none;
+  margin-top: 20px;
+}
+
+#exchangeRet {
+  margin-right:auto;
+  margin-left:auto;
+  
+  color: white;
+  display: none;
+  margin-top: 20px;
+}
+
+#pwdModalButtonDiv {
+  position: absolute;
+  bottom: 10px;
+  width: 96%;
+  height: 54px;
+  border-radius: 16px;
+  color: #ffffff;
+  text-align: center;
+  border: 0;
+  padding: 0px 0 0 0px;
+  cursor: pointer;
+  margin-left: 2%;
+  margin-right: 2%;
+  display: flex;
+}
+
+#pwdButtonComfirm{
+  background-color: rgba(80, 160, 150, 1.0);
+  border-radius: 16px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 2%;
+  margin-right: 2%;
+  flex: 1;
+}
+
+#pwdButtonCancel{
+  background-color: rgba(80, 110, 150, 1.0);
+  border-radius: 16px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 2%;
+  margin-right: 2%;
+  flex: 1;
+}
+
+#couponDescriptionInfoDiv , 
+#personalIntroInfoDiv{
+  margin: 0%;
+  line-height: 20px;
+  width:100%;
+  height: 90%;
+}
+
+#couponDescriptionInfo{
+  font-size: 16pt;
+  line-height: 150%;
+  color:white;
+  text-align: justify;
+  padding:10px;
+}
+
+#personalIntroInfo{
+  font-size: 16pt;
+  line-height: 150%;
+  color:white;
+  text-align: center;  
+  padding:10px;
+}
+
+#couponDescriptionConfirm , 
+#personalIntroConfirm{
+  position: absolute;
+  bottom: 10px;
+  width: 90%;
+  height: 54px;
+  border-radius: 16px;
+  color:white;
+  background-color: rgba(80, 160, 150, 1.0);
+  text-align: center;
+  border: 0;
+  padding: 0px 0 0 0px;
+  cursor: pointer;
+  left: 5%;
+  margin: 0;
+}
+
+
+/* 使用兌換券 end */
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+

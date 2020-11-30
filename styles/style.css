@@ -133,7 +133,8 @@ body {
 .modal-content {
   position: relative;
   background-color: #202125;
-  margin: 3% auto;
+  margin: auto;
+  top:5%;
   border-radius: 16px;
   width: 85vw;
   height: 85vh;
@@ -451,12 +452,6 @@ img {
   position: relative;
   bottom: 0;
   width: 100%;
-}
-
-#user-prize-list {
-  color:white;
-  padding: 0 10%;
-  font-size: 18pt;
 }
 
 .return-btn {

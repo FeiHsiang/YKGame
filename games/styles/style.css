@@ -134,7 +134,8 @@ body {
 .modal-content {
   position: relative;
   background-color: #202125;
-  margin: 25% auto;
+  top:20%;
+  margin: auto;
   border-radius: 16px;
   width: 75vw;
   height: 60vh;
