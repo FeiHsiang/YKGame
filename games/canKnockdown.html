@@ -7,30 +7,33 @@
 	<style>
 
 		html, body {
+			overflow: hidden;
 			background: #fff;
 			color: #000;
 			font-family: sans-serif;
 			text-align: center;
-			width:100%;
-			height:100%;
+			width:100vw;
+			height:100vh;
 			margin: 0;
 		}
 
-		#myEmbeddedScene{
+		#aDiv{
 			/* margin: 20px 10px; */
 			/* width:800px; */
 			/* height:600px; */
-			width:100%;
-			height:100%;
+			position: relative;
+			width:100vw;
+			height:100vh;
 		}
 
 		@media screen and (min-width: 300px) and (max-width: 700px) {
-			#myEmbeddedScene{
+			#aDiv{
 				/* margin: 20px 10px; */
 				/* width:400px; */
 				/* height:300px; */
-				width:100%;
-				height:100%;
+				position: relative;
+				width:100vw;
+				height:100vh;
 			}
 		}
 
@@ -363,9 +366,9 @@
 
 	<!-- <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script> -->
 
-	<div id = "myEmbeddedScene"  >
+	<div id = "aDiv"  >
 		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
-		device-orientation-permission-ui="enabled: true"  background="color: #ECECEC" shadow="type: pcfsoft"
+		device-orientation-permission-ui="enabled: true"  shadow="type: pcfsoft"
 		physics="debug: false; friction: 0.05;" >
 			<a-assets id = "aAssets">
 
@@ -422,13 +425,13 @@
 
 			<!-- <a-plane id="underplane" position="0 0 -3" rotation="-90 0 0" width="2" height="0.2" color="#4D3900" opacity="1" shadow="receive: true" static-body></a-plane> -->
 
-			<a-plane id="underplane1" position="0 -3 0" rotation="-90 0 0" width="50" height="50" color="#7BC8A4" opacity="0.5" shadow="receive: true" static-body></a-plane>
+			<a-plane id="underplane1" position="0 -3 0" rotation="-90 0 0" width="50" height="50" color="#7BC8A4" opacity="0.8" shadow="receive: true" static-body></a-plane>
 
 
 			<a-box id="underplane2" position="0 0 -3" rotation="-90 0 0" width="2" height="0.2" depth="0.2"  color="#4D3900" opacity="1" shadow="receive: true" static-body></a-box>
 
 
-			<a-sky id = "aSky" color="#ECECEC"></a-sky>
+			<!-- <a-sky id = "aSky" color="#ECECEC"></a-sky> -->
 			<a-entity light="type: ambient; color: #FFFFFF"></a-entity>
 			<a-entity light="type: directional; color: #FFFFFF; intensity: 0.9;
 								   castShadow: true; 
@@ -976,14 +979,198 @@
 			}, delay);
 		}
 
-		renderTick();
-		function renderTick(){
-			if (aScene.object3D && aScene.camera){
-				aScene.renderer.render( aScene.object3D, aScene.camera );
+		startCamera( function(){
+			renderTick();	
+			if (self.video){
+				self.video.play();
 			}
+		});
+
+		function renderTick(){
+			
+			if (self.videoCamera){
+				self.GLRenderer.render( self.videoScene, self.videoCamera);
+			}	
+			self.GLRenderer.clearDepth();
+			if (self.aScene.object3D && self.aScene.camera){
+				self.GLRenderer.render( self.aScene.object3D, self.aScene.camera );
+			}
+
 			// console.log("renderTick");
 			requestAnimationFrame(renderTick); // dont use it, because of the haning problem
 		};
+
+
+		let self = {};
+		let videoScene = new THREE.Scene();
+		self.videoScene = videoScene;
+		self.GLRenderer = aScene.renderer;
+		aScene.renderer.autoClear = false;
+		self.aScene = aScene;
+
+		function startCamera( callback ){
+
+			let video = document.createElement('video');
+			let configuration = { facing: "environment" };
+			let texture = new THREE.VideoTexture(video);
+			texture.minFilter = THREE.LinearFilter;
+			texture.flipY = false;
+			texture.format = THREE.RGBFormat; // THREE.RGBAFormat
+
+
+
+			console.log(" _startCamera dcwh= " , document.documentElement.clientWidth , document.documentElement.clientHeight );
+
+			if ( navigator.mediaDevices  ) {
+				let onError = function(err) { 
+					console.error(" _startCamera error:", err); 
+					//// 即使沒開相機，也能玩
+					if (callback){
+						callback();
+					}
+				};
+
+				let videoSuccess = function(stream){
+					window.videoStream = stream;
+					video.srcObject = stream;
+					video.playsInline = true;
+					video.onloadedmetadata = function() {
+						function tick_video(){
+							if (video.videoWidth > 200 || video.videoHeight > 200){
+								console.log("XRFunc.js: tick_video play video[w, h]=", video.videoWidth, video.videoHeight );
+								//// 將video 物件記錄下來，在後面等 renderer 開始工作後再啟動
+								self.video  = video;
+								// video.play();
+
+								//////// set the div size depend on video
+								let videoWidth, videoHeight;
+								let aDiv = document.getElementById("aDiv");
+								let w, h;
+								if ( document.documentElement.clientWidth/document.documentElement.clientHeight > video.videoWidth/video.videoHeight ){
+									
+									w = window.innerWidth  ;
+									h = (window.innerWidth/video.videoWidth)* video.videoHeight;
+
+									console.log(" 1 set div size = ", innerWidth, innerHeight, w ,h, videoWidth, videoHeight );
+								}else{
+									
+									w = (window.innerHeight/video.videoHeight) * video.videoWidth ;
+									h = window.innerHeight;
+									
+									console.log(" 2 set div size = ", innerWidth, innerHeight, w ,h, videoWidth, videoHeight );
+								}
+
+								//// full fill, left nothing blank
+								aDiv.style.width  = w + "px" ;
+								aDiv.style.height = h + "px" ;
+								//// align the div and body
+								aDiv.style.left = ( innerWidth - w )/2 + "px" ;
+								aDiv.style.top  = ( innerHeight - h )/2 + "px" ;
+								
+
+								aScene.resize(); ////// it must call after renderer resize
+
+								////// setup the camera for 2D scene( 20200314 useless )
+								// let camera2D = new THREE.OrthographicCamera( -w/2, w/2, -h/2, h/2, -10, 20000);
+								//// 20201110 fei: 設定相機跟背景的時候直接使用『實體相機畫面尺寸』作為設定，手機端基本是[480, 640] 電腦端基本是[640, 480]
+								videoWidth = texture.image.videoWidth,  videoHeight = texture.image.videoHeight;
+
+								
+								////// setup the camera for background video
+								let videoCamera = new THREE.OrthographicCamera( -videoWidth/2, videoWidth/2, -videoHeight/2, videoHeight/2, -10, 20000);
+								self.videoCamera = videoCamera;
+								
+								////// setup videoPlane
+								let videoPlane = new THREE.Mesh(
+									new THREE.PlaneBufferGeometry( videoWidth , videoHeight ),
+									new THREE.MeshBasicMaterial( { map:texture, side: THREE.DoubleSide } ) ,
+								);
+								// videoPlane.material.depthTest = false;
+								// videoPlane.material.depthWrite = false;
+								videoPlane.position.set(0, 0, -1 );
+								self.videoScene.add( videoPlane );
+								
+								if ( callback ) { callback(); }
+
+							}else{
+								console.log("tick_video else video[w, h]=", video.videoWidth, video.videoHeight );
+								setTimeout(tick_video, 100);
+							}
+						}
+
+						if ( self.videoCamera ){
+							console.log("_startCamera: videoCamera exist, donothing ");
+						}else{
+							console.log("_startCamera: videoCamera not exist, start video ");
+							tick_video();
+						}
+						
+					}
+					
+				}
+
+				
+				navigator.mediaDevices.enumerateDevices().then(function(devices) {
+					let useDeviceID = false;
+					let cameraID, facingString, video_constraints;
+					devices = devices.filter(function(devices) { return devices.kind === 'videoinput'; });
+					if ( configuration.facing == "environment" ){facingString = "back";} 
+					else if (configuration.facing == "user" ){facingString = "front";} 
+					else{facingString = "back";}
+					for (let i in devices){
+						if( devices[i].label.toLowerCase().search( facingString ) != -1  ){ // front back
+							cameraID = devices[i].deviceId;
+							useDeviceID = true;
+						}
+					}
+					if (useDeviceID){ // PC, android chrome/FireFox, use the specific id by labels.
+						console.log("useDeviceID true, cameraID=", cameraID );
+						video_constraints = {
+							video: {
+								width: { min: 320, ideal: 640, max: 1280 },
+								height: { min: 240, ideal: 480, max: 800 }, 
+								frameRate: { min:15, ideal: 30, max: 60 },
+								deviceId: {'exact':cameraID }
+							}
+						};
+					}else{
+						let facing;
+						if ( configuration.facing ){ //// usually iOS safari and QQ, use "user"/"environment" to start
+							facing = configuration.facing;
+							console.log("configuration.facing do exist: set facing = ", facing );
+							video_constraints = {
+								video: {
+									width: { min: 320, ideal: 640, max: 1280 },
+									height: { min: 240, ideal: 480, max: 800 }, 
+									frameRate: { min:15, ideal: 30, max: 60 },
+									facingMode: facing
+								}
+							};
+						}else{
+							console.log("configuration.facing dosent exist: set facing = environment" );
+							video_constraints = {
+								video: {
+									width: { min: 320, ideal: 640, max: 1280 },
+									height: { min: 240, ideal: 480, max: 800 }, 
+									frameRate: { min:15, ideal: 30, max: 60 },
+									facingMode: 'environment'
+								}
+							};
+						}
+					}
+
+					navigator.mediaDevices.getUserMedia( video_constraints ).then(videoSuccess, onError); // successCallback
+				
+				});
+
+			}
+
+			console.log(" +++++++ ");
+		}
+
+
+
+
 
 	</script>
 
