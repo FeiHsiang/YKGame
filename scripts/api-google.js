@@ -20,6 +20,13 @@ function googleInit() {
           console.log(error);
         });
         break;
+      case '/games/':
+      case '/games/index':
+      case '/games/index.html':
+        aGoogleAuth.attachClickHandler(document.getElementById('g-login-button'), {}, googleOnSignIn, function(error) {
+          console.log(error);
+        });
+        break;
       default:
         // do nothing
         break;
