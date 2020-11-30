@@ -400,7 +400,8 @@
 			<a-assets id = "aAssets">
 
 				<a-asset-item id="_arrow" src="model/Arrow.glb"></a-asset-item>
-				<a-asset-item id="_bow" src="model/Bow.glb"></a-asset-item>
+				<!-- <a-asset-item id="_bow" src="model/Bow.glb"></a-asset-item> -->
+				<a-asset-item id="_bow" src="model/BowAnimation2.glb"></a-asset-item>
 				<a-asset-item id="b1" src="model/balloon01.glb"></a-asset-item>
 				<a-asset-item id="b2" src="model/balloon02.glb"></a-asset-item>
 				<a-asset-item id="b3" src="model/balloon03.glb"></a-asset-item>
@@ -410,8 +411,8 @@
 			<a-entity id="rig" position="0 1.6 0" rotation="0 0 0">
 				<a-entity id="aCamera" camera  look-controls="touchEnabled:false" wasd-controls>
 					<a-entity id = "pivotGun" position="0 -0.6 -1.2" rotation="135 0 0" >
-						<a-entity id = "bow" visible = "true" position="0.0 0.05 .0" rotation="0 0 90" scale=" 0.2 0.2 0.2 " gltf-model="#_bow" ></a-entity>
-						<a-entity id = "arrow" visible = "true" position="0 0.13 0" rotation="180 0 0" scale=" 0.6 0.2 0.6 " gltf-model="#_arrow" ></a-entity>
+						<a-entity id = "bow" visible = "true" position="0.0 0.05 .0" rotation="-90 0 0" scale=" 0.2 0.2 0.2 " gltf-model="#_bow" ></a-entity>
+						<a-entity id = "arrow" visible = "false" position="0 0.13 0" rotation="180 0 0" scale=" 0.6 0.2 0.6 " gltf-model="#_arrow" ></a-entity>
 					</a-entity>
 				</a-entity>
 			</a-entity>
@@ -423,8 +424,8 @@
 			
 			<!-- <a-sky id = "aSky" color="#ECECEC"></a-sky> -->
 
-			<a-entity light="type: ambient; color: #FFFFFF intensity: 1.5" ></a-entity>
-			<a-entity light="type: directional; color: #FFFFFF; intensity: 0.5;
+			<a-entity light="type: ambient; color: #fff intensity: 1.5" ></a-entity>
+			<a-entity light="type: directional; color: #fff; intensity: 0.5;
 								   castShadow: false; 
 								   shadowCameraVisible: false;
 								   shadowBias:-0.0005; 
@@ -439,6 +440,43 @@
 	</div>	
 
 	<script>
+
+		//// 弓的動畫
+		bow.setAttribute("animation-mixer" , "clip: Take 001");
+		bow.addEventListener('model-loaded', function(evt){
+
+			tick_getMixer();
+			function tick_getMixer(){
+				if (bow.components["animation-mixer"].mixer){
+					console.log(" got mixer: " , bow.components["animation-mixer"].mixer );
+					bow.components["animation-mixer"].mixer._actions[0].timeScale = 1.5;
+				}else{
+					console.log(" get mixer tick ");
+					setTimeout(tick_getMixer);
+				}
+			}
+
+			console.log(" model-loaded: " , evt.detail.model.animations  );
+			let animationSlices = [];
+			animationSlices.push({ 
+				changed:false, 
+				loop:false, 
+				reset:false, 
+				count: 0, 
+				idle:"mifly168", 
+				uid:"mifly168" 
+			});
+			animationSlices.push({
+				animationName: evt.detail.model.animations[0].name,
+				name: evt.detail.model.animations[0].name,
+				endTime: evt.detail.model.animations[0].duration ,
+				startTime: 0,
+				uid:"mifly168"
+			});
+
+			evt.detail.model.animationSlices = animationSlices;
+		
+		});
 
 		//// 設定場景功能，分為 
 		//// 1. 按住滑鼠/觸控 來拖拉物件，不可拖拉出特定圓圈範圍。
@@ -533,6 +571,11 @@
 						return ;
 
 				}
+
+				//// 弓作一次動畫
+				bow.object3D.children[0].animationSlices[0].changed = true;
+
+				
 				//// 發射子彈的測試
 
 				let bullet = document.createElement('a-entity');

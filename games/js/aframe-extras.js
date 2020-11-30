@@ -14095,10 +14095,10 @@ module.exports = AFRAME.registerComponent('animation-mixer', {
       }
       
       ////// 因為這版本原本是給 makar Editor 溝通好的『動畫切割』作使用，現在只在基本aframe場景中使用，增加『loop』功能回來。
-      let duration = this.mixer._actions[0]._clip.duration;
-      if (this.mixer._actions[0].time > duration ){
-        this.mixer._actions[0].time = 0;
-      }
+      // let duration = this.mixer._actions[0]._clip.duration;
+      // if (this.mixer._actions[0].time > duration ){
+      //   this.mixer._actions[0].time = 0;
+      // }
 
       // console.log("aframe-extras.js: animation-mixer: tick: model.animationSlices=", this.model.animationSlices );
       if (this.model.animationSlices  ){
@@ -14119,7 +14119,8 @@ module.exports = AFRAME.registerComponent('animation-mixer', {
             }
 
             if(!this.model.animationSlices[0].reset && this.model.animationSlices[0].count == 1){
-              this.mixer._actions[0].time = this.model.animationSlices[index].endTime;
+              // this.mixer._actions[0].time = this.model.animationSlices[index].endTime;//// 停在動畫結尾
+              this.mixer._actions[0].time = this.model.animationSlices[index].startTime;//// 停在動畫開始
             }
 
             if (this.mixer._actions[0].time < this.model.animationSlices[index].startTime){
