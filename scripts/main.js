@@ -250,8 +250,8 @@ switch (location.pathname) {
   case '/games/index.html':
     //// facebook login
     isChangeBrowserPage = false;
-    let fbLoginButton = document.getElementById('fb-login-button');
-    fbLoginButton.addEventListener('click', fbLogin, false);  
+    let fbLoginButton2 = document.getElementById('fb-login-button');
+    fbLoginButton2.addEventListener('click', fbLogin, false);  
 
     //// 點擊『開始遊戲』跳出提示視窗
     gamesGameStart.onclick = function(){
