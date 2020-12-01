@@ -306,7 +306,8 @@
 
 	<script src="js/vconsole.min.js"></script>
 	<script>
-		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
+		// if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
+		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0  ){
 			var vConsole = new VConsole();
 			console.log("The system is mobile: ", window.navigator.userAgent.toLowerCase() );
 		}else{
@@ -387,7 +388,7 @@
 				<!-- <a-entity id="aCamera" camera="fov:80; zoom:1" > -->
 				<a-entity id="aCamera" camera  look-controls="touchEnabled:false" wasd-controls>
 					<!-- 棒球本身 -->
-					<a-entity visible = "true" id = "aSphere" position="0 -0.8 -1.5" rotation="0 0 0" scale=" 0.3 0.3 0.3 " gltf-model="#baseball" ></a-entity>
+					<a-entity visible = "true" id = "aSphere" position="0 -0.8 -1.5" rotation="0 0 0" scale=" 0.4 0.4 0.4 " gltf-model="#baseball" ></a-entity>
 
 				</a-entity>
 			</a-entity>
@@ -422,31 +423,31 @@
 			<!-- 板子 -->
 
 			<a-plane  position="-1.05 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board1" 
-			shadow="receive: true" material="shader: flat; src: #n1;" ></a-plane>
+			shadow="receive: true" material="shader: flat; src: #n1;" dynamic-body = "mass:500;" ></a-plane>
 
 			<a-plane  position="0 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board2" 
-			shadow="receive: true" material="shader: flat; src: #n2;" ></a-plane>
+			shadow="receive: true" material="shader: flat; src: #n2;" dynamic-body = "mass:500;"></a-plane>
 
 			<a-plane  position="1.05 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board3" 
-			shadow="receive: true" material="shader: flat; src: #n3;" ></a-plane>
+			shadow="receive: true" material="shader: flat; src: #n3;" dynamic-body = "mass:500;"></a-plane>
 
 			<a-plane  position="-1.05 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board4" 
-			shadow="receive: true" material="shader: flat; src: #n4;"  ></a-plane>
+			shadow="receive: true" material="shader: flat; src: #n4;" dynamic-body = "mass:500;"></a-plane>
 
 			<a-plane  position="0 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board5" 
-			shadow="receive: true" material="shader: flat; src: #n5;"  ></a-plane>
+			shadow="receive: true" material="shader: flat; src: #n5;" dynamic-body = "mass:500;"></a-plane>
 
 			<a-plane  position="1.05 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board6" 
-			shadow="receive: true" material="shader: flat; src: #n6;"  ></a-plane>			
+			shadow="receive: true" material="shader: flat; src: #n6;" dynamic-body = "mass:500;" ></a-plane>			
 			
 			<a-plane  position="-1.05 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board7" 
-			shadow="receive: true" material="shader: flat; src: #n7;" ></a-plane>
+			shadow="receive: true" material="shader: flat; src: #n7;" dynamic-body = "mass:500;"></a-plane>
 
 			<a-plane  position="0 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board8" 
-			shadow="receive: true" material="shader: flat; src: #n8;" ></a-plane>
+			shadow="receive: true" material="shader: flat; src: #n8;" dynamic-body = "mass:500;"></a-plane>
 
 			<a-plane  position="1.05 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board9" 
-			shadow="receive: true" material="shader: flat; src: #n9;" ></a-plane>
+			shadow="receive: true" material="shader: flat; src: #n9;" dynamic-body = "mass:500;"></a-plane>
 
 
 
@@ -473,18 +474,6 @@
 	</div>	
 
 	<script>
-
-
-		board1.setAttribute("dynamic-body", "mass:500");
-		board2.setAttribute("dynamic-body", "mass:500");
-		board3.setAttribute("dynamic-body", "mass:500");
-		board4.setAttribute("dynamic-body", "mass:500");
-		board5.setAttribute("dynamic-body", "mass:500");
-		board6.setAttribute("dynamic-body", "mass:500");
-		board7.setAttribute("dynamic-body", "mass:500");
-		board8.setAttribute("dynamic-body", "mass:500");
-		board9.setAttribute("dynamic-body", "mass:500");
-
 
 
 		blocker.addEventListener("click", function(){
@@ -857,9 +846,6 @@
 				
 
 				//// 投擲預設的球物件
-				raycaster.setFromCamera( mouseEnd, aScene.camera );
-
-
 				let dragX = preMouses[3][0] - preMouses[0][0];
 				let dragY = preMouses[3][1] - preMouses[0][1];
 
@@ -898,40 +884,38 @@
 				// aSphere.object3D.position.y = aRig.object3D.position.y + mouse.y * planeHeight ;
 
 				//// 3D 空間中軌跡
-				let timeStart = Date.now();
-				showTrajectory();
-				function showTrajectory(){
-					if (Date.now() - timeStart > 2500){
-						console.log("showTrajectory end");
-						let needRemoved = [];
-						for (let i = 0, len = aScene.children.length; i< len; i++ ){
-							if (aScene.children[i]){
-								if (aScene.children[i].getAttribute("object-type") == "tp" ){
-									needRemoved.push(aScene.children[i]);
-								}
-							}
-						}
-						for (let i = 0, len=needRemoved.length; i< len; i++){
-							needRemoved[i].remove();
-						}
-					}else{
-						let tp = document.createElement("a-sphere");
-						tp.setAttribute("object-type" , "tp");
-						tp.setAttribute("radius" , 0.02);
-						tp.setAttribute("material" , "color:#ff0000" );
-						// tp.setAttribute("position" , aSphere.object3D.position );
-						tp.setAttribute("position" , aSphere.object3D.getWorldPosition(new THREE.Vector3() ) );
+				// let timeStart = Date.now();
+				// showTrajectory();
+				// function showTrajectory(){
+				// 	if (Date.now() - timeStart > 2500){
+				// 		console.log("showTrajectory end");
+				// 		let needRemoved = [];
+				// 		for (let i = 0, len = aScene.children.length; i< len; i++ ){
+				// 			if (aScene.children[i]){
+				// 				if (aScene.children[i].getAttribute("object-type") == "tp" ){
+				// 					needRemoved.push(aScene.children[i]);
+				// 				}
+				// 			}
+				// 		}
+				// 		for (let i = 0, len=needRemoved.length; i< len; i++){
+				// 			needRemoved[i].remove();
+				// 		}
+				// 	}else{
+				// 		let tp = document.createElement("a-sphere");
+				// 		tp.setAttribute("object-type" , "tp");
+				// 		tp.setAttribute("radius" , 0.02);
+				// 		tp.setAttribute("material" , "color:#ff0000" );
+				// 		// tp.setAttribute("position" , aSphere.object3D.position );
+				// 		tp.setAttribute("position" , aSphere.object3D.getWorldPosition(new THREE.Vector3() ) );
 
-						aScene.appendChild(tp);
-						setTimeout(showTrajectory, 50);
-					}
-				}
+				// 		aScene.appendChild(tp);
+				// 		setTimeout(showTrajectory, 100);
+				// 	}
+				// }
 
-				let vector = raycaster.ray.direction.multiplyScalar(10);
 				// aSphere.setAttribute( "dynamic-body", "mass: 1000" );
 				aSphere.setAttribute( "dynamic-body", "mass: 1000; shape: sphere;" );
 
-				// aSphere.body.velocity.set( vector.x, vector.y, vector.z );
 				aSphere.body.velocity.set( velocity.x, velocity.y, velocity.z );
 
 				ballAmount -= 1;
