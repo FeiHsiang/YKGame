@@ -489,7 +489,6 @@
 		let pivotGun = document.getElementById("pivotGun");
 		
 		//// 假如在電腦上，取消 look-control 功能，假如在手機上，隱藏槍
-		let controls;
 		aCamera.addEventListener('loaded', function(evt) { 
 			if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
 				console.log(" PC, remove look wasd control ");

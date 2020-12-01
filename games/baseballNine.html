@@ -384,13 +384,18 @@
 
 			<a-entity id="rig" position="0.0 0.8 3" rotation="0 0 0">
 				<!-- <a-entity id="aCamera" camera  look-controls wasd-controls></a-entity> -->
-				<a-entity id="aCamera" camera="fov:80; zoom:1" ></a-entity>
+				<!-- <a-entity id="aCamera" camera="fov:80; zoom:1" > -->
+				<a-entity id="aCamera" camera  look-controls="touchEnabled:false" wasd-controls>
+					<!-- 棒球本身 -->
+					<a-entity visible = "true" id = "aSphere" position="0 -0.8 -1.5" rotation="0 0 0" scale=" 0.3 0.3 0.3 " gltf-model="#baseball" ></a-entity>
+
+				</a-entity>
 			</a-entity>
 			
 			<!-- 棒球本身 -->
-			<a-entity visible = "true" id = "aSphere" position="0 -0.0 1.5" rotation="0 0 0" scale=" 0.3 0.3 0.3 " gltf-model="#baseball" ></a-entity>
+			<!-- <a-entity visible = "true" id = "aSphere" position="0 -0.0 1.5" rotation="0 0 0" scale=" 0.3 0.3 0.3 " gltf-model="#baseball" ></a-entity> -->
 
-			
+
 			<!-- 棒球九宮格 -->
 
 			<!-- 架子 -->
@@ -488,6 +493,17 @@
 			blocker.style.display = "none";
 		});
 
+
+		aCamera.addEventListener('loaded', function(evt) { 
+			if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
+				console.log(" PC, remove look wasd control ");
+				aCamera.removeAttribute("look-controls");
+				aCamera.removeAttribute("wasd-controls");
+			}else{
+				// pivotGun.setAttribute("visible", "false");
+			}
+		});
+
 		//// 設定場景功能，分為 
 		//// 1. 按住滑鼠/觸控 來拖拉物件，不可拖拉出特定圓圈範圍。
 		//// 2. 放開滑鼠/觸控 來拋射物件，依照移動參數來設定拋射參數。
@@ -503,9 +519,11 @@
 		let ballAmountText = document.getElementById("ballAmount")
 		let board1 = document.getElementById("board1");
 		let aSphereOriginPosition = aSphere.object3D.position.clone();
-		aSphere.addEventListener("loaded" , function(evt){
+		// let aSphereOriginPosition = new THREE.Vector3();
+		aSphere.addEventListener("object3dset" , function(evt){
+			// aSphereOriginPosition = aSphere.object3D.getWorldPosition(new THREE.Vector3());
 			aSphereOriginPosition = aSphere.object3D.position.clone();
-			console.log("aSphereOriginPosition = " , aSphereOriginPosition );
+			console.log("3 aSphereOriginPosition = " , aSphereOriginPosition );
 		});
 
 		//// 處理架子材質，無光標準
@@ -730,11 +748,12 @@
 				}
 
 				//// 點擊即把球物件移動到滑鼠/觸碰位置 
-				let planeHeight = Math.tan( aCamera.object3DMap.camera.fov/2/180*Math.PI) * Math.abs(aRig.object3D.position.z - aSphereOriginPosition.z) * 1 ;
+				// let planeHeight = Math.tan( aCamera.object3DMap.camera.fov/2/180*Math.PI) * Math.abs(aRig.object3D.position.z - aSphereOriginPosition.z) * 1 ;
+				let planeHeight = Math.tan( aCamera.object3DMap.camera.fov/2/180*Math.PI) * Math.abs( aSphere.object3D.position.z ) * 1 ;
 				let planeWidth = planeHeight * aCamera.object3DMap.camera.aspect;
 				aSphere.object3D.position.x = mouseStart.x * planeWidth ;
-				aSphere.object3D.position.y = aRig.object3D.position.y + mouseStart.y * planeHeight ;
-
+				// aSphere.object3D.position.y = aRig.object3D.position.y + mouseStart.y * planeHeight ;
+				aSphere.object3D.position.y = aRig.object3D.position.y + mouseStart.y * planeHeight + aSphereOriginPosition.y ;
 				
 
 			}
@@ -774,7 +793,8 @@
 				//// 計算出應該要呈現的位置，從『原始球的位置的z軸數值』與『當前相機垂直fov角度的一半』可以算出『與原始球的xy平面的高度』
 				//// 再使用『畫面比例所造成的相機比例』算出『與原始球的xy平面的寬度』
 				//// 因為拖拉移動有正負，所以當滑鼠拖拉『從中心到寬邊最距離』對應於『原始球位置到相機最外緣』
-				let planeHeight = Math.tan( aCamera.object3DMap.camera.fov/2/180*Math.PI) * Math.abs(aRig.object3D.position.z - aSphereOriginPosition.z) * 1 ;
+				// let planeHeight = Math.tan( aCamera.object3DMap.camera.fov/2/180*Math.PI) * Math.abs(aRig.object3D.position.z - aSphereOriginPosition.z) * 1 ;
+				let planeHeight = Math.tan( aCamera.object3DMap.camera.fov/2/180*Math.PI) * Math.abs( aSphere.object3D.position.z ) * 1 ;
 				let planeWidth = planeHeight * aCamera.object3DMap.camera.aspect;
 
 				// aSphere.object3D.position.x = aSphereOriginPosition.x + pdiff.x * planeWidth;
@@ -782,8 +802,8 @@
 				
 				//// 點擊即把球物件移動到滑鼠/觸碰位置
 				aSphere.object3D.position.x = mouse.x * planeWidth ;
-				aSphere.object3D.position.y = aRig.object3D.position.y + mouse.y * planeHeight ;
-
+				// aSphere.object3D.position.y = aRig.object3D.position.y + mouse.y * planeHeight ;
+				aSphere.object3D.position.y = aRig.object3D.position.y + mouse.y * planeHeight + aSphereOriginPosition.y ;
 				touchMoveTime = Date.now();
 				// console.log("vrSceneTouchMove , pdiff =" , pdiff );
 
@@ -850,6 +870,9 @@
 				dragX = dragX*0.6; // -0.2 0.2
 				dragY = 0.2 + (dragY*0.5); //0.3-0.6
 
+				// dragX = 0;
+				// dragY = 0.5;
+
 				let dragLength = Math.pow( dragX*dragX+dragY*dragY , 0.5);
 				console.log("dragLength = " , dragLength , dragX , dragY );
 
@@ -860,7 +883,9 @@
 				// }
 
 				let velocity = new THREE.Vector3( dragX , dragY , -dragY*1.3 ).normalize().multiplyScalar(dragLength*20);
-				
+				v2 = velocity.clone().applyEuler( aCamera.object3D.rotation ); //// 改版後
+				velocity = v2.clone();
+
 				//// 設計『顯示軌跡』功能，暫時不開放
 
 				//// 2D 銀幕平面上軌跡
@@ -877,7 +902,7 @@
 
 				//// 3D 空間中軌跡
 				let timeStart = Date.now();
-				// showTrajectory();
+				showTrajectory();
 				function showTrajectory(){
 					if (Date.now() - timeStart > 2500){
 						console.log("showTrajectory end");
@@ -897,7 +922,8 @@
 						tp.setAttribute("object-type" , "tp");
 						tp.setAttribute("radius" , 0.02);
 						tp.setAttribute("material" , "color:#ff0000" );
-						tp.setAttribute("position" , aSphere.object3D.position );
+						// tp.setAttribute("position" , aSphere.object3D.position );
+						tp.setAttribute("position" , aSphere.object3D.getWorldPosition(new THREE.Vector3() ) );
 
 						aScene.appendChild(tp);
 						setTimeout(showTrajectory, 50);
@@ -1103,6 +1129,14 @@
 			}, delay);
 		}
 
+
+		let self = {};
+		let videoScene = new THREE.Scene();
+		self.videoScene = videoScene;
+		self.GLRenderer = aScene.renderer;
+		aScene.renderer.autoClear = false;
+		self.aScene = aScene;
+
 		// renderTick();
 		startCamera( function(){
 			renderTick();	
@@ -1126,12 +1160,6 @@
 		};
 
 
-		let self = {};
-		let videoScene = new THREE.Scene();
-		self.videoScene = videoScene;
-		self.GLRenderer = aScene.renderer;
-		aScene.renderer.autoClear = false;
-		self.aScene = aScene;
 
 		function startCamera( callback ){
 
