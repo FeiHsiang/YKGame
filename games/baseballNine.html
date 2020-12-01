@@ -474,19 +474,17 @@
 
 	<script>
 
-		setTimeout(function(){
 
-			board1.setAttribute("dynamic-body", "mass:500");
-			board2.setAttribute("dynamic-body", "mass:500");
-			board3.setAttribute("dynamic-body", "mass:500");
-			board4.setAttribute("dynamic-body", "mass:500");
-			board5.setAttribute("dynamic-body", "mass:500");
-			board6.setAttribute("dynamic-body", "mass:500");
-			board7.setAttribute("dynamic-body", "mass:500");
-			board8.setAttribute("dynamic-body", "mass:500");
-			board9.setAttribute("dynamic-body", "mass:500");
+		board1.setAttribute("dynamic-body", "mass:500");
+		board2.setAttribute("dynamic-body", "mass:500");
+		board3.setAttribute("dynamic-body", "mass:500");
+		board4.setAttribute("dynamic-body", "mass:500");
+		board5.setAttribute("dynamic-body", "mass:500");
+		board6.setAttribute("dynamic-body", "mass:500");
+		board7.setAttribute("dynamic-body", "mass:500");
+		board8.setAttribute("dynamic-body", "mass:500");
+		board9.setAttribute("dynamic-body", "mass:500");
 
-		}, 500 ) ; 
 
 
 		blocker.addEventListener("click", function(){
@@ -517,7 +515,6 @@
 		let underplane = document.getElementById("underplane");
 		let scoreText = document.getElementById("score")
 		let ballAmountText = document.getElementById("ballAmount")
-		let board1 = document.getElementById("board1");
 		let aSphereOriginPosition = aSphere.object3D.position.clone();
 		// let aSphereOriginPosition = new THREE.Vector3();
 		aSphere.addEventListener("object3dset" , function(evt){
@@ -867,8 +864,8 @@
 				let dragY = preMouses[3][1] - preMouses[0][1];
 
 				//// 讓遊戲便簡單一點，水平方向限制多一點，讓球不會丟太出去
-				dragX = dragX*0.6; // -0.2 0.2
-				dragY = 0.2 + (dragY*0.5); //0.3-0.6
+				// dragX = dragX*0.6; // -0.2 0.2
+				// dragY = 0.2 + (dragY*0.5); //0.3-0.6
 
 				// dragX = 0;
 				// dragY = 0.5;
