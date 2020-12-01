@@ -240,7 +240,7 @@
 
 </head>
 <body>
-	
+	<!-- <script src = "/scripts/main.js"></script> -->
 	<div id = "leaveButton">
 		回遊戲首頁
 	</div>
@@ -396,37 +396,6 @@
 			<!-- 架子 -->
 			<a-entity visible = "true" id = "shelf" position="0 -2 -3" rotation="0 0 0" scale="2 2 2" gltf-model="#baseballShelf" ></a-entity>
 
-
-			<!-- 板子 -->
-
-			<a-plane  position="-1.05 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board1" 
-			shadow="receive: true" material="shader: flat; src: #n1;" ></a-plane>
-
-			<a-plane  position="0 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board2" 
-			shadow="receive: true" material="shader: flat; src: #n2;" ></a-plane>
-
-			<a-plane  position="1.05 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board3" 
-			shadow="receive: true" material="shader: flat; src: #n3;" ></a-plane>
-
-			<a-plane  position="-1.05 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board4" 
-			shadow="receive: true" material="shader: flat; src: #n4;" dynamic-body="mass:500" ></a-plane>
-
-			<a-plane  position="0 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board5" 
-			shadow="receive: true" material="shader: flat; src: #n5;" dynamic-body="mass:500" ></a-plane>
-
-			<a-plane  position="1.05 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board6" 
-			shadow="receive: true" material="shader: flat; src: #n6;" dynamic-body="mass:500" ></a-plane>			
-			
-			<a-plane  position="-1.05 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board7" 
-			shadow="receive: true" material="shader: flat; src: #n7;" dynamic-body="mass:500" ></a-plane>
-
-			<a-plane  position="0 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board8" 
-			shadow="receive: true" material="shader: flat; src: #n8;" dynamic-body="mass:500" ></a-plane>
-
-			<a-plane  position="1.05 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board9" 
-			shadow="receive: true" material="shader: flat; src: #n9;" dynamic-body="mass:500" ></a-plane>
-
-
 			<!-- 框 -->
 
 			<a-box id = "frame1" width="3.1" height="0.05" depth="0.05" position="-0.525 1.55 -3" rotation="0 0 90" static-body visible="true" color="#f8e096" material="shader: flat;"></a-box>
@@ -444,6 +413,37 @@
 			<a-box id = "frame7" width="3.2" height="0.05" depth="0.05" position="0 3.125 -3" static-body visible="true" color="#f8e096" material="shader: flat;"></a-box>
 
 			<a-box id = "frame8" width="3.2" height="0.05" depth="0.05" position="0 -0.025 -3" static-body visible="true" color="#f8e096" material="shader: flat;"></a-box>
+
+			<!-- 板子 -->
+
+			<a-plane  position="-1.05 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board1" 
+			shadow="receive: true" material="shader: flat; src: #n1;" ></a-plane>
+
+			<a-plane  position="0 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board2" 
+			shadow="receive: true" material="shader: flat; src: #n2;" ></a-plane>
+
+			<a-plane  position="1.05 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board3" 
+			shadow="receive: true" material="shader: flat; src: #n3;" ></a-plane>
+
+			<a-plane  position="-1.05 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board4" 
+			shadow="receive: true" material="shader: flat; src: #n4;"  ></a-plane>
+
+			<a-plane  position="0 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board5" 
+			shadow="receive: true" material="shader: flat; src: #n5;"  ></a-plane>
+
+			<a-plane  position="1.05 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board6" 
+			shadow="receive: true" material="shader: flat; src: #n6;"  ></a-plane>			
+			
+			<a-plane  position="-1.05 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board7" 
+			shadow="receive: true" material="shader: flat; src: #n7;" ></a-plane>
+
+			<a-plane  position="0 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board8" 
+			shadow="receive: true" material="shader: flat; src: #n8;" ></a-plane>
+
+			<a-plane  position="1.05 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board9" 
+			shadow="receive: true" material="shader: flat; src: #n9;" ></a-plane>
+
+
 
 
 
@@ -469,9 +469,19 @@
 
 	<script>
 
-		document.getElementById("board1").setAttribute("dynamic-body", "mass:500");
-		document.getElementById("board2").setAttribute("dynamic-body", "mass:500");
-		document.getElementById("board3").setAttribute("dynamic-body", "mass:500");
+		setTimeout(function(){
+
+			board1.setAttribute("dynamic-body", "mass:500");
+			board2.setAttribute("dynamic-body", "mass:500");
+			board3.setAttribute("dynamic-body", "mass:500");
+			board4.setAttribute("dynamic-body", "mass:500");
+			board5.setAttribute("dynamic-body", "mass:500");
+			board6.setAttribute("dynamic-body", "mass:500");
+			board7.setAttribute("dynamic-body", "mass:500");
+			board8.setAttribute("dynamic-body", "mass:500");
+			board9.setAttribute("dynamic-body", "mass:500");
+
+		}, 500 ) ; 
 
 
 		blocker.addEventListener("click", function(){
@@ -852,6 +862,20 @@
 				let velocity = new THREE.Vector3( dragX , dragY , -dragY*1.3 ).normalize().multiplyScalar(dragLength*20);
 				
 				//// 設計『顯示軌跡』功能，暫時不開放
+
+				//// 2D 銀幕平面上軌跡
+				// let planeHeight = Math.tan( aCamera.object3DMap.camera.fov/2/180*Math.PI) * Math.abs(aRig.object3D.position.z - aSphereOriginPosition.z) * 1 ;
+				// let planeWidth = planeHeight * aCamera.object3DMap.camera.aspect;
+				
+				// let p2D = document.createElement("a-sphere");
+				// p2D.setAttribute("object-type" , "tp");
+				// p2D.setAttribute("radius" , 0.02);
+				// p2D.setAttribute("material" , "color:#0000ff" );
+				
+				// aSphere.object3D.position.x = mouse.x * planeWidth ;
+				// aSphere.object3D.position.y = aRig.object3D.position.y + mouse.y * planeHeight ;
+
+				//// 3D 空間中軌跡
 				let timeStart = Date.now();
 				// showTrajectory();
 				function showTrajectory(){
