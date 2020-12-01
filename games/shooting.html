@@ -462,6 +462,7 @@
 				changed:false, 
 				loop:false, 
 				reset:false, 
+				stopHead: true,
 				count: 0, 
 				idle:"mifly168", 
 				uid:"mifly168" 
@@ -717,6 +718,22 @@
 					gift.setAttribute("gltf-model", "#b3");
 					gift.setAttribute("score", "3" );
 				}
+
+				gift.addEventListener('model-loaded', function(evt){
+					//// 材質處理，無光標準
+					evt.detail.model;
+					let objj = gift.getObject3D('mesh');
+					objj.traverse(node => {
+						if (node.isMesh) {
+							node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+							if (node.material.map){
+								node.material.map.encoding = THREE.GammaEncoding;
+								node.material.map.needsUpdate = true;
+							}
+							node.material.needsUpdate = true;
+						}
+					});
+				});
 
 				gift.setAttribute("position", randomPosition);
 				gift.setAttribute("scale", "0.5 0.5 0.5");

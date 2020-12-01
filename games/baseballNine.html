@@ -306,8 +306,8 @@
 
 	<script src="js/vconsole.min.js"></script>
 	<script>
-		// if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
-		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0  ){
+		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
+		// if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0  ){
 			var vConsole = new VConsole();
 			console.log("The system is mobile: ", window.navigator.userAgent.toLowerCase() );
 		}else{
@@ -371,6 +371,7 @@
 				<!-- <a-asset-item id="baseballShelf" src="model/baseballShelf.glb"></a-asset-item> -->
 				<a-asset-item id="baseballShelf" src="model/baseballShelf2.glb"></a-asset-item>
 
+				<a-asset-item id="_backgroundBoard" src="model/background2.glb"></a-asset-item>
 				<img id="n1" src="images/n1.png">
 				<img id="n2" src="images/n2.png">
 				<img id="n3" src="images/n3.png">
@@ -380,13 +381,14 @@
 				<img id="n7" src="images/n7.png">
 				<img id="n8" src="images/n8.png">
 				<img id="n9" src="images/n9.png">
+				<img id="_ground" src="images/ground.png">
 
 			</a-assets>
 
 			<a-entity id="rig" position="0.0 0.8 3" rotation="0 0 0">
 				<!-- <a-entity id="aCamera" camera  look-controls wasd-controls></a-entity> -->
 				<!-- <a-entity id="aCamera" camera="fov:80; zoom:1" > -->
-				<a-entity id="aCamera" camera  look-controls="touchEnabled:false" wasd-controls>
+				<a-entity id="aCamera" camera="fov:80; zoom:1"  look-controls="touchEnabled:false" wasd-controls>
 					<!-- 棒球本身 -->
 					<a-entity visible = "true" id = "aSphere" position="0 -0.8 -1.5" rotation="0 0 0" scale=" 0.4 0.4 0.4 " gltf-model="#baseball" ></a-entity>
 
@@ -396,6 +398,8 @@
 			<!-- 棒球本身 -->
 			<!-- <a-entity visible = "true" id = "aSphere" position="0 -0.0 1.5" rotation="0 0 0" scale=" 0.3 0.3 0.3 " gltf-model="#baseball" ></a-entity> -->
 
+			<!-- 背景看板 -->
+			<a-entity visible = "true" id = "backgroundBoard" position="0 -2 -3.2" rotation="0 0 0" scale=" 1.5 1.5 1.5 " gltf-model="#_backgroundBoard" ></a-entity>
 
 			<!-- 棒球九宮格 -->
 
@@ -455,7 +459,10 @@
 
 			<!-- 棒球九宮格 -->
 
-			<a-plane id="underplane" position="0 -3 0" rotation="-90 0 0" width="50" height="50" color="#7BC8A4" opacity="0.8" shadow="receive: true" static-body></a-plane>
+			<a-plane id="underplane_inv" position="0 -3 0" rotation="-90 0 0" width="50" height="50"  visible="false" static-body></a-plane>
+
+			<a-plane id="underplane" position="0 -2 -3" rotation="-90 0 0" width="9.6" height="5.4" material="shader: flat; src: #_ground;"  opacity="1.0" shadow="receive: true" static-body></a-plane>
+
 
 			<!-- <a-sky id = "aSky" color="#ECECEC"></a-sky> -->
 			<a-entity light="type: ambient; color: #FFFFFF; intensity: 1.0"></a-entity>
@@ -512,37 +519,25 @@
 			console.log("3 aSphereOriginPosition = " , aSphereOriginPosition );
 		});
 
-		//// 處理架子材質，無光標準
-		shelf.addEventListener('model-loaded', function(evt){
-			evt.detail.model;
-			let objj = shelf.getObject3D('mesh');
-			objj.traverse(node => {
-				if (node.isMesh) {
-					node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
-					if (node.material.map){
-						node.material.map.encoding = THREE.GammaEncoding;
-						node.material.map.needsUpdate = true;
-					}
-					node.material.needsUpdate = true;
-				}
-			});
-		});
-		//// 處理球的材質，無光標準
-		aSphere.addEventListener('model-loaded', function(evt){
-			evt.detail.model;
-			let objj = aSphere.getObject3D('mesh');
-			objj.traverse(node => {
-				if (node.isMesh) {
-					node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
-					if (node.material.map){
-						node.material.map.encoding = THREE.GammaEncoding;
-						node.material.map.needsUpdate = true;
-					}
-					node.material.needsUpdate = true;
-				}
-			});
-		});
 
+		function setModelMesh(evt){
+			let objj = evt.detail.model;
+			objj.traverse(node => {
+				if (node.isMesh) {
+					node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+					if (node.material.map){
+						node.material.map.encoding = THREE.GammaEncoding;
+						node.material.map.needsUpdate = true;
+					}
+					node.material.needsUpdate = true;
+				}
+			});
+		}
+		//// 處理架子材質，無光標準
+		shelf.addEventListener('model-loaded', setModelMesh);
+		//// 處理球的材質，無光標準
+		aSphere.addEventListener('model-loaded', setModelMesh);
+		backgroundBoard.addEventListener('model-loaded', setModelMesh);
 		
 		// let ball = document.getElementById("ball");
 
@@ -866,7 +861,7 @@
 				// }
 
 				let velocity = new THREE.Vector3( dragX , dragY , -dragY*1.3 ).normalize().multiplyScalar(dragLength*20);
-				v2 = velocity.clone().applyEuler( aCamera.object3D.rotation ); //// 改版後
+				let v2 = velocity.clone().applyEuler( aCamera.object3D.rotation ); //// 改版後
 				velocity = v2.clone();
 
 				//// 設計『顯示軌跡』功能，暫時不開放

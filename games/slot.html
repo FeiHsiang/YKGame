@@ -1,0 +1,879 @@
+<!doctype html>
+<html >
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>upload sky</title>
+	<style>
+
+		html, body {
+			overflow: hidden;
+			background: #fff;
+			color: #000;
+			font-family: sans-serif;
+			text-align: center;
+			width:100vw;
+			height:100vh;
+			margin: 0;
+		}
+
+		#aDiv{
+			/* margin: 20px 10px; */
+			/* width:800px; */
+			/* height:600px; */
+			position: relative;
+			width:100vw;
+			height:100vh;
+		}
+
+		#blocker {
+			position: absolute;
+			width: 100vw;
+			height: 100vh;
+			background-color: rgba(0,0,0,0.8);
+			z-index: 1;
+			pointer-events: none;
+			display: none;
+		}
+
+
+		#blockerTitle{
+			font-size: 24pt;
+			text-align: center;
+			margin-top:5%;
+			margin-bottom: 10px;
+		}
+
+		#blockerInfo{
+			font-size: 16pt;
+			text-align: center;
+			color:#00c99c;
+			margin-top:20%;
+			margin-bottom: 10px;
+		}
+
+		#blockState{
+			font-size: 16pt;
+			text-align: center;
+			color: white;
+			margin-top:20%;
+			margin-bottom: 10px;
+		}
+
+		.modal {
+			display: none; /* Hidden by default */
+			position: fixed; /* Stay in place */
+			z-index: 1; /* Sit on top */
+			left: 0;
+			top: 0;
+			/* https://stackoverflow.com/questions/10075524/sizing-div-based-on-window-width/35237091#35237091 */
+			width: 100vw; /* Full width */
+			height: 100vh; /* Full height */
+			background-color: rgba( 74 , 77 , 84 , 0.85 ); /* Black w/ opacity */
+		}
+
+		/* Modal Content/Box */
+		.modal-content {
+			position: relative;
+			background-color: #202125;
+			margin: auto;
+			top: 5%;
+			border-radius: 16px;
+			width: 85vw;
+			height: 75vh;
+			overflow: auto;
+		}
+
+		.modal-content > div {
+			position: relative;
+			margin-left: 2%;
+			margin-right: 2%;
+			width: 90%;
+			color:white;
+			text-align: left;
+			font-size: 20pt;
+		}
+
+
+		.centerText {
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			white-space:nowrap;
+		}
+		
+		/* 結算畫面  ----------------------- start ---------------------------  */
+
+
+		#blocker_score {
+			display: none;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,0.7);
+			z-index: 1;
+		}
+
+		#previousCoins{
+			margin-top: 40px;
+		}
+
+		#getCoins{
+			margin-top: 20px;
+		}
+
+		#currentCoins{
+			margin-top: 20px;
+		}
+
+		#score_info{
+			right:-40%;
+			width:50%;
+			height:auto;
+			font-size:18px; 
+			color:#00c99c;
+			border: 2px solid white;
+			padding:10px;
+		}
+
+		#leaderBn , #leaveConfirm {
+			position:absolute;
+			bottom: 15px;
+			left:3px;
+			width:40%;
+			height:20%;
+			max-height: 50px;
+			border-radius: 20px;
+			background-color: rgba(80, 160, 150, 1.0);
+			cursor: pointer;
+		}
+
+		#couponPage, #leaveCancel{
+			position:absolute;
+			bottom: 15px;
+			right:3px;
+			width:40%;
+			height:20%;
+			max-height: 50px;
+			border-radius: 20px;
+			background-color: rgba(80, 110, 150, 1.0);
+			cursor: pointer;
+		}
+
+		/* 結算畫面  ----------------------- end ---------------------------  */
+
+		/* 排行榜    ----------------------- start --------------------------- */
+
+		#leadBnTitle{
+			position: relative;
+			margin-top: 15px;
+			margin-bottom: 30px;
+			min-height: 30px;
+			text-align: center;
+		}
+
+		#leadBnImg{
+			position: absolute;
+			width:60px;
+			height:60px;
+			left:5px ;
+		}
+
+		#leadBnInfo{
+			position: relative;
+			font-size: 30px;
+			color: #afb4f9;
+			left: 32px ;
+			top:15px;
+		}
+
+		#leaderTable{
+			margin: auto;
+			width:90%;
+			color:white;
+			font-size:14pt;
+			overflow-wrap:anywhere;
+		}
+
+		#closeLeadBnModal{
+			color: rgba(20,20,20,1.0);
+			background-color: rgba(200,200,200,1.0);
+			position: absolute;
+			bottom: 10px;
+			width: 40%;
+			height:30px;
+			left:30%;
+			font-size: 18px;
+			cursor: pointer;
+		}
+
+		/* 排行榜    ----------------------- end --------------------------- */
+
+		/* 離開警告  ----------------------- start --------------------------- */
+
+		#warningInfo{
+			text-align: center;
+			top: 40%;
+		}
+		
+		#leaveButton{
+			position: absolute;
+			z-index: 2;
+			font-size: 15pt;
+			color:rgba(0,0,0,0.9);
+			background-color:rgba(220,220,220,1.0);
+			padding: 5px;
+			cursor:pointer;
+		}
+
+		/* 離開警告  ----------------------- end --------------------------- */
+
+
+		#scoreNow{
+			position: absolute;
+			z-index: 2;
+			left :5%;
+			bottom: 2%;		
+			font-size: 18pt;
+			color:white;
+			background-color: rgba(0,0,0,0.5);
+		}
+
+		#countdown{
+			position: absolute;
+			z-index: 2;
+			right :5%;
+			bottom: 2%;		
+			font-size: 18pt;
+			color:white;
+			background-color: rgba(0,0,0,0.5);
+		}
+
+		.a-dialog-allow-button {
+		  background-color: red;
+		}
+
+		@media screen and (min-width: 300px) and (max-width: 700px) {
+			#aDiv{
+				/* margin: 20px 10px; */
+				/* width:400px; */
+				/* height:300px; */
+				position: relative;
+				width:100vw;
+				height:100vh;
+			}
+		}
+
+	</style>
+
+
+</head>
+<body>
+
+	<div id = "leaveButton" >
+		回遊戲首頁
+	</div>
+
+	<div id="blocker">
+		<div class="modal-content">
+			<div id = "blockerTitle">
+				射擊小遊戲
+			</div>
+			<div id = "blockerInfo"> 
+				滑鼠/手指點擊螢幕來射箭<br/>
+				手機上請轉動裝置來瞄準<br>
+				在15秒鐘內擊中禮物氣球<br/>
+			</div>
+			<div id = "blockState">
+				載入中...
+			</div>
+		</div>
+	</div>
+
+	<div id="blocker_score" class="modal">
+		<div class="modal-content">
+			<div id = "previousCoins">原有代幣：</div>
+			<div id = "getCoins">新增代幣：</div>
+			<hr>
+			<div id = "currentCoins">結算代幣：</div>
+			<div id = "score_info"> </div>
+			<div id = "leaderBn"> <div class="centerText">排行榜</div></div>
+			<div id = "couponPage" > <div class="centerText">去兌換</div></div>
+		</div>
+	</div>
+
+	<div id="leadBnModal" class="modal">
+        <div class="modal-content">
+			<div id="leadBnTitle">
+				<img id="leadBnImg" src="/images/crown.png">
+				<span id="leadBnInfo">永康幣排行榜</span>
+			</div>
+			<table id = "leaderTable" ></table>
+
+			<div id="closeLeadBnModal" >
+				<p  class = "centerText" >關閉</p> 
+			</div>
+		  
+        </div>
+	</div>
+	
+	<div id="leaveWarning" class="modal">
+		<div class="modal-content">
+			
+			<div id = "warningInfo"> 確認回到遊戲首頁嘛？ </div>
+
+
+			<div id = "leaveConfirm"> <div class="centerText">確認</div></div>
+			<div id = "leaveCancel" > <div class="centerText">取消</div></div>
+
+		</div>
+	</div>
+
+
+	<script src="js/vconsole.min.js"></script>
+	<script>
+		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
+			var vConsole = new VConsole();
+			console.log("The system is mobile: ", window.navigator.userAgent.toLowerCase() );
+		}else{
+			console.log("The system is PC: ", window.navigator.userAgent.toLowerCase() );
+		}
+
+		window.requestDeviceMotionPermission = function (){
+            // console.log("makarVR.html: requestDeviceMotionPermission  " );
+            if (typeof(DeviceMotionEvent) !== 'undefined' && typeof(DeviceMotionEvent.requestPermission) === 'function') {
+                DeviceMotionEvent.requestPermission().then(response => {
+                    console.log("makarVR.html: requestPermission response =", response );
+                    // alert('Orientation tracking '+ response);
+                    if (response == 'granted') {
+						document.body.onclick = "";
+                        window.addEventListener('devicemotion', (e) => {
+                            // but.style.visibility='hidden';
+                        })
+                    }
+                }).catch(console.error)
+            }else {
+                // alert('DeviceMotionEvent is not defined');
+                // console.log("makarVR.html: requestPermission: DeviceMotionEvent is not defined " );
+            }
+		}
+
+		document.body.onclick = function(){
+			requestDeviceMotionPermission();
+		}
+
+		document.getElementById("leaveButton").addEventListener('click', function(){
+			if (blocker_score.style.display == "block"){
+				location.replace("/games");
+			}else{
+				leaveWarning.style.display = "block";
+				leaveConfirm.onclick = function(){
+					location.replace("/games");
+				}
+				leaveCancel.onclick = function(){
+					leaveWarning.style.display = "none";
+				}
+			}
+		});
+
+		// blocker.style.display = "none";
+	</script>
+
+	<script src="js/aframe-v1.0.4.js"></script>
+	<script src="js/aframe-extras.js"></script>
+
+	<script src="js/aframe-physics-system.js"></script>
+
+
+	<div id = "aDiv"  >
+		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
+		device-orientation-permission-ui="enabled: true"  shadow="type: pcfsoft"
+		physics="debug: false; friction: 50.0 ; restitution: 0.2; gravity: -4.0 " >
+			<a-assets id = "aAssets">
+
+				<a-asset-item id="_slot" src="model/JumboSlots.glb"></a-asset-item>
+				
+
+			</a-assets>
+
+			<a-entity id="rig" position="0 1.6 0" rotation="0 0 0">
+				<a-entity id="aCamera" camera  look-controls="touchEnabled:false" wasd-controls>
+					
+				</a-entity>
+			</a-entity>
+
+
+			<a-entity visible = "true" id = "slot" position="0 0 -3" rotation="0 180 0" scale="1 1 1" gltf-model="#_slot" ></a-entity>
+
+
+			
+			<!-- <a-sky id = "aSky" color="#ECECEC"></a-sky> -->
+
+			<a-entity light="type: ambient; color: #FFFFFF; intensity: 1.0" ></a-entity>
+			<a-entity light="type: directional; color: #FFFFFF; intensity: 0.5;
+								   castShadow: false; 
+								   shadowCameraVisible: false;
+								   shadowBias:-0.0005; 
+								   shadowCameraTop:10; shadowCameraBottom:-10; 
+								   shadowCameraRight:10; shadowCameraLeft:-10; 
+								   shadowMapHeight:3072; shadowMapWidth:3072; 
+								   shadowCameraFar: 500; shadowCameraNear: 0.5;" 
+			          position="0 0 1" ></a-entity>
+			<!-- <a-entity camera="active: true" look-controls wasd-controls position="0 1.6 0"></a-entity> -->
+		</a-scene>
+
+	</div>	
+
+	<script>
+
+			slot.setAttribute("animation-mixer" , "clip: Take 001");
+			slot.addEventListener('model-loaded', function(evt){
+				//// 材質處理，無光標準
+				evt.detail.model;
+				let objj = slot.getObject3D('mesh');
+				objj.traverse(node => {
+					if (node.isMesh) {
+						node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+						if (node.material.map){
+							node.material.map.encoding = THREE.GammaEncoding;
+							node.material.map.needsUpdate = true;
+						}
+						node.material.needsUpdate = true;
+					}
+				});
+
+				// tick_getMixer();
+				// function tick_getMixer(){
+				// 	if (slot.components["animation-mixer"].mixer){
+				// 		console.log(" got mixer: " , slot.components["animation-mixer"].mixer );
+				// 		slot.components["animation-mixer"].mixer._actions[0].timeScale = 0.5;
+				// 	}else{
+				// 		console.log(" get mixer tick ");
+				// 		setTimeout(tick_getMixer);
+				// 	}
+				// }
+
+				let animationSlices = [];
+				animationSlices.push({ 
+					changed:false, 
+					loop:false, 
+					reset:false, 
+					stopHead: true,
+					count: 1, 
+					idle:"mifly168", 
+					uid:"1" 
+				});
+				animationSlices.push({
+					animationName: evt.detail.model.animations[0].name,
+					name: evt.detail.model.animations[0].name,
+					endTime: 120*0.0333 ,
+					startTime: 0,
+					uid:"1"
+				});
+				animationSlices.push({
+					animationName: evt.detail.model.animations[0].name,
+					name: evt.detail.model.animations[0].name,
+					endTime: 249*0.03333 ,
+					startTime: 135*0.03333,
+					uid:"2"
+				});
+				animationSlices.push({
+					animationName: evt.detail.model.animations[0].name,
+					name: evt.detail.model.animations[0].name,
+					endTime: 380*0.03333 ,
+					startTime: 260*0.0333,
+					uid:"3"
+				});
+
+				evt.detail.model.animationSlices = animationSlices;
+			
+			});
+
+
+		//// 設定場景功能，分為 
+		//// 1. 按住滑鼠/觸控 來拖拉物件，不可拖拉出特定圓圈範圍。
+		//// 2. 放開滑鼠/觸控 來拋射物件，依照移動參數來設定拋射參數。
+		//// 3. 設定拋射物件的後續狀況。
+		////
+
+		let aScene = document.getElementById("aScene");
+		
+		//// 假如在電腦上，取消 look-control 功能，假如在手機上，隱藏槍
+		aCamera.addEventListener('loaded', function(evt) { 
+			if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
+				console.log(" PC, remove look wasd control ");
+				aCamera.removeAttribute("look-controls");
+				aCamera.removeAttribute("wasd-controls");
+			}else{
+				// pivotGun.setAttribute("visible", "false");
+			}
+		});
+		
+
+		let mouse = new THREE.Vector2();
+		let mouseEnd = new THREE.Vector2();
+		
+		aScene.canvas.addEventListener("mousedown", vrSceneTouchStart, false);
+		aScene.canvas.addEventListener("touchstart", vrSceneTouchStart, false);
+		let played = false;
+		let score;
+		function vrSceneTouchStart(event){
+			if (!played){
+				event.preventDefault();
+				score = Math.ceil(Math.random()*3);  
+				console.log (" score = " , score );
+				//// 觸發執行動畫
+				slot.object3D.children[0].animationSlices[0].changed = true;
+				slot.object3D.children[0].animationSlices[0].uid = score.toString();
+				//// 更改設定為留在動畫結尾
+				slot.object3D.children[0].animationSlices[0].stopHead = false;
+				played = true;
+
+				setTimeout(function(){
+					gameEnd();
+				}, 6000);
+			}
+			
+		}
+		
+
+		function gameEnd(){
+
+			blocker_score.style.display = "block";
+
+			let userID;
+			if ( !localStorage.getItem('userID') || !localStorage.getItem('vendor') ){
+				userID = "test1@google";
+			}else{
+				userID = localStorage.getItem('userID')+"@"+localStorage.getItem('vendor');
+			}
+
+			let coins = score;
+			let serverUrl = "https://7leyf90jbd.execute-api.ap-northeast-1.amazonaws.com/prod/yongkangMongoAccess";
+			let	postData = {
+				// ID: "test3"+"@"+"google",
+				ID:  userID, 
+				coins: coins,
+				gameType: "slot",
+				request: 'play',
+				requestItem: ''
+			};
+			fetch( serverUrl , {
+				method: 'POST', 
+				headers: { 'Content-Type': 'application/json'},
+				body: JSON.stringify(postData)
+			} ).then(function(response) {
+				return response.json();
+			}).then(function(isPlayed) {
+				console.log("shooting.html, play isPlayed " , isPlayed );
+
+				postData = {
+				ID:  userID, 
+				request: 'get',
+				requestItem: 'userCoins'
+				};
+				fetch( serverUrl , {
+					method: 'POST', 
+					headers: { 'Content-Type': 'application/json'},
+					body: JSON.stringify(postData)
+				} ).then(function(response) {
+					return response.json();
+				}).then(function(userCoins) {
+					let userCurrentCounts = Number(userCoins[0].currentCoins);
+
+					currentCoins.innerHTML = "結算代幣：" + userCurrentCounts + "枚";
+
+					if ( isPlayed[0] == true ){
+
+						if (score == 0){
+							previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
+							getCoins.innerHTML = "新增代幣：" + 1 + "枚";
+							score_info.innerHTML = "Sorry! 拉霸機出現莫名錯誤<br>不過參與遊戲還是可以獲得一個永康幣喔";
+						}else{
+							previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts - coins) + "枚";
+							getCoins.innerHTML = "新增代幣：" + coins + "枚";
+							score_info.innerHTML = "恭喜你！抽到 " + score + " 分<br>獲得" + coins + "個永康幣";
+						}
+
+					}else{
+
+						if (score == 0){
+							previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
+							getCoins.innerHTML = "新增代幣：" + 1 + "枚";
+							score_info.innerHTML = "Sorry! 拉霸機出現莫名錯誤<br>今日已經遊玩過了，無法獲得永康幣";
+						}else{
+							previousCoins.innerHTML = "原有代幣：" + userCurrentCounts + "枚";
+							getCoins.innerHTML = "新增代幣：" + 0 + "枚";
+							score_info.innerHTML = "恭喜你！抽到 " + score + " 分<br>今日已經遊玩過了，無法獲得永康幣";
+						}
+
+					}
+
+				});
+
+
+
+			});
+
+			
+			//// 點擊『去兌換』
+			couponPage.onclick = function(){
+				location.replace("/prize-list");
+			}
+
+			//// 點擊『排行榜』
+			leaderBn.onclick = function(){
+				postData = {
+					ID:  userID, 
+					request: 'get',
+					requestItem: 'coinLeaderboard'
+				};
+				fetch( serverUrl , {
+					method: 'POST', 
+					headers: { 'Content-Type': 'application/json'},
+					body: JSON.stringify(postData)
+				} ).then(function(response) {
+					return response.json();
+				}).then(function(leaderList) {
+					
+					leadBnModal.style.display = 'block';
+
+					console.log("leaderList = " , leaderList );
+					let leaderTable = document.getElementById("leaderTable");
+					leaderTable.innerHTML = "";
+					let thr = leaderTable.insertRow( 0 );
+					let t1 = document.createElement('th') , t2 = document.createElement('th') , t3 = document.createElement('th');
+					t1.innerHTML = "排名";
+					t2.innerHTML = "用戶名稱";
+					t3.innerHTML = "代幣數量";
+					thr.appendChild(t1);
+					thr.appendChild(t2);
+					thr.appendChild(t3);
+					leaderList.forEach((currentValue, index) => {
+						let row = leaderTable.insertRow( index + 1);
+						let rankR = row.insertCell(0);
+						let nameR = row.insertCell(1);
+						let coinsR = row.insertCell(2);
+						rankR.style.width = "20%";
+						nameR.style.width = "50%";
+						coinsR.style.width = "25%";
+
+						let userName;
+						if (currentValue.name == ""){
+						userName = "user";
+						}else{
+						userName = currentValue.name;
+						}
+						rankR.innerHTML = index + 1;
+						nameR.innerHTML = userName;
+						coinsR.innerHTML = currentValue.cumulativeCoins;
+					});
+				});
+
+			}
+
+			closeLeadBnModal.onclick = function(){
+				leadBnModal.style.display = 'none';
+			}
+
+		}
+
+
+		let self = {};
+		let videoScene = new THREE.Scene();
+		self.videoScene = videoScene;
+		self.GLRenderer = aScene.renderer;
+		aScene.renderer.autoClear = false;
+		self.aScene = aScene;
+
+		// renderTick();
+		startCamera( function(){
+			renderTick();
+			//// 即使沒開相機，也能玩
+			if (self.video){
+				self.video.play();
+			}
+			
+			console.log(" _startCamera callback ");
+			blocker_score.style.pointerEvents = "auto";
+			blockState.innerHTML = "請點擊螢幕來開始遊戲";
+		});
+
+		function startCamera( callback ){
+
+			let video = document.createElement('video');
+			let configuration = { facing: "environment" };
+			let texture = new THREE.VideoTexture(video);
+			texture.minFilter = THREE.LinearFilter;
+			texture.flipY = false;
+			texture.format = THREE.RGBFormat; // THREE.RGBAFormat
+
+			console.log(" _startCamera dcwh= " , document.documentElement.clientWidth , document.documentElement.clientHeight );
+
+			if ( navigator.mediaDevices  ) {
+				let onError = function(err) { 
+					console.error(" _startCamera error:", err); 
+					//// 即使沒開相機，也能玩
+					if (callback){
+						callback();
+					}
+				};
+
+				let videoSuccess = function(stream){
+					window.videoStream = stream;
+					video.srcObject = stream;
+					video.playsInline = true;
+					video.onloadedmetadata = function() {
+						function tick_video(){
+							if (video.videoWidth > 200 || video.videoHeight > 200){
+								console.log("XRFunc.js: tick_video play video[w, h]=", video.videoWidth, video.videoHeight );
+								//// 將video 物件記錄下來，在後面等 renderer 開始工作後再啟動
+								self.video  = video;
+								// video.play();
+
+								//////// set the div size depend on video
+								let videoWidth, videoHeight;
+								let aDiv = document.getElementById("aDiv");
+								let w, h;
+								if ( document.documentElement.clientWidth/document.documentElement.clientHeight > video.videoWidth/video.videoHeight ){
+									
+									w = window.innerWidth  ;
+									h = (window.innerWidth/video.videoWidth)* video.videoHeight;
+
+									console.log(" 1 set div size = ", innerWidth, innerHeight, w ,h, videoWidth, videoHeight );
+								}else{
+									
+									w = (window.innerHeight/video.videoHeight) * video.videoWidth ;
+									h = window.innerHeight;
+									
+									console.log(" 2 set div size = ", innerWidth, innerHeight, w ,h, videoWidth, videoHeight );
+								}
+
+								//// full fill, left nothing blank
+								aDiv.style.width  = w + "px" ;
+								aDiv.style.height = h + "px" ;
+								//// align the div and body
+								aDiv.style.left = ( innerWidth - w )/2 + "px" ;
+								aDiv.style.top  = ( innerHeight - h )/2 + "px" ;
+								
+
+								aScene.resize(); ////// it must call after renderer resize
+
+								////// setup the camera for 2D scene( 20200314 useless )
+								// let camera2D = new THREE.OrthographicCamera( -w/2, w/2, -h/2, h/2, -10, 20000);
+								//// 20201110 fei: 設定相機跟背景的時候直接使用『實體相機畫面尺寸』作為設定，手機端基本是[480, 640] 電腦端基本是[640, 480]
+								videoWidth = texture.image.videoWidth,  videoHeight = texture.image.videoHeight;
+
+								
+								////// setup the camera for background video
+								let videoCamera = new THREE.OrthographicCamera( -videoWidth/2, videoWidth/2, -videoHeight/2, videoHeight/2, -10, 20000);
+								self.videoCamera = videoCamera;
+								
+								////// setup videoPlane
+								let videoPlane = new THREE.Mesh(
+									new THREE.PlaneBufferGeometry( videoWidth , videoHeight ),
+									new THREE.MeshBasicMaterial( { map:texture, side: THREE.DoubleSide } ) ,
+								);
+								// videoPlane.material.depthTest = false;
+								// videoPlane.material.depthWrite = false;
+								videoPlane.position.set(0, 0, -1 );
+								self.videoScene.add( videoPlane );
+								
+								if ( callback ) { callback(); }
+
+							}else{
+								console.log("tick_video else video[w, h]=", video.videoWidth, video.videoHeight );
+								setTimeout(tick_video, 100);
+							}
+						}
+
+						if ( self.videoCamera ){
+							console.log("_startCamera: videoCamera exist, donothing ");
+						}else{
+							console.log("_startCamera: videoCamera not exist, start video ");
+							tick_video();
+						}
+						
+					}
+					
+				}
+
+				
+				navigator.mediaDevices.enumerateDevices().then(function(devices) {
+					let useDeviceID = false;
+					let cameraID, facingString, video_constraints;
+					devices = devices.filter(function(devices) { return devices.kind === 'videoinput'; });
+					if ( configuration.facing == "environment" ){facingString = "back";} 
+					else if (configuration.facing == "user" ){facingString = "front";} 
+					else{facingString = "back";}
+					for (let i in devices){
+						if( devices[i].label.toLowerCase().search( facingString ) != -1  ){ // front back
+							cameraID = devices[i].deviceId;
+							useDeviceID = true;
+						}
+					}
+					if (useDeviceID){ // PC, android chrome/FireFox, use the specific id by labels.
+						console.log("useDeviceID true, cameraID=", cameraID );
+						video_constraints = {
+							video: {
+								width: { min: 320, ideal: 640, max: 1280 },
+								height: { min: 240, ideal: 480, max: 800 }, 
+								frameRate: { min:15, ideal: 30, max: 60 },
+								deviceId: {'exact':cameraID }
+							}
+						};
+					}else{
+						let facing;
+						if ( configuration.facing ){ //// usually iOS safari and QQ, use "user"/"environment" to start
+							facing = configuration.facing;
+							console.log("configuration.facing do exist: set facing = ", facing );
+							video_constraints = {
+								video: {
+									width: { min: 320, ideal: 640, max: 1280 },
+									height: { min: 240, ideal: 480, max: 800 }, 
+									frameRate: { min:15, ideal: 30, max: 60 },
+									facingMode: facing
+								}
+							};
+						}else{
+							console.log("configuration.facing dosent exist: set facing = environment" );
+							video_constraints = {
+								video: {
+									width: { min: 320, ideal: 640, max: 1280 },
+									height: { min: 240, ideal: 480, max: 800 }, 
+									frameRate: { min:15, ideal: 30, max: 60 },
+									facingMode: 'environment'
+								}
+							};
+						}
+					}
+
+					navigator.mediaDevices.getUserMedia( video_constraints ).then(videoSuccess, onError); // successCallback
+				
+				});
+
+			}
+
+			console.log(" +++++++ ");
+		}
+
+		function renderTick(){
+			if (self.videoCamera){
+				self.GLRenderer.render( self.videoScene, self.videoCamera);
+			}	
+			self.GLRenderer.clearDepth();
+			if (self.aScene.object3D && self.aScene.camera){
+				self.GLRenderer.render( self.aScene.object3D, self.aScene.camera );
+			}
+			// console.log("renderTick");
+			requestAnimationFrame(renderTick); // dont use it, because of the haning problem
+		};
+
+
+	</script>
+
+</body>
+</html>
+

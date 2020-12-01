@@ -14117,10 +14117,14 @@ module.exports = AFRAME.registerComponent('animation-mixer', {
               this.model.animationSlices[0].changed = false;
               this.model.animationSlices[0].count = 0;
             }
-
+            // console.log("  22  " , this.model.animationSlices[0].reset , this.model.animationSlices[0].count  );
             if(!this.model.animationSlices[0].reset && this.model.animationSlices[0].count == 1){
-              // this.mixer._actions[0].time = this.model.animationSlices[index].endTime;//// 停在動畫結尾
-              this.mixer._actions[0].time = this.model.animationSlices[index].startTime;//// 停在動畫開始
+              
+              if (this.model.animationSlices[0].stopHead == true ){
+                this.mixer._actions[0].time = this.model.animationSlices[index].startTime;//// 停在動畫開始
+              }else{
+                this.mixer._actions[0].time = this.model.animationSlices[index].endTime;//// 停在動畫結尾
+              }
             }
 
             if (this.mixer._actions[0].time < this.model.animationSlices[index].startTime){
