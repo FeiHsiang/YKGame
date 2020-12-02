@@ -69450,13 +69450,20 @@ module.exports.Component = registerComponent('look-controls', {
       magicWindowAbsoluteEuler.setFromQuaternion(this.magicWindowObject.quaternion, 'YXZ');
       if (!this.previousMagicWindowYaw && magicWindowAbsoluteEuler.y !== 0) {
         this.previousMagicWindowYaw = magicWindowAbsoluteEuler.y;
-        // console.log(" 100 ++++++++ ", magicWindowAbsoluteEuler.x , magicWindowAbsoluteEuler.y , magicWindowAbsoluteEuler.z );
-        console.log(" 200 ++++++++ ", this.magicWindowObject.quaternion.x , this.magicWindowObject.quaternion.y , this.magicWindowObject.quaternion.z );
+//[start-20201202- fei -0001-add]//        
+        //// 20201202 fei: 在第一次進入此時，紀錄下『陀螺儀』回傳的 y 方向旋轉參數，之後更新以此為基準
+        this.originMagicWindowYaw = magicWindowAbsoluteEuler.y;
+        // console.log(" 200 ++++++++ ", this.magicWindowObject.quaternion.x , this.magicWindowObject.quaternion.y , this.magicWindowObject.quaternion.z );
+//[end---20201202- fei -0001-add]//
       }
       if (this.previousMagicWindowYaw) {
         magicWindowDeltaEuler.x = magicWindowAbsoluteEuler.x;
         // magicWindowDeltaEuler.y += magicWindowAbsoluteEuler.y - this.previousMagicWindowYaw;
-        magicWindowDeltaEuler.y = magicWindowAbsoluteEuler.y;
+//[start-20201202- fei -0001-mod]//
+        //// 20201202 fei: 更新y軸旋以第一次紀錄為基準。
+        // magicWindowDeltaEuler.y = magicWindowAbsoluteEuler.y;
+        magicWindowDeltaEuler.y = magicWindowAbsoluteEuler.y - this.originMagicWindowYaw;
+//[end---20201202- fei -0001-mod]//
         magicWindowDeltaEuler.z = magicWindowAbsoluteEuler.z;
         this.previousMagicWindowYaw = magicWindowAbsoluteEuler.y;
       }
@@ -79409,6 +79416,9 @@ function setupTitle () {
   titleEl.className = LOADER_TITLE_CLASS;
   titleEl.innerHTML = document.title;
   titleEl.style.display = 'none';
+//[start-20201202- fei -0001-add]//  
+  titleEl.style.backgroundColor = 'black';
+//[end---20201202- fei -0001-add]//
   sceneEl.appendChild(titleEl);
 }
 

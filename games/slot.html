@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>upload sky</title>
+	<title>拉霸機小遊戲</title>
 	<style>
 
 		html, body {
@@ -384,32 +384,43 @@
 	<script src="js/aframe-v1.0.4.js"></script>
 	<script src="js/aframe-extras.js"></script>
 
-	<script src="js/aframe-physics-system.js"></script>
+	<!-- <script src="js/aframe-physics-system.js"></script> -->
 
 
 	<div id = "aDiv"  >
 		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
-		device-orientation-permission-ui="enabled: true"  shadow="type: pcfsoft"
-		physics="debug: false; friction: 50.0 ; restitution: 0.2; gravity: -4.0 " >
+		device-orientation-permission-ui="enabled: true"  shadow="type: pcfsoft">
 			<a-assets id = "aAssets">
 
 				<a-asset-item id="_slot" src="model/JumboSlots.glb"></a-asset-item>
-				
+				<a-asset-item id="_desk" src="model/desk.glb"></a-asset-item>
+				<a-asset-item id="_flyfloor" src="model/flyfloor.glb"></a-asset-item>
+				<a-asset-item id="_post" src="model/Concierge_post.glb"></a-asset-item>
+				<a-asset-item id="_backgroundBoard" src="model/background2.glb"></a-asset-item>
 
 			</a-assets>
 
-			<a-entity id="rig" position="0 1.6 0" rotation="0 0 0">
+			<a-entity id="rig" position="0 0.8 3.0" rotation="0 0 0">
 				<a-entity id="aCamera" camera  look-controls="touchEnabled:false" wasd-controls>
 					
 				</a-entity>
 			</a-entity>
 
+			<!-- 拉罷基本身 -->
+			<a-entity visible = "true" id = "slot" position="0 -0.4 -3" rotation="0 180 0" scale="1.3 1.3 1.3" gltf-model="#_slot" ></a-entity>
 
-			<a-entity visible = "true" id = "slot" position="0 0 -3" rotation="0 180 0" scale="1 1 1" gltf-model="#_slot" ></a-entity>
+			<!-- 置物桌 -->
+			<a-entity visible = "true" id = "desk" position="0 -2 -2.8" rotation="0 0 0" scale="1.5 1.5 1.5" gltf-model="#_desk"></a-entity>
 
-
+			<!-- 裝飾地板 -->
+			<a-entity visible = "true" id = "flyfloor" position="0 -2 -4" rotation="0 0 0" scale="3.3 3.3 3.3" gltf-model="#_flyfloor" ></a-entity>
 			
-			<!-- <a-sky id = "aSky" color="#ECECEC"></a-sky> -->
+			<!-- 禮賓柱 -->
+			<a-entity visible = "true" id = "post" position="0 -2 -1.3" rotation="0 0 0" scale="1.7 1.7 1.7" gltf-model="#_post" ></a-entity>
+
+			<!-- 背景看板 -->
+			<a-entity visible = "true" id = "backgroundBoard" position="0 -2 -3.2" rotation="0 0 0" scale=" 1.5 1.5 1.5 " gltf-model="#_backgroundBoard" ></a-entity>
+
 
 			<a-entity light="type: ambient; color: #FFFFFF; intensity: 1.0" ></a-entity>
 			<a-entity light="type: directional; color: #FFFFFF; intensity: 0.5;
@@ -428,6 +439,61 @@
 
 	<script>
 
+			function setModelMesh(evt){
+				let objj = evt.detail.model;
+				objj.traverse(node => {
+					if (node.isMesh) {
+						node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+						if (node.material.map){
+							node.material.map.encoding = THREE.GammaEncoding;
+							node.material.map.needsUpdate = true;
+						}
+						node.material.needsUpdate = true;
+					}
+				});
+			}
+
+			//// 將 『裝飾桌』『禮賓柱』『背景看板』調整為無光標準
+			desk.addEventListener('model-loaded', setModelMesh );
+			post.addEventListener('model-loaded', setModelMesh );
+			backgroundBoard.addEventListener('model-loaded', setModelMesh );
+
+			//// 將 『浮空地板』調整為無光標準，並且增加動畫
+			flyfloor.setAttribute("animation-mixer" , "clip: Take 001");
+			flyfloor.addEventListener('model-loaded', function (evt){
+				let objj = evt.detail.model;
+				objj.traverse(node => {
+					if (node.isMesh) {
+						node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+						if (node.material.map){
+							node.material.map.encoding = THREE.GammaEncoding;
+							node.material.map.needsUpdate = true;
+						}
+						node.material.needsUpdate = true;
+					}
+				});
+				let animationSlices = [];
+				animationSlices.push({ 
+					changed:false, 
+					loop:true, 
+					reset:true, 
+					stopHead: false,
+					count: 0, 
+					idle:"mifly168", 
+					uid:"mifly168" 
+				});
+				animationSlices.push({
+					animationName: evt.detail.model.animations[0].name,
+					name: evt.detail.model.animations[0].name,
+					endTime: evt.detail.model.animations[0].duration ,
+					startTime: 0,
+					uid:"mifly168"
+				});
+				evt.detail.model.animationSlices = animationSlices;
+			} );
+
+
+			//// 將 『拉霸機』調整為無光標準，並且增加動畫 
 			slot.setAttribute("animation-mixer" , "clip: Take 001");
 			slot.addEventListener('model-loaded', function(evt){
 				//// 材質處理，無光標準

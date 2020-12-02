@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>upload sky</title>
+	<title>九宮格小遊戲</title>
 	<style>
 
 		html, body {
@@ -211,8 +211,9 @@
 			left :5%;
 			bottom: 2%;		
 			font-family: Arial;
-			font-size: 20px;
-			/* color: #FFFFFF; */
+			font-size: 18pt;
+			color:white;
+			background-color: rgba(0,0,0,0.5);
 		}
 
 		#ballAmount{
@@ -221,8 +222,9 @@
 			right :5%;
 			bottom: 2%;		
 			font-family: Arial;
-			font-size: 20px;
-			/* color: #FF0000; */
+			font-size: 18pt;
+			color:white;
+			background-color: rgba(0,0,0,0.5);
 		}
 
 		#leaveButton{
@@ -306,8 +308,8 @@
 
 	<script src="js/vconsole.min.js"></script>
 	<script>
-		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
-		// if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0  ){
+		// if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
+		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0  ){
 			var vConsole = new VConsole();
 			console.log("The system is mobile: ", window.navigator.userAgent.toLowerCase() );
 		}else{
@@ -364,7 +366,7 @@
 	<div id = "aDiv"  >
 		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
 		device-orientation-permission-ui="enabled: true"  shadow="type: pcfsoft"
-		physics="debug: false; friction: 0.005; " >
+		physics="debug: false; friction: 0.005; gravity: -8.0;" >
 			<a-assets id = "aAssets">
 
 				<a-asset-item id="baseball" src="model/baseball.glb"></a-asset-item>
@@ -381,7 +383,11 @@
 				<img id="n7" src="images/n7.png">
 				<img id="n8" src="images/n8.png">
 				<img id="n9" src="images/n9.png">
-				<img id="_ground" src="images/ground.png">
+				<!-- <img id="_ground" src="images/ground.png"> -->
+				<a-asset-item id="_flyfloor" src="model/flyfloor.glb"></a-asset-item>
+
+				<a-asset-item id="_basket" src="model/basket_baseball.glb"></a-asset-item>
+				
 
 			</a-assets>
 
@@ -400,6 +406,9 @@
 
 			<!-- 背景看板 -->
 			<a-entity visible = "true" id = "backgroundBoard" position="0 -2 -3.2" rotation="0 0 0" scale=" 1.5 1.5 1.5 " gltf-model="#_backgroundBoard" ></a-entity>
+
+			<!-- 裝飾籃球架 -->
+			<a-entity visible = "true" id = "basket" position="-2 -2 -1.9" rotation="0 0 0" scale="0.7 0.7 0.7" gltf-model="#_basket" ></a-entity>
 
 			<!-- 棒球九宮格 -->
 
@@ -426,32 +435,25 @@
 
 			<!-- 板子 -->
 
-			<a-plane  position="-1.05 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board1" 
-			shadow="receive: true" material="shader: flat; src: #n1;" dynamic-body = "mass:500;" ></a-plane>
+			<!-- <a-box  position="-1.05 2.575 0" rotation="0 0 0" width="1" depth="0.2" height="1" opacity="1.0" side="double" id ="board1" material="shader: flat; src: #n1;" static-body = "mass:500; shape:box; halfExtents: 0.1 0.1 0.5;" ></a-box> -->
 
-			<a-plane  position="0 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board2" 
-			shadow="receive: true" material="shader: flat; src: #n2;" dynamic-body = "mass:500;"></a-plane>
+			<a-plane  position="-1.05 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board1" material="shader: flat; src: #n1;" dynamic-body = "mass:500;" ></a-plane>
 
-			<a-plane  position="1.05 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board3" 
-			shadow="receive: true" material="shader: flat; src: #n3;" dynamic-body = "mass:500;"></a-plane>
+			<a-plane  position="0 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board2" material="shader: flat; src: #n2;" dynamic-body = "mass:500;"></a-plane>
 
-			<a-plane  position="-1.05 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board4" 
-			shadow="receive: true" material="shader: flat; src: #n4;" dynamic-body = "mass:500;"></a-plane>
+			<a-plane  position="1.05 2.575 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board3" material="shader: flat; src: #n3;" dynamic-body = "mass:500;"></a-plane>
 
-			<a-plane  position="0 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board5" 
-			shadow="receive: true" material="shader: flat; src: #n5;" dynamic-body = "mass:500;"></a-plane>
+			<a-plane  position="-1.05 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board4" material="shader: flat; src: #n4;" dynamic-body = "mass:500;"></a-plane>
 
-			<a-plane  position="1.05 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board6" 
-			shadow="receive: true" material="shader: flat; src: #n6;" dynamic-body = "mass:500;" ></a-plane>			
+			<a-plane  position="0 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board5" material="shader: flat; src: #n5;" dynamic-body = "mass:500;"></a-plane>
+
+			<a-plane  position="1.05 1.55 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board6" material="shader: flat; src: #n6;" dynamic-body = "mass:500;" ></a-plane>			
 			
-			<a-plane  position="-1.05 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board7" 
-			shadow="receive: true" material="shader: flat; src: #n7;" dynamic-body = "mass:500;"></a-plane>
+			<a-plane  position="-1.05 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board7" material="shader: flat; src: #n7;" dynamic-body = "mass:500;"></a-plane>
 
-			<a-plane  position="0 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board8" 
-			shadow="receive: true" material="shader: flat; src: #n8;" dynamic-body = "mass:500;"></a-plane>
+			<a-plane  position="0 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board8" material="shader: flat; src: #n8;" dynamic-body = "mass:500;"></a-plane>
 
-			<a-plane  position="1.05 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board9" 
-			shadow="receive: true" material="shader: flat; src: #n9;" dynamic-body = "mass:500;"></a-plane>
+			<a-plane  position="1.05 0.5 -3" rotation="0 0 0" width="1" height="1" opacity="1.0" side="double" id ="board9" material="shader: flat; src: #n9;" dynamic-body = "mass:500;"></a-plane>
 
 
 
@@ -459,9 +461,11 @@
 
 			<!-- 棒球九宮格 -->
 
-			<a-plane id="underplane_inv" position="0 -3 0" rotation="-90 0 0" width="50" height="50"  visible="false" static-body></a-plane>
+			<a-plane id="underplane_inv" position="0 -2 0" rotation="-90 0 0" width="50" height="50"  visible="false" static-body></a-plane>
 
-			<a-plane id="underplane" position="0 -2 -3" rotation="-90 0 0" width="9.6" height="5.4" material="shader: flat; src: #_ground;"  opacity="1.0" shadow="receive: true" static-body></a-plane>
+			<!-- 裝飾地板 -->
+			<!-- <a-plane id="underplane" position="0 -2 -3" rotation="-90 0 0" width="9.6" height="5.4" material="shader: flat; src: #_ground;"  opacity="1.0" shadow="receive: true" static-body></a-plane> -->
+			<a-entity visible = "true" id = "flyfloor" position="0 -2 -4" rotation="0 0 0" scale="3.3 3.3 3.3" gltf-model="#_flyfloor" ></a-entity>
 
 
 			<!-- <a-sky id = "aSky" color="#ECECEC"></a-sky> -->
@@ -533,11 +537,47 @@
 				}
 			});
 		}
-		//// 處理架子材質，無光標準
+
+		//// 將 『背景看板』『置物桌』『置物籃』『架子』 材質調整為無光標準
 		shelf.addEventListener('model-loaded', setModelMesh);
-		//// 處理球的材質，無光標準
 		aSphere.addEventListener('model-loaded', setModelMesh);
 		backgroundBoard.addEventListener('model-loaded', setModelMesh);
+		basket.addEventListener('model-loaded', setModelMesh);
+
+		//// 處理浮空地板
+		flyfloor.setAttribute("animation-mixer" , "clip: Take 001");
+		flyfloor.addEventListener('model-loaded', function (evt){
+			let objj = evt.detail.model;
+			objj.traverse(node => {
+				if (node.isMesh) {
+					node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+					if (node.material.map){
+						node.material.map.encoding = THREE.GammaEncoding;
+						node.material.map.needsUpdate = true;
+					}
+					node.material.needsUpdate = true;
+				}
+			});
+			let animationSlices = [];
+			animationSlices.push({ 
+				changed:false, 
+				loop:true, 
+				reset:true, 
+				stopHead: false,
+				count: 0, 
+				idle:"mifly168", 
+				uid:"mifly168" 
+			});
+			animationSlices.push({
+				animationName: evt.detail.model.animations[0].name,
+				name: evt.detail.model.animations[0].name,
+				endTime: evt.detail.model.animations[0].duration ,
+				startTime: 0,
+				uid:"mifly168"
+			});
+			evt.detail.model.animationSlices = animationSlices;
+		} );
+
 		
 		// let ball = document.getElementById("ball");
 
@@ -550,7 +590,7 @@
 
 		let touchMoveTime = Date.now();
 		//// 預設原始固定長度為 3 的array 來紀錄滑鼠或觸碰的y值，
-		let preMouses = [[0,0],[0,0],[0,0],[0,0]];
+		let preMouses = [[0,-2],[0,-2],[0,-2],[0,-2]];
 		
 		//// 機器人物件遭遇碰撞後的反應，切換動畫。
 		// aRobot.addEventListener('collide', function(e){
@@ -832,38 +872,41 @@
 					return;
 				}else{
 					console.log(" ********** direction y not up not down " , preMouses );
+					// clearTouchState();
+					// return;
+				}
+				
+				//// 投擲預設的球物件
+				let dragX, dragY, dragLength;
+				//// 在手指於銀幕上滑動的時候會紀錄下最多四個位置。每次手指離開銀幕則 list 會歸零回 x = 0, y = -2
+				//// 計算使用者手指的軌跡方式如下，先找出『有效的滑動位置』（y方向大於 -2 者才能算）。
+				//// 假如『有效的滑動位置』數量超過一，則計算起始與終點的距離，再除上『有效數量』
+				let effectiveMouses = []
+				for( let i = 0, len = preMouses.length; i < len; i++ ){
+					if (preMouses[i][1] > -2){
+						effectiveMouses.push(preMouses[i]) ;
+					}
+				}
+				if (effectiveMouses.length > 1){
+					dragX = effectiveMouses[ effectiveMouses.length - 1 ][0] - effectiveMouses[0][0];
+					dragY = effectiveMouses[ effectiveMouses.length - 1 ][1] - effectiveMouses[0][1];
+					console.log(" _effectiveMouses > 1: " , effectiveMouses.length , effectiveMouses );
+					dragLength = Math.pow( dragX*dragX+dragY*dragY , 0.5) /effectiveMouses.length  ;
+
+				}else{
+					console.log(" _effectiveMouses: length <= 1 call clearTouchState");
 					clearTouchState();
 					return;
 				}
-				
+
 
 				touchState = 2;
-				
-
-				//// 投擲預設的球物件
-				let dragX = preMouses[3][0] - preMouses[0][0];
-				let dragY = preMouses[3][1] - preMouses[0][1];
-
-				//// 讓遊戲便簡單一點，水平方向限制多一點，讓球不會丟太出去
-				// dragX = dragX*0.6; // -0.2 0.2
-				// dragY = 0.2 + (dragY*0.5); //0.3-0.6
-
-				// dragX = 0;
-				// dragY = 0.5;
-
-				let dragLength = Math.pow( dragX*dragX+dragY*dragY , 0.5);
 				console.log("dragLength = " , dragLength , dragX , dragY );
 
-				// if (dragLength<0.1){
-				// 	dragLength = 0.1;
-				// }else if (dragLength > 0.6){
-				// 	dragLength = 0.6;
-				// }
-
-				let velocity = new THREE.Vector3( dragX , dragY , -dragY*1.3 ).normalize().multiplyScalar(dragLength*20);
+				let velocity = new THREE.Vector3( dragX , dragY , -dragY*1.4 ).normalize().multiplyScalar(dragLength*60);
 				let v2 = velocity.clone().applyEuler( aCamera.object3D.rotation ); //// 改版後
 				velocity = v2.clone();
-
+				console.log(" velocity = " , velocity );
 				//// 設計『顯示軌跡』功能，暫時不開放
 
 				//// 2D 銀幕平面上軌跡
@@ -1060,7 +1103,9 @@
 				if(score<9){
 					setTimeout(function(){
 						if(score==9 || ballAmount == 0){
-							gameEnd();
+							setTimeout(function(){
+								gameEnd();
+							}, 2000);
 						}
 						else{
 							resetSphere(1);
@@ -1076,7 +1121,7 @@
 				}
 				
 				// console.log("vrSceneTouchEnd set 2 " , pdiff , "\n", preMouses[3][0] - preMouses[0][0] , preMouses[3][1] - preMouses[0][1] );
-				preMouses = [[0,0],[0,0],[0,0],[0,0]];
+				preMouses = [[0,-2],[0,-2],[0,-2],[0,-2]];
 
 				// aSphere.object3D.position.x = 0 ;
 				// aSphere.object3D.position.y = 1 ;

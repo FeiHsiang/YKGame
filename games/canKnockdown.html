@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>upload sky</title>
+	<title>丟罐子小遊戲</title>
 	<style>
 
 		html, body {
@@ -211,8 +211,9 @@
 			left :5%;
 			bottom: 2%;		
 			font-family: Arial;
-			font-size: 20px;
-			/* color: #FFFFFF; */
+			font-size: 18pt;
+			color:white;
+			background-color: rgba(0,0,0,0.5);
 		}
 
 		#ballAmount{
@@ -221,8 +222,9 @@
 			right :5%;
 			bottom: 2%;		
 			font-family: Arial;
-			font-size: 20px;
-			/* color: #FF0000; */
+			font-size: 18pt;
+			color:white;
+			background-color: rgba(0,0,0,0.5);
 		}
 
 		#leaveButton{
@@ -311,7 +313,8 @@
 
 	<script src="js/vconsole.min.js"></script>
 	<script>
-		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
+		// if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
+		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 ){
 			var vConsole = new VConsole();
 			console.log("The system is mobile: ", window.navigator.userAgent.toLowerCase() );
 		}else{
@@ -382,11 +385,12 @@
 				<a-asset-item id="jar5" src="model/Jar5.glb"></a-asset-item>
 
 				<a-asset-item id="_desk" src="model/desk.glb"></a-asset-item>
+				<a-asset-item id="_flyfloor" src="model/flyfloor.glb"></a-asset-item>
 				
-				<a-asset-item id="_baslet" src="model/baslet_basketball.glb"></a-asset-item>
+				<a-asset-item id="_basket" src="model/basket_basketball.glb"></a-asset-item>
 
 				<a-asset-item id="_backgroundBoard" src="model/background2.glb"></a-asset-item>
-				<img id="_ground" src="images/ground.png">
+				<!-- <img id="_ground" src="images/ground.png"> -->
 
 
 			</a-assets>
@@ -409,10 +413,10 @@
 			<a-entity visible = "true" id = "backgroundBoard" position="0 -2 -3.2" rotation="0 0 0" scale=" 1.5 1.5 1.5 " gltf-model="#_backgroundBoard" ></a-entity>
 
 			<!-- 置物桌 -->
-			<a-entity visible = "true" id = "desk" position="0 -2 -3" rotation="0 0 0" scale="2.0 2.0 0.3" gltf-model="#_desk" static-body ></a-entity>
+			<a-entity visible = "true" id = "desk" position="0 -2 -2.8" rotation="0 0 0" scale="2.0 2.0 0.3" gltf-model="#_desk" static-body ></a-entity>
 
 			<!-- 裝飾籃球架 -->
-			<a-entity visible = "true" id = "baslet" position="1.0 -0.5 1.5" rotation="0 0 0" scale="0.3 0.3 0.3" gltf-model="#_baslet" ></a-entity>
+			<a-entity visible = "true" id = "basket" position="-2 -2 -1.9" rotation="0 0 0" scale="0.7 0.7 0.7" gltf-model="#_basket" ></a-entity>
 
 
 			<!-- 丟沙包 -->
@@ -420,40 +424,39 @@
 			<!-- 罐子塔 -->
 			<!-- 罐子塔 -->
 			<!-- 最下層 -->
-			<a-entity visible = "true" id = "can7" position="-1.2 0.3 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar1" dynamic-body="mass:1000" sleepy="allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01"></a-entity>
+			<a-entity visible = "true" id = "can7" position="-1.35 0.614 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar1"  ></a-entity>
 
-			<a-entity visible = "true" id = "can8" position="-0.4 0.3 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar2" dynamic-body="mass:1000" sleepy="allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01"></a-entity>
+			<a-entity visible = "true" id = "can8" position="-0.45 0.614 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar2"  ></a-entity>
 
-			<a-entity visible = "true" id = "can9" position="0.4 0.3 -3" rotation="0 180 0" scale= "0.6 0.6 0.6" gltf-model="#jar3" dynamic-body="mass:1000" sleepy="allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01"></a-entity>
+			<a-entity visible = "true" id = "can9" position="0.45 0.614 -3" rotation="0 180 0" scale= "0.6 0.6 0.6" gltf-model="#jar3"  ></a-entity>
 
-			<a-entity visible = "true" id = "can10" position="1.2 0.3 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar4" dynamic-body="mass:1000" sleepy="allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01"></a-entity>
+			<a-entity visible = "true" id = "can10" position="1.35 0.614 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar4"  ></a-entity>
 
 			<!-- 第三層 -->
-			<a-entity visible = "true" id = "can4" position="-0.8 1.25 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar5" dynamic-body="mass:500" sleepy="allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01"></a-entity>
+			<a-entity visible = "true" id = "can4" position="-0.9 1.548 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar5"  ></a-entity>
 
-			<a-entity visible = "true" id = "can5" position="0.0 1.25 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar1" dynamic-body="mass:500" sleepy="allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01"></a-entity>
+			<a-entity visible = "true" id = "can5" position="0.0 1.548 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar1"  ></a-entity>
 
-			<a-entity visible = "true" id = "can6" position="0.8 1.25 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar2" dynamic-body="mass:500" sleepy="allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01"></a-entity>
+			<a-entity visible = "true" id = "can6" position="0.9 1.548 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar2"  ></a-entity>
 
 			<!-- 第二層 -->
-			<a-entity visible = "true" id = "can2" position="-0.4 2.2 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar3" dynamic-body="mass:500" sleepy="allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01"></a-entity>
+			<a-entity visible = "true" id = "can2" position="-0.45 2.482 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar3"  ></a-entity>
 
-			<a-entity visible = "true" id = "can3" position="0.4 2.2 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar4" dynamic-body="mass:500" sleepy="allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01"></a-entity>
+			<a-entity visible = "true" id = "can3" position="0.45 2.482 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar4"  ></a-entity>
 
 			<!-- 最上層 -->
-			<a-entity visible = "true" id = "can1" position="0 3.15 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar5" dynamic-body="mass:500" sleepy="allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01"></a-entity>
+			<a-entity visible = "true" id = "can1" position="0 3.417 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar5"  ></a-entity>
 
 
-			<!-- 丟沙包 -->
-
-			<!-- <a-plane id="underplane" position="0 0 -3" rotation="-90 0 0" width="2" height="0.2" color="#4D3900" opacity="1" shadow="receive: true" static-body></a-plane> -->
-
+			
+			<!-- 隱形地板，碰撞用 -->
 			<a-plane id="underplane1" position="0 -2 0" rotation="-90 0 0" width="50" height="50" visible="false" shadow="receive: true" static-body></a-plane>
 
-			<a-plane id="underplane" position="0 -2 -3" rotation="-90 0 0" width="9.6" height="5.4" material="shader: flat; src: #_ground;"  opacity="1.0" shadow="receive: true" static-body></a-plane>
+			<!-- 裝飾地板 -->
+			<!-- <a-plane id="underplane" position="0 -2 -3" rotation="-90 0 0" width="9.6" height="5.4" material="shader: flat; src: #_ground;"  opacity="1.0" shadow="receive: true" static-body></a-plane> -->
+			<a-entity visible = "true" id = "flyfloor" position="0 -2 -4" rotation="0 0 0" scale="3.3 3.3 3.3" gltf-model="#_flyfloor" ></a-entity>
 
 
-			<!-- <a-box id="underplane2" position="0 0.5 -3" rotation="-90 0 0" width="2" height="0.2" depth="0.2"  color="#4D3900" opacity="1" shadow="receive: true" static-body></a-box> -->
 
 
 			<!-- <a-sky id = "aSky" color="#ECECEC"></a-sky> -->
@@ -467,7 +470,7 @@
 								   shadowMapHeight:3072; shadowMapWidth:3072; 
 								   shadowCameraFar: 500; shadowCameraNear: 0.5;" 
 			          position="0 0 1"></a-entity>
-			<!-- <a-entity camera="active: true" look-controls wasd-controls position="0 1.6 0"></a-entity> -->
+
 		</a-scene>
 
 	</div>	
@@ -490,17 +493,95 @@
 				}
 			});
 		}
-		can1.addEventListener('model-loaded', setModelMesh );
-		can2.addEventListener('model-loaded', setModelMesh );
-		can3.addEventListener('model-loaded', setModelMesh );
-		can4.addEventListener('model-loaded', setModelMesh );
-		can5.addEventListener('model-loaded', setModelMesh );
-		can6.addEventListener('model-loaded', setModelMesh );
-		can7.addEventListener('model-loaded', setModelMesh );
-		can8.addEventListener('model-loaded', setModelMesh );
-		can9.addEventListener('model-loaded', setModelMesh );
-		can10.addEventListener('model-loaded', setModelMesh );
+		function setModelMeshResetCan(evt){
+			let objj = evt.detail.model;
+			objj.traverse(node => {
+				if (node.isMesh) {
+					node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+					if (node.material.map){
+						node.material.map.encoding = THREE.GammaEncoding;
+						node.material.map.needsUpdate = true;
+					}
+					node.material.needsUpdate = true;
+				}
+			});
+			// console.log(" --- " , objj );
+			objj.position.y = -0.7785; //// 手動調整出來的數字
+		}
+		can1.addEventListener('model-loaded', setModelMeshResetCan );
+		can2.addEventListener('model-loaded', setModelMeshResetCan );
+		can3.addEventListener('model-loaded', setModelMeshResetCan );
+		can4.addEventListener('model-loaded', setModelMeshResetCan );
+		can5.addEventListener('model-loaded', setModelMeshResetCan );
+		can6.addEventListener('model-loaded', setModelMeshResetCan );
+		can7.addEventListener('model-loaded', setModelMeshResetCan );
+		can8.addEventListener('model-loaded', setModelMeshResetCan );
+		can9.addEventListener('model-loaded', setModelMeshResetCan );
+		can10.addEventListener('model-loaded', setModelMeshResetCan );
+
+		//// 延後設置罐子的物理性質。應該可以比較不會亂彈跳
+		can7.setAttribute("dynamic-body", "mass:1000; shape:cylinder;");
+		can7.setAttribute("sleepy", "allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01");
+		can8.setAttribute("dynamic-body", "mass:1000; shape:cylinder;");
+		can8.setAttribute("sleepy", "allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01");
+		can9.setAttribute("dynamic-body", "mass:1000; shape:cylinder;");
+		can9.setAttribute("sleepy", "allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01");
+		can10.setAttribute("dynamic-body", "mass:1000; shape:cylinder;");
+		can10.setAttribute("sleepy", "allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01");
+
+		can4.setAttribute("dynamic-body", "mass:500; shape:cylinder;");
+		can4.setAttribute("sleepy", "allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01");
+		can5.setAttribute("dynamic-body", "mass:500; shape:cylinder;");
+		can5.setAttribute("sleepy", "allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01");
+		can6.setAttribute("dynamic-body", "mass:500; shape:cylinder;");
+		can6.setAttribute("sleepy", "allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01");
+		can2.setAttribute("dynamic-body", "mass:500; shape:cylinder;");
+		can2.setAttribute("sleepy", "allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01");
+		can3.setAttribute("dynamic-body", "mass:500; shape:cylinder;");
+		can3.setAttribute("sleepy", "allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01");
+		can1.setAttribute("dynamic-body", "mass:500; shape:cylinder;");
+		can1.setAttribute("sleepy", "allowSleep: true; delay:1; linearDamping: 0.01; angularDamping: 0.01");
+
+
+		//// 將 『背景看板』『置物桌』『置物籃』調整為無光標準
 		backgroundBoard.addEventListener('model-loaded', setModelMesh );
+		desk.addEventListener('model-loaded', setModelMesh );
+		basket.addEventListener('model-loaded', setModelMesh );
+		document.getElementById("aSphere").addEventListener('model-loaded', setModelMesh );
+
+		//// 將 『浮空地板』調整為無光標準，並且增加動畫
+		flyfloor.setAttribute("animation-mixer" , "clip: Take 001");
+		flyfloor.addEventListener('model-loaded', function (evt){
+			let objj = evt.detail.model;
+			objj.traverse(node => {
+				if (node.isMesh) {
+					node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+					if (node.material.map){
+						node.material.map.encoding = THREE.GammaEncoding;
+						node.material.map.needsUpdate = true;
+					}
+					node.material.needsUpdate = true;
+				}
+			});
+			let animationSlices = [];
+			animationSlices.push({ 
+				changed:false, 
+				loop:true, 
+				reset:true, 
+				stopHead: false,
+				count: 0, 
+				idle:"mifly168", 
+				uid:"mifly168" 
+			});
+			animationSlices.push({
+				animationName: evt.detail.model.animations[0].name,
+				name: evt.detail.model.animations[0].name,
+				endTime: evt.detail.model.animations[0].duration ,
+				startTime: 0,
+				uid:"mifly168"
+			});
+			evt.detail.model.animationSlices = animationSlices;
+		} );
 
 	
 		aCamera.addEventListener('loaded', function(evt) { 
@@ -547,7 +628,7 @@
 
 		let touchMoveTime = Date.now();
 		//// 預設原始固定長度為 3 的array 來紀錄滑鼠或觸碰的y值，
-		let preMouses = [[0,0],[0,0],[0,0],[0,0]];
+		let preMouses = [[0,-2],[0,-2],[0,-2],[0,-2]];
 		
 		//// 機器人物件遭遇碰撞後的反應，切換動畫。
 		// aRobot.addEventListener('collide', function(e){
@@ -809,7 +890,7 @@
 
 				//// 假如使用者『持球』過久，則判定沒有選定方向，重來
 				if ( Date.now() - touchMoveTime > 200){
-					console.log(" ********** touchMove stay too long "  );
+					console.log(" ********** touchMove stay too long " , preMouses  );
 					clearTouchState();
 					return;
 				}
@@ -824,25 +905,41 @@
 					return;
 				}else{
 					console.log(" ********** direction y not up not down " , preMouses );
+					// clearTouchState();
+					// return;
+				}
+				
+				//// 投擲預設的球物件
+				let dragX, dragY, dragLength;
+				//// 在手指於銀幕上滑動的時候會紀錄下最多四個位置。每次手指離開銀幕則 list 會歸零回 x = 0, y = -2
+				//// 計算使用者手指的軌跡方式如下，先找出『有效的滑動位置』（y方向大於 -2 者才能算）。
+				//// 假如『有效的滑動位置』數量超過一，則計算起始與終點的距離，再除上『有效數量』
+				let effectiveMouses = []
+				for( let i = 0, len = preMouses.length; i < len; i++ ){
+					if (preMouses[i][1] > -2){
+						effectiveMouses.push(preMouses[i]) ;
+					}
+				}
+				if (effectiveMouses.length > 1){
+					dragX = effectiveMouses[ effectiveMouses.length - 1 ][0] - effectiveMouses[0][0];
+					dragY = effectiveMouses[ effectiveMouses.length - 1 ][1] - effectiveMouses[0][1];
+					console.log(" _effectiveMouses > 1: " , effectiveMouses.length , effectiveMouses );
+					dragLength = Math.pow( dragX*dragX+dragY*dragY , 0.5) /effectiveMouses.length  ;
+
+				}else{
+					console.log(" _effectiveMouses: length <= 1 call clearTouchState");
 					clearTouchState();
 					return;
 				}
-				
 
 				touchState = 2;
 				
-
-				//// 投擲預設的球物件
-
-				let dragX = preMouses[3][0] - preMouses[0][0];
-				let dragY = preMouses[3][1] - preMouses[0][1];
-				let dragLength = Math.pow( dragX*dragX+dragY*dragY , 0.5);
-				let velocity = new THREE.Vector3( dragX , dragY , -dragY*1.3 ).normalize().multiplyScalar(dragLength*20);
+				let velocity = new THREE.Vector3( dragX , dragY , -dragY*1.3 ).normalize().multiplyScalar(dragLength*60);
 				let v2 = velocity.clone().applyEuler( aCamera.object3D.rotation ); //// 改版後
 				velocity = v2.clone();
 
 
-				aSphere.setAttribute( "dynamic-body", "mass: 1000" );
+				aSphere.setAttribute( "dynamic-body", "mass: 1000; shape:sphere;" );
 
 				aSphere.body.velocity.set( velocity.x, velocity.y, velocity.z );
 
@@ -1015,8 +1112,7 @@
 				}
 				
 				
-				console.log("vrSceneTouchEnd set 2 " , pdiff , "\n", preMouses[3][0] - preMouses[0][0] , preMouses[3][1] - preMouses[0][1] );
-				preMouses = [[0,0],[0,0],[0,0],[0,0]];
+				preMouses = [[0,-2],[0,-2],[0,-2],[0,-2]];
 
 				// aSphere.object3D.position.x = 0 ;
 				// aSphere.object3D.position.y = 1 ;
