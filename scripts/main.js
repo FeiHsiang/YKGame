@@ -261,7 +261,25 @@ switch (location.pathname) {
     //// 點擊『確認』來進入遊戲場景
     gamesButtonComfirm.onclick = function(){
       console.log(" gamesButtonComfirm click ");
-      aUI.startPlayingGame( localStorage.getItem("gameType") );
+      //// 所有遊戲都先問一次『動作感應器啟動』，得到回應（不論同意與否）再進入場景
+      function requestDeviceMotionPermission(){
+        console.log("_requestDeviceMotionPermission start" );
+        if (typeof(DeviceMotionEvent) !== 'undefined' && typeof(DeviceMotionEvent.requestPermission) === 'function') {
+          DeviceMotionEvent.requestPermission().then(response => {
+            console.log("_requestPermission response =", response );
+            if (response == 'granted') {
+              
+            }
+            aUI.startPlayingGame( localStorage.getItem("gameType") );
+          }).catch(console.error("_requestDeviceMotionPermission error"));
+        }else {
+          console.log("_requestPermission: DeviceMotionEvent is not defined " );
+          aUI.startPlayingGame( localStorage.getItem("gameType") );
+        }
+      }
+      requestDeviceMotionPermission();
+      // aUI.startPlayingGame( localStorage.getItem("gameType") );
+
     }
     //// 點擊『取消』來返回遊戲首頁
     gamesButtonCancel.onclick = function(){

@@ -27,6 +27,7 @@
 		}
 
 		#blocker {
+			display: none;
 			position: absolute;
 			width: 100vw;
 			height: 100vh;
@@ -238,7 +239,7 @@
 			font-size: 18pt;
 			font-family: Arial;
 			color:white;
-			background-color: rgba(0,0,0,0.5);
+			background-color: rgba(0,0,0,0.9);
 		}
 
 		#countdown{
@@ -249,7 +250,7 @@
 			font-size: 18pt;
 			font-family: Arial;
 			color:white;
-			background-color: rgba(0,0,0,0.5);
+			background-color: rgba(0,0,0,0.9);
 		}
 
 		.a-dialog-allow-button {
@@ -267,11 +268,103 @@
 			}
 		}
 
+
+		/* 載入頁面 -------------------------- start  -------------------------- */
+
+		#loadPage{
+			display: block;
+			position: absolute;
+			top:0px;
+			width:100vw;
+			height:100vh;
+			background-color: rgba(128,128,128,0.5);
+			z-index: 1;
+			text-align: center;
+			font-size: 32pt;
+			line-height: 80vh;
+		}
+
+		#loadObject{
+			position: absolute;
+			top:10%;
+			left:40%;
+			font-size: 20pt;
+		}
+
+		.lds-ellipsis {
+			display: inline-block;
+			position: relative;
+			width: 80px;
+			height: 50px;
+		}
+		.lds-ellipsis div {
+			position: absolute;
+			top: 33px;
+			width: 13px;
+			height: 13px;
+			border-radius: 50%;
+			background: #000000;
+			animation-timing-function: cubic-bezier(0, 1, 1, 0);
+		}
+		.lds-ellipsis div:nth-child(1) {
+			left: 8px;
+			animation: lds-ellipsis1 0.6s infinite;
+		}
+		.lds-ellipsis div:nth-child(2) {
+			left: 8px;
+			animation: lds-ellipsis2 0.6s infinite;
+		}
+		.lds-ellipsis div:nth-child(3) {
+			left: 32px;
+			animation: lds-ellipsis2 0.6s infinite;
+		}
+		.lds-ellipsis div:nth-child(4) {
+			left: 56px;
+			animation: lds-ellipsis3 0.6s infinite;
+		}
+		@keyframes lds-ellipsis1 {
+			0% {
+				transform: scale(0);
+			}
+			100% {
+				transform: scale(1);
+			}
+		}
+		@keyframes lds-ellipsis3 {
+			0% {
+				transform: scale(1);
+			}
+			100% {
+				transform: scale(0);
+			}
+		}
+		@keyframes lds-ellipsis2 {
+			0% {
+				transform: translate(0, 0);
+			}
+			100% {
+				transform: translate(24px, 0);
+			}
+		}
+
+		/* 載入頁面 -------------------------- end  -------------------------- */
+
+
 	</style>
 
 
 </head>
 <body>
+
+	<script src = "/scripts/main.js"></script>
+	
+	<div id = "loadPage">
+		Loading 
+
+		<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+
+		<div id = "loadObject"> 載入物件 </div>
+	</div>
 
 	<div id = "leaveButton" >
 		回遊戲首頁
@@ -308,7 +401,7 @@
 	<div id="leadBnModal" class="modal">
         <div class="modal-content">
 			<div id="leadBnTitle">
-				<img id="leadBnImg" src="/images/crown.png">
+				<img id="leadBnImg" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/coin.png">
 				<span id="leadBnInfo">永康幣排行榜</span>
 			</div>
 			<table id = "leaderTable" ></table>
@@ -349,28 +442,6 @@
 			console.log("The system is PC: ", window.navigator.userAgent.toLowerCase() );
 		}
 
-		window.requestDeviceMotionPermission = function (){
-            // console.log("makarVR.html: requestDeviceMotionPermission  " );
-            if (typeof(DeviceMotionEvent) !== 'undefined' && typeof(DeviceMotionEvent.requestPermission) === 'function') {
-                DeviceMotionEvent.requestPermission().then(response => {
-                    console.log("makarVR.html: requestPermission response =", response );
-                    // alert('Orientation tracking '+ response);
-                    if (response == 'granted') {
-						document.body.onclick = "";
-                        window.addEventListener('devicemotion', (e) => {
-                            // but.style.visibility='hidden';
-                        })
-                    }
-                }).catch(console.error)
-            }else {
-                // alert('DeviceMotionEvent is not defined');
-                // console.log("makarVR.html: requestPermission: DeviceMotionEvent is not defined " );
-            }
-		}
-
-		document.body.onclick = function(){
-			requestDeviceMotionPermission();
-		}
 
 		document.getElementById("leaveButton").addEventListener('click', function(){
 			if (blocker_score.style.display == "block"){
@@ -398,15 +469,14 @@
 	<div id = "aDiv"  >
 		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
 		device-orientation-permission-ui="enabled: true"  shadow="type: pcfsoft"
-		physics="debug: false; friction: 50.0 ; restitution: 0.2; gravity: -4.0 " >
+		physics="debug: false; friction: 50.0 ; restitution: 0.2; gravity: -4.0; maxInterval: 0.0333;" >
 			<a-assets id = "aAssets">
 
-				<a-asset-item id="_arrow" src="model/Arrow.glb"></a-asset-item>
-				<!-- <a-asset-item id="_bow" src="model/Bow.glb"></a-asset-item> -->
-				<a-asset-item id="_bow" src="model/BowAnimation2.glb"></a-asset-item>
-				<a-asset-item id="b1" src="model/balloon01.glb"></a-asset-item>
-				<a-asset-item id="b2" src="model/balloon02.glb"></a-asset-item>
-				<a-asset-item id="b3" src="model/balloon03.glb"></a-asset-item>
+				<a-asset-item id="_arrow" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Arrow.glb"></a-asset-item>
+				<a-asset-item id="_bow" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/BowAnimation2.glb"></a-asset-item>
+				<a-asset-item id="b1" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/balloon01.glb"></a-asset-item>
+				<a-asset-item id="b2" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/balloon02.glb"></a-asset-item>
+				<a-asset-item id="b3" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/balloon03.glb"></a-asset-item>
 
 			</a-assets>
 
@@ -426,7 +496,7 @@
 			
 			<!-- <a-sky id = "aSky" color="#ECECEC"></a-sky> -->
 
-			<a-entity light="type: ambient; color: #fff intensity: 1.5" ></a-entity>
+			<a-entity light="type: ambient; color: #fff; intensity: 1.0" ></a-entity>
 			<a-entity light="type: directional; color: #fff; intensity: 0.5;
 								   castShadow: false; 
 								   shadowCameraVisible: false;
@@ -442,6 +512,31 @@
 	</div>	
 
 	<script>
+
+		//// 處理載入畫面，呈現當時載入狀況
+		let assetList = [];
+		document.getElementById("aAssets").addEventListener("progress", function(ret){
+			if (ret.detail.loadedBytes == ret.detail.totalBytes ){
+				console.log(" _aAssets: progress: ret=" , ret.target.id  );
+				loadObject.innerHTML = ret.target.id;
+				assetList.push(ret.target.id);
+			}
+			if (assetList.length == document.getElementById("aAssets").children.length ){
+				console.log(" _aAssets: progress: load done ? ");
+				loadObject.innerHTML = "物件載入完成";
+			}
+		});
+
+		document.getElementById("aScene").addEventListener("loaded", function(){
+			console.log(" _aScene: loaded " );
+			loadObject.innerHTML = "場景載入完成";
+		});
+		
+		document.getElementById("aScene").addEventListener("renderstart", function(){
+			console.log(" _aScene: renderstart " );
+			loadObject.innerHTML = "場景繪製";
+			// loadPage.style.display = "none";
+		});
 
 		//// 弓的動畫
 		bow.setAttribute("animation-mixer" , "clip: Take 001");
@@ -689,10 +784,10 @@
 				//// 使用預先開好的『可選位置』來抽籤決定每個禮物生成的位置。需要限制禮物數量在 15 個。
 				let pIndex = Math.floor( Math.random()*posArray.length );//// 從現有『可選位置』中隨機選一個
 				let getPIndex = posArray[pIndex];//// 取得選中的位置編號 [0-15]
-				let px = Math.floor(getPIndex/4);//// 依照編號計算 x [0-3]
-				let pz = getPIndex%4;            //// 依照編號計算 z [0-3] 
+				let px = Math.floor(getPIndex/4) * 1.3;//// 依照編號計算 x [0-3]
+				let pz = (getPIndex%4) * 1.3 ;            //// 依照編號計算 z [0-3] 
 				posArray.splice(pIndex, 1); //// 刪除『可選位置』中被選到的位置，代表已經被選過
-				let randomPosition = new THREE.Vector3( -1.5 + px, -4 , -8 + pz);
+				let randomPosition = new THREE.Vector3( -1.9 + px, -4 , -9 + pz );
 
 				//// 完全隨機，可能會造成物件重疊，暫時不使用
 				// let randomPosition = new THREE.Vector3( 0, -2, -6);
@@ -738,7 +833,7 @@
 				});
 
 				gift.setAttribute("position", randomPosition);
-				gift.setAttribute("scale", "0.5 0.5 0.5");
+				gift.setAttribute("scale", "0.9 0.9 0.9");
 				gift.setAttribute("velocity", velocity );
 				// gift.setAttribute("geometry","primitive: sphere; radius: 0.2; segmentsWidth: 18; segmentsHeight: 36 ");
 				
@@ -993,6 +1088,8 @@
 			}
 			
 			console.log(" _startCamera callback ");
+			loadPage.style.display = "none";
+			blocker.style.display = "block";
 			blocker.style.pointerEvents = "auto";
 			blocker_score.style.pointerEvents = "auto";
 			blockState.innerHTML = "請點擊螢幕來開始遊戲";

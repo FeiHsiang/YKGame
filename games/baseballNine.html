@@ -213,7 +213,7 @@
 			font-family: Arial;
 			font-size: 18pt;
 			color:white;
-			background-color: rgba(0,0,0,0.5);
+			background-color: rgba(0,0,0,0.9);
 		}
 
 		#ballAmount{
@@ -224,7 +224,7 @@
 			font-family: Arial;
 			font-size: 18pt;
 			color:white;
-			background-color: rgba(0,0,0,0.5);
+			background-color: rgba(0,0,0,0.9);
 		}
 
 		#leaveButton{
@@ -237,12 +237,102 @@
 			cursor:pointer;
 		}
 
+		/* 載入頁面 -------------------------- start  -------------------------- */
+
+		#loadPage{
+			display: block;
+			position: absolute;
+			top:0px;
+			width:100vw;
+			height:100vh;
+			background-color: rgba(128,128,128,0.5);
+			z-index: 1;
+			text-align: center;
+			font-size: 32pt;
+			line-height: 80vh;
+		}
+
+		#loadObject{
+			position: absolute;
+			top:10%;
+			left:40%;
+			font-size: 20pt;
+		}
+
+		.lds-ellipsis {
+			display: inline-block;
+			position: relative;
+			width: 80px;
+			height: 50px;
+		}
+		.lds-ellipsis div {
+			position: absolute;
+			top: 33px;
+			width: 13px;
+			height: 13px;
+			border-radius: 50%;
+			background: #000000;
+			animation-timing-function: cubic-bezier(0, 1, 1, 0);
+		}
+		.lds-ellipsis div:nth-child(1) {
+			left: 8px;
+			animation: lds-ellipsis1 0.6s infinite;
+		}
+		.lds-ellipsis div:nth-child(2) {
+			left: 8px;
+			animation: lds-ellipsis2 0.6s infinite;
+		}
+		.lds-ellipsis div:nth-child(3) {
+			left: 32px;
+			animation: lds-ellipsis2 0.6s infinite;
+		}
+		.lds-ellipsis div:nth-child(4) {
+			left: 56px;
+			animation: lds-ellipsis3 0.6s infinite;
+		}
+		@keyframes lds-ellipsis1 {
+			0% {
+				transform: scale(0);
+			}
+			100% {
+				transform: scale(1);
+			}
+		}
+		@keyframes lds-ellipsis3 {
+			0% {
+				transform: scale(1);
+			}
+			100% {
+				transform: scale(0);
+			}
+		}
+		@keyframes lds-ellipsis2 {
+			0% {
+				transform: translate(0, 0);
+			}
+			100% {
+				transform: translate(24px, 0);
+			}
+		}
+
+		/* 載入頁面 -------------------------- end  -------------------------- */
+
 	</style>
 
 
 </head>
 <body>
-	<!-- <script src = "/scripts/main.js"></script> -->
+
+	<script src = "/scripts/main.js"></script>
+	
+	<div id = "loadPage">
+		Loading 
+
+		<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+
+		<div id = "loadObject"> 載入物件 </div>
+	</div>
+	
 	<div id = "leaveButton">
 		回遊戲首頁
 	</div>
@@ -271,7 +361,7 @@
 	<div id="leadBnModal" class="modal">
         <div class="modal-content">
 			<div id="leadBnTitle">
-				<img id="leadBnImg" src="/images/crown.png">
+				<img id="leadBnImg" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/crown.png">
 				<span id="leadBnInfo">永康幣排行榜</span>
 			</div>
 			<table id = "leaderTable" ></table>
@@ -316,27 +406,7 @@
 			console.log("The system is PC: ", window.navigator.userAgent.toLowerCase() );
 		}
 
-		window.requestDeviceMotionPermission = function (){
-            // console.log("makarVR.html: requestDeviceMotionPermission  " );
-            if (typeof(DeviceMotionEvent) !== 'undefined' && typeof(DeviceMotionEvent.requestPermission) === 'function') {
-                DeviceMotionEvent.requestPermission().then(response => {
-                    console.log("makarVR.html: requestPermission response =", response );
-                    // alert('Orientation tracking '+ response);
-                    if (response == 'granted') {
-                        window.addEventListener('devicemotion', (e) => {
-                            // but.style.visibility='hidden';
-                        })
-                    }
-                }).catch(console.error)
-            }else {
-                // alert('DeviceMotionEvent is not defined');
-                // console.log("makarVR.html: requestPermission: DeviceMotionEvent is not defined " );
-            }
-		}
-
-		document.body.onclick = function(){
-			requestDeviceMotionPermission();
-		}
+		
 
 		document.getElementById("leaveButton").addEventListener('click', function(){
 			
@@ -361,33 +431,28 @@
 
 	<script src="js/aframe-physics-system.js"></script>
 
-	<!-- <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script> -->
 
 	<div id = "aDiv"  >
 		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
 		device-orientation-permission-ui="enabled: true"  shadow="type: pcfsoft"
-		physics="debug: false; friction: 0.005; gravity: -8.0;" >
+		physics="debug: false; friction: 0.005; gravity: -8.0; maxInterval: 0.0333;" >
 			<a-assets id = "aAssets">
 
-				<a-asset-item id="baseball" src="model/baseball.glb"></a-asset-item>
-				<!-- <a-asset-item id="baseballShelf" src="model/baseballShelf.glb"></a-asset-item> -->
-				<a-asset-item id="baseballShelf" src="model/baseballShelf2.glb"></a-asset-item>
+				<a-asset-item id="baseball" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/baseball.glb"></a-asset-item>
+				<a-asset-item id="baseballShelf" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/baseballShelf2.glb"></a-asset-item>
+				<a-asset-item id="_backgroundBoard" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/background2.glb"></a-asset-item>
+				<a-asset-item id="_flyfloor" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/flyfloor.glb"></a-asset-item>
+				<a-asset-item id="_basket" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/basket_baseball.glb"></a-asset-item>
 
-				<a-asset-item id="_backgroundBoard" src="model/background2.glb"></a-asset-item>
-				<img id="n1" src="images/n1.png">
-				<img id="n2" src="images/n2.png">
-				<img id="n3" src="images/n3.png">
-				<img id="n4" src="images/n4.png">
-				<img id="n5" src="images/n5.png">
-				<img id="n6" src="images/n6.png">
-				<img id="n7" src="images/n7.png">
-				<img id="n8" src="images/n8.png">
-				<img id="n9" src="images/n9.png">
-				<!-- <img id="_ground" src="images/ground.png"> -->
-				<a-asset-item id="_flyfloor" src="model/flyfloor.glb"></a-asset-item>
-
-				<a-asset-item id="_basket" src="model/basket_baseball.glb"></a-asset-item>
-				
+				<img id="n1"  crossorigin="anonymous" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/n1.png">
+				<img id="n2"  crossorigin="anonymous" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/n2.png">
+				<img id="n3"  crossorigin="anonymous" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/n3.png">
+				<img id="n4"  crossorigin="anonymous" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/n4.png">
+				<img id="n5"  crossorigin="anonymous" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/n5.png">
+				<img id="n6"  crossorigin="anonymous" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/n6.png">
+				<img id="n7"  crossorigin="anonymous" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/n7.png">
+				<img id="n8"  crossorigin="anonymous" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/n8.png">
+				<img id="n9"  crossorigin="anonymous" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/n9.png">
 
 			</a-assets>
 
@@ -408,7 +473,7 @@
 			<a-entity visible = "true" id = "backgroundBoard" position="0 -2 -3.2" rotation="0 0 0" scale=" 1.5 1.5 1.5 " gltf-model="#_backgroundBoard" ></a-entity>
 
 			<!-- 裝飾籃球架 -->
-			<a-entity visible = "true" id = "basket" position="-2 -2 -1.9" rotation="0 0 0" scale="0.7 0.7 0.7" gltf-model="#_basket" ></a-entity>
+			<a-entity visible = "true" id = "basket" position="-2 -2 -1.2" rotation="0 0 0" scale="0.7 0.7 0.7" gltf-model="#_basket" ></a-entity>
 
 			<!-- 棒球九宮格 -->
 
@@ -464,8 +529,7 @@
 			<a-plane id="underplane_inv" position="0 -2 0" rotation="-90 0 0" width="50" height="50"  visible="false" static-body></a-plane>
 
 			<!-- 裝飾地板 -->
-			<!-- <a-plane id="underplane" position="0 -2 -3" rotation="-90 0 0" width="9.6" height="5.4" material="shader: flat; src: #_ground;"  opacity="1.0" shadow="receive: true" static-body></a-plane> -->
-			<a-entity visible = "true" id = "flyfloor" position="0 -2 -4" rotation="0 0 0" scale="3.3 3.3 3.3" gltf-model="#_flyfloor" ></a-entity>
+			<a-entity visible = "true" id = "flyfloor" position="0 -2 -4" rotation="0 0 0" scale="4.3 4.3 3.3" gltf-model="#_flyfloor" ></a-entity>
 
 
 			<!-- <a-sky id = "aSky" color="#ECECEC"></a-sky> -->
@@ -486,7 +550,32 @@
 
 	<script>
 
+		//// 處理載入畫面，呈現當時載入狀況
+		let assetList = [];
+		document.getElementById("aAssets").addEventListener("progress", function(ret){
+			if (ret.detail.loadedBytes == ret.detail.totalBytes ){
+				console.log(" _aAssets: progress: ret=" , ret.target.id  );
+				loadObject.innerHTML = ret.target.id;
+				assetList.push(ret.target.id);
+			}
+			if (assetList.length == document.getElementById("aAssets").children.length ){
+				console.log(" _aAssets: progress: load done ? ");
+				loadObject.innerHTML = "物件載入完成";
+			}
+		});
 
+		document.getElementById("aScene").addEventListener("loaded", function(){
+			console.log(" _aScene: loaded " );
+			loadObject.innerHTML = "場景載入完成";
+		});
+		
+		document.getElementById("aScene").addEventListener("renderstart", function(){
+			console.log(" _aScene: renderstart " );
+			loadObject.innerHTML = "場景繪製";
+			// loadPage.style.display = "none";
+		});
+
+		//// 遊戲介紹，目前不使用
 		blocker.addEventListener("click", function(){
 			blocker.style.display = "none";
 		});
@@ -863,18 +952,22 @@
 				}
 
 				//// 假如使用者『不是往上投擲』，重來
-				if (preMouses[0][1]+0.01 < preMouses[1][1] && preMouses[1][1]+0.01 < preMouses[2][1] ){
+				if (preMouses[0][1]+0.02 < preMouses[1][1] && preMouses[1][1]+0.02 < preMouses[2][1] && preMouses[2][1]+0.02 < preMouses[3][1] ){
 					console.log(" ********** direction y up = " , preMouses );
 					
-				}else if (preMouses[0][1] > preMouses[1][1]+0.01 && preMouses[1][1] > preMouses[2][1]+0.01 ){
+				}else if (preMouses[0][1] > preMouses[1][1]+0.02 && preMouses[1][1] > preMouses[2][1]+0.02 && preMouses[2][1] > preMouses[3][1]+0.02 ){
 					console.log(" ********** direction y down " , preMouses );
 					clearTouchState();
 					return;
+				}else if ( Math.abs(preMouses[0][1]-preMouses[1][1]) < 0.02 && Math.abs(preMouses[1][1]-preMouses[2][1]) < 0.02 &&
+						   Math.abs(preMouses[2][1]-preMouses[3][1]) < 0.02 ){
+					console.log(" ********** direction y not up not down small " , preMouses );
+					clearTouchState();
+					return;
 				}else{
-					console.log(" ********** direction y not up not down " , preMouses );
-					// clearTouchState();
-					// return;
+					console.log(" ********** direction y not up not down big" , preMouses );
 				}
+
 				
 				//// 投擲預設的球物件
 				let dragX, dragY, dragLength;
@@ -1102,6 +1195,9 @@
 
 				if(score<9){
 					setTimeout(function(){
+						//// 依序隱藏『籃子』裡面的球，目前此功能不開啟
+						// basket.object3D.children[0].children[0].children[ballAmount].visible = false;
+
 						if(score==9 || ballAmount == 0){
 							setTimeout(function(){
 								gameEnd();
@@ -1164,6 +1260,7 @@
 			if (self.video){
 				self.video.play();
 			}
+			loadPage.style.display = "none";
 		});
 
 		function renderTick(){

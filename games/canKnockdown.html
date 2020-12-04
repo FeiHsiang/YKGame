@@ -21,6 +21,7 @@
 			/* margin: 20px 10px; */
 			/* width:800px; */
 			/* height:600px; */
+			overflow: hidden;
 			position: relative;
 			width:100vw;
 			height:100vh;
@@ -205,6 +206,7 @@
  
 		/* 離開警告  ----------------------- end --------------------------- */
 
+		/* 2D界面   -----------------------  start------------------------- */
 		#scoreDiv{
 			position: absolute;
 			z-index: 2;
@@ -213,7 +215,7 @@
 			font-family: Arial;
 			font-size: 18pt;
 			color:white;
-			background-color: rgba(0,0,0,0.5);
+			background-color: rgba(0,0,0,0.9);
 		}
 
 		#ballAmount{
@@ -224,7 +226,7 @@
 			font-family: Arial;
 			font-size: 18pt;
 			color:white;
-			background-color: rgba(0,0,0,0.5);
+			background-color: rgba(0,0,0,0.9);
 		}
 
 		#leaveButton{
@@ -236,6 +238,89 @@
 			padding: 5px;
 			cursor:pointer;
 		}
+		/* 2D界面  -------------------------- end  -------------------------- */
+
+
+		/* 載入頁面 -------------------------- start  -------------------------- */
+
+
+		#loadPage{
+			display: block;
+			position: absolute;
+			top:0px;
+			width:100vw;
+			height:100vh;
+			background-color: rgba(128,128,128,0.5);
+			z-index: 1;
+			text-align: center;
+			font-size: 32pt;
+			line-height: 80vh;
+		}
+
+		#loadObject{
+			position: absolute;
+			top:10%;
+			left:40%;
+			font-size: 20pt;
+		}
+
+		.lds-ellipsis {
+			display: inline-block;
+			position: relative;
+			width: 80px;
+			height: 50px;
+		}
+		.lds-ellipsis div {
+			position: absolute;
+			top: 33px;
+			width: 13px;
+			height: 13px;
+			border-radius: 50%;
+			background: #000000;
+			animation-timing-function: cubic-bezier(0, 1, 1, 0);
+		}
+		.lds-ellipsis div:nth-child(1) {
+			left: 8px;
+			animation: lds-ellipsis1 0.6s infinite;
+		}
+		.lds-ellipsis div:nth-child(2) {
+			left: 8px;
+			animation: lds-ellipsis2 0.6s infinite;
+		}
+		.lds-ellipsis div:nth-child(3) {
+			left: 32px;
+			animation: lds-ellipsis2 0.6s infinite;
+		}
+		.lds-ellipsis div:nth-child(4) {
+			left: 56px;
+			animation: lds-ellipsis3 0.6s infinite;
+		}
+		@keyframes lds-ellipsis1 {
+			0% {
+				transform: scale(0);
+			}
+			100% {
+				transform: scale(1);
+			}
+		}
+		@keyframes lds-ellipsis3 {
+			0% {
+				transform: scale(1);
+			}
+			100% {
+				transform: scale(0);
+			}
+		}
+		@keyframes lds-ellipsis2 {
+			0% {
+				transform: translate(0, 0);
+			}
+			100% {
+				transform: translate(24px, 0);
+			}
+		}
+
+		/* 載入頁面 -------------------------- end  -------------------------- */
 
 	</style>
 
@@ -243,6 +328,16 @@
 </head>
 <body>
 	
+	<script src = "/scripts/main.js"></script>
+
+	<div id = "loadPage">
+		Loading 
+
+		<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+
+		<div id = "loadObject"> 載入物件 </div>
+	</div>
+
 	<div id = "leaveButton">
 		回遊戲首頁
 	</div>
@@ -277,7 +372,7 @@
 	<div id="leadBnModal" class="modal">
         <div class="modal-content">
 			<div id="leadBnTitle">
-				<img id="leadBnImg" src="/images/crown.png">
+				<img id="leadBnImg" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/coin.png">
 				<span id="leadBnInfo">永康幣排行榜</span>
 			</div>
 			<table id = "leaderTable" ></table>
@@ -321,27 +416,6 @@
 			console.log("The system is PC: ", window.navigator.userAgent.toLowerCase() );
 		}
 
-		window.requestDeviceMotionPermission = function (){
-            // console.log("makarVR.html: requestDeviceMotionPermission  " );
-            if (typeof(DeviceMotionEvent) !== 'undefined' && typeof(DeviceMotionEvent.requestPermission) === 'function') {
-                DeviceMotionEvent.requestPermission().then(response => {
-                    console.log("makarVR.html: requestPermission response =", response );
-                    // alert('Orientation tracking '+ response);
-                    if (response == 'granted') {
-                        window.addEventListener('devicemotion', (e) => {
-                            // but.style.visibility='hidden';
-                        })
-                    }
-                }).catch(console.error)
-            }else {
-                // alert('DeviceMotionEvent is not defined');
-                // console.log("makarVR.html: requestPermission: DeviceMotionEvent is not defined " );
-            }
-		}
-
-		document.body.onclick = function(){
-			requestDeviceMotionPermission();
-		}
 
 		document.getElementById("leaveButton").addEventListener('click', function(){
 			
@@ -372,25 +446,24 @@
 	<div id = "aDiv"  >
 		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
 		device-orientation-permission-ui="enabled: true"  shadow="type: pcfsoft"
-		physics="debug: false; friction: 0.003;" >
+		physics="debug: false; friction: 0.002; maxInterval: 0.0333;" >
 			<a-assets id = "aAssets">
 
+				<a-asset-item id="_Hoonie" name="虎妮" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Hoonie.glb"></a-asset-item>
+				<a-asset-item id="basketball" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/basketball_FBX.glb"></a-asset-item>
+
+				<a-asset-item id="jar1" name="罐子 1" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Jar1.glb"></a-asset-item>
+				<a-asset-item id="jar2" name="罐子 2" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Jar2.glb"></a-asset-item>
+				<a-asset-item id="jar3" name="罐子 3" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Jar3.glb"></a-asset-item>
+				<a-asset-item id="jar4" name="罐子 4" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Jar4.glb"></a-asset-item>
+				<a-asset-item id="jar5" name="罐子 5" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Jar5.glb"></a-asset-item>
+
+				<a-asset-item id="_desk" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/desk.glb"></a-asset-item>
+				<a-asset-item id="_flyfloor" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/flyfloor.glb"></a-asset-item>
 				
-				<a-asset-item id="basketball" src="model/basketball_FBX.glb"></a-asset-item>
+				<a-asset-item id="_basket" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/basket_basketball.glb"></a-asset-item>
 
-				<a-asset-item id="jar1" src="model/Jar1.glb"></a-asset-item>
-				<a-asset-item id="jar2" src="model/Jar2.glb"></a-asset-item>
-				<a-asset-item id="jar3" src="model/Jar3.glb"></a-asset-item>
-				<a-asset-item id="jar4" src="model/Jar4.glb"></a-asset-item>
-				<a-asset-item id="jar5" src="model/Jar5.glb"></a-asset-item>
-
-				<a-asset-item id="_desk" src="model/desk.glb"></a-asset-item>
-				<a-asset-item id="_flyfloor" src="model/flyfloor.glb"></a-asset-item>
-				
-				<a-asset-item id="_basket" src="model/basket_basketball.glb"></a-asset-item>
-
-				<a-asset-item id="_backgroundBoard" src="model/background2.glb"></a-asset-item>
-				<!-- <img id="_ground" src="images/ground.png"> -->
+				<a-asset-item id="_backgroundBoard" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/background(high).glb"></a-asset-item>
 
 
 			</a-assets>
@@ -400,7 +473,7 @@
 				<!-- <a-entity id="aCamera" camera="fov:80; zoom:1" > -->
 				<a-entity id="aCamera" camera="fov:80; zoom:1"  look-controls="touchEnabled:false" wasd-controls>
 					<!-- 棒球本身 -->
-					<a-entity visible = "true" id = "aSphere" position="0 -0.8 -2.0" rotation="0 0 0" scale=" 0.7 0.7 0.7 " gltf-model="#basketball" ></a-entity>
+					<a-entity visible = "true" id = "aSphere" position="0 -1.0 -2.0" rotation="0 0 0" scale=" 0.7 0.7 0.7 " gltf-model="#basketball" ></a-entity>
 
 
 				</a-entity>
@@ -409,14 +482,17 @@
 			<!-- 籃球本身 -->
 			<!-- <a-entity visible = "true" id = "aSphere" position="0 0.1 -1.0" rotation="0 0 0" scale=" 0.5 0.5 0.5 " gltf-model="#basketball" ></a-entity> -->
 
+			<!-- 測試虎泥 -->
+			<a-entity visible = "true" id = "Hoonie" position="1.6 -2 -1.5" rotation="0 -110 0" scale=" 3 3 3 " gltf-model="#_Hoonie" ></a-entity>
+
 			<!-- 背景看板 -->
 			<a-entity visible = "true" id = "backgroundBoard" position="0 -2 -3.2" rotation="0 0 0" scale=" 1.5 1.5 1.5 " gltf-model="#_backgroundBoard" ></a-entity>
 
 			<!-- 置物桌 -->
-			<a-entity visible = "true" id = "desk" position="0 -2 -2.8" rotation="0 0 0" scale="2.0 2.0 0.3" gltf-model="#_desk" static-body ></a-entity>
+			<a-entity visible = "true" id = "desk" position="0 -2.5 -2.8" rotation="0 0 0" scale="2.0 2.0 0.35" gltf-model="#_desk" static-body ></a-entity>
 
 			<!-- 裝飾籃球架 -->
-			<a-entity visible = "true" id = "basket" position="-2 -2 -1.9" rotation="0 0 0" scale="0.7 0.7 0.7" gltf-model="#_basket" ></a-entity>
+			<a-entity visible = "true" id = "basket" position="-2 -2 -1.2" rotation="0 0 0" scale="0.7 0.7 0.7" gltf-model="#_basket" ></a-entity>
 
 
 			<!-- 丟沙包 -->
@@ -424,28 +500,28 @@
 			<!-- 罐子塔 -->
 			<!-- 罐子塔 -->
 			<!-- 最下層 -->
-			<a-entity visible = "true" id = "can7" position="-1.35 0.614 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar1"  ></a-entity>
+			<a-entity visible = "true" id = "can7" position="-1.35 0.114 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar1"  ></a-entity>
 
-			<a-entity visible = "true" id = "can8" position="-0.45 0.614 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar2"  ></a-entity>
+			<a-entity visible = "true" id = "can8" position="-0.45 0.114 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar2"  ></a-entity>
 
-			<a-entity visible = "true" id = "can9" position="0.45 0.614 -3" rotation="0 180 0" scale= "0.6 0.6 0.6" gltf-model="#jar3"  ></a-entity>
+			<a-entity visible = "true" id = "can9" position="0.45 0.114 -3" rotation="0 180 0" scale= "0.6 0.6 0.6" gltf-model="#jar3"  ></a-entity>
 
-			<a-entity visible = "true" id = "can10" position="1.35 0.614 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar4"  ></a-entity>
+			<a-entity visible = "true" id = "can10" position="1.35 0.114 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar4"  ></a-entity>
 
 			<!-- 第三層 -->
-			<a-entity visible = "true" id = "can4" position="-0.9 1.548 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar5"  ></a-entity>
+			<a-entity visible = "true" id = "can4" position="-0.9 1.048 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar5"  ></a-entity>
 
-			<a-entity visible = "true" id = "can5" position="0.0 1.548 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar1"  ></a-entity>
+			<a-entity visible = "true" id = "can5" position="0.0 1.048 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar1"  ></a-entity>
 
-			<a-entity visible = "true" id = "can6" position="0.9 1.548 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar2"  ></a-entity>
+			<a-entity visible = "true" id = "can6" position="0.9 1.048 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar2"  ></a-entity>
 
 			<!-- 第二層 -->
-			<a-entity visible = "true" id = "can2" position="-0.45 2.482 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar3"  ></a-entity>
+			<a-entity visible = "true" id = "can2" position="-0.45 1.982 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar3"  ></a-entity>
 
-			<a-entity visible = "true" id = "can3" position="0.45 2.482 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar4"  ></a-entity>
+			<a-entity visible = "true" id = "can3" position="0.45 1.982 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar4"  ></a-entity>
 
 			<!-- 最上層 -->
-			<a-entity visible = "true" id = "can1" position="0 3.417 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar5"  ></a-entity>
+			<a-entity visible = "true" id = "can1" position="0 2.917 -3" rotation="0 180 0" scale="0.6 0.6 0.6" gltf-model="#jar5"  ></a-entity>
 
 
 			
@@ -453,8 +529,7 @@
 			<a-plane id="underplane1" position="0 -2 0" rotation="-90 0 0" width="50" height="50" visible="false" shadow="receive: true" static-body></a-plane>
 
 			<!-- 裝飾地板 -->
-			<!-- <a-plane id="underplane" position="0 -2 -3" rotation="-90 0 0" width="9.6" height="5.4" material="shader: flat; src: #_ground;"  opacity="1.0" shadow="receive: true" static-body></a-plane> -->
-			<a-entity visible = "true" id = "flyfloor" position="0 -2 -4" rotation="0 0 0" scale="3.3 3.3 3.3" gltf-model="#_flyfloor" ></a-entity>
+			<a-entity visible = "true" id = "flyfloor" position="0 -2 -4" rotation="0 0 0" scale="4.3 4.3 3.3" gltf-model="#_flyfloor" ></a-entity>
 
 
 
@@ -476,7 +551,32 @@
 	</div>	
 
 	<script>
+
+		//// 處理載入畫面，呈現當時載入狀況
+		let assetList = [];
+		document.getElementById("aAssets").addEventListener("progress", function(ret){
+			if (ret.detail.loadedBytes == ret.detail.totalBytes ){
+				console.log(" _aAssets: progress: ret=" , ret.target.id  );
+				loadObject.innerHTML = ret.target.id;
+				assetList.push(ret.target.id);
+			}
+			if (assetList.length == document.getElementById("aAssets").children.length ){
+				console.log(" _aAssets: progress: load done ? ");
+				loadObject.innerHTML = "物件載入完成";
+			}
+		});
+
+		document.getElementById("aScene").addEventListener("loaded", function(){
+			console.log(" _aScene: loaded " );
+			loadObject.innerHTML = "場景載入完成";
+		});
 		
+		document.getElementById("aScene").addEventListener("renderstart", function(){
+			console.log(" _aScene: renderstart " );
+			loadObject.innerHTML = "場景繪製";
+			// loadPage.style.display = "none";
+		});
+
 		//// 處理各個罐子材質，無光標準
 		//// 處理架子材質，無光標準
 
@@ -583,6 +683,28 @@
 			evt.detail.model.animationSlices = animationSlices;
 		} );
 
+		
+		Hoonie.setAttribute("animation-mixer" , "clip: Take 001");
+		Hoonie.addEventListener('model-loaded', function (evt){
+			let animationSlices = [];
+			animationSlices.push({ 
+				changed:false, 
+				loop:true, 
+				reset:true, 
+				stopHead: false,
+				count: 0, 
+				idle:"mifly168", 
+				uid:"mifly168" 
+			});
+			animationSlices.push({
+				animationName: evt.detail.model.animations[0].name,
+				name: evt.detail.model.animations[0].name,
+				endTime: evt.detail.model.animations[0].duration ,
+				startTime: 0,
+				uid:"mifly168"
+			});
+			evt.detail.model.animationSlices = animationSlices;
+		} );
 	
 		aCamera.addEventListener('loaded', function(evt) { 
 			if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
@@ -763,8 +885,159 @@
 			}
 		});
 
+		function gameEnd(){
+			console.log("gameEnd start" , blocker_score.style.display );
+			if (blocker_score.style.display == "block"){
+				return;
+			}
+			blocker_score.style.display = "block";
 
-		
+			let userID;
+			if ( !localStorage.getItem('userID') || !localStorage.getItem('vendor') ){
+				userID = "test1@google";
+			}else{
+				userID = localStorage.getItem('userID')+"@"+localStorage.getItem('vendor');
+			}
+
+			let coins = Math.ceil(score/3);
+			if (coins > 3){
+				coins = 3;
+			}
+
+			let serverUrl = "https://7leyf90jbd.execute-api.ap-northeast-1.amazonaws.com/prod/yongkangMongoAccess";
+			let	postData = {
+				ID:  userID, 
+				coins: coins,
+				gameType: "canKnockdown",
+				request: 'play',
+				requestItem: ''
+			};
+			fetch( serverUrl , {
+				method: 'POST', 
+				headers: { 'Content-Type': 'application/json'},
+				body: JSON.stringify(postData)
+			} ).then(function(response) {
+				return response.json();
+			}).then(function(isPlayed) {
+				console.log("canKnockdown.html, play isPlayed " , isPlayed );
+
+			
+				postData = {
+					ID:  userID, 
+					request: 'get',
+					requestItem: 'userCoins'
+				};
+				fetch( serverUrl , {
+					method: 'POST', 
+					headers: { 'Content-Type': 'application/json'},
+					body: JSON.stringify(postData)
+				} ).then(function(response) {
+					return response.json();
+				}).then(function(userCoins) {
+					let userCurrentCounts = Number(userCoins[0].currentCoins);
+
+					currentCoins.innerHTML = "結算代幣：" + userCurrentCounts + "枚";
+
+					if ( isPlayed[0] == true ){
+						if (score == 0){
+							previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
+							getCoins.innerHTML = "新增代幣：" + 1 + "枚";
+							score_info.innerHTML = "Sorry! 一個都沒有擊倒<br>不過參與遊戲還是可以獲得一個永康幣喔";
+						}else{
+							previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts - coins ) + "枚";
+							getCoins.innerHTML = "新增代幣：" + coins + "枚";
+							score_info.innerHTML = "恭喜你！擊倒 " + score + " 罐<br>獲得" + coins + "個永康幣";
+						}
+						
+					}else{
+
+						if (score == 0){
+							previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
+							getCoins.innerHTML = "新增代幣：" + 1 + "枚";
+							score_info.innerHTML = "Sorry! 一個都沒有擊倒<br>今日已經遊玩過了，無法獲得永康幣";
+						}else{
+							previousCoins.innerHTML = "原有代幣：" + userCurrentCounts + "枚";
+							getCoins.innerHTML = "新增代幣：" + 0 + "枚";
+							score_info.innerHTML = "恭喜你！擊倒 " + score + " 罐<br>今日已經遊玩過了，無法獲得永康幣";
+						}
+
+						
+					}
+
+			
+				});
+
+			});
+
+			//// 點擊『去兌換』
+			couponPage.onclick = function(){
+				location.replace("/prize-list");
+			}
+			//// 點擊『排行榜』
+			leaderBn.onclick = function(){
+				postData = {
+					ID:  userID, 
+					request: 'get',
+					requestItem: 'coinLeaderboard'
+				};
+				fetch( serverUrl , {
+					method: 'POST', 
+					headers: { 'Content-Type': 'application/json'},
+					body: JSON.stringify(postData)
+				} ).then(function(response) {
+					return response.json();
+				}).then(function(leaderList) {
+					
+					leadBnModal.style.display = 'block';
+
+					console.log("leaderList = " , leaderList );
+					let leaderTable = document.getElementById("leaderTable");
+					leaderTable.innerHTML = "";
+					let thr = leaderTable.insertRow( 0 );
+					let t1 = document.createElement('th') , t2 = document.createElement('th') , t3 = document.createElement('th');
+					t1.innerHTML = "排名";
+					t2.innerHTML = "用戶名稱";
+					t3.innerHTML = "代幣數量";
+					thr.appendChild(t1);
+					thr.appendChild(t2);
+					thr.appendChild(t3);
+					leaderList.forEach((currentValue, index) => {
+						let row = leaderTable.insertRow( index + 1);
+						let rankR = row.insertCell(0);
+						let nameR = row.insertCell(1);
+						let coinsR = row.insertCell(2);
+						rankR.style.width = "20%";
+						nameR.style.width = "50%";
+						coinsR.style.width = "25%";
+
+						let userName;
+						if (currentValue.name == ""){
+						userName = "user";
+						}else{
+						userName = currentValue.name;
+						}
+						rankR.innerHTML = index + 1;
+						nameR.innerHTML = userName;
+						coinsR.innerHTML = currentValue.cumulativeCoins;
+					});
+				});
+
+			}
+
+			closeLeadBnModal.onclick = function(){
+				leadBnModal.style.display = 'none';
+			}
+		}
+
+		//// 開啟一個固定時間來檢查分數的機制，
+		let intervalId = setInterval(checkScore, 1000); 
+		function checkScore(){
+			if (score == 10){
+				clearInterval(intervalId);
+				setTimeout( gameEnd , 2000)
+				
+			}
+		}
 
 		document.body.addEventListener("mouseup", clearTouchState, false);
 		document.body.addEventListener("touchend", clearTouchState, false);
@@ -896,17 +1169,20 @@
 				}
 
 				//// 假如使用者『不是往上投擲』，重來
-				if (preMouses[0][1]+0.001 < preMouses[1][1] && preMouses[1][1]+0.001 < preMouses[2][1] ){
+				if (preMouses[0][1]+0.02 < preMouses[1][1] && preMouses[1][1]+0.02 < preMouses[2][1] && preMouses[2][1]+0.02 < preMouses[3][1] ){
 					console.log(" ********** direction y up = " , preMouses );
 					
-				}else if (preMouses[0][1] > preMouses[1][1]+0.001 && preMouses[1][1] > preMouses[2][1]+0.001 ){
+				}else if (preMouses[0][1] > preMouses[1][1]+0.02 && preMouses[1][1] > preMouses[2][1]+0.02 && preMouses[2][1] > preMouses[3][1]+0.02 ){
 					console.log(" ********** direction y down " , preMouses );
 					clearTouchState();
 					return;
+				}else if ( Math.abs(preMouses[0][1]-preMouses[1][1]) < 0.02 && Math.abs(preMouses[1][1]-preMouses[2][1]) < 0.02 &&
+						   Math.abs(preMouses[2][1]-preMouses[3][1]) < 0.02 ){
+					console.log(" ********** direction y not up not down small " , preMouses );
+					clearTouchState();
+					return;
 				}else{
-					console.log(" ********** direction y not up not down " , preMouses );
-					// clearTouchState();
-					// return;
+					console.log(" ********** direction y not up not down big" , preMouses );
 				}
 				
 				//// 投擲預設的球物件
@@ -923,8 +1199,8 @@
 				if (effectiveMouses.length > 1){
 					dragX = effectiveMouses[ effectiveMouses.length - 1 ][0] - effectiveMouses[0][0];
 					dragY = effectiveMouses[ effectiveMouses.length - 1 ][1] - effectiveMouses[0][1];
-					console.log(" _effectiveMouses > 1: " , effectiveMouses.length , effectiveMouses );
 					dragLength = Math.pow( dragX*dragX+dragY*dragY , 0.5) /effectiveMouses.length  ;
+					console.log(" _effectiveMouses > 1: " , effectiveMouses.length , effectiveMouses , dragLength );
 
 				}else{
 					console.log(" _effectiveMouses: length <= 1 call clearTouchState");
@@ -948,169 +1224,23 @@
 				// resetSphere(2000);
 
 
-				function gameEnd(){
-					blocker_score.style.display = "block";
-
-					let userID;
-					if ( !localStorage.getItem('userID') || !localStorage.getItem('vendor') ){
-						userID = "test1@google";
-					}else{
-						userID = localStorage.getItem('userID')+"@"+localStorage.getItem('vendor');
-					}
-
-					let coins = Math.ceil(score/3);
-					if (coins > 3){
-						coins = 3;
-					}
-
-					let serverUrl = "https://7leyf90jbd.execute-api.ap-northeast-1.amazonaws.com/prod/yongkangMongoAccess";
-					let	postData = {
-						ID:  userID, 
-						coins: coins,
-						gameType: "canKnockdown",
-						request: 'play',
-						requestItem: ''
-					};
-					fetch( serverUrl , {
-						method: 'POST', 
-						headers: { 'Content-Type': 'application/json'},
-						body: JSON.stringify(postData)
-					} ).then(function(response) {
-						return response.json();
-					}).then(function(isPlayed) {
-						console.log("canKnockdown.html, play isPlayed " , isPlayed );
-
-						postData = {
-							ID:  userID, 
-							request: 'get',
-							requestItem: 'userCoins'
-						};
-						fetch( serverUrl , {
-							method: 'POST', 
-							headers: { 'Content-Type': 'application/json'},
-							body: JSON.stringify(postData)
-						} ).then(function(response) {
-							return response.json();
-						}).then(function(userCoins) {
-							let userCurrentCounts = Number(userCoins[0].currentCoins);
-
-							currentCoins.innerHTML = "結算代幣：" + userCurrentCounts + "枚";
-
-							if ( isPlayed[0] == true ){
-								if (score == 0){
-									previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
-									getCoins.innerHTML = "新增代幣：" + 1 + "枚";
-									score_info.innerHTML = "Sorry! 一個都沒有擊倒<br>不過參與遊戲還是可以獲得一個永康幣喔";
-								}else{
-									previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts - coins ) + "枚";
-									getCoins.innerHTML = "新增代幣：" + coins + "枚";
-									score_info.innerHTML = "恭喜你！擊倒 " + score + " 罐<br>獲得" + coins + "個永康幣";
-								}
-								
-							}else{
-
-								if (score == 0){
-									previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
-									getCoins.innerHTML = "新增代幣：" + 1 + "枚";
-									score_info.innerHTML = "Sorry! 一個都沒有擊倒<br>今日已經遊玩過了，無法獲得永康幣";
-								}else{
-									previousCoins.innerHTML = "原有代幣：" + userCurrentCounts + "枚";
-									getCoins.innerHTML = "新增代幣：" + 0 + "枚";
-									score_info.innerHTML = "恭喜你！擊倒 " + score + " 罐<br>今日已經遊玩過了，無法獲得永康幣";
-								}
-
-								
-							}
-
-					
-						});
-
-					});
-
-					//// 點擊『去兌換』
-					couponPage.onclick = function(){
-						location.replace("/prize-list");
-					}
-					//// 點擊『排行榜』
-					leaderBn.onclick = function(){
-						postData = {
-							ID:  userID, 
-							request: 'get',
-							requestItem: 'coinLeaderboard'
-						};
-						fetch( serverUrl , {
-							method: 'POST', 
-							headers: { 'Content-Type': 'application/json'},
-							body: JSON.stringify(postData)
-						} ).then(function(response) {
-							return response.json();
-						}).then(function(leaderList) {
-							
-							leadBnModal.style.display = 'block';
-
-							console.log("leaderList = " , leaderList );
-							let leaderTable = document.getElementById("leaderTable");
-							leaderTable.innerHTML = "";
-							let thr = leaderTable.insertRow( 0 );
-							let t1 = document.createElement('th') , t2 = document.createElement('th') , t3 = document.createElement('th');
-							t1.innerHTML = "排名";
-							t2.innerHTML = "用戶名稱";
-							t3.innerHTML = "代幣數量";
-							thr.appendChild(t1);
-							thr.appendChild(t2);
-							thr.appendChild(t3);
-							leaderList.forEach((currentValue, index) => {
-								let row = leaderTable.insertRow( index + 1);
-								let rankR = row.insertCell(0);
-								let nameR = row.insertCell(1);
-								let coinsR = row.insertCell(2);
-								rankR.style.width = "20%";
-								nameR.style.width = "50%";
-								coinsR.style.width = "25%";
-
-								let userName;
-								if (currentValue.name == ""){
-								userName = "user";
-								}else{
-								userName = currentValue.name;
-								}
-								rankR.innerHTML = index + 1;
-								nameR.innerHTML = userName;
-								coinsR.innerHTML = currentValue.cumulativeCoins;
-							});
-						});
-
-					}
-
-					closeLeadBnModal.onclick = function(){
-						leadBnModal.style.display = 'none';
-					}
-
-					
-				}
-
-				if(score<10){
-					setTimeout(function(){
-						if(score==10 || ballAmount == 0){
-							setTimeout(function(){
-								gameEnd();
-							}, 2000);
-						}
-						else{
-							resetSphere(1);
-						}
-						
+				if (ballAmount == 0){
+					setTimeout( gameEnd, 6000);
+				}else{
+					setTimeout( function(){
+						resetSphere(1);
+						//// 依序隱藏『籃子』裡面的球，目前此功能不開啟
+						// if (ballAmount == 2){
+						// 	basket.object3D.children[0].children[0].children[3].visible = false;
+						// }else if (ballAmount == 1){
+						// 	basket.object3D.children[0].children[0].children[4].visible = false;
+						// }else if (ballAmount == 0){
+						// 	basket.object3D.children[0].children[0].children[5].visible = false;
+						// }
 					}, 3000);
+
 				}
-				else{
-					setTimeout(function(){
-						if(score==10 || ballAmount == 0){
-							gameEnd();
-						}
-						
-					}, 5000);
-				}
-				
+
 				
 				preMouses = [[0,-2],[0,-2],[0,-2],[0,-2]];
 
@@ -1155,6 +1285,7 @@
 			if (self.video){
 				self.video.play();
 			}
+			loadPage.style.display = "none";
 		});
 
 

@@ -71459,6 +71459,7 @@ function createPermissionDialog (text, onAllowClicked, onDenyClicked) {
   // acceptButton.innerHTML = 'Allow';
   buttonsContainer.style.display = "block";
   acceptButton.style.backgroundColor = "#69918b"; 
+  acceptButton.style.borderRadius = "20px";
   acceptButton.innerHTML = '同意';
 //[end---20201125- fei -0001-mod]//  
   buttonsContainer.appendChild(acceptButton);
@@ -71508,6 +71509,9 @@ function createDialog (text, buttonsContainerEl) {
 
   modalContainer = document.createElement('div');
   modalContainer.classList.add(MODAL_CLASS);
+//[start-20201204- fei -0001-add]//
+  modalContainer.style.backgroundColor = "rgba(0,0,0,0.7)";
+//[end---20201204- fei -0001-add]//
   modalContainer.setAttribute(constants.AFRAME_INJECTED, '');
 
   dialog = document.createElement('div');
@@ -79058,7 +79062,10 @@ module.exports.AScene = registerElement('a-scene', {
         this.addEventListener('camera-set-active', function () {
           renderer.xr.setPoseTarget(self.camera.el.object3D);
         });
-        loadingScreen.setup(this, getCanvasSize);
+//[start-20201203- fei -0001-remove]//
+        //// 這段本來是製作一個『載入中』的畫面，取消
+        // loadingScreen.setup(this, getCanvasSize);
+//[end---20201203- fei -0001-remove]//
       },
       writable: window.debug
     },
