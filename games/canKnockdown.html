@@ -447,7 +447,7 @@
 	<div id = "aDiv"  >
 		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
 		device-orientation-permission-ui="enabled: true"  shadow="type: pcfsoft"
-		physics="debug: false; friction: 0.002; maxInterval: 0.0333;" >
+		physics="debug: false; friction: 0.002; maxInterval: 0.01666;" >
 			<a-assets id = "aAssets" timeout = "20000">
 
 				<a-asset-item id="_Hoonie" name="虎妮" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Hoonie.glb"></a-asset-item>
@@ -558,7 +558,7 @@
 		let assetList = [];
 		document.getElementById("aAssets").addEventListener("progress", function(ret){
 			// console.log(" _aAssets: progress: ret=" , ret.target.id , ret  );
-			loadObject.innerHTML = ret.target.id + "," + (ret.detail.loadedBytes/ret.detail.totalBytes) ;
+			// loadObject.innerHTML = ret.target.id + "," + (ret.detail.loadedBytes/ret.detail.totalBytes) ;
 
 			if (ret.detail.loadedBytes == ret.detail.totalBytes ){
 				console.log(" _aAssets: progress: ret=" , ret.target.id , "done"  );

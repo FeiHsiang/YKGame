@@ -435,7 +435,7 @@
 	<div id = "aDiv"  >
 		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
 		device-orientation-permission-ui="enabled: true"  shadow="type: pcfsoft"
-		physics="debug: false; friction: 0.005; gravity: -8.0; maxInterval: 0.0333;" >
+		physics="debug: false; friction: 0.005; gravity: -8.0; maxInterval: 0.01666;" >
 			<a-assets id = "aAssets" timeout = "20000">
 
 				<a-asset-item id="baseball" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/baseball.glb"></a-asset-item>
@@ -562,8 +562,9 @@
 			if (assetList.length == 5 ){
 				console.log(" _aAssets: progress: load done ? ");
 				loadObject.innerHTML = "物件載入完成";
+				sceneReady = true;
 			}
-			sceneReady = true;
+			
 		});
 
 		document.getElementById("aScene").addEventListener("loaded", function(){
