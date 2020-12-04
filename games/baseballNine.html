@@ -551,29 +551,44 @@
 	<script>
 
 		//// 處理載入畫面，呈現當時載入狀況
+		let isRenderTick = false, sceneReady = false;
 		let assetList = [];
 		document.getElementById("aAssets").addEventListener("progress", function(ret){
 			if (ret.detail.loadedBytes == ret.detail.totalBytes ){
-				console.log(" _aAssets: progress: ret=" , ret.target.id  );
+				console.log(" _aAssets: progress: ret=" , ret.target.id , assetList.length , document.getElementById("aAssets").children.length );
 				loadObject.innerHTML = ret.target.id;
 				assetList.push(ret.target.id);
 			}
-			if (assetList.length == document.getElementById("aAssets").children.length ){
+			if (assetList.length == 5 ){
 				console.log(" _aAssets: progress: load done ? ");
 				loadObject.innerHTML = "物件載入完成";
 			}
+			sceneReady = true;
 		});
 
 		document.getElementById("aScene").addEventListener("loaded", function(){
 			console.log(" _aScene: loaded " );
 			loadObject.innerHTML = "場景載入完成";
+			sceneReady = true;
 		});
 		
 		document.getElementById("aScene").addEventListener("renderstart", function(){
 			console.log(" _aScene: renderstart " );
 			loadObject.innerHTML = "場景繪製";
-			// loadPage.style.display = "none";
+			sceneReady = true;
 		});
+
+		removeLoadingPage();
+		function removeLoadingPage(){
+			if (isRenderTick == true && sceneReady == true ){
+				loadPage.style.display = "none";
+				console.log("hidden the loadingPage");
+			}else{
+				console.log("_removeLoadingPage: not yet" , isRenderTick , sceneReady );
+				setTimeout( removeLoadingPage , 100);
+			}
+		}
+
 
 		//// 遊戲介紹，目前不使用
 		blocker.addEventListener("click", function(){
@@ -1256,11 +1271,13 @@
 
 		// renderTick();
 		startCamera( function(){
-			renderTick();	
+			renderTick();
+			
 			if (self.video){
 				self.video.play();
 			}
-			loadPage.style.display = "none";
+			// loadPage.style.display = "none";
+			isRenderTick = true;
 		});
 
 		function renderTick(){

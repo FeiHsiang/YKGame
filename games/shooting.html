@@ -553,7 +553,6 @@
 				}
 			}
 
-			console.log(" model-loaded: " , evt.detail.model.animations  );
 			let animationSlices = [];
 			animationSlices.push({ 
 				changed:false, 
@@ -879,155 +878,159 @@
 				if (generatedCount == totalCount){
 					clearInterval(timer);
 
-					function gameEnd(){
-						console.log(" ctrlObj call clearInterval ");
-						clearInterval(ctrlObj);
-
-						blocker_score.style.display = "block";
-
-						let userID;
-						if ( !localStorage.getItem('userID') || !localStorage.getItem('vendor') ){
-							userID = "test1@google";
-						}else{
-							userID = localStorage.getItem('userID')+"@"+localStorage.getItem('vendor');
-						}
-
-						let coins = Math.ceil(score/10);
-						let serverUrl = "https://7leyf90jbd.execute-api.ap-northeast-1.amazonaws.com/prod/yongkangMongoAccess";
-						let	postData = {
-							// ID: "test3"+"@"+"google",
-							ID:  userID, 
-							coins: coins,
-							gameType: "shoot",
-							request: 'play',
-							requestItem: ''
-						};
-						fetch( serverUrl , {
-							method: 'POST', 
-							headers: { 'Content-Type': 'application/json'},
-							body: JSON.stringify(postData)
-						} ).then(function(response) {
-							return response.json();
-						}).then(function(isPlayed) {
-							console.log("shooting.html, play isPlayed " , isPlayed );
-
-							postData = {
-							ID:  userID, 
-							request: 'get',
-							requestItem: 'userCoins'
-							};
-							fetch( serverUrl , {
-								method: 'POST', 
-								headers: { 'Content-Type': 'application/json'},
-								body: JSON.stringify(postData)
-							} ).then(function(response) {
-								return response.json();
-							}).then(function(userCoins) {
-								let userCurrentCounts = Number(userCoins[0].currentCoins);
-
-								currentCoins.innerHTML = "結算代幣：" + userCurrentCounts + "枚";
-
-								if ( isPlayed[0] == true ){
-
-
-									if (score == 0){
-										previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
-										getCoins.innerHTML = "新增代幣：" + 1 + "枚";
-										score_info.innerHTML = "Sorry! 一個氣球都沒有擊中<br>不過參與遊戲還是可以獲得一個永康幣喔";
-									}else{
-										previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts - coins) + "枚";
-										getCoins.innerHTML = "新增代幣：" + coins + "枚";
-										score_info.innerHTML = "恭喜你！獲得 " + score + " 分<br>獲得" + coins + "個永康幣";
-									}
-
-								}else{
-
-									if (score == 0){
-										previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
-										getCoins.innerHTML = "新增代幣：" + 1 + "枚";
-										score_info.innerHTML = "Sorry! 一個都沒有擊中<br>今日已經遊玩過了，無法獲得永康幣";
-									}else{
-										previousCoins.innerHTML = "原有代幣：" + userCurrentCounts + "枚";
-										getCoins.innerHTML = "新增代幣：" + 0 + "枚";
-										score_info.innerHTML = "恭喜你！獲得 " + score + " 分<br>今日已經遊玩過了，無法獲得永康幣";
-									}
-
-								}
-
-							});
-
-
-
-						});
-
-						
-						//// 點擊『去兌換』
-						couponPage.onclick = function(){
-							location.replace("/prize-list");
-						}
-
-						//// 點擊『排行榜』
-						leaderBn.onclick = function(){
-							postData = {
-								ID:  userID, 
-								request: 'get',
-								requestItem: 'coinLeaderboard'
-							};
-							fetch( serverUrl , {
-								method: 'POST', 
-								headers: { 'Content-Type': 'application/json'},
-								body: JSON.stringify(postData)
-							} ).then(function(response) {
-								return response.json();
-							}).then(function(leaderList) {
-								
-								leadBnModal.style.display = 'block';
-
-								console.log("leaderList = " , leaderList );
-								let leaderTable = document.getElementById("leaderTable");
-								leaderTable.innerHTML = "";
-								let thr = leaderTable.insertRow( 0 );
-								let t1 = document.createElement('th') , t2 = document.createElement('th') , t3 = document.createElement('th');
-								t1.innerHTML = "排名";
-								t2.innerHTML = "用戶名稱";
-								t3.innerHTML = "代幣數量";
-								thr.appendChild(t1);
-								thr.appendChild(t2);
-								thr.appendChild(t3);
-								leaderList.forEach((currentValue, index) => {
-									let row = leaderTable.insertRow( index + 1);
-									let rankR = row.insertCell(0);
-									let nameR = row.insertCell(1);
-									let coinsR = row.insertCell(2);
-									rankR.style.width = "20%";
-									nameR.style.width = "50%";
-									coinsR.style.width = "25%";
-
-									let userName;
-									if (currentValue.name == ""){
-									userName = "user";
-									}else{
-									userName = currentValue.name;
-									}
-									rankR.innerHTML = index + 1;
-									nameR.innerHTML = userName;
-									coinsR.innerHTML = currentValue.cumulativeCoins;
-								});
-							});
-
-						}
-
-						closeLeadBnModal.onclick = function(){
-							leadBnModal.style.display = 'none';
-						}
-						
-					}
-
-					//// 最後一波釋放後九秒結算
+					//// 最後一波釋放後 n秒結算
 					setTimeout(function(){
 						gameEnd();
 					}, 13000);
 				}
+			}
+
+			function gameEnd(){
+				if (blocker_score.style.display == "block"){
+					console.log("gameEnd: already show blocker_score");
+					return;
+				}
+				console.log("gameEnd: ctrlObj call clearInterval ");
+				clearInterval(ctrlObj);
+
+				blocker_score.style.display = "block";
+
+				let userID;
+				if ( !localStorage.getItem('userID') || !localStorage.getItem('vendor') ){
+					userID = "test1@google";
+				}else{
+					userID = localStorage.getItem('userID')+"@"+localStorage.getItem('vendor');
+				}
+
+				let coins = Math.ceil(score/10);
+				let serverUrl = "https://7leyf90jbd.execute-api.ap-northeast-1.amazonaws.com/prod/yongkangMongoAccess";
+				let	postData = {
+					// ID: "test3"+"@"+"google",
+					ID:  userID, 
+					coins: coins,
+					gameType: "shoot",
+					request: 'play',
+					requestItem: ''
+				};
+				fetch( serverUrl , {
+					method: 'POST', 
+					headers: { 'Content-Type': 'application/json'},
+					body: JSON.stringify(postData)
+				} ).then(function(response) {
+					return response.json();
+				}).then(function(isPlayed) {
+					console.log("shooting.html, play isPlayed " , isPlayed );
+
+					postData = {
+					ID:  userID, 
+					request: 'get',
+					requestItem: 'userCoins'
+					};
+					fetch( serverUrl , {
+						method: 'POST', 
+						headers: { 'Content-Type': 'application/json'},
+						body: JSON.stringify(postData)
+					} ).then(function(response) {
+						return response.json();
+					}).then(function(userCoins) {
+						let userCurrentCounts = Number(userCoins[0].currentCoins);
+
+						currentCoins.innerHTML = "結算代幣：" + userCurrentCounts + "枚";
+
+						if ( isPlayed[0] == true ){
+
+
+							if (score == 0){
+								previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
+								getCoins.innerHTML = "新增代幣：" + 1 + "枚";
+								score_info.innerHTML = "Sorry! 一個氣球都沒有擊中<br>不過參與遊戲還是可以獲得一個永康幣喔";
+							}else{
+								previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts - coins) + "枚";
+								getCoins.innerHTML = "新增代幣：" + coins + "枚";
+								score_info.innerHTML = "恭喜你！獲得 " + score + " 分<br>獲得" + coins + "個永康幣";
+							}
+
+						}else{
+
+							if (score == 0){
+								previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
+								getCoins.innerHTML = "新增代幣：" + 1 + "枚";
+								score_info.innerHTML = "Sorry! 一個都沒有擊中<br>今日已經遊玩過了，無法獲得永康幣";
+							}else{
+								previousCoins.innerHTML = "原有代幣：" + userCurrentCounts + "枚";
+								getCoins.innerHTML = "新增代幣：" + 0 + "枚";
+								score_info.innerHTML = "恭喜你！獲得 " + score + " 分<br>今日已經遊玩過了，無法獲得永康幣";
+							}
+
+						}
+
+					});
+
+
+
+				});
+
+				
+				//// 點擊『去兌換』
+				couponPage.onclick = function(){
+					location.replace("/prize-list");
+				}
+
+				//// 點擊『排行榜』
+				leaderBn.onclick = function(){
+					postData = {
+						ID:  userID, 
+						request: 'get',
+						requestItem: 'coinLeaderboard'
+					};
+					fetch( serverUrl , {
+						method: 'POST', 
+						headers: { 'Content-Type': 'application/json'},
+						body: JSON.stringify(postData)
+					} ).then(function(response) {
+						return response.json();
+					}).then(function(leaderList) {
+						
+						leadBnModal.style.display = 'block';
+
+						console.log("leaderList = " , leaderList );
+						let leaderTable = document.getElementById("leaderTable");
+						leaderTable.innerHTML = "";
+						let thr = leaderTable.insertRow( 0 );
+						let t1 = document.createElement('th') , t2 = document.createElement('th') , t3 = document.createElement('th');
+						t1.innerHTML = "排名";
+						t2.innerHTML = "用戶名稱";
+						t3.innerHTML = "代幣數量";
+						thr.appendChild(t1);
+						thr.appendChild(t2);
+						thr.appendChild(t3);
+						leaderList.forEach((currentValue, index) => {
+							let row = leaderTable.insertRow( index + 1);
+							let rankR = row.insertCell(0);
+							let nameR = row.insertCell(1);
+							let coinsR = row.insertCell(2);
+							rankR.style.width = "20%";
+							nameR.style.width = "50%";
+							coinsR.style.width = "25%";
+
+							let userName;
+							if (currentValue.name == ""){
+							userName = "user";
+							}else{
+							userName = currentValue.name;
+							}
+							rankR.innerHTML = index + 1;
+							nameR.innerHTML = userName;
+							coinsR.innerHTML = currentValue.cumulativeCoins;
+						});
+					});
+
+				}
+
+				closeLeadBnModal.onclick = function(){
+					leadBnModal.style.display = 'none';
+				}
+				
 			}
 
 			//// 控制場景中的『禮物』上升速度，
@@ -1064,8 +1067,9 @@
 			function countdownTick(){
 				timeLeft--;
 				countdown.textContent = "時間： " + timeLeft;
-				if (timeLeft <= 0){
+				if (timeLeft <= 0 || score == 30 ){
 					clearInterval(intervalId);
+					gameEnd();
 				}
 			}
 

@@ -41758,7 +41758,6 @@ module.exports = anime;
         request.open( 'GET', url, true );
         
 //20200106-start-thonsha-add
-        request.timeout = 5000; // time in milliseconds
         // request.withCredentials = true;
 //20200106-end-thonsha-add
 

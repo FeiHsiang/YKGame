@@ -511,6 +511,7 @@
 	<script>
 		
 		//// 處理載入畫面，呈現當時載入狀況
+		let isRenderTick = false, sceneReady = false;
 		let assetList = [];
 		document.getElementById("aAssets").addEventListener("progress", function(ret){
 			if (ret.detail.loadedBytes == ret.detail.totalBytes ){
@@ -521,20 +522,32 @@
 			if (assetList.length == document.getElementById("aAssets").children.length ){
 				console.log(" _aAssets: progress: load done ? ");
 				loadObject.innerHTML = "物件載入完成";
+				sceneReady = true;
 			}
 		});
 
 		document.getElementById("aScene").addEventListener("loaded", function(){
 			console.log(" _aScene: loaded " );
 			loadObject.innerHTML = "場景載入完成";
+			sceneReady = true;
 		});
 		
 		document.getElementById("aScene").addEventListener("renderstart", function(){
 			console.log(" _aScene: renderstart " );
 			loadObject.innerHTML = "場景繪製";
-			// loadPage.style.display = "none";
+			sceneReady = true;
 		});
 
+		removeLoadingPage();
+		function removeLoadingPage(){
+			if (isRenderTick == true && sceneReady == true ){
+				loadPage.style.display = "none";
+				console.log("hidden the loadingPage");
+			}else{
+				console.log("_removeLoadingPage: not yet" , isRenderTick , sceneReady );
+				setTimeout( removeLoadingPage , 100);
+			}
+		}
 
 		function setModelMesh(evt){
 			let objj = evt.detail.model;
@@ -861,7 +874,7 @@
 			
 			console.log(" _startCamera callback ");
 			blocker_score.style.pointerEvents = "auto";
-			loadPage.style.display = "none";
+			isRenderTick = true;
 		});
 
 		function startCamera( callback ){
