@@ -53,9 +53,9 @@ let checkLogin = function() {
   else {
 //[start-20201119- fei -0001-debug]//
     //// 測試：不論登入與否，直接顯示
-    // console.log("main.js: call selectProgramToRun ");
-    // selectProgramToRun(); 
-    // return;
+    console.log("main.js: call selectProgramToRun ");
+    selectProgramToRun(); 
+    return;
 //[end---20201119- fei -0001-debug]//
 
     // 沒登入
@@ -117,32 +117,67 @@ switch (location.pathname) {
     fbLoginButton.addEventListener('click', fbLogin, false);
 
 //[start-20201123- fei -0001-adddebug]//
+    //// 點擊開啟『介紹遊玩方式』
     gameStartImg.addEventListener('click', function(){
-      location.replace("/games");
+      gameIntroModal.style.display = "block";
     },false);
-
-    myCoupon.addEventListener('click', function(){
+    //// 點擊開啟『介紹遊玩方式』
+    gameStartIntro.addEventListener('click', function(){
+      
+    },false);
+    //// 點擊關閉『介紹遊玩方式』
+    gameIntroModalCancel.onclick = function(){
+      gameIntroModal.style.display = "none";
+    }
+    //// 點擊跳轉『遊戲場景』
+    gameIntroModalComfirm.onclick = function(){
+      location.href = "/games/slot.html";
+    }
+    //// 點擊跳轉『兌換區』
+    myCouponImg.addEventListener('click', function(){
       location.replace("/prize-list");
     });
+    //// 點擊開啟『介紹獎項兌換』
+    myCouponIntro.onclick = function(){
+      exchangeIntroModalDiv.style.display = "block";
+    }
+    //// 點擊關閉『介紹獎項兌換』
+    exchangeIntroCancel.onclick = function(){
+      exchangeIntroModalDiv.style.display = "none";
+    }
+    //// 點擊開啟『是否返回首頁』
+    backToWix.onclick = function(){
+      leaveWarning.style.display = "block";
+    }
+
+    leaveWarningCancel.onclick = function(){
+      leaveWarning.style.display = "none";
+    }
+
+    leaveWarningComfirm.onclick = function(){
+      location.href = "https://www.miflydesign.com/yongkang";
+    }
+    
+
 
     game1.addEventListener('click', function(){
       localStorage.setItem("gameType" , "shooting" ); 
-      location.replace("/games");
+      location.replace("/games/shooting.html");
     },false);
     
     game2.addEventListener('click', function(){
       localStorage.setItem("gameType" , "baseballNine" ); 
-      location.replace("/games");
+      location.replace("/games/baseballNine.html");
     },false);
 
     game3.addEventListener('click', function(){
       localStorage.setItem("gameType" , "canKnockdown" ); 
-      location.replace("/games");
+      location.replace("/games/canKnockdown.html");
     },false);
 
     game4.addEventListener('click', function(){
       localStorage.setItem("gameType" , "slot" ); 
-      location.replace("/games");
+      location.replace("/games/slot.html");
     },false);
 
 //[end---20201123- fei -0001-adddebug]//

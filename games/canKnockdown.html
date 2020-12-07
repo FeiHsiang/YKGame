@@ -421,11 +421,11 @@
 		document.getElementById("leaveButton").addEventListener('click', function(){
 			
 			if (blocker_score.style.display == "block"){
-				location.replace("/games");
+				location.replace("/index.html");
 			}else{
 				leaveWarning.style.display = "block";
 				leaveConfirm.onclick = function(){
-					location.replace("/games");
+					location.replace("/index.html");
 				}
 				leaveCancel.onclick = function(){
 					leaveWarning.style.display = "none";
@@ -447,10 +447,11 @@
 	<div id = "aDiv"  >
 		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
 		device-orientation-permission-ui="enabled: true"  shadow="type: pcfsoft"
-		physics="debug: false; friction: 0.002; maxInterval: 0.01666;" >
+		physics="debug: false; friction: 0.002; maxInterval: 0.025;" >
 			<a-assets id = "aAssets" timeout = "20000">
 
-				<a-asset-item id="_Hoonie" name="虎妮" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Hoonie.glb"></a-asset-item>
+				<!-- <a-asset-item id="_Hoonie" name="虎妮" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Hoonie.glb"></a-asset-item> -->
+				<a-asset-item id="_Hoonie" name="虎妮" src="model/Hoonie.glb"></a-asset-item>
 				<a-asset-item id="basketball" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/basketball_FBX.glb"></a-asset-item>
 
 				<a-asset-item id="jar1" name="罐子 1" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Jar1.glb"></a-asset-item>
@@ -484,7 +485,7 @@
 			<!-- <a-entity visible = "true" id = "aSphere" position="0 0.1 -1.0" rotation="0 0 0" scale=" 0.5 0.5 0.5 " gltf-model="#basketball" ></a-entity> -->
 
 			<!-- 測試虎泥 -->
-			<a-entity visible = "true" id = "Hoonie" position="1.6 -2 -1.5" rotation="0 -110 0" scale=" 3 3 3 " gltf-model="#_Hoonie" ></a-entity>
+			<a-entity visible = "true" id = "Hoonie" position="6 -2 -6" rotation="0 -30 0" scale=" 3 3 3 " gltf-model="#_Hoonie" ></a-entity>
 
 			<!-- 背景看板 -->
 			<a-entity visible = "true" id = "backgroundBoard" position="0 -2 -3.2" rotation="0 0 0" scale=" 1.5 1.5 1.5 " gltf-model="#_backgroundBoard" ></a-entity>
@@ -704,6 +705,19 @@
 		if (document.getElementById("Hoonie")){
 			Hoonie.setAttribute("animation-mixer" , "clip: Take 001");
 			Hoonie.addEventListener('model-loaded', function (evt){
+
+				let objj = evt.detail.model;
+				objj.traverse(node => {
+					if (node.isMesh) {
+						node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+						if (node.material.map){
+							node.material.map.encoding = THREE.GammaEncoding;
+							node.material.map.needsUpdate = true;
+						}
+						node.material.needsUpdate = true;
+					}
+				});
+
 				let animationSlices = [];
 				animationSlices.push({ 
 					changed:false, 

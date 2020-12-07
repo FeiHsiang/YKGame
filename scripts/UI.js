@@ -17,16 +17,16 @@ class UI {
 
   showAfterLoginCoupon() {
     document.getElementById('before-login').style.display = 'none';
-    document.getElementById('after-login').style.display = 'flex';
+    document.getElementById('after-login').style.display = 'block';
     document.getElementById('account-info').textContent = `Hello ${userName}. ${userID}`;
     let couponIntroText = "歡迎來到永康幣兌換區！獲得的永康幣除了同時增加抽iphone 12的機會，也可用來兌換永康商圈指定店家的15元折價券喔！";
-    document.getElementById('couponIntroContainer').innerHTML = couponIntroText;
+    document.getElementById('couponIntroContainerInfo').innerHTML = couponIntroText;
   }
 
   //// AR遊戲頁面顯示登入之後畫面
   showAfterLoginGames() {
     document.getElementById('before-login').style.display = 'none';
-    document.getElementById('after-login').style.display = 'flex';
+    document.getElementById('after-login').style.display = 'block';
     document.getElementById('account-info').textContent = `Hello ${userName}. ${userID}`;
 
     //// 依照不同的遊戲類別，顯示提示文字
@@ -461,7 +461,7 @@ class UI {
   }
 
   showLoginButton() {
-    document.getElementById('before-login').style.display = 'flex';
+    document.getElementById('before-login').style.display = 'block';
   }
 
   showPlayedToday() {

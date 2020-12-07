@@ -17,14 +17,32 @@
   <body>
     <div id="account-info"></div>
 
+    <div id = "bgImgDiv">
+      <img id = "bgImg" src = "images/ui/bg/img/1.png">
+    </div>
+
+    <div id = "modelDiv">
+      <div id = "miloDiv">
+        <img id = "miloImg" src = "images/ui/img/milo1.png">
+      </div>
+      <div id = "hoonieDiv">
+        <img id = "hoonieImg" src = "images/ui/img/hoonie1.png">
+      </div>
+    </div>
+
+    <div id = "backToWix" >
+      <img id = "backToWixImg" src = "images/ui/button/come back wix/normal.png">
+    </div>
+
     <div id = "couponIntroContainer">
-      開始前，可選擇 <br>Google或是FB登入<br>請點擊下方按鈕進入吧！<br>GOGO!
-      
-	  </div>
+      <img id = "introFrameImg" src = "images/ui/window/login/dialogue.png">
+      <div id = "couponIntroContainerInfo">開始前，可選擇Google或是FB登入請點擊下方按鈕進入吧！GOGO!</div>
+    </div>
+    
 
     <div id = "gameIntoContainer">
       <br>
-      <span id ="game_list" style="font-size: 15pt; color:white;" > 永康街小遊戲 </span> <br><br>
+      <span id ="game_list" style="font-size: 15pt; color:black;" > 永康街小遊戲 </span> <br><br>
       
       <span id ="game1" class = "alignLeftText"> 1. 射氣球 <br><br> </span>
       
@@ -35,22 +53,109 @@
       <span id ="game4" class = "alignLeftText"> 4. 拉霸機 </span> <br><br>
 
     </div>
-    <div class="two-button-div" id="before-login">
-      <div id = "fb-login-div">
-        <img src="./images/fb.png" alt="FB 登入" id="fb-login-button" class="clickable-button">
-      </div>
+
+    <div id="before-login">
       <div id = "g-login-div">
-        <img src="./images/google.png" alt="Google 登入" id="g-login-button" class="clickable-button">
+        <img src="images/ui/button/google/normal.png" alt="Google 登入" id="g-login-button" class="clickable-button">
+      </div>
+      <div id = "fb-login-div">
+        <img src="images/ui/button/facebook/normal.png" alt="FB 登入" id="fb-login-button" class="clickable-button">
       </div>
     </div>
     <div class="two-button-div" id="after-login">
-      <div id = "gameStartImg" class="clickable-button game-intro-btn">
-       <p class = "centerText">開始遊戲</p>
+      <div id = "gameStartDiv">
+        <img src="images/ui/button/start/normal.png" alt="開始遊戲" id="gameStartImg" class="clickable-button">
+        <img src="images/ui/button/Introduction/normal.png" alt="我的兌換券" id="gameStartIntro" class="clickable-button">
       </div>
-      <div id = "myCoupon" class="clickable-button game-intro-btn">
-       <p class = "centerText"> 獎券兌換</p>
+      <div id = "myCouponDiv">
+        <img src="images/ui/button/award redemption/normal.png" alt="我的兌換券" id="myCouponImg" class="clickable-button">
+        <img src="images/ui/button/Introduction/normal.png" alt="我的兌換券" id="myCouponIntro" class="clickable-button">
       </div>
     </div>
+
+
+    <div id="gameIntroModal" class = "modal" style="display: none;">
+      <div class="modal-content">
+        
+        <div id ="gameIntroModalBGDiv" >
+          <img id = "gameIntroModalBGImg" src = "images/ui/pop up/bottom/white.png">
+        </div>
+
+        <div id ="gameIntroModalBGTopDiv" >
+          <img id = "gameIntroModalBGTopImg" src = "images/ui/pop up/top bar/pink.png">
+          <div id = "gameIntroModalBGTopInfo" class = "centerText"> 拉霸機 </div>
+        </div>
+
+        <div id ="gameIntroModalBGInfoDiv" >
+          <img id = "gameIntroModalBGInfoImg" src = "images/ui/pop up/bottom/pink.png">
+          <div id = "gameIntroModalInfo"  > 進入遊戲後點擊螢幕，拉霸機即開始運轉，拉中三個相同的圖案即可獲得該獎項 </div>
+        </div>
+
+        <div id="gameIntroModalButtonDiv">
+          <div id="gameIntroModalComfirm">
+            <img id = "gameIntroModalComfirmImg" src = "images/ui/button/confirm/normal.png">
+          </div> 
+          <div id="gameIntroModalCancel">
+            <img id = "gameIntroModalCancelImg" src = "images/ui/button/no/normal.png">
+          </div>
+        </div>
+
+      </div>  
+    </div>
+
+    <div id="exchangeIntroModalDiv" class="modal" style="display: none;">
+      <div class="modal-content">
+        <div id ="exchangeIntroBGDiv" >
+          <img id = "exchangeIntroBGImg" src = "images/ui/pop up/bottom/white.png">
+        </div>
+
+        <img id = "exchangeIntroCancel" src = "images/ui/button/delete/normal.png">
+
+        <div id = "exchangeIntroTitleDiv">
+          <div id = "exchangeIntroTitleText" class = "centerText">永康幣</div>
+        </div>
+
+        <div id = "exchangeIntroInfo"  >
+          <div id = "exchangeIntroInfoText">
+            介紹兌換內容
+          </div>
+        </div>
+
+        <div id="exchangeIntroButtonDiv">
+          <div id="exchangeIntroComfirm">
+            <img id = "exchangeIntroComfirmImg" src = "images/ui/button/confirm/normal.png">
+          </div> 
+        </div>
+
+      </div>
+    </div>
+
+    <div id="leaveWarningModalDiv" class="modal" style="display: none;">
+      <div class="modal-content">
+        <div id ="leaveWarningBGDiv" >
+          <img id = "leaveWarningBGImg" src = "images/ui/pop up/bottom/white.png">
+        </div>
+
+        <img id = "leaveWarningCancel" src = "images/ui/button/delete/normal.png">
+
+        <div id = "leaveWarningInfo"  >
+          <div id = "leaveWarningInfoText">
+            確認回到活動網站嗎？
+          </div>
+        </div>
+
+        <div id="leaveWarningButtonDiv">
+          <div id="leaveWarningComfirm">
+            <img id = "leaveWarningComfirmImg" src = "images/ui/button/confirm/normal.png">
+          </div> 
+        </div>
+
+      </div>
+    </div>
+
+
+
+
     <script src="./scripts/NetworkAgent.js"></script>
     <script src="./scripts/UI.js"></script>
     <script src="./scripts/globalVariables.js"></script>

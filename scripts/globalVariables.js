@@ -92,7 +92,7 @@ let selectProgramToRun = function() {
       //   console.log(" date over: "  );
       //   if ( document.getElementById("after-login").children[0].getAttribute("href") == "./game-start/"  ){
       //     document.getElementById("after-login").children[0].style.pointerEvents = "none";
-      //     document.getElementById("gameStartImg").style.opacity = 0.5;
+      //     document.getElementById("gameStartDiv").style.opacity = 0.5;
       //   }
       // }
 //[end---20201120- fei - 0001-adddebug]//
@@ -116,7 +116,7 @@ let selectProgramToRun = function() {
     default:
       console.log("globalVariabiles.js: the location unknown, back home ");
       // location.replace(`${location.protocol}//${location.host}/`);
-      location.replace("/games");
+      // location.replace("/");
     }
 };
 

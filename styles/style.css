@@ -1,121 +1,418 @@
 html {
   max-width: 100vw;
   min-height: 100vh;
+  overflow: hidden;
 }
 
 body {
   text-align: center;
-  /* background-image: url("../images/background.jpg"); */
   background-color: #202125;
   background-size: 100% 100%; 
   font-size:20pt;
   margin:0px;
+  max-width: 100vw;
+  min-height: 100vh;
+  width: 100vw;
+  height:100vh;
+  overflow: hidden;
+  font-family: "Microsoft JhengHei","微軟正黑體";
 }
 
-/* 兌換頁面 -------------- start ------------------ */
-
-/* Reference: https://www.w3schools.com/howto/howto_js_tabs.asp */
-
-#topBar{
-  color: white;
-}
-
-#couponTable{
-  margin-bottom: 10px;
-}
-
-/* Style the tab */
-.tab {
-  border-bottom: 1px solid #4a4d54;
-  background-color: inherit;
-  display: flex;
-}
-
-/* Style the buttons inside the tab */
-.tablinksButton {
-  /* Reference: https://blog.csdn.net/xiaobing_hope/article/details/51285695 */
-  box-sizing: content-box;
-  flex: 1;
-  text-align: center;
-  color: #ffffff;
-  background-color: inherit;
-  border-bottom: 3px solid #ffffff00;
-  cursor: pointer;
-  padding: 10px;
-  transition: 0.3s;
-  font-size: 12pt;
-}
-
-.tablinksToggle {
-  display: none;
-}
-
-/* Create an active/current tablink class */
-.tablinksToggle:checked + .tablinksButton {
-  color: #00c99d;
-  border-bottom: 3px solid #4a4d54;
-}
-
-#bottomBar {
-  position: fixed;
-  bottom: 1%;
-  width:100%;
-  height:8%;
-}
-
-#playeDiv{
+#account-info{
   position: absolute;
-  left: 2%;
-  width:30%;
+  font-size: 5pt;
+  color:rgba( 255 , 255 , 255 , 0.5);
+}
+
+#bgImgDiv{
+  position: absolute;
+  width:100vw;
+  height:100vh;
+  z-index: -1;
+}
+
+#modelDiv{
+  position: absolute;
+  width:100vw;
+  height:100vh;
+  z-index: 2;
+}
+
+#bgImg{
+  width: 100%;
   height:100%;
-  bottom:0px;
-  background-color: #69918b;
-  pointer-events: none;
-  opacity: 0.5;
+  object-fit: cover;
 }
 
-.centerText {
-  margin: 0;
+#miloDiv{
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  white-space:nowrap;
+  width:45%;
+  left: 1%;
+  height:auto;
+  bottom: 5%;
+  max-width: 320px;
+  max-height: 673px;
 }
 
-#coinDiv{
+#hoonieDiv{
   position: absolute;
-  left: 34%;
-  width:30% ;
+  width:55%;
+  right:1%;
+  height:auto;
+  bottom: 5%;
+  max-width: 388px;
+  max-height: 658px;
+}
+
+#miloImg {
+  width: 100%;
   height:100%;
-  bottom:0px;
-  background-color: #69918b; 
+  max-width: 352px;
+  max-height: 740px;
+  object-fit: contain;
 }
 
-#coin{
+#hoonieImg{
+  width: 100%;
+  height:100%;
+  max-width: 446px;
+  max-height: 756px;
+  object-fit: contain;
+}
+
+
+
+#backToWix{
   position: relative;
-  left:-30px;
+  top:16px;
+  left:10%;
+  width:30%;
+  max-width: 260px;
+  max-height: 86px;
+  height:auto;
+  cursor: pointer;
+  z-index: 2;
 }
 
-#coinNumber{
-  left: calc(50% + 30px );
-}
 
-#leadBn{
-  position: absolute;
-  right: 2%;
-  width:30% ;
+#backToWixImg{
+  width: 100%;
   height:100%;
-  bottom:0px;
-  background-color: #69918b; 
+  object-fit: cover;
 }
 
-.fillImg{
-  max-width: 100%;
-  max-height: 100%;
-  object-fit :cover;
+#couponIntroContainer{
+  width: 80%;
+  height: auto;
+  max-width: 543px;
+  max-height: 256px;
+  position: relative;
+  margin-top: 16px;
+  left:10%;
+  /* background-color: white; */
+  text-align: justify;
+  font-size:14pt;
+  font-family: "Microsoft JhengHei","微軟正黑體";
+  line-height: 120%;
 }
 
+
+
+#introFrameImg{
+  width: 100%;
+  height:100%;
+  max-width: 650px;
+  max-height: 306px;
+  object-fit: cover;
+}
+
+#couponIntroContainerInfo{
+  color:white;
+  margin: 35px;
+  position: absolute;
+  top:0%;
+}
+
+#gameIntoContainer{
+  position: absolute;
+  float: center;
+  top:40%;
+  left:30%;
+  width: 35%;
+  height: auto;
+  font-size: 12pt;
+  z-index: 3;
+}
+
+#game1, #game2, #game3, #game4{
+  color:black;
+}
+
+#before-login, #after-login {
+  display: none;
+  position: absolute;
+  width:100%;
+  height:20%;
+  bottom: 0%;
+  z-index: 2;
+}
+
+#g-login-div{
+  width: 50%;
+  height: auto;
+  left: 25%;
+  top: 0px;
+  position: relative;
+}
+
+#fb-login-div{
+  width: 50%;
+  height: auto;
+  left: 25%;
+  margin-top: 15px;
+  position: relative;
+}
+
+#fb-login-button{
+  width:100%;
+  height: 100%;
+  max-width: 370px;
+  max-height: 86px;
+  object-fit: cover;
+}
+
+#g-login-button{
+  width:100%;
+  height: 100%;
+  max-width: 370px;
+  max-height: 86px;
+  object-fit: cover;
+}
+
+#gameStartDiv{
+  width: 50%;
+  height: auto;
+  left: 25%;
+  top: 0px;
+  position: relative;
+}
+
+#myCouponDiv{
+  width: 50%;
+  height: auto;
+  left: 25%;
+  margin-top: 15px;
+  position: relative;
+}
+
+#gameStartImg{
+  width:100%;
+  height: 100%;
+  max-width: 370px;
+  max-height: 86px;
+  object-fit: cover;
+}
+
+#gameStartIntro{
+  position: absolute;
+  top:0px;
+  margin-left: 5px;
+  width:100%;
+  height: 100%;
+  max-width: 74px;
+  max-height: 74px;
+  object-fit: contain;
+}
+
+#myCouponImg{
+  width:100%;
+  height: 100%;
+  max-width: 370px;
+  max-height: 86px;
+  object-fit: cover;
+}
+
+#myCouponIntro{
+  position: absolute;
+  top:0px;
+  margin-left: 5px;
+  width:100%;
+  height: 100%;
+  max-width: 74px;
+  max-height: 74px;
+  object-fit: contain;
+}
+
+#gameIntroModal, #leaveWarningModalDiv , #exchangeIntroModalDiv {
+  z-index: 3;
+}
+
+#gameIntroModalBGTopDiv{
+  left:2%;
+  top:0%;
+  width:96%;
+  height:15%;
+  position: absolute;
+}
+
+#gameIntroModalBGTopImg{
+  /* position: absolute; */
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height:100%;
+  object-fit: fill;
+}
+
+#gameIntroModalBGTopInfo{
+  margin:0;
+  color:white;
+}
+
+
+#gameIntroModalBGDiv, #leaveWarningBGDiv , #exchangeIntroBGDiv {
+  top: 0%;
+  left:2%;
+  width:96%;
+  height:100%;
+  /* max-width: 600px; */
+  /* max-height: 670px; */
+  position: absolute;
+}
+
+#gameIntroModalBGImg, #leaveWarningBGImg , #exchangeIntroBGImg {
+  /* position: absolute; */
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height:100%;
+  object-fit: fill;
+}
+
+#leaveWarningCancel , #exchangeIntroCancel {
+  position: absolute;
+  top:-20px;
+  right:-20px;
+  width:15%;
+  height:15%;
+  max-width: 74px;
+  max-height: 74px;
+  object-fit: contain;
+}
+
+#exchangeIntroTitleDiv{
+  position: absolute;
+  width:96%;
+  height:15%;
+  top:1%;
+  left:2%;
+  color:#F47165;
+  font-size: 30pt;
+}
+
+#exchangeIntroInfo {
+  position: absolute;
+  margin: 15px;
+  top:15%;
+  width: 96%;
+  height: 50%;
+  left:2%;
+  color:#F47165;
+}
+
+#exchangeIntroInfoText{
+  color:#F47165;
+}
+
+#leaveWarningInfo {
+  position: absolute;
+  margin: 15px;
+  top:30%;
+  width: 96%;
+  height: 50%;
+  left:2%;
+  color:#F47165;
+}
+
+#gameIntroModalBGInfoDiv{
+  top:17%;
+  left:4%;
+  width:92%;
+  height:35%;
+  font-size: 14pt;
+  position: absolute;
+}
+
+#gameIntroModalBGInfoImg{
+  /* position: absolute; */
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height:100%;
+  object-fit: fill;
+}
+
+#gameIntroModalInfo{
+  margin:18px;
+  top:0%;
+  color:#F47165;
+  position: absolute;
+}
+
+#gameIntroModalButtonDiv {
+  position: absolute;
+  bottom: 10px;
+  width:100%;
+  height:35%;
+}
+
+#leaveWarningButtonDiv , #exchangeIntroButtonDiv{
+  position: absolute;
+  bottom: 10px;
+  width:100%;
+  height:15%;
+}
+
+#gameIntroModalComfirm {
+  position: absolute;
+  width:60%;
+  height:50%;
+  left:20%;
+  top: 0%;
+}
+
+#leaveWarningComfirm , #exchangeIntroComfirm {
+  position: absolute;
+  width:60%;
+  left:20%;
+  bottom: 5%;
+}
+
+#gameIntroModalCancel{
+  position: absolute;
+  width:60%;
+  height:50%;
+  left:20%;
+  bottom: 0%;
+}
+
+#gameIntroModalComfirmImg , #leaveWarningComfirmImg , #exchangeIntroComfirmImg{
+  width:100%;
+  height: 100%;
+  max-width: 370px;
+  max-height: 86px;
+  object-fit: contain;
+}
+
+#gameIntroModalCancelImg , #leaveWarningCancelImg{
+  width:100%;
+  height: 100%;
+  max-width: 370px;
+  max-height: 86px;
+  object-fit: contain;
+}
+
+/* class part start */
 
 .modal {
   display: none; /* Hidden by default */
@@ -132,13 +429,14 @@ body {
 /* Modal Content/Box */
 .modal-content {
   position: relative;
-  background-color: #202125;
+  /* background-color:white; */
   margin: auto;
-  top:5%;
+  top:15%;
   border-radius: 16px;
   width: 85vw;
-  height: 85vh;
-  overflow: auto;
+  height: 60vh;
+  max-width: 760px;
+  /* overflow: hidden; */
 }
 
 .modal-content > div {
@@ -148,391 +446,268 @@ body {
   width: 90%;
 }
 
-/* The Close Button */
-.close {
-  color: #aaa;
-  /* float: right; */
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-} 
-
-
-/* 購買兌換券 start */
-
-#buyCouponDov{
-  font-size: 18pt;
-  color:white;
-}
-
-#couponImg{
-  width:80%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-#couponNumberDiv{
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-size: 24pt;
-}
-
-#couponNumberDiv > p{
+.centerText {
   margin: 0;
-  display: inline;
-  /* white-space:nowrap;  */
-}
-
-#exchangeNumber{
-  font-size: 18pt;
-}
-
-#buyCouponNote{
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-size: 14pt;
-}
-
-#buyCouponConfirm{
-  position:absolute;
-  bottom: 15px;
-  left:3px;
-  width:40%;
-  height:20%;
-  max-height: 50px;
-  background-color: rgba(80, 160, 150, 1.0);
-  cursor: pointer;
-}
-
-#buyCouponCancel{
-  position:absolute;
-  bottom: 15px;
-  right:3px;
-  width:40%;
-  height:20%;
-  max-height: 50px;
-  background-color: rgba(80, 110, 150, 1.0);
-  cursor: pointer;
-}
-
-/* 購買兌換券 end */
-
-
-/* 排行榜 */
-#leadBnTitle{
-  position: relative;
-  margin-top: 15px;
-  margin-bottom: 30px;
-  min-height: 30px;
-}
-
-#leadBnImg{
   position: absolute;
-  width:60px;
-  height:60px;
-  left:5px ;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space:nowrap;
 }
 
-#leadBnInfo{
-  position: relative;
-  font-size: 30px;
-  color: #afb4f9;
-  left: 32px ;
-  top:15px;
-}
+@media screen and (min-width:850px) {
 
-#leaderTable{
-  margin: auto;
-  width:90%;
-  color:white;
-  font-size:14pt;
-  overflow-wrap:anywhere;
-}
+  #couponIntroContainer{
+    position: relative;
+    float:center;
+    top:2%;
+    left:0%;
+    width: 80%;
+    height:auto;
+    max-width: 543px;
+    max-height: 256px;
+    margin-left: auto;
+    margin-right: auto;
 
-/* 兌換頁面  ----------------------- end -------------------- */
+    text-align: justify;
+    font-size:14pt;
+    font-family: "Microsoft JhengHei","微軟正黑體";
+    line-height: 120%;
+  }
 
+  #introFrameImg{
+    width: 100%;
+    height:100%;
+    max-width: 650px;
+    max-height: 306px;
+    position: relative;
+    object-fit: fill;
+  }
 
-#pwdModal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  #couponIntroContainerInfo{
+    color:white;
+    margin: 35px;
+    position: absolute;
+    top:0%;
+  }
 
-  z-index:3;
-  text-align: center;
-}
+  #backToWix{
+    position: relative;
+    float:left;
+    left:1%;
+    top:1%;
+    width:30%;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 150px;
+    max-height: 50px;
+    height:auto;
+    cursor: pointer;
+    z-index: 2;
+  }
 
-
-#pwdModalContent  {
-  position: relative;
-  background-color: #202125;
-  margin-top: 15%;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 16px;
-  width: 70vw;
-  height: 40vh;
-  overflow: auto;
-
-}
-
-#pwdModalInfo{
-  color: white;
-  text-align: center;
-  font-size: 16pt;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  display: inline-block;
-}
-
-#inputPassword{
-  position: relative;
-  width: 80%;
-  height:36px;
-  font-size:20pt;
-  margin-top: 20px;
-}
-
-/* 使用兌換券 start */
-
-#pwdError {
-  color: #ff0000;
-  display: none;
-  margin-top: 20px;
-}
-
-#pwdModalButtonDiv {
-  position: absolute;
-  bottom: 10px;
-  width: 96%;
-  height: 54px;
-  border-radius: 16px;
-  color: #ffffff;
-  text-align: center;
-  border: 0;
-  padding: 0px 0 0 0px;
-  cursor: pointer;
-  margin-left: 2%;
-  margin-right: 2%;
-  display: flex;
-}
-
-#pwdButtonComfirm{
-  background: #31333f;
-  border-radius: 16px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 2%;
-  margin-right: 2%;
-  flex: 1;
-}
-
-#pwdButtonCancel{
-  background: #31333f;
-  border-radius: 16px;
-
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 2%;
-  margin-right: 2%;
-  flex: 1;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
-.clickable-button {
-  cursor: pointer;
-}
-
-.logout-button {
-  width: 50vw;
-  display: inline-block;
-  text-align: right;
-  margin-bottom: 6vh;
-  margin-left: 40vw;
-}
-
-.back-main-div {
-  width: 50vw;
-  display: inline-block;
-  text-align: left;
-  margin-bottom: 6vh;
-  margin-right: 40vw;
-}
-
-#special-two-button {
-  width: auto;
-  height: 6vh;
-  margin-bottom: 10px;
-  color:rgba(255,255,255,0.5);
-}
-
-#special-two-button > a {
-  float: left;
-}
-
-#special-two-button > span {
-  float: right;
-}
-
-#logout {
-  height: 6vh;
-}
-
-.game-intro-btn {
-  max-width: 75%;
-}
-
-#gameStartImg{
-  position: relative;
-  width:100%;
-  left: 0%;
-  color:rgba(200,180,200,1.0);
-  font-size: 18pt;
-}
-
-#myCoupon{
-  position: relative;
-  width:100%;
-  left: 0%;
-  color:rgba(200,180,200,1.0);
-  font-size: 18pt;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-.two-button-div {
-  display: flex;
-}
-
-.two-button-div > * {
-  flex: 1;
-}
-
-#before-exchange {
-  position: relative;
-  bottom: 0;
-  width: 100%;
-}
-
-.container {
-  position: relative;
-}
-
-#after-exchange {
-  display: none;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-}
-
-.return-btn {
-  width: 37.5%;
-}
-
-#back-to-main-page {
-  height: 6vh;
-  width: auto;
-}
-
-#xrIframe {
-  width: 100vw;
-  height: 100vh;
-}
-
-/* 兌換區首頁 --------------------- start ------------------ */
-
-#account-info{
-  position: absolute;
-  font-size: 5pt;
-  color:rgba( 255 , 255 , 255 , 0.5);
-}
+  #backToWixImg{
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+  }
 
 
-#couponIntroContainer{
-  width: 60%;
-  height: auto;
-  position: absolute;
-  top:3%;
-  right:1%;
-  background-color: white;
-  text-align: justify;
-  font-size:16pt;
-  line-height: 150%;
-}
+  #bgImgDiv{
+    position: absolute;
+    width:100vw;
+    height:100vh;
+    z-index: -1;
+  }
 
-#gameIntoContainer{
-  position: absolute;
-  left:2%;
-  width: 35%;
-  height: auto;
-  font-size: 12pt;
-}
+  #modelDiv{
+    position: absolute;
+    width:100vw;
+    height:100vh;
+    z-index: 2;
+  }
 
-.alignLeftText{
-  font-size: 14pt;
-  color:white; 
-  left:10%;
-  width:50%; 
-  /* position:absolute; */
-  text-align: left;
-  cursor: pointer;
-}
+  #bgImg{
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+  }
 
-#before-login, #after-login {
-  display: none;
-  position: fixed;
-  width:100%;
-  height:10%;
-  bottom: 0%;
-  background-color: rgba(20,20,20,1.0);
-}
+  #miloDiv{
+    position: absolute;
+    width:45%;
+    top: 30%;
+    left: 1%;
+    float:left;
+    height:auto;
+    bottom: 3%;
+    max-width: 320px;
+    max-height: 673px;
+  }
 
-#fb-login-div{
-  width: 50%;
-  height: 100%;
-  left: 0%;
-  bottom: 0px;
-  position: absolute;
-}
+  #hoonieDiv{
+    position: absolute;
+    width:55%;
+    top: 30%;
+    right:1%;
+    float:left;
+    height:auto;
+    bottom: 3%;
+    max-width: 388px;
+    max-height: 658px;
+  }
 
-#g-login-div{
-  width: 50%;
-  height: 100%;
-  right: 0%;
-  bottom: 0px;
-  position: absolute;
-}
-@media screen and (min-width:900px) {
+
+  #miloImg {
+    width: 100%;
+    height:100%;
+    max-width: 352px;
+    max-height: 740px;
+    object-fit: contain;
+  }
+
+  #hoonieImg{
+    width: 100%;
+    height:100%;
+    max-width: 446px;
+    max-height: 756px;
+    object-fit: contain;
+  }
+
+  #before-login, #after-login {
+    display: none;
+    position: absolute;
+    width:100%;
+    height:20%;
+    bottom: 0%;
+    z-index: 2;
+  }
+
+  #g-login-div{
+    width: 50%;
+    height: auto;
+    left: 25%;
+    top: 0px;
+    position: relative;
+  }
+
+  #fb-login-div{
+    width: 50%;
+    height: auto;
+    left: 25%;
+    margin-top: 15px;
+    position: relative;
+  }
+
   #fb-login-button{
+    width:100%;
+    height: 100%;
+    max-width: 370px;
+    max-height: 86px;
+    object-fit: cover;
+  }
+
+  #g-login-button{
+    width:100%;
+    height: 100%;
+    max-width: 370px;
+    max-height: 86px;
+    object-fit: cover;
+  }
+
+  #gameStartDiv{
+    width: 50%;
+    height: auto;
+    left: 25%;
+    top: 0px;
+    position: relative;
+  }
+
+  #myCouponDiv{
+    width: 50%;
+    height: auto;
+    left: 25%;
+    margin-top: 15px;
+    position: relative;
+  }
+
+  #gameStartImg{
+    width:100%;
+    height: 100%;
+    max-width: 370px;
+    max-height: 86px;
+    object-fit: cover;
+  }
+
+  #myCouponImg{
+    width:100%;
+    height: 100%;
+    max-width: 370px;
+    max-height: 86px;
+    object-fit: cover;
+  }
+
+  #gameIntroModalBGTopDiv{
+    left:0%;
+    width:96%;
+    height:auto;
+
+    max-width: 600px;
+    max-height: 100px;
+    position: absolute;
+  }
+
+  #gameIntroModalBGTopImg{
+    /* position: absolute; */
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+  }
+
+  #gameIntroModalBGDiv{
+    left:0%;
+    width:96%;
+    height:auto;
+    /* max-width: 600px; */
+    /* max-height: 670px; */
+    position: absolute;
+  }
+  
+  #gameIntroModalBGImg{
+    /* position: absolute; */
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+  }
+
+  #gameIntroModalBGInfoDiv{
+    top:17%;
+    left:4%;
+    width:92%;
+    height:35%;
+    font-size: 14pt;
+    /* max-width: 575px; */
+    /* max-height: 276px; */
+    position: absolute;
+  }
+
+  #gameIntroModalBGInfoImg{
+    /* position: absolute; */
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height:100%;
+    object-fit: contain;
+  }
+
+
+
+  /* #fb-login-button{
     position: relative;
     left: calc(50% - 220px);
     object-fit: cover;
@@ -546,45 +721,8 @@ img {
     object-fit: cover;
     max-width: 100%;
     max-height: 100%;
-  }
-}
-
-/* 兌換區首頁 --------------------- end ------------------ */
-
-#prize-description > img{
-  width:100vw;
-  max-width: 900px;
-}
-
-@media screen and (min-width:900px) {
-
-  /* .game-intro-btn {
-    max-width: 320px;
   } */
-
-
-  /* #gameStartImg{
-    position: relative;
-    width:50%;
-    left: 25%;
-  } */
-
-  #prizeListImg{
-    position: relative;
-    /* right: calc(50% - 220px); */
-    width:50%;
-    left: 25%;
-  }
-
-  #prizeListImg2{
-    position: relative;
-    left: calc(50% - 220px);
-  }
-
-  #exchange-prize{
-    position: relative;
-    right: calc(50% - 220px);
-  }
-
-  
 }
+
+
+/*  ------------------------------------------------------------------------------------------------------------------------------------------  */

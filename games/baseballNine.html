@@ -411,11 +411,11 @@
 		document.getElementById("leaveButton").addEventListener('click', function(){
 			
 			if (blocker_score.style.display == "block"){
-				location.replace("/games");
+				location.replace("/index.html");
 			}else{
 				leaveWarning.style.display = "block";
 				leaveConfirm.onclick = function(){
-					location.replace("/games");
+					location.replace("/index.html");
 				}
 				leaveCancel.onclick = function(){
 					leaveWarning.style.display = "none";
@@ -435,7 +435,7 @@
 	<div id = "aDiv"  >
 		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
 		device-orientation-permission-ui="enabled: true"  shadow="type: pcfsoft"
-		physics="debug: false; friction: 0.005; gravity: -8.0; maxInterval: 0.01666;" >
+		physics="debug: false; friction: 0.005; gravity: -8.0; maxInterval: 0.02566;" >
 			<a-assets id = "aAssets" timeout = "20000">
 
 				<a-asset-item id="baseball" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/baseball.glb"></a-asset-item>

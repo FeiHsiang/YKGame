@@ -1,16 +1,787 @@
 html {
   max-width: 100vw;
   min-height: 100vh;
+  overflow: hidden;
 }
 
 body {
   text-align: center;
-  /* background-image: url("../images/background.jpg"); */
+  /* background-image: url("/images/ui/bg/img/1.png"); */
   background-color: #202125;
   background-size: 100% 100%; 
   font-size:20pt;
   margin:0px;
+  width: 100vw;
+  height:100vh;
+  overflow: hidden;
+  font-family: "Microsoft JhengHei","微軟正黑體";
 }
+
+/* 背景圖  start */
+
+#bgImgDiv{
+  position: absolute;
+  width:100vw;
+  height:100vh;
+  z-index: -1;
+}
+
+#bgImg{
+  width: 100%;
+  height:100%;
+  object-fit: cover;
+}
+
+/* 背景圖  end */
+
+/* 返回首頁 start */
+
+#backToWix{
+  position: relative;
+  top:16px;
+  left:10%;
+  width:30%;
+  max-width: 260px;
+  max-height: 86px;
+  height:auto;
+  cursor: pointer;
+  z-index: 2;
+}
+
+#backToWixImg{
+  width: 100%;
+  height:100%;
+  object-fit: cover;
+}
+
+/* 返回首頁 end */
+
+/* 兌換區 start */
+
+#poolInfoDiv{
+  position: relative;
+  left: 10%;
+  width:80%;
+  height:30%;
+  max-width: 456px;
+  max-height: 294px;
+  margin-top: 16px;
+}
+
+#poolInfoBGDiv {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width:100%;
+  font-size: 14pt;
+}
+
+#poolInfoBGImg {
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+#poolInfoBGTopDiv , #myCouponBGTopDiv{
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width:100%;
+  font-size: 20pt;
+}
+
+#poolInfoBGTopImg , #myCouponBGTopImg{
+  width:100%;
+  height:100%;
+  object-fit: cover;
+}
+
+#poolInfoBGTopText , #myCouponBGTopText {
+  color:white;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space:nowrap;
+}
+
+#poolInfoDivText{
+  position: absolute;
+  top:30%;
+  color:#F47165;
+}
+
+#doExchangeDiv{
+  position: absolute;
+  bottom:5%;
+  width:60%;
+  height:30%;
+  left:20%;
+}
+
+#doExchangeImg{
+  position: absolute;
+  top:0%;
+  left: 0%;
+  width:100%;
+  height:100%;
+  max-width: 370px;
+  max-height: 86px;
+  object-fit: contain;
+}
+
+/* 兌換區 end */
+
+
+/* 擁有折價券區  start */
+
+
+#myCouponDiv{
+  position: relative;
+  left: 10%;
+  width:80%;
+  height:20%;
+  max-width: 456px;
+  max-height: 200px;
+  margin-top: 28px;
+}
+
+
+#myCouponBGDiv{
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width:100%;
+  height:100%;
+}
+
+#myCouponBGImg{
+  width:100%;
+  height:100%;
+  object-fit: fill;
+}
+
+
+#myCouponDivInfo{
+  position: absolute;
+  bottom:5%;
+  height:30%;
+  left: 2%;
+  width:60%;
+  font-size: 14pt;
+  color:#F47165;
+
+  border: 3px;
+  border-radius: 40px;
+  border-style: solid;
+}
+
+#myCouponDivInfoTextDiv{
+  position: relative;
+  width:60%;
+  height: 100%;
+  left: 0%;
+  top:0%;
+  border-right-style: solid;
+  border-right-width: 3px;
+  border-right-color: #F47165;
+}
+
+#myCouponDivInfoText{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space:nowrap;
+}
+
+#myCouponDivInfoNumberDiv{
+  position: absolute;
+  width:40%;
+  height: 100%;
+  right: 0%;
+  top:0%;
+}
+
+#myCouponDivInfoNumber{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space:nowrap;
+}
+
+#myCouponUseDiv{
+  position: absolute;
+  bottom:5%;
+  width:30%;
+  height:30%;
+  right:5%;
+}
+
+#myCouponUseImg{
+  position: absolute;
+  width:100%;
+  height:100%;
+  max-width: 180px;
+  max-height: 86px;
+  object-fit: contain;
+  right:0%;
+}
+
+
+/* 擁有折價券區  end */
+
+/* 我的代幣區 start */
+
+
+#myCoinsInfoDiv{
+  position: relative;
+  left: 10%;
+  width:80%;
+  height:20%;
+  max-width: 456px;
+  max-height: 200px;
+  margin-top: 28px;
+  font-size: 14pt;
+}
+
+#myCoinsInfoBGDiv{
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width:100%;
+  height:100%;
+}
+
+#myCoinsInfoBGImg{
+  width:100%;
+  height:100%;
+  object-fit: fill;
+}
+
+#myCoinsNumberDiv{
+  position: absolute;
+  width:100%;
+  height:50%;
+  top:0%;
+}
+
+#myCoinsNumberImgDiv{
+  position: relative;
+  width: 20%;
+  height:100%;
+}
+
+#myCoinsNumberImg{
+  position: absolute;
+  width:80%;
+  height:80%;
+  max-width: 60px;
+  max-height: 60px;
+  object-fit: contain;
+  left:10%;
+  top:10%;
+}
+
+#myCoinsNumberTextDiv{
+  position: absolute;
+  width:30%;
+  height:100%;
+  top:0%;
+  left: 21%;
+}
+
+#myCoinsNumberTextP{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space:nowrap;
+}
+
+#myCoinsNumberInfoDiv{
+  position: absolute;
+  width:20%;
+  height: 100%;
+  top:0%;
+  left:52%;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-right-color: #F47165;
+}
+
+#myCoinsNumberInfoP{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space:nowrap;
+}
+
+#myCoinsNumberIntroDiv{
+  position: absolute;
+  width:25%;
+  height:100%;
+  top:0%;
+  right:0%;
+}
+
+#myCoinsNumberIntroImg{
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  max-width: 74px;
+  max-height: 74px;
+  top:10%;
+  right:10%;
+  object-fit: contain;
+}
+
+#myCoinsNumberDivHr{
+  position: absolute;
+  top:42%;
+  width:99%;
+  border-width: 1px;
+  border-color:#F47165;
+  border-style: dashed;
+}
+
+#myExchangeNumberDiv{
+  position: absolute;
+  width:100%;
+  height:50%;
+  bottom: 0%;
+}
+
+#myExchangeNumberImgDiv{
+  position: relative;
+  width: 20%;
+  height:100%;
+}
+
+#myExchangeNumberImg{
+  position: absolute;
+  width:80%;
+  height:80%;
+  max-width: 180px;
+  max-height: 86px;
+  object-fit: contain;
+  left:5px;
+  top:5px;
+}
+
+#myExchangeNumberTextDiv{
+  position: absolute;
+  width:30%;
+  height:100%;
+  top:0%;
+  left: 21%;
+}
+
+#myExchangeNumberTextP{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space:nowrap;
+}
+
+#myExchangeNumberInfoDiv{
+  position: absolute;
+  width:20%;
+  height: 100%;
+  top:0%;
+  left:52%;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-right-color: #F47165;
+}
+
+#myExchangeNumberInfoP{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space:nowrap;
+}
+
+#myExchangeNumberIntroDiv{
+  position: absolute;
+  width:25%;
+  height:100%;
+  top:0%;
+  right:0%;
+}
+
+#myExchangeNumberIntroImg{
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  max-width: 74px;
+  max-height: 74px;
+  top:10%;
+  right:10%;
+  object-fit: contain;
+}
+
+/* 排行榜按鈕 start */
+
+#leaderBnDiv{
+  position: absolute;
+  width:25%;
+  height:10%;
+  bottom: 2%;
+  left: 10%;
+
+}
+
+#leaderBnImg{
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  max-width: 260px;
+  max-height: 86px;
+  top:0%;
+  left:0%;
+  object-fit: contain;
+}
+
+/* 排行榜按鈕 end */
+
+
+/* 購買兌換券區 使用兌換券區 排行榜區 start */
+
+#exchangeModalDiv, #useCouponModalDiv , #leaderModalDiv{
+  z-index: 3;
+  font-size: 18pt;
+  color:#F47165;
+}
+
+#useCouponModalContentDiv{
+  position: relative;
+  margin: auto;
+  top:5%;
+  border-radius: 16px;
+  width: 85vw;
+  height: 85vh;
+  max-width: 760px;
+  /* overflow: hidden; */
+}
+
+#leaderModalContentDiv{
+  position: relative;
+  margin: auto;
+  top:5%;
+  border-radius: 16px;
+  width: 85vw;
+  height: 85vh;
+  max-width: 760px;
+  overflow: hidden;
+}
+
+#gameIntroModal {
+  z-index: 3;
+}
+
+#exchangeModalBGTopDiv, #useCouponModalBGTopDiv , #leaderModalBGTopDiv{
+  left:2%;
+  top:0%;
+  width:96%;
+  height:15%;
+  position: absolute;
+}
+
+#exchangeModalTopImg , #useCouponModalTopImg , #leaderModalTopImg {
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height:100%;
+  object-fit: fill;
+}
+
+#exchangeModalBGTopImg{
+  /* position: absolute; */
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height:100%;
+  object-fit: cover;
+}
+
+#exchangeModalBGTopInfo , #useCouponModalBGTopInfo , #leaderModalBGTopInfo {
+  margin:0;
+  color:white;
+  font-size: 30pt;
+}
+
+
+#exchangeModalBGDiv, #useCouponModalBGDiv {
+  top:0%;
+  left:2%;
+  width:96%;
+  height:100%;
+  position: absolute;
+}
+
+#leaderModalBGDiv{
+  top:0%;
+  left:2%;
+  width:96%;
+  height:100%;
+  position: absolute;
+}
+
+
+#exchangeModalBGImg, #useCouponModalBGImg , #leaderModalBGImg {
+  /* position: absolute; */
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height:100%;
+  object-fit: fill;
+}
+
+#leaveWarningCancel{
+  position: absolute;
+  top:0px;
+  right:0px;
+}
+
+#exchangeModalCancel , #useCouponModalCancel , #leaderModalCancel {
+  position: absolute;
+  top:-20px;
+  right:-20px;
+  width:15%;
+  height:15%;
+  max-width: 74px;
+  max-height: 74px;
+  object-fit: contain;
+}
+
+#leaveWarningInfo{
+  position: absolute;
+  margin: 15px;
+  top:30%;
+}
+
+#exchangeModalBGInfoDiv  {
+  top:17%;
+  left:4%;
+  width:92%;
+  height:40%;
+  font-size: 14pt;
+  position: absolute;
+}
+
+#useCouponModalBGInfoDiv {
+  top:16%;
+  left:4%;
+  width:92%;
+  height:18%;
+  font-size: 14pt;
+  position: absolute;
+}
+
+#exchangeModalBGInfoImg , #useCouponModalBGInfoImg {
+  /* position: absolute; */
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height:100%;
+  object-fit: fill;
+}
+
+#exchangeModalInfo , #useCouponModalInfo {
+  margin:18px;
+  top:0%;
+  position: absolute;
+}
+
+#useCouponModalNumberDiv{
+  position: absolute;
+  top:34%;
+  width:90%;
+  height:6%;
+  left:5%;
+  
+}
+
+#exchangeModalButtonDiv , #useCouponModalButtonDiv  {
+  position: absolute;
+  bottom: 2%;
+  width:100%;
+  height:10%;
+}
+
+#leaderModalButtonDiv {
+  position: absolute;
+  bottom: 4%;
+  width:100%;
+  height:10%;
+}
+
+#leaderModalTable{
+  margin: auto;
+  width:90%;
+  color:white;
+  font-size:14pt;
+  overflow-wrap:anywhere;
+}
+
+#exchangeModalComfirm , #useCouponModalComfirm , #leaderModalComfirm{
+  position: absolute;
+  width:50%;
+  left:25%;
+  top: 0%;
+}
+
+#leaveWarningComfirm{
+  position: absolute;
+  width:50%;
+  left:25%;
+  bottom: 5%;
+}
+
+
+#exchangeModalComfirmImg , #useCouponModalComfirmImg , #leaderModalComfirmImg {
+  width:100%;
+  height: 100%;
+  max-width: 370px;
+  max-height: 86px;
+  object-fit: cover;
+}
+
+#inputExchangeDiv {
+  position: absolute;
+  width:92%;
+  height:8%;
+  bottom:25%;
+  left: 4%;
+  border-width: 1px;
+  border-radius: 16px;
+  border-style: solid;
+  border-color: #F47165;
+  font-size: 18pt;
+}
+
+#useCouponInputDiv {
+  position: absolute;
+  width:92%;
+  height:8%;
+  top:40%;
+  left: 4%;
+  border-width: 1px;
+  border-radius: 16px;
+  border-style: solid;
+  border-color: #F47165;
+  font-size: 18pt;
+}
+
+#useCouponModalPhoneNumberDiv{
+  position: absolute;
+  width:92%;
+  height:8%;
+  top:50%;
+  left: 4%;
+  font-size: 18pt;
+}
+
+#useCouponPhoneInputDiv{
+  position: absolute;
+  width:92%;
+  height:8%;
+  top:56%;
+  left: 4%;
+  border-width: 1px;
+  border-radius: 16px;
+  border-style: solid;
+  border-color: #F47165;
+  font-size: 18pt;
+}
+
+#useCouponModalPWDDiv{
+  position: absolute;
+  width:92%;
+  height:8%;
+  top:65%;
+  left: 4%;
+}
+
+#useCouponPWDInputDiv{
+  position: absolute;
+  width:92%;
+  height:8%;
+  top:73%;
+  left: 4%;
+  border-width: 1px;
+  border-radius: 16px;
+  border-style: solid;
+  border-color: #F47165;
+  font-size: 18pt;
+}
+
+#inputExchangeText , #useCouponInputText , #useCouponPhoneInputText , #useCouponPWDInputText {
+  position: relative;
+  width:80%;
+  height:80%;
+  top:10%;
+  padding: 0;
+  border-width: 0px;
+  text-align: center;
+  font-size: 18pt;
+  color:#F47165;
+}
+
+/* 購買兌換券區 end */
+
+
+/* class 區域 */
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  /* https://stackoverflow.com/questions/10075524/sizing-div-based-on-window-width/35237091#35237091 */
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height */
+  background-color: rgba( 74 , 77 , 84 , 0.85 ); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  position: relative;
+  /* background-color:white; */
+  margin: auto;
+  top:15%;
+  border-radius: 16px;
+  width: 85vw;
+  height: 60vh;
+  max-width: 760px;
+  /* overflow: hidden; */
+}
+
+.modal-content > div {
+  position: relative;
+  margin-left: 2%;
+  margin-right: 2%;
+  width: 90%;
+}
+
+
+
+/*  --------------------------------------------------------------------------------------------  */
+
+
 
 /* 上方『回首頁』『登出』按鈕區域 start */
 #special-two-button {
@@ -174,36 +945,6 @@ body {
   background-color: #69918b; 
 }
 
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  /* https://stackoverflow.com/questions/10075524/sizing-div-based-on-window-width/35237091#35237091 */
-  width: 100vw; /* Full width */
-  height: 100vh; /* Full height */
-  background-color: rgba( 74 , 77 , 84 , 0.85 ); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.modal-content {
-  position: relative;
-  background-color: #202125;
-  margin: auto;
-  top:12%;
-  border-radius: 16px;
-  width: 85vw;
-  height: 75vh;
-  overflow: auto;
-}
-
-.modal-content > div {
-  position: relative;
-  margin-left: 2%;
-  margin-right: 2%;
-  width: 90%;
-}
 
 /* The Close Button */
 .close {
