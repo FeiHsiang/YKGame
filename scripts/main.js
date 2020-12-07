@@ -53,9 +53,9 @@ let checkLogin = function() {
   else {
 //[start-20201119- fei -0001-debug]//
     //// 測試：不論登入與否，直接顯示
-    console.log("main.js: call selectProgramToRun ");
-    selectProgramToRun(); 
-    return;
+    // console.log("main.js: call selectProgramToRun ");
+    // selectProgramToRun(); 
+    // return;
 //[end---20201119- fei -0001-debug]//
 
     // 沒登入
@@ -147,11 +147,11 @@ switch (location.pathname) {
     }
     //// 點擊開啟『是否返回首頁』
     backToWix.onclick = function(){
-      leaveWarning.style.display = "block";
+      leaveWarningModalDiv.style.display = "block";
     }
 
     leaveWarningCancel.onclick = function(){
-      leaveWarning.style.display = "none";
+      leaveWarningModalDiv.style.display = "none";
     }
 
     leaveWarningComfirm.onclick = function(){
@@ -187,7 +187,6 @@ switch (location.pathname) {
   case '/prize-list/':
   case '/prize-list/index':
   case '/prize-list/index.html':
-  case '/prize-list/test.html':
     isChangeBrowserPage = false;
     // let logout = document.getElementById('logout');
     // logout.addEventListener('click', clearLSLogout, false);
@@ -252,6 +251,33 @@ switch (location.pathname) {
       leaderModalCancel.addEventListener('click', function(){
         document.getElementById("leaderModalDiv").style.display = "none";
       });
+      //// 開始遊戲按鈕
+      startGameBnImg.onclick = function(){
+        aUI.showStartGameIntro();
+        gameIntroModal.style.display = "block";
+      }
+      //// 確認開始遊戲
+      gameIntroModalComfirmImg.onclick = function(){
+        // location.href = "/games/";
+        aUI.startTodayGame();
+      }
+      //// 取消開始遊戲
+      gameIntroModalCancelImg.onclick = function(){
+        gameIntroModal.style.display = "none";
+      }
+
+      //// 返回首頁
+      backToWixImg.onclick = function(){
+        leaveWarningModalDiv.style.display = "block";
+      }
+      //// 取消返回首頁
+      leaveWarningCancel.onclick = function(){
+        leaveWarningModalDiv.style.display = "none";
+      }
+      leaveWarningComfirmImg.onclick = function(){
+        location.href = "https://www.miflydesign.com/yongkang";
+      }
+
       //// 『查看說明』
       // checkDescriptionDiv.onclick = function(){
       //   document.getElementById("couponDescriptionDiv").style.display = "block";

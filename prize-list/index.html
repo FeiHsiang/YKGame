@@ -16,135 +16,274 @@
   </head>
   <body>
 
-    <div id="special-two-button">
-      <a href="../" style="color:rgba(255,255,255,0.5);">
-        回首頁
-      </a>
-      <span id = "logout">登出</span>
+    <div id = "bgImgDiv">
+      <img id = "bgImg" src = "/images/ui/bg/img/1.png">
     </div>
 
-    <div id = "couponPoolDiv">
-      <div id = "currentCoinsNumberDiv"> 目前代幣數量： </div>
-      <div id = "cumulativeCoinsNumberDiv"> 累積抽獎機會： </div>
-      <div id = "todayLeftCouponsDiv"> 今日折價券剩： </div>
-
-      <div id = "buyCouponDiv"> <p class="centerText">購買折價券</p></div>
-      <div id = "checkDescriptionDiv"><p class="centerText">查看說明</p></div>
+    <div id = "backToWix" >
+      <img id = "backToWixImg" src = "/images/ui/button/come back wix/normal.png">
     </div>
 
-
-
-    <hr id = "pool_my_line">
-
-    <div id = mycouponDiv>
-      <div id = "couponImgDiv">
-        <img id = "myCouponImg" src = "/images/c1.jpg" class = "fillImg">
+    <div id ="poolInfoDiv" >
+      <div id = "poolInfoBGDiv">
+        <img id = "poolInfoBGImg" src = "/images/ui/window/fraction/pink bottom.png">
+        <div id = "poolInfoDivText">目前剩餘 100/5000，今日可兌換數量剩餘</div>
       </div>
-      <div id = myCouponNumberDiv> 
-        <p id = "myCouponNumberP" class = "centerText" >  </p> 
+      <div id = "poolInfoBGTopDiv">
+        <img id = "poolInfoBGTopImg" src = "/images/ui/pop up/top bar/red.png">
+        <div id = "poolInfoBGTopText">兌換</div>
+      </div>
+
+      <div id = "doExchangeDiv" >
+        <img id = "doExchangeImg" src = "/images/ui/button/award redemption now/normal.png" >
       </div>
     </div>
 
-    <div id = "bottomBar">
-      <div id="playeDiv" >
-        <p id = "playtext" class = "centerText" >玩遊戲</p> 
+    <div id ="myCouponDiv" >
+      <div id = "myCouponBGDiv">
+        <img id = "myCouponBGImg" src = "/images/ui/window/fraction/pink bottom.png">
       </div>
-      <div id="coinDiv" >
-        <img id = "coin" class="fillImg" src="/images/coin.png">
-        <p id = "coinNumber" class = "centerText" >  </p>
+      <div id = "myCouponBGTopDiv">
+        <img id = "myCouponBGTopImg" src = "/images/ui/pop up/top bar/red.png">
+        <div id = "myCouponBGTopText">擁有的折價券</div>
       </div>
-      <div id="leadBn" >
-        <img id = "crown" class="fillImg" src="/images/crown.png">
-      </div>
-    </div>
-    
-    <div id="leadBnModal" class="modal">
-        <div class="modal-content">
-          <span id = "closeLeadBnModal" class="close">&times;</span>
-          <div id="leadBnTitle">
-            <img id="leadBnImg" src="/images/crown.png">
-            <span id="leadBnInfo">永康幣排行榜</span>
-          </div>
-          <table id = "leaderTable" ></table>
-          
+      
+      <div id = "myCouponDivInfo">
+        <div id = "myCouponDivInfoTextDiv">
+          <p id = "myCouponDivInfoText" > 15元折價券 </p>
         </div>
+
+        <div id = "myCouponDivInfoNumberDiv">
+          <p id = "myCouponDivInfoNumber" >  </p>
+        </div>
+
+      </div>
+
+      <div id = "myCouponUseDiv" >
+        <img id = "myCouponUseImg" src = "/images/ui/button/use/normal.png" >
+      </div>
     </div>
 
-    <div id = "buyCouponDov" class = "modal">
+    <div id = "myCoinsInfoDiv">
+      <div id = "myCoinsInfoBGDiv">
+        <img id = "myCoinsInfoBGImg" src = "/images/ui/window/fraction/white bottom.png">
+      </div>
+
+      <div id = "myCoinsNumberDiv">
+        <div id = "myCoinsNumberImgDiv">
+          <img id = "myCoinsNumberImg" src = "/images/ui/img/yongkang coin.png">
+        </div>
+        <div id = "myCoinsNumberTextDiv">
+          <p id = "myCoinsNumberTextP"> 永康幣數量 </p>
+
+        </div>
+        <div id = "myCoinsNumberInfoDiv">
+          <p id = "myCoinsNumberInfoP">  </p>
+        </div>
+        <div id = "myCoinsNumberIntroDiv">
+          <img id = "myCoinsNumberIntroImg" src = "/images/ui/button/Introduction/normal.png" >
+        </div>
+      </div>
+
+      <hr id = "myCoinsNumberDivHr">
+
+      <div id = "myExchangeNumberDiv">
+        <div id = "myExchangeNumberImgDiv">
+          <img id = "myExchangeNumberImg" src = "/images/ui/img/ticket.png">
+        </div>
+        <div id = "myExchangeNumberTextDiv">
+          <p id = "myExchangeNumberTextP">累計抽獎次</p>
+        </div>
+        <div id = "myExchangeNumberInfoDiv">
+          <p id = "myExchangeNumberInfoP">  </p>
+        </div>
+        <div id = "myExchangeNumberIntroDiv">
+          <img id = "myExchangeNumberIntroImg" src = "/images/ui/button/Introduction/normal.png" > 
+        </div>
+      </div> 
+    </div>
+
+    <!-- 排行榜按鈕 -->
+    <div id = "leaderBnDiv">
+      <img id = "leaderBnImg" src = "/images/ui/button/fraction/normal.png">
+    </div>
+
+    <!-- 開始遊戲按鈕 -->
+    <div id = "startGameBnDiv">
+      <img id = "startGameBnImg" src = "/images/ui/button/start/normal.png">
+    </div>
+
+    <!-- 購買兌換券區 -->
+    <div id="exchangeModalDiv" class = "modal" style="display: none;">
       <div class="modal-content">
-        <br>
-        <div id = "buy_currentCoinsNumberDiv">
-          您目前有 0 個代幣可以兌換<br>
-        </div>
-        <div id = "buyCouponDovIntro">
-          請輸入想兌換的數量<br>
-          （一張折價券會消耗 3 個永康幣）  
+        
+        <div id ="exchangeModalBGDiv">
+          <img id = "exchangeModalBGImg" src = "/images/ui/pop up/bottom/white.png">
         </div>
 
-        <div id = "couponNumberDiv">
-          <p>今日剩餘兌換券數量：</p>
-          <p id = couponNumber >0</p>
+        <div id ="exchangeModalBGTopDiv" >
+          <img id = "exchangeModalTopImg" src = "/images/ui/pop up/top bar/pink.png">
+          <div id = "exchangeModalBGTopInfo" class = "centerText"> 兌換折價券 </div>
         </div>
-        <hr>
-        <label for="exchangeNumber">要兌換的數量：</label>
-        <input type="number" id="exchangeNumber" name="exchangeNumber" min="1" max="10" value="0">  
 
-        <div id = "buyCouponNote">  </div>
-        <div id = "buyCouponConfirm"> <div class="centerText">確認</div></div>
-        <div id = "buyCouponCancel" > <div class="centerText">取消</div></div>
-      </div>
+        <img id = "exchangeModalCancel" src = "/images/ui/button/delete/normal.png">
+
+        <div id ="exchangeModalBGInfoDiv" >
+          <img id = "exchangeModalBGInfoImg" src = "/images/ui/pop up/bottom/pink.png">
+          <div id = "exchangeModalInfo"  > 今日折價券剩餘 100 張，請輸入想要兌換的數量（兌換一張折價券需消耗三枚永康幣） </div>
+          <div id = "exchangeModalMyInfo"  > 您用有 枚永康幣 </div>
+
+        </div>
+
+        <div id = "exchangeModalRetDiv">  </div>
+
+        <div id = "inputExchangeDiv">
+          <input type="number" id="inputExchangeText" name="inputExchangeText" min="1" max="100" value="0">  
+        </div>
+
+        <div id="exchangeModalButtonDiv">
+          <div id="exchangeModalComfirm">
+            <img id = "exchangeModalComfirmImg" src = "/images/ui/button/confirm/normal.png">
+          </div> 
+        </div>
+
+      </div>  
+    </div>
+    <!-- 使用兌換券區 -->
+    <div id="useCouponModalDiv" class = "modal" style="display: none;">
+      <div id = "useCouponModalContentDiv" class="modal-content">
+        
+        <div id ="useCouponModalBGDiv">
+          <img id = "useCouponModalBGImg" src = "/images/ui/pop up/bottom/white.png">
+        </div>
+
+        <div id ="useCouponModalBGTopDiv" >
+          <img id = "useCouponModalTopImg" src = "/images/ui/pop up/top bar/pink.png">
+          <div id = "useCouponModalBGTopInfo" class = "centerText"> 使用折價券 </div>
+        </div>
+
+        <img id = "useCouponModalCancel" src = "/images/ui/button/delete/normal.png">
+
+        <div id ="useCouponModalBGInfoDiv" >
+          <img id = "useCouponModalBGInfoImg" src = "/images/ui/pop up/bottom/pink.png">
+          <div id = "useCouponModalInfo"  > 您目前擁有 100 張折價券，要使用折價券抵用現金嗎？ </div>
+        </div>
+
+        <div id ="useCouponModalNumberDiv" >
+          <div id = "useCouponModalNumber" class = "centerText"> 使用張數 </div>
+        </div>
+
+        <div id = "useCouponInputDiv">
+          <input type="number" id="useCouponInputText" name="useCouponInputText" min="1" max="100" value="1">  
+        </div>
+
+        <div id ="useCouponModalPhoneNumberDiv" >
+          <div id = "useCouponModalPhoneNumber" class = "centerText"> 電話號碼 </div>
+        </div>
+
+        <div id = "useCouponPhoneInputDiv">
+          <input type="number" id="useCouponPhoneInputText" name="useCouponPhoneInputText" min="1" max="100" value="0">  
+        </div>
+
+        <div id ="useCouponModalPWDDiv" >
+          <div id = "useCouponModalPWD" class = "centerText"> 兌換密碼 </div>
+        </div>
+
+        <div id = "useCouponPWDInputDiv">
+          <input type="password" id="useCouponPWDInputText" name="useCouponPWDInputText" min="1" max="100" value="">  
+        </div>
+
+
+        <div id="useCouponModalButtonDiv">
+          <div id="useCouponModalComfirm">
+            <img id = "useCouponModalComfirmImg" src = "/images/ui/button/confirm/normal.png">
+          </div> 
+        </div>
+
+      </div>  
     </div>
 
-    <div id="useCouponDiv" class = "modal">
-      <div class="modal-content">
-
-        <label for="inputUseCoupons" id="useCoupons">請輸入想兌換的數量</label>
-        <br>
-        <input type="number" id="inputUseCoupons" value="1" min="1" max="1000">
-        <br>
-        <div id = "inputUseCouponError">您只有0張兌換券 </div>
-
-        <label for="inputPassword" id="pwdModalInfo">請輸入密碼</label>
-        <br>
-        <input type="number" id="inputPassword" value="" min="1000" max="9999">
-        <div id="pwdError">
-          密碼錯誤
+     <!-- 排行榜區 -->
+    <div id="leaderModalDiv" class = "modal" style="display: none;">
+      <div id = "leaderModalContentDiv" class="modal-content">
+        
+        <div id ="leaderModalBGDiv">
+          <img id = "leaderModalBGImg" src = "/images/ui/window/fraction/pink bottom.png">
         </div>
-        <div id = "exchangeRet">成功使用 1 張兌換券！</div>
-        <div id="pwdModalButtonDiv">
-          <p id="pwdButtonComfirm">確認</p>
-          <p id="pwdButtonCancel">取消</p>
+
+        <div id ="leaderModalBGTopDiv" >
+          <img id = "leaderModalTopImg" src = "/images/ui/pop up/top bar/red.png">
+          <div id = "leaderModalBGTopInfo" class = "centerText"> 排行榜 </div>
+        </div>
+
+        <img id = "leaderModalCancel" src = "/images/ui/button/delete/normal.png">
+
+        <div id = "leaderModalTable" ></div>
+
+        <div id="leaderModalButtonDiv">
+          <div id="leaderModalComfirm">
+            <img id = "leaderModalComfirmImg" src = "/images/ui/button/confirm/normal.png">
+          </div> 
         </div>
       </div>  
     </div>
 
-    <div id = "couponDescriptionDiv" class = "modal" >
+    <!-- 遊戲介紹區域 -->
+    <div id="gameIntroModal" class = "modal" style="display: none;">
       <div class="modal-content">
-        <div id = "couponDescriptionInfoDiv">
-          <div id = "couponDescriptionInfo" >
-            每天登入玩遊戲皆可獲得永康幣，這些永康幣會被換算成可被抽獎的機會。<br>
-            舉例說明：活動期間共有100個人玩，這100個人總共有3000個金幣，我們將依照3000這個名單數量進行抽獎，當您玩遊戲獲得20個永康幣，就會有20/3000的機率被抽中，累積的永康幣越多，可獲得的抽獎機率越高，<br>最高獎項為Iphone12！
-          </div>  
+        
+        <div id ="gameIntroModalBGDiv" >
+          <img id = "gameIntroModalBGImg" src = "/images/ui/pop up/bottom/white.png">
         </div>
-        <div id = "couponDescriptionConfirm"> 
-          <p class = "centerText"> 確認 </p>
+
+        <div id ="gameIntroModalBGTopDiv" >
+          <img id = "gameIntroModalBGTopImg" src = "/images/ui/pop up/top bar/pink.png">
+          <div id = "gameIntroModalBGTopInfo" class = "centerText">  </div>
         </div>
+
+        <div id ="gameIntroModalBGInfoDiv" >
+          <img id = "gameIntroModalBGInfoImg" src = "/images/ui/pop up/bottom/pink.png">
+          <div id = "gameIntroModalInfo"  >  </div>
+        </div>
+
+        <div id="gameIntroModalButtonDiv">
+          <div id="gameIntroModalComfirm">
+            <img id = "gameIntroModalComfirmImg" src = "/images/ui/button/confirm/normal.png">
+          </div> 
+          <div id="gameIntroModalCancel">
+            <img id = "gameIntroModalCancelImg" src = "/images/ui/button/no/normal.png">
+          </div>
+        </div>
+
+      </div>  
+    </div>
+
+
+
+    <!-- 返回首頁區 -->
+    <div id="leaveWarningModalDiv" class="modal" style="display: none;">
+      <div class="modal-content">
+        <div id ="leaveWarningBGDiv" >
+          <img id = "leaveWarningBGImg" src = "/images/ui/pop up/bottom/white.png">
+        </div>
+
+        <img id = "leaveWarningCancel" src = "/images/ui/button/delete/normal.png">
+
+        <div id = "leaveWarningInfo"  >
+          <div id = "leaveWarningInfoText">
+            確認回到活動網站嗎？
+          </div>
+        </div>
+
+        <div id="leaveWarningButtonDiv">
+          <div id="leaveWarningComfirm">
+            <img id = "leaveWarningComfirmImg" src = "/images/ui/button/confirm/normal.png">
+          </div> 
+        </div>
+
       </div>
     </div>
 
-    <div id = "personalIntroDiv" class = "modal" >
-      <div class="modal-content">
-        <div id = "personalIntroInfoDiv">
-          <div id = "personalIntroInfo" >
-            個資說明頁面<br>
-            由於抽獎以及店家核銷所需，請提供姓名、電話以及聯絡信箱。
-          </div>  
-        </div>
-        <div id = "personalIntroConfirm"> 
-          <p class = "centerText"> 確認 </p>
-        </div>
-      </div>
-    </div>
 
     <script src="../scripts/NetworkAgent.js"></script>
     <script src="../scripts/UI.js"></script>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="MIND & IDEA FLY CO., LTD.">
+    <meta name="description" content="永康 商圈 專案">
+    <meta property="og:url" content="https://ssl-api-makar-apps.miflyservice.com:8080/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="yongkong market website">
+    <meta property="og:description" content="永康 商圈 專案">
+    <meta property="og:image" content="https://www.makerar.com/banner/1569506677.jpg">
+    <meta property="fb:app_id" content="790562841436344">
+    <title>獎項頁面</title>
+    <link href="styles/style.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <div id="special-two-button">
+      <a href="../" style="color:rgba(255,255,255,0.5);">
+        回首頁
+      </a>
+      <span id = "logout">登出</span>
+    </div>
+
+    <div id = "couponPoolDiv">
+      <div id = "currentCoinsNumberDiv"> 目前代幣數量： </div>
+      <div id = "cumulativeCoinsNumberDiv"> 累積抽獎機會： </div>
+      <div id = "todayLeftCouponsDiv"> 今日折價券剩： </div>
+
+      <div id = "buyCouponDiv"> <p class="centerText">購買折價券</p></div>
+      <div id = "checkDescriptionDiv"><p class="centerText">查看說明</p></div>
+    </div>
+
+
+
+    <hr id = "pool_my_line">
+
+    <div id = mycouponDiv>
+      <div id = "couponImgDiv">
+        <img id = "myCouponImg" src = "/images/c1.jpg" class = "fillImg">
+      </div>
+      <div id = myCouponNumberDiv> 
+        <p id = "myCouponNumberP" class = "centerText" >  </p> 
+      </div>
+    </div>
+
+    <div id = "bottomBar">
+      <div id="playeDiv" >
+        <p id = "playtext" class = "centerText" >玩遊戲</p> 
+      </div>
+      <div id="coinDiv" >
+        <img id = "coin" class="fillImg" src="/images/coin.png">
+        <p id = "coinNumber" class = "centerText" >  </p>
+      </div>
+      <div id="leadBn" >
+        <img id = "crown" class="fillImg" src="/images/crown.png">
+      </div>
+    </div>
+    
+    <div id="leadBnModal" class="modal">
+        <div class="modal-content">
+          <span id = "closeLeadBnModal" class="close">&times;</span>
+          <div id="leadBnTitle">
+            <img id="leadBnImg" src="/images/crown.png">
+            <span id="leadBnInfo">永康幣排行榜</span>
+          </div>
+          <table id = "leaderTable" ></table>
+          
+        </div>
+    </div>
+
+    <div id = "buyCouponDov" class = "modal">
+      <div class="modal-content">
+        <br>
+        <div id = "buy_currentCoinsNumberDiv">
+          您目前有 0 個代幣可以兌換<br>
+        </div>
+        <div id = "buyCouponDovIntro">
+          請輸入想兌換的數量<br>
+          （一張折價券會消耗 3 個永康幣）  
+        </div>
+
+        <div id = "couponNumberDiv">
+          <p>今日剩餘兌換券數量：</p>
+          <p id = couponNumber >0</p>
+        </div>
+        <hr>
+        <label for="exchangeNumber">要兌換的數量：</label>
+        <input type="number" id="exchangeNumber" name="exchangeNumber" min="1" max="10" value="0">  
+
+        <div id = "buyCouponNote">  </div>
+        <div id = "buyCouponConfirm"> <div class="centerText">確認</div></div>
+        <div id = "buyCouponCancel" > <div class="centerText">取消</div></div>
+      </div>
+    </div>
+
+    <div id="useCouponDiv" class = "modal">
+      <div class="modal-content">
+
+        <label for="inputUseCoupons" id="useCoupons">請輸入想兌換的數量</label>
+        <br>
+        <input type="number" id="inputUseCoupons" value="1" min="1" max="1000">
+        <br>
+        <div id = "inputUseCouponError">您只有0張兌換券 </div>
+
+        <label for="inputPassword" id="pwdModalInfo">請輸入密碼</label>
+        <br>
+        <input type="number" id="inputPassword" value="" min="1000" max="9999">
+        <div id="pwdError">
+          密碼錯誤
+        </div>
+        <div id = "exchangeRet">成功使用 1 張兌換券！</div>
+        <div id="pwdModalButtonDiv">
+          <p id="pwdButtonComfirm">確認</p>
+          <p id="pwdButtonCancel">取消</p>
+        </div>
+      </div>  
+    </div>
+
+    <div id = "couponDescriptionDiv" class = "modal" >
+      <div class="modal-content">
+        <div id = "couponDescriptionInfoDiv">
+          <div id = "couponDescriptionInfo" >
+            每天登入玩遊戲皆可獲得永康幣，這些永康幣會被換算成可被抽獎的機會。<br>
+            舉例說明：活動期間共有100個人玩，這100個人總共有3000個金幣，我們將依照3000這個名單數量進行抽獎，當您玩遊戲獲得20個永康幣，就會有20/3000的機率被抽中，累積的永康幣越多，可獲得的抽獎機率越高，<br>最高獎項為Iphone12！
+          </div>  
+        </div>
+        <div id = "couponDescriptionConfirm"> 
+          <p class = "centerText"> 確認 </p>
+        </div>
+      </div>
+    </div>
+
+    <div id = "personalIntroDiv" class = "modal" >
+      <div class="modal-content">
+        <div id = "personalIntroInfoDiv">
+          <div id = "personalIntroInfo" >
+            個資說明頁面<br>
+            由於抽獎以及店家核銷所需，請提供姓名、電話以及聯絡信箱。
+          </div>  
+        </div>
+        <div id = "personalIntroConfirm"> 
+          <p class = "centerText"> 確認 </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="../scripts/NetworkAgent.js"></script>
+    <script src="../scripts/UI.js"></script>
+    <script src="../scripts/globalVariables.js"></script>
+    <script src="../scripts/facebook-jssdk-loader.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=googleInit" async defer></script>
+    <script src="../scripts/api-facebook.js"></script>
+    <script src="../scripts/api-google.js"></script>
+    <script src="../scripts/main.js"></script>
+  </body>
+</html>
