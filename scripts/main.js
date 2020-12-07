@@ -187,9 +187,10 @@ switch (location.pathname) {
   case '/prize-list/':
   case '/prize-list/index':
   case '/prize-list/index.html':
+  case '/prize-list/test.html':
     isChangeBrowserPage = false;
-    let logout = document.getElementById('logout');
-    logout.addEventListener('click', clearLSLogout, false);
+    // let logout = document.getElementById('logout');
+    // logout.addEventListener('click', clearLSLogout, false);
 
     //// 假如 localStorage 內的使用者登入資訊有誤，則返回首頁
     if (localStorage.getItem('vendor') != "google" && localStorage.getItem('vendor') != "facebook" && false  ){
@@ -218,61 +219,52 @@ switch (location.pathname) {
       });
 
       //// 取得目前池中兌換券數量來建構『兌換卷』頁面
-      postData = {
-        request: 'get',
-        requestItem: 'couponTotal'
-      };
-      aNetworkAgent.sendPost(postData).then(couponTotal => {
-        console.log("prize-list get couponTotal, couponTotal=" , couponTotal );
-        aUI.showAllCoupons(couponTotal);
-      });
-
+      aUI.showAllCoupons();
+      
       //// 玩遊戲
-      playeDiv.addEventListener('click', function(){
-        location.replace("/games");
-      }, false);
+      // playeDiv.addEventListener('click', function(){
+      //   location.replace("/games");
+      // }, false);
 
-      //// 點擊金幣開啟『兌換區』
-      coinDiv.addEventListener('click' , function(){
+      //// 點擊『購買折價券』開啟『兌換區』
+      doExchangeImg.addEventListener('click' , function(){
         console.log(" _coinDiv click ");
-        document.getElementById("buyCouponDov").style.display = "block";
+        //// 每次點擊就詢問兌換池的狀況
+        aUI.showAllCoupons();
+        document.getElementById("exchangeModalDiv").style.display = "block";
       },false);
       //// 確認兌換
-      buyCouponConfirm.addEventListener('click', function(){
+      exchangeModalComfirmImg.addEventListener('click', function(){
         aUI.buyCoupons();
       });
       //// 點擊取消關閉兌換區
-      buyCouponCancel.addEventListener('click', function(){
+      exchangeModalCancel.addEventListener('click', function(){
         console.log("buyCouponCancel click");
-        document.getElementById("buyCouponDov").style.display = "none";
+        document.getElementById("exchangeModalDiv").style.display = "none";
       });
       //// 查看排行榜
-      leadBn.addEventListener('click', function(){
+      leaderBnImg.addEventListener('click', function(){
         console.log(" leadBn click ");
-        document.getElementById("leadBnModal").style.display = "block";
+        document.getElementById("leaderModalDiv").style.display = "block";
         aUI.showLeaders();
       });
       //// 關閉排行榜
-      closeLeadBnModal.addEventListener('click', function(){
-        document.getElementById("leadBnModal").style.display = "none";
+      leaderModalCancel.addEventListener('click', function(){
+        document.getElementById("leaderModalDiv").style.display = "none";
       });
       //// 『查看說明』
-      checkDescriptionDiv.onclick = function(){
-        document.getElementById("couponDescriptionDiv").style.display = "block";
-      };
+      // checkDescriptionDiv.onclick = function(){
+      //   document.getElementById("couponDescriptionDiv").style.display = "block";
+      // };
       //// 關閉『查看說明』
-      couponDescriptionConfirm.onclick = function(){
-        document.getElementById("couponDescriptionDiv").style.display = "none";
-      }
-      //// 點擊『購買折價券』開啟『兌換區』
-      buyCouponDiv.addEventListener('click' , function(){
-        console.log(" _buyCouponDiv click ");
-        document.getElementById("buyCouponDov").style.display = "block";
-      },false);
+      // couponDescriptionConfirm.onclick = function(){
+      //   document.getElementById("couponDescriptionDiv").style.display = "none";
+      // }
+      
       //// 關閉『個資說明頁』
-      personalIntroConfirm.onclick = function(){
-        document.getElementById("personalIntroDiv").style.display = "none"; 
-      }
+      // personalIntroConfirm.onclick = function(){
+      //   document.getElementById("personalIntroDiv").style.display = "none"; 
+      // }
 
 
     }

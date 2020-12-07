@@ -109,7 +109,12 @@ body {
 #poolInfoDivText{
   position: absolute;
   top:30%;
+  left:0%;
+  width:94%;
+  height:50%;
+  margin:10px;
   color:#F47165;
+  text-align: center;
 }
 
 #doExchangeDiv{
@@ -326,10 +331,10 @@ body {
 
 #myCoinsNumberIntroDiv{
   position: absolute;
-  width:25%;
+  width:20%;
   height:100%;
   top:0%;
-  right:0%;
+  right:4%;
 }
 
 #myCoinsNumberIntroImg{
@@ -415,10 +420,10 @@ body {
 
 #myExchangeNumberIntroDiv{
   position: absolute;
-  width:25%;
+  width:20%;
   height:100%;
   top:0%;
-  right:0%;
+  right:4%;
 }
 
 #myExchangeNumberIntroImg{
@@ -445,8 +450,8 @@ body {
 
 #leaderBnImg{
   position: absolute;
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
   max-width: 260px;
   max-height: 86px;
   top:0%;
@@ -484,7 +489,7 @@ body {
   width: 85vw;
   height: 85vh;
   max-width: 760px;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 #gameIntroModal {
@@ -492,9 +497,9 @@ body {
 }
 
 #exchangeModalBGTopDiv, #useCouponModalBGTopDiv , #leaderModalBGTopDiv{
-  left:2%;
+  left:3%;
   top:0%;
-  width:96%;
+  width:94%;
   height:15%;
   position: absolute;
 }
@@ -533,8 +538,8 @@ body {
 
 #leaderModalBGDiv{
   top:0%;
-  left:2%;
-  width:96%;
+  left:0%;
+  width:100%;
   height:100%;
   position: absolute;
 }
@@ -564,6 +569,18 @@ body {
   max-width: 74px;
   max-height: 74px;
   object-fit: contain;
+}
+
+#leaderModalTable{
+  position: absolute;
+  margin: auto;
+  width:94%;
+  height:70%;
+  top:20%;
+  left:3%;
+  color:black;
+  font-size:14pt;
+  overflow-wrap:anywhere;
 }
 
 #leaveWarningInfo{
@@ -614,9 +631,16 @@ body {
   
 }
 
-#exchangeModalButtonDiv , #useCouponModalButtonDiv  {
+#exchangeModalButtonDiv {
   position: absolute;
-  bottom: 2%;
+  bottom: 9%;
+  width:100%;
+  height:10%;
+}
+
+#useCouponModalButtonDiv  {
+  position: absolute;
+  bottom: 5%;
   width:100%;
   height:10%;
 }
@@ -628,13 +652,6 @@ body {
   height:10%;
 }
 
-#leaderModalTable{
-  margin: auto;
-  width:90%;
-  color:white;
-  font-size:14pt;
-  overflow-wrap:anywhere;
-}
 
 #exchangeModalComfirm , #useCouponModalComfirm , #leaderModalComfirm{
   position: absolute;
@@ -775,6 +792,34 @@ body {
   margin-left: 2%;
   margin-right: 2%;
   width: 90%;
+}
+
+.rankRow{
+  position: relative;
+  width:90%;
+  height:8%;
+  left:4%;
+  margin-top: 1%;
+}
+
+.rankNumeralDiv{
+  position: absolute;
+  width:10%;
+  height: 100%;
+  left: 0%;
+}
+
+.rankNameInfoDiv{
+  position: absolute;
+  width:85%;
+  height: 100%;
+  left: 15%;
+}
+
+.rankNumeralImg, .rankNameInfoImg{
+  width: 100%;
+  height:100%;
+  object-fit: fill;
 }
 
 
