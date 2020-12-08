@@ -450,8 +450,11 @@
 		physics="debug: false; friction: 0.002; maxInterval: 0.025;" >
 			<a-assets id = "aAssets" timeout = "20000">
 
-				<!-- <a-asset-item id="_Hoonie" name="虎妮" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Hoonie.glb"></a-asset-item> -->
-				<a-asset-item id="_Hoonie" name="虎妮" src="model/Hoonie.glb"></a-asset-item>
+				<a-asset-item id="_Hoonie" name="虎妮" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Hoonie.glb"></a-asset-item>
+				<!-- <a-asset-item id="_Hoonie" name="虎妮" src="model/Hoonie.glb"></a-asset-item> -->
+
+				<a-asset-item id="_cheering" name="加油版" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/cheering.glb"></a-asset-item>
+
 				<a-asset-item id="basketball" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/basketball_FBX.glb"></a-asset-item>
 
 				<a-asset-item id="jar1" name="罐子 1" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Jar1.glb"></a-asset-item>
@@ -484,8 +487,11 @@
 			<!-- 籃球本身 -->
 			<!-- <a-entity visible = "true" id = "aSphere" position="0 0.1 -1.0" rotation="0 0 0" scale=" 0.5 0.5 0.5 " gltf-model="#basketball" ></a-entity> -->
 
-			<!-- 測試虎泥 -->
+			<!-- 虎泥 -->
 			<a-entity visible = "true" id = "Hoonie" position="5 -2 -4.5" rotation="0 -30 0" scale=" 2.5 2.5 2.5 " gltf-model="#_Hoonie" ></a-entity>
+
+			<!-- 加油版 -->
+			<a-entity visible = "true" id = "cheering" position="2 2 -2" rotation="0 0 0" scale=" 2.5 2.5 2.5 " gltf-model="#_cheering" ></a-entity>
 
 			<!-- 背景看板 -->
 			<a-entity visible = "true" id = "backgroundBoard" position="0 -2 -3.2" rotation="0 0 0" scale=" 1.5 1.5 1.5 " gltf-model="#_backgroundBoard" ></a-entity>
@@ -669,7 +675,7 @@
 		document.getElementById("aSphere").addEventListener('model-loaded', setModelMesh );
 
 		//// 將 『浮空地板』調整為無光標準，並且增加動畫
-		flyfloor.setAttribute("animation-mixer" , "clip: Take 001");
+		// flyfloor.setAttribute("animation-mixer" , "clip: Take 001");
 		flyfloor.addEventListener('model-loaded', function (evt){
 			let objj = evt.detail.model;
 			objj.traverse(node => {
@@ -699,11 +705,45 @@
 				startTime: 0,
 				uid:"mifly168"
 			});
+			// evt.detail.model.animationSlices = animationSlices;
+		} );
+
+		cheering.setAttribute("animation-mixer" , "clip: Take 001");
+		cheering.addEventListener('model-loaded', function (evt){
+			let objj = evt.detail.model;
+			objj.traverse(node => {
+				if (node.isMesh) {
+					node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+					if (node.material.map){
+						node.material.map.encoding = THREE.GammaEncoding;
+						node.material.map.needsUpdate = true;
+					}
+					node.material.needsUpdate = true;
+				}
+			});
+			let animationSlices = [];
+			animationSlices.push({ 
+				changed:false, 
+				loop:true, 
+				reset:true, 
+				stopHead: false,
+				count: 0, 
+				idle:"mifly169", 
+				uid:"mifly169" 
+			});
+			animationSlices.push({
+				animationName: evt.detail.model.animations[0].name,
+				name: evt.detail.model.animations[0].name,
+				endTime: evt.detail.model.animations[0].duration ,
+				startTime: 0,
+				uid:"mifly169"
+			});
 			evt.detail.model.animationSlices = animationSlices;
 		} );
 
+
 		if (document.getElementById("Hoonie")){
-			Hoonie.setAttribute("animation-mixer" , "clip: Take 001");
+			// Hoonie.setAttribute("animation-mixer" , "clip: Take 001");
 			Hoonie.addEventListener('model-loaded', function (evt){
 
 				let objj = evt.detail.model;
@@ -735,7 +775,7 @@
 					startTime: 0,
 					uid:"mifly168"
 				});
-				evt.detail.model.animationSlices = animationSlices;
+				// evt.detail.model.animationSlices = animationSlices;
 			} );
 		}
 

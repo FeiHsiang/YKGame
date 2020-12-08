@@ -419,13 +419,13 @@ class UI {
       document.getElementById("myCouponUseImg").onclick = function(){
         //// 假如『尚未使用過得兌換券』數量為0，則不進入『使用兌換券』的流程
         if (effectiveCoupon == 0){
-          return;
+          // return;
         }
         console.log(" _mycouponDiv click " );
 
         //// 假如首次『使用兌換券』則跳出『個資說明頁』
         if (isFirstTimeExchange){
-          // document.getElementById("personalIntroDiv").style.display = "block"; 
+          personalIntroModalDiv.style.display = "block";
         };
 
         //// 每次進入將『錯誤提示』 『兌換成功』給隱藏

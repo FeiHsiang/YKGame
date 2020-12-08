@@ -14127,11 +14127,14 @@ module.exports = AFRAME.registerComponent('animation-mixer', {
               }
             }
 
+            // console.log("  11  " , this.mixer._actions[0].time , this.model.animationSlices[index].startTime  );
             if (this.mixer._actions[0].time < this.model.animationSlices[index].startTime){
+              console.log("  33  " , this.model , this.model.animationSlices[0].count  );
               this.mixer._actions[0].time = this.model.animationSlices[index].startTime;
             }
 
             if (this.mixer._actions[0].time > this.model.animationSlices[index].endTime){
+              console.log("  44  " , this.mixer , this.model );
 
               if(this.model.animationSlices[0].uid == this.model.animationSlices[0].loop){
                 this.mixer._actions[0].time = this.model.animationSlices[index].startTime;

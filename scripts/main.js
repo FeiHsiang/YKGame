@@ -53,9 +53,9 @@ let checkLogin = function() {
   else {
 //[start-20201119- fei -0001-debug]//
     //// 測試：不論登入與否，直接顯示
-    console.log("main.js: call selectProgramToRun ");
-    selectProgramToRun(); 
-    return;
+    // console.log("main.js: call selectProgramToRun ");
+    // selectProgramToRun(); 
+    // return;
 //[end---20201119- fei -0001-debug]//
 
     // 沒登入
@@ -251,6 +251,20 @@ switch (location.pathname) {
       leaderModalCancel.addEventListener('click', function(){
         document.getElementById("leaderModalDiv").style.display = "none";
       });
+      //// 關閉排行榜
+      leaderModalComfirmImg.onclick = function(){
+        document.getElementById("leaderModalDiv").style.display = "none";
+      }
+      //// 關閉『個資聲明』頁面
+      personalIntroModalComfirmImg.onclick = function(){
+        personalIntroModalDiv.style.display = "none";
+      }
+      //// 
+      personalIntroModalCancel.onclick = function(){
+        personalIntroModalDiv.style.display = "none";
+        useCouponModalDiv.style.display = "none";
+      }
+
       //// 開始遊戲按鈕
       startGameBnImg.onclick = function(){
         aUI.showStartGameIntro();
@@ -266,7 +280,7 @@ switch (location.pathname) {
         gameIntroModal.style.display = "none";
       }
 
-      //// 返回首頁
+      //// 顯示『返回首頁』
       backToWixImg.onclick = function(){
         leaveWarningModalDiv.style.display = "block";
       }
@@ -274,6 +288,7 @@ switch (location.pathname) {
       leaveWarningCancel.onclick = function(){
         leaveWarningModalDiv.style.display = "none";
       }
+      //// 執行跳轉頁面
       leaveWarningComfirmImg.onclick = function(){
         location.href = "https://www.miflydesign.com/yongkang";
       }
