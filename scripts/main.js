@@ -124,9 +124,17 @@ switch (location.pathname) {
     },false);
     //// 點擊開啟『介紹遊玩方式』
     gameStartIntro.addEventListener('click', function(){
-      
+      gameInfoModalDiv.style.display = "block";
     },false);
     //// 點擊關閉『介紹遊玩方式』
+    gameInfoModalCancel.onclick = function(){
+      gameInfoModalDiv.style.display = "none";
+    }
+    gameInfoModalComfirmImg.onclick = function(){
+      gameInfoModalDiv.style.display = "none";
+    }
+
+    //// 點擊關閉『開始遊戲前導區』
     gameIntroModalCancel.onclick = function(){
       gameIntroModal.style.display = "none";
     }
@@ -264,11 +272,29 @@ switch (location.pathname) {
       personalIntroModalComfirmImg.onclick = function(){
         personalIntroModalDiv.style.display = "none";
       }
-      //// 
+      //// 關閉『個資聲明』頁面，同時關閉『兌換頁面』
       personalIntroModalCancel.onclick = function(){
         personalIntroModalDiv.style.display = "none";
         useCouponModalDiv.style.display = "none";
       }
+
+      //// 點擊開啟『永康幣介紹區』
+      myCoinsNumberIntroImg.onclick = function(){
+        coinIntroModalDiv.style.display = "block";
+      }
+      //// 點擊關閉『永康幣介紹區』
+      coinIntroModalComfirmImg.onclick = function(){
+        coinIntroModalDiv.style.display = "none";
+      }
+      //// 點擊開啟『累積抽獎機會介紹區』
+      myExchangeNumberIntroImg.onclick = function(){
+        lotteryIntroModalDiv.style.display = "block";
+      }
+      //// 點擊關閉『累積抽獎機會介紹區』
+      lotteryModalComfirmImg.onclick = function(){
+        lotteryIntroModalDiv.style.display = "none";
+      }
+
 
       //// 開始遊戲按鈕
       startGameBnImg.onclick = function(){
@@ -298,19 +324,7 @@ switch (location.pathname) {
         location.href = "https://www.miflydesign.com/yongkang";
       }
 
-      //// 『查看說明』
-      // checkDescriptionDiv.onclick = function(){
-      //   document.getElementById("couponDescriptionDiv").style.display = "block";
-      // };
-      //// 關閉『查看說明』
-      // couponDescriptionConfirm.onclick = function(){
-      //   document.getElementById("couponDescriptionDiv").style.display = "none";
-      // }
-      
-      //// 關閉『個資說明頁』
-      // personalIntroConfirm.onclick = function(){
-      //   document.getElementById("personalIntroDiv").style.display = "none"; 
-      // }
+
 
 
     }

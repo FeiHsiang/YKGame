@@ -27,7 +27,7 @@
     <div id ="poolInfoDiv" >
       <div id = "poolInfoBGDiv">
         <img id = "poolInfoBGImg" src = "/images/ui/window/fraction/pink bottom.png">
-        <div id = "poolInfoDivText">目前剩餘 100/5000，今日可兌換數量剩餘</div>
+        <div id = "poolInfoDivText"></div>
       </div>
       <div id = "poolInfoBGTopDiv">
         <img id = "poolInfoBGTopImg" src = "/images/ui/pop up/top bar/red.png">
@@ -74,7 +74,7 @@
           <img id = "myCoinsNumberImg" src = "/images/ui/img/yongkang coin.png">
         </div>
         <div id = "myCoinsNumberTextDiv">
-          <p id = "myCoinsNumberTextP"> 永康幣數量 </p>
+          <p id = "myCoinsNumberTextP"> 永康幣數量： </p>
 
         </div>
         <div id = "myCoinsNumberInfoDiv">
@@ -92,7 +92,7 @@
           <img id = "myExchangeNumberImg" src = "/images/ui/img/ticket.png">
         </div>
         <div id = "myExchangeNumberTextDiv">
-          <p id = "myExchangeNumberTextP">累計抽獎次</p>
+          <p id = "myExchangeNumberTextP">累積抽獎機會：</p>
         </div>
         <div id = "myExchangeNumberInfoDiv">
           <p id = "myExchangeNumberInfoP">  </p>
@@ -149,6 +149,7 @@
 
       </div>  
     </div>
+
     <!-- 使用兌換券區 -->
     <div id="useCouponModalDiv" class = "modal" style="display: none;">
       <div id = "useCouponModalContentDiv" class="modal-content">
@@ -228,6 +229,64 @@
       </div>  
     </div>
 
+    <!-- 永康幣介紹 -->
+    <div id="coinIntroModalDiv" class="modal" style="display: none;">
+      <div class="modal-content">
+        <div id ="coinIntroModalBGDiv" >
+          <img id = "coinIntroModalBGImg" src = "/images/ui/pop up/bottom/white.png">
+        </div>
+
+        <div id = "coinIntroModalTitleDiv">
+          <img id = "coinIntroModalTitleBGTopImg" src = "/images/ui/pop up/top bar/pink.png">
+          <div id = "coinIntroModalTitleText" class = "centerText">永康幣介紹</div>
+        </div>
+
+        <!-- <img id = "coinIntroModalCancel" src = "/images/ui/button/delete/normal.png"> -->
+
+        <div id = "coinIntroModalInfo"  >
+          <div id = "coinIntroModalInfoText">
+            2020年12月10日至12月25日期間，到AR遊戲內挑戰射氣球、拉霸機、丟罐子以及棒球九宮格，登入Google或Facebook保留紀錄，遊戲即可開始！ 依據分數高低，發送1至3枚永康幣，最高一天發放3枚喔！ 
+          </div>
+        </div>
+
+        <div id="coinIntroModalButtonDiv">
+          <div id="coinIntroModalComfirm">
+            <img id = "coinIntroModalComfirmImg" src = "/images/ui/button/confirm/normal.png">
+          </div> 
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 『累積抽獎機會』介紹 -->
+    <div id="lotteryIntroModalDiv" class="modal" style="display: none;">
+      <div class="modal-content">
+        <div id ="lotteryModalBGDiv" >
+          <img id = "lotteryModalBGImg" src = "/images/ui/pop up/bottom/white.png">
+        </div>
+
+        <div id = "lotteryModalTitleDiv">
+          <img id = "lotteryModalTitleBGTopImg" src = "/images/ui/pop up/top bar/pink.png">
+          <div id = "lotteryModalTitleText" class = "centerText">抽獎機會介紹</div>
+        </div>
+
+        <!-- <img id = "lotteryModalCancel" src = "/images/ui/button/delete/normal.png"> -->
+
+        <div id = "lotteryModalInfo"  >
+          <div id = "lotteryModalInfoText">
+            當您遊戲結束後會獲得永康幣，可將手上的永康幣換成15元折價券，成功於店家消費後，即可獲得抽獎機會，消費越多次機會越高！
+          </div>
+        </div>
+
+        <div id="lotteryModalButtonDiv">
+          <div id="lotteryModalComfirm">
+            <img id = "lotteryModalComfirmImg" src = "/images/ui/button/confirm/normal.png">
+          </div> 
+        </div>
+
+      </div>
+    </div>
+
     <!-- 個資聲明 -->
     <div id="personalIntroModalDiv" class = "modal" style="display: none;">
       <div id = "personalIntroModalContentDiv" class="modal-content">
@@ -253,7 +312,7 @@
       </div>  
     </div>
 
-    <!-- 遊戲介紹區域 -->
+    <!-- 開始遊戲前置介紹區域 -->
     <div id="gameIntroModal" class = "modal" style="display: none;">
       <div id = "gameIntroModalContentDiv" class="modal-content">
         
@@ -268,7 +327,7 @@
 
         <div id ="gameIntroModalBGInfoDiv" >
           <img id = "gameIntroModalBGInfoImg" src = "/images/ui/pop up/bottom/pink.png">
-          <div id = "gameIntroModalInfo"  >  </div>
+          <div id = "gameIntroModalInfo">  </div>
         </div>
 
         <div id="gameIntroModalButtonDiv">

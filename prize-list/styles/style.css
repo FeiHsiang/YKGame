@@ -2,9 +2,9 @@ html {
   /* max-width: 100vw; */
   /* min-height: 100vh; */
   width: 100vw;
-  height:100vh;
-  overflow: hidden;
-  touch-action: none;
+  /* height:100vh; */
+  /* overflow: hidden; */
+  /* touch-action: none; */
 }
 
 body {
@@ -15,8 +15,8 @@ body {
   font-size:20pt;
   margin:0px;
   width: 100vw;
-  height:100vh;
-  overflow: hidden;
+  /* height:100vh; */
+  /* overflow: hidden; */
   font-family: "Microsoft JhengHei","微軟正黑體";
 }
 
@@ -66,7 +66,7 @@ body {
   left: 10%;
   top:9%;
   width:80%;
-  height:30%;
+  height:36%;
   /* max-width: 456px; */
   /* max-height: 294px; */
   /* margin-top: 16px; */
@@ -78,7 +78,7 @@ body {
   left: 0%;
   width:100%;
   height:100%;
-  font-size: 14pt;
+  font-size: 13pt;
 }
 
 #poolInfoBGImg {
@@ -134,7 +134,7 @@ body {
 
 #doExchangeDiv{
   position: absolute;
-  bottom:3%;
+  bottom:1%;
   width:60%;
   height:30%;
   left:20%;
@@ -161,7 +161,7 @@ body {
 #myCouponDiv{
   position: absolute;
   left: 10%;
-  top: 42%;
+  top: 46%;
   width:80%;
   height:20%;
   /* max-width: 456px; */
@@ -264,13 +264,13 @@ body {
 #myCoinsInfoDiv{
   position: absolute;
   left: 10%;
-  top:65%;
+  top:67%;
   width:80%;
   height:20%;
   /* max-width: 456px; */
   /* max-height: 200px; */
   /* margin-top: 28px; */
-  font-size: 14pt;
+  font-size: 12pt;
 }
 
 #myCoinsInfoBGDiv{
@@ -509,7 +509,7 @@ body {
 
 /* 購買兌換券區 使用兌換券區 排行榜區 start */
 
-#exchangeModalDiv, #useCouponModalDiv , #leaderModalDiv , #gameIntroModal , #leaveWarningModalDiv , #personalIntroModalDiv{
+#exchangeModalDiv, #useCouponModalDiv , #leaderModalDiv , #gameIntroModal , #leaveWarningModalDiv , #personalIntroModalDiv , #coinIntroModalDiv , #lotteryIntroModalDiv {
   z-index: 3;
   font-size: 18pt;
   color:#F47165;
@@ -556,7 +556,7 @@ body {
   position: absolute;
 }
 
-#leaderModalBGTopDiv , #useCouponModalBGTopDiv , #personalIntroModalBGTopDiv {
+#leaderModalBGTopDiv , #useCouponModalBGTopDiv , #personalIntroModalBGTopDiv , #coinIntroModalTitleDiv , #lotteryModalTitleDiv{
   left:3%;
   top:0%;
   width:94%;
@@ -564,7 +564,7 @@ body {
   position: absolute;
 }
 
-#exchangeModalTopImg , #useCouponModalTopImg , #leaderModalTopImg , #gameIntroModalBGTopImg , #personalIntroModalTopImg {
+#exchangeModalTopImg , #useCouponModalTopImg , #leaderModalTopImg , #gameIntroModalBGTopImg , #personalIntroModalTopImg , #coinIntroModalTitleBGTopImg , #lotteryModalTitleBGTopImg{
   left: 0%;
   top: 0%;
   width: 100%;
@@ -581,7 +581,7 @@ body {
   object-fit: cover;
 }
 
-#exchangeModalBGTopInfo , #useCouponModalBGTopInfo , #leaderModalBGTopInfo , #gameIntroModalBGTopInfo , #personalIntroModalBGTopInfo {
+#exchangeModalBGTopInfo , #useCouponModalBGTopInfo , #leaderModalBGTopInfo , #gameIntroModalBGTopInfo , #personalIntroModalBGTopInfo , #coinIntroModalTitleText , #lotteryModalTitleText {
   position: absolute;
   top:50%;
   margin:0;
@@ -598,7 +598,7 @@ body {
   position: absolute;
 }
 
-#leaderModalBGDiv, #personalIntroModalBGDiv{
+#leaderModalBGDiv, #personalIntroModalBGDiv , #coinIntroModalBGDiv , #lotteryModalBGDiv{
   top:0%;
   left:0%;
   width:100%;
@@ -607,7 +607,7 @@ body {
 }
 
 
-#exchangeModalBGImg, #useCouponModalBGImg , #leaderModalBGImg , #gameIntroModalBGImg , #leaveWarningBGImg , #personalIntroModalBGImg {
+#exchangeModalBGImg, #useCouponModalBGImg , #leaderModalBGImg , #gameIntroModalBGImg , #leaveWarningBGImg , #personalIntroModalBGImg , #coinIntroModalBGImg , #lotteryModalBGImg{
   /* position: absolute; */
   left: 0%;
   top: 0%;
@@ -622,7 +622,7 @@ body {
   right:0px;
 }
 
-#exchangeModalCancel , #useCouponModalCancel , #leaderModalCancel , #leaveWarningCancel , #personalIntroModalCancel  {
+#exchangeModalCancel , #useCouponModalCancel , #leaderModalCancel , #leaveWarningCancel , #personalIntroModalCancel , #coinIntroModalCancel  {
   position: absolute;
   top:-20px;
   right:-20px;
@@ -631,6 +631,21 @@ body {
   max-width: 74px;
   max-height: 74px;
   object-fit: contain;
+}
+
+#coinIntroModalInfo , #lotteryModalInfo{
+  position: absolute;
+  margin: 5%;
+  top:15%;
+  width: 90%;
+  height: 50%;
+  left:2%;
+  color:#F47165;
+}
+
+#coinIntroModalInfoText , #lotteryModalInfoText {
+  font-size: 16pt;
+  color:#F47165;
 }
 
 #leaderModalTable{
@@ -739,7 +754,7 @@ body {
   height:10%;
 }
 
-#leaderModalButtonDiv , #leaveWarningButtonDiv , #personalIntroModalButtonDiv {
+#leaderModalButtonDiv , #leaveWarningButtonDiv , #personalIntroModalButtonDiv , #coinIntroModalButtonDiv , #lotteryModalButtonDiv {
   position: absolute;
   bottom: 4%;
   width:100%;
@@ -762,7 +777,7 @@ body {
   top: 0%;
 }
 
-#exchangeModalComfirm , #useCouponModalComfirm , #leaderModalComfirm , #leaveWarningComfirm , #personalIntroModalComfirm {
+#exchangeModalComfirm , #useCouponModalComfirm , #leaderModalComfirm , #leaveWarningComfirm , #personalIntroModalComfirm , #coinIntroModalComfirm , #lotteryModalComfirm {
   position: absolute;
   width:50%;
   left:25%;
@@ -777,7 +792,7 @@ body {
 }
 
 
-#exchangeModalComfirmImg , #useCouponModalComfirmImg , #leaderModalComfirmImg , #leaveWarningComfirmImg , #personalIntroModalComfirmImg {
+#exchangeModalComfirmImg , #useCouponModalComfirmImg , #leaderModalComfirmImg , #leaveWarningComfirmImg , #personalIntroModalComfirmImg , #coinIntroModalComfirmImg , #lotteryModalComfirmImg {
   width:100%;
   height: 100%;
   max-width: 370px;

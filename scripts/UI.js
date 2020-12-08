@@ -19,7 +19,7 @@ class UI {
     document.getElementById('before-login').style.display = 'none';
     document.getElementById('after-login').style.display = 'block';
     document.getElementById('account-info').textContent = `Hello ${userName}. ${userID}`;
-    let couponIntroText = "歡迎來到永康幣兌換區！獲得的永康幣除了同時增加抽iphone 12的機會，也可用來兌換永康商圈指定店家的15元折價券喔！";
+    let couponIntroText = "歡迎來到永康幣兌換區！獲得的永康幣除了同時增加抽 iPhone 12 mini 的機會，也可用來兌換永康商圈指定店家的15元折價券喔！";
     document.getElementById('couponIntroContainerInfo').innerHTML = couponIntroText;
   }
 
@@ -158,7 +158,7 @@ class UI {
       
       // document.getElementById("couponNumber").innerHTML = couponTotal[0].coupon001;
       // document.getElementById("todayLeftCouponsDiv").innerHTML = "今日折價券剩：" + couponTotal[0].coupon001;
-      document.getElementById("poolInfoDivText").innerHTML = "目前剩餘" + couponTotal[0].coupon001 +"/5000，今日可兌換數量剩餘" + couponTotal[0].coupon001;
+      document.getElementById("poolInfoDivText").innerHTML = "活動期間每天可兌換300張15元抵用券，共計發送5000張，今日剩餘" + couponTotal[0].coupon001 +" 張";
       document.getElementById("exchangeModalInfo").innerHTML =  "今日折價券剩餘" + couponTotal[0].coupon001 + "張，請輸入想要兌換的數量（兌換一張折價券需消耗三枚代幣）";
       window.couponNumber = couponTotal[0].coupon001;
     });
@@ -197,7 +197,8 @@ class UI {
           // document.getElementById("todayLeftCouponsDiv").innerHTML = "今日折價券剩：" + buyRet[0].couponRemain.coupon001;
 
           let rem = buyRet[0].couponRemain.coupon001;
-          document.getElementById("poolInfoDivText").innerHTML = "目前剩餘" + rem +"/5000，今日可兌換數量剩餘" + rem;
+          // document.getElementById("poolInfoDivText").innerHTML = "目前剩餘" + rem +"/5000，今日可兌換數量剩餘" + rem;
+          document.getElementById("poolInfoDivText").innerHTML = "活動期間每天可兌換300張15元抵用券，共計發送5000張，今日剩餘" + couponTotal[0].coupon001 +" 張";
 
         }
 
