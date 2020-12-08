@@ -400,7 +400,7 @@ class UI {
       });
       console.log("_updateUserInfo: _couponIDList =  " , effectiveCoupon , couponIDList );
       //// 於『兌換區』顯示『累計抽獎次』
-      document.getElementById("myExchangeNumberInfoP").innerHTML =  userCouponList.length;
+      document.getElementById("myExchangeNumberInfoP").innerHTML =  userCouponList.length - effectiveCoupon;
 
       //// 於『兌換頁面』顯示『目前代幣數量』
       document.getElementById("myCouponDivInfoNumber").innerHTML = effectiveCoupon ;
@@ -444,13 +444,34 @@ class UI {
           let password = Number(document.getElementById('useCouponPWDInputText').value);
           if (couponIDList.length == 0){
             console.log(" _couponIDList empty ");
+            document.getElementById("useCouponModalRetText").style.color = "red";
+            document.getElementById("useCouponModalRetText").innerHTML = "您目前沒有兌換券";
             return;
           }
+          if ( useCouponInputText.value == 0 || useCouponInputText.value == "0"  ){
+            console.log(" wanted = 0 ");
+            document.getElementById("useCouponModalRetText").style.color = "red";
+            document.getElementById("useCouponModalRetText").innerHTML = "請輸入您要兌換的數量";
+            return;
+          }
+
+          if ( Number( useCouponInputText.value ) > couponIDList.length ){
+            console.log(" 想兌換的數量超過擁有的數量 " , useCouponInputText.value , couponIDList.length  );
+            document.getElementById("useCouponModalRetText").style.color = "red";
+            document.getElementById("useCouponModalRetText").innerHTML = "你只有" + couponIDList.length + "張折價券";
+            //// 重設『使用張數』
+            useCouponInputText.value = 0;
+            return;
+          }
+
+
           if (password < 1000 || password > 9999 ){
             console.log(" password error = " , password   );
-            // document.getElementById("pwdError").style.display = "block";
-            // document.getElementById("pwdError").innerHTML = "密碼長度必須為4";
+            document.getElementById("useCouponModalRetText").style.color = "red";
+            document.getElementById("useCouponModalRetText").innerHTML = ".密碼錯誤.";
+            
           }else {
+            console.log("1 _couponIDList = " , couponIDList , couponIDList.length );
             //// 向後端發送『使用兌換券』事件
             postData = {
               request: 'exchange',
@@ -461,37 +482,49 @@ class UI {
                 _id: couponIDList.splice(0, useCouponInputText.value ) 
               }, //// 從最前面的兌換券開始使用，數量按使用者選擇。
             };
+            //// 先關閉按鈕事件，以免多次觸發
+            useCouponModalComfirmImg.style.pointerEvents = "none";
+
             aNetworkAgent.sendPost(postData).then(exchangeRet => {
               console.log("exchangeRet = " , exchangeRet , exchangeRet[0].status );
+              console.log("2 _couponIDList = " , couponIDList , couponIDList.length );
+              //// 重新開啟按鈕事件
+              useCouponModalComfirmImg.style.pointerEvents = "auto";
               if (exchangeRet[0].status == true){
                 let currentCouponNumber = couponIDList.length;
+
+                //// 設定『最大使用數量』
+                useCouponInputText.setAttribute("max", currentCouponNumber);
+
                 //// 更新『兌換區』顯示的『折價券數量』
                 document.getElementById("myCouponDivInfoNumber").innerHTML = currentCouponNumber ;
 
                 //// 更新『使用折價券區』顯示的『目前擁有折價券數量』                
                 document.getElementById("useCouponModalInfo").innerHTML = "您目前擁有 " + currentCouponNumber + " 張折價券，要使用折價券抵用現金嗎？" ;
+                
+                document.getElementById("useCouponModalRetText").style.color = "#F47165";
+                document.getElementById("useCouponModalRetText").innerHTML = "成功使用 " + useCouponInputText.value + " 張折價券！"
 
-                // document.getElementById("pwdError").style.display = "none";
-                // document.getElementById("exchangeRet").innerHTML = "成功使用 " + 1 + " 張兌換券！"
-                // document.getElementById("exchangeRet").style.display = "block";
+                //// 重設『使用張數』
+                useCouponInputText.value = 0;
                 
               }else{
 
-                // document.getElementById("pwdError").style.display = "block";
-                // switch(exchangeRet[0].result){
-                //   case "Incorrect code!" :
-                //     document.getElementById("pwdError").innerHTML = "密碼錯誤";
-                //     break;
-                //   case "Prize not found!":
-                //     document.getElementById("pwdError").innerHTML = "此獎項不存在";
-                //     break;
-                //   case "Already exchanged!":
-                //     document.getElementById("pwdError").innerHTML = "此獎項已經兌換過";
-                //     break;
+                document.getElementById("useCouponModalRetText").style.color = "red";
+                switch(exchangeRet[0].result){
+                  case "Incorrect code!" :
+                    document.getElementById("useCouponModalRetText").innerHTML = "密碼錯誤";
+                    break;
+                  case "Prize not found!":
+                    document.getElementById("useCouponModalRetText").innerHTML = "折價券不存在";
+                    break;
+                  case "Already exchanged!":
+                    document.getElementById("useCouponModalRetText").innerHTML = "折價券已經兌換過";
+                    break;
                   
-                //   default:
-                //     document.getElementById("pwdError").innerHTML = "密碼後端錯誤";
-                // }
+                  default:
+                    document.getElementById("useCouponModalRetText").innerHTML = "密碼後端錯誤";
+                }
 
               }
             });

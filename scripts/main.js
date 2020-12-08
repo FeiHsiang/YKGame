@@ -241,7 +241,8 @@ switch (location.pathname) {
       //// 點擊『購買折價券』開啟『兌換區』
       doExchangeImg.addEventListener('click' , function(){
         console.log(" _coinDiv click ");
-        //// 每次點擊就詢問兌換池的狀況
+        //// 每次點擊就詢問兌換池的狀況，關閉顯示資訊
+        document.getElementById("exchangeModalRetDiv").innerHTML = "";
         aUI.showAllCoupons();
         document.getElementById("exchangeModalDiv").style.display = "block";
       },false);

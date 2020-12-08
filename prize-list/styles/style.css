@@ -511,7 +511,7 @@ body {
 
 #exchangeModalDiv, #useCouponModalDiv , #leaderModalDiv , #gameIntroModal , #leaveWarningModalDiv , #personalIntroModalDiv , #coinIntroModalDiv , #lotteryIntroModalDiv {
   z-index: 3;
-  font-size: 18pt;
+  font-size: 16pt;
   color:#F47165;
 }
 
@@ -680,7 +680,7 @@ body {
 }
 
 #useCouponModalBGInfoDiv {
-  top:16%;
+  top:12%;
   left:4%;
   width:92%;
   height:18%;
@@ -733,11 +733,11 @@ body {
 
 #useCouponModalNumberDiv{
   position: absolute;
-  top:34%;
+  top:30%;
   width:90%;
-  height:6%;
+  height:7%;
   left:5%;
-  
+  font-size: 16pt;
 }
 
 #exchangeModalButtonDiv {
@@ -828,8 +828,8 @@ body {
 #inputExchangeDiv {
   position: absolute;
   width:92%;
-  height:8%;
-  bottom:18%;
+  height:12%;
+  top:72%;
   left: 4%;
   border-width: 1px;
   border-radius: 16px;
@@ -842,7 +842,7 @@ body {
   position: absolute;
   width:92%;
   height:8%;
-  top:40%;
+  top:36%;
   left: 4%;
   border-width: 1px;
   border-radius: 16px;
@@ -854,17 +854,17 @@ body {
 #useCouponModalPhoneNumberDiv{
   position: absolute;
   width:92%;
-  height:8%;
-  top:50%;
+  height:7%;
+  top:44%;
   left: 4%;
-  font-size: 18pt;
+  font-size: 16pt;
 }
 
 #useCouponPhoneInputDiv{
   position: absolute;
   width:92%;
   height:8%;
-  top:56%;
+  top:50%;
   left: 4%;
   border-width: 1px;
   border-radius: 16px;
@@ -876,8 +876,8 @@ body {
 #useCouponModalPWDDiv{
   position: absolute;
   width:92%;
-  height:8%;
-  top:65%;
+  height:7%;
+  top:58%;
   left: 4%;
 }
 
@@ -885,7 +885,7 @@ body {
   position: absolute;
   width:92%;
   height:8%;
-  top:73%;
+  top:64%;
   left: 4%;
   border-width: 1px;
   border-radius: 16px;
@@ -893,6 +893,20 @@ body {
   border-color: #F47165;
   font-size: 18pt;
 }
+
+#useCouponModalRetDiv{
+  position: absolute;
+  width:92%;
+  height:7%;
+  top:74%;
+  left: 4%;
+  font-size: 16pt;
+}
+
+#useCouponModalRetText{
+
+}
+
 
 #inputExchangeText , #useCouponInputText , #useCouponPhoneInputText , #useCouponPWDInputText {
   position: relative;
