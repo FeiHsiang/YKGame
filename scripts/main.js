@@ -132,7 +132,7 @@ switch (location.pathname) {
     }
     //// 點擊跳轉『遊戲場景』
     gameIntroModalComfirm.onclick = function(){
-      location.href = "/games/slot.html";
+      aUI.startTodayGame();
     }
     //// 點擊跳轉『兌換區』
     myCouponImg.addEventListener('click', function(){

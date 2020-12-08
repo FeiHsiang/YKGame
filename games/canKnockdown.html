@@ -675,7 +675,7 @@
 		document.getElementById("aSphere").addEventListener('model-loaded', setModelMesh );
 
 		//// 將 『浮空地板』調整為無光標準，並且增加動畫
-		// flyfloor.setAttribute("animation-mixer" , "clip: Take 001");
+		flyfloor.setAttribute("animation-mixer" , "clip: Take 001");
 		flyfloor.addEventListener('model-loaded', function (evt){
 			let objj = evt.detail.model;
 			objj.traverse(node => {
@@ -705,10 +705,10 @@
 				startTime: 0,
 				uid:"mifly168"
 			});
-			// evt.detail.model.animationSlices = animationSlices;
+			evt.detail.model.animationSlices = animationSlices;
 		} );
 
-		cheering.setAttribute("animation-mixer" , "clip: Take 001");
+		// cheering.setAttribute("animation-mixer" , "clip: Take 001");
 		cheering.addEventListener('model-loaded', function (evt){
 			let objj = evt.detail.model;
 			objj.traverse(node => {
@@ -721,29 +721,38 @@
 					node.material.needsUpdate = true;
 				}
 			});
-			let animationSlices = [];
-			animationSlices.push({ 
-				changed:false, 
-				loop:true, 
-				reset:true, 
-				stopHead: false,
-				count: 0, 
-				idle:"mifly169", 
-				uid:"mifly169" 
-			});
-			animationSlices.push({
-				animationName: evt.detail.model.animations[0].name,
-				name: evt.detail.model.animations[0].name,
-				endTime: evt.detail.model.animations[0].duration ,
-				startTime: 0,
-				uid:"mifly169"
-			});
-			evt.detail.model.animationSlices = animationSlices;
+
+			console.log(" ***** objj = " , objj.animations[0] );
+			objj.mixer = new THREE.AnimationMixer( objj );
+			var action = objj.mixer.clipAction( objj.animations[ 0 ] );
+			action.reset().play();
+			console.log(" ***** action = " , action );
+
+			// let animationSlices = [];
+			// animationSlices.push({ 
+			// 	changed:false, 
+			// 	loop:true, 
+			// 	reset:true, 
+			// 	stopHead: false,
+			// 	count: 0, 
+			// 	idle:"mifly169", 
+			// 	uid:"mifly169" 
+			// });
+			// animationSlices.push({
+			// 	animationName: evt.detail.model.animations[0].name,
+			// 	name: evt.detail.model.animations[0].name,
+			// 	endTime: evt.detail.model.animations[0].duration ,
+			// 	startTime: 0,
+			// 	uid:"mifly169"
+			// });
+			// evt.detail.model.animationSlices = animationSlices;
+
+
 		} );
 
 
 		if (document.getElementById("Hoonie")){
-			// Hoonie.setAttribute("animation-mixer" , "clip: Take 001");
+			Hoonie.setAttribute("animation-mixer" , "clip: Take 001");
 			Hoonie.addEventListener('model-loaded', function (evt){
 
 				let objj = evt.detail.model;
@@ -775,7 +784,7 @@
 					startTime: 0,
 					uid:"mifly168"
 				});
-				// evt.detail.model.animationSlices = animationSlices;
+				evt.detail.model.animationSlices = animationSlices;
 			} );
 		}
 
