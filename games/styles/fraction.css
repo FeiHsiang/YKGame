@@ -1,12 +1,12 @@
 #fraction{
     display: block;
     position: absolute;
-    bottom:5px;
+    bottom:2%;
     left:5%;
     width:90%;
-    max-width: 650px;
-    max-height: 106px;
-    height:auto;
+    /* max-width: 650px; */
+    /* max-height: 106px; */
+    height:8%;
     cursor: pointer;
     z-index: 2;
 }
@@ -14,7 +14,7 @@
 #fractionImg{
     width: 100%;
     height:100%;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 #dividerImg{
@@ -24,29 +24,51 @@
     width:10%;
     height:100%;
     transform: rotate(90deg);
-    max-width: 74px;
-    max-height: 74px;
+    /* max-width: 74px; */
+    /* max-height: 74px; */
     object-fit: contain;
 }
 
 #score{
     position: absolute;
     z-index: 2;
-    left :17%;
-    bottom: 35%;		
+    left :0%;
+    bottom: 0%;
+    width: 50%;
+    height:100%;
+    font-family: "Microsoft JhengHei","微軟正黑體";
+    font-size: 15pt;
+    color:#F47165;
+}
+
+#scoreText{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space:nowrap;
+}
+
+#ballAmountDiv{
+    position: absolute;
+    z-index: 2;
+    right :0%;
+    bottom: 0%;
+    width: 50%;
+    height:100%;
     font-family: "Microsoft JhengHei","微軟正黑體";
     font-size: 15pt;
     color:#F47165;
 }
 
 #ballAmount{
+    margin: 0;
     position: absolute;
-    z-index: 2;
-    right :10%;
-    bottom: 35%;		
-    font-family: "Microsoft JhengHei","微軟正黑體";
-    font-size: 15pt;
-    color:#F47165;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space:nowrap;
 }
 
 .centerText {

@@ -4,6 +4,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>丟罐子小遊戲</title>
+	<link href="./styles/back_to_menu.css" rel="stylesheet">
+	<link href="./styles/fraction.css" rel="stylesheet">
+	<link href="./styles/scoreCheck.css" rel="stylesheet">
 	<style>
 
 		html, body {
@@ -62,13 +65,13 @@
 		/* Modal Content/Box */
 		.modal-content {
 			position: relative;
-			background-color: #202125;
+			/* background-color: #202125; */
 			margin: auto;
 			top: 5%;
 			border-radius: 16px;
 			width: 85vw;
 			height: 75vh;
-			overflow: auto;
+			/* overflow: auto; */
 		}
 
 		.modal-content > div {
@@ -152,97 +155,156 @@
 
 		/* 排行榜    ----------------------- start --------------------------- */
 
-		#leadBnTitle{
-			position: relative;
-			margin-top: 15px;
-			margin-bottom: 30px;
-			min-height: 30px;
-			text-align: center;
+		#leaderModalDiv{
+			z-index: 2;
 		}
 
-		#leadBnImg{
+		#leaderModalBGDiv {
+			top:0%;
+			left:0%;
+			width:100%;
+			height:100%;
 			position: absolute;
-			width:60px;
-			height:60px;
-			left:5px ;
 		}
 
-		#leadBnInfo{
-			position: relative;
-			font-size: 30px;
-			color: #afb4f9;
-			left: 32px ;
-			top:15px;
+		#leaderModalBGImg{
+			left: 0%;
+			top: 0%;
+			width: 100%;
+			height:100%;
+			object-fit: fill;
+		}
+		
+		#leaderModalBGTopDiv {
+			left:3%;
+			top:0%;
+			width:94%;
+			height:10%;
+			position: absolute;
 		}
 
-		#leaderTable{
-			margin: auto;
-			width:90%;
+		#leaderModalTopImg{
+			left: 0%;
+			top: 0%;
+			width: 100%;
+			height:100%;
+			object-fit: fill;
+		}
+
+		#leaderModalBGTopInfo {
+			position: absolute;
+			top:50%;
+			margin:0;
 			color:white;
+			font-size: 30pt;
+		}
+
+		#leaderModalCancel  {
+			position: absolute;
+			top:-20px;
+			right:-20px;
+			width:15%;
+			height:15%;
+			max-width: 74px;
+			max-height: 74px;
+			object-fit: contain;
+		}
+
+		#leaderModalTable{
+			position: absolute;
+			margin: auto;
+			width:94%;
+			height:70%;
+			top:12%;
+			left:3%;
+			color:black;
 			font-size:14pt;
 			overflow-wrap:anywhere;
 		}
 
-		#closeLeadBnModal{
-			color: rgba(20,20,20,1.0);
-			background-color: rgba(200,200,200,1.0);
+		#leaderModalButtonDiv {
 			position: absolute;
-			bottom: 10px;
-			width: 40%;
-			height:30px;
-			left:30%;
-			font-size: 18px;
-			cursor: pointer;
+			bottom: 4%;
+			width:100%;
+			height:10%;
+		}
+
+		#leaderModalComfirm {
+			position: absolute;
+			width:50%;
+			left:25%;
+			top: 0%;
+		}
+
+		#leaderModalComfirmImg {
+			width:100%;
+			height: 100%;
+			max-width: 370px;
+			max-height: 86px;
+			object-fit: contain;
+		}
+
+
+		.rankRow{
+			position: relative;
+			width:90%;
+			height:8%;
+			left:4%;
+			margin-top: 1%;
+		}
+
+		.rankNumeralDiv{
+			position: absolute;
+			width:10%;
+			height: 100%;
+			left: 0%;
+		}
+
+		.rankNameInfoDiv{
+			position: absolute;
+			width:85%;
+			height: 100%;
+			left: 15%;
+		}
+
+		.rankNumeralImg, .rankNameInfoImg{
+			width: 100%;
+			height:100%;
+			object-fit: fill;
+		}
+
+		.nameInfoTextDiv{
+			position: absolute;
+			width:70%;
+			height: 100%;
+			top:0%;
+			left:0%;
+			border-right-style: solid;
+			border-right-width: 1px;
+			border-right-color: #F47165;
+		}
+
+		.nameInfoNumberDiv{
+			position: absolute;
+			width:30%;
+			height: 100%;
+			top:0%;
+			left:70%;
+		}
+
+		.centerP {
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			white-space:nowrap;
 		}
 
 		/* 排行榜    ----------------------- end --------------------------- */
 
-		/* 離開警告  ----------------------- start --------------------------- */
-
-		#warningInfo{
-			text-align: center;
-			top: 40%;
-		}
- 
-		/* 離開警告  ----------------------- end --------------------------- */
-
-		/* 2D界面   -----------------------  start------------------------- */
-		#scoreDiv{
-			position: absolute;
-			z-index: 2;
-			left :5%;
-			bottom: 2%;		
-			font-family: Arial;
-			font-size: 18pt;
-			color:white;
-			background-color: rgba(0,0,0,0.9);
-		}
-
-		#ballAmount{
-			position: absolute;
-			z-index: 2;
-			right :5%;
-			bottom: 2%;		
-			font-family: Arial;
-			font-size: 18pt;
-			color:white;
-			background-color: rgba(0,0,0,0.9);
-		}
-
-		#leaveButton{
-			position: absolute;
-			z-index: 2;
-			font-size: 15pt;
-			color:rgba(0,0,0,0.9);
-			background-color:rgba(220,220,220,1.0);
-			padding: 5px;
-			cursor:pointer;
-		}
-		/* 2D界面  -------------------------- end  -------------------------- */
-
 
 		/* 載入頁面 -------------------------- start  -------------------------- */
-
 
 		#loadPage{
 			display: block;
@@ -257,43 +319,66 @@
 			line-height: 80vh;
 		}
 
+		#loadImg{
+			object-fit: fill;
+			position: absolute;
+			top:0%;
+			left:0%;
+			width:100vw;
+			height:100vh;
+		}
+
 		#loadObject{
 			position: absolute;
 			top:10%;
-			left:0%;
-			width:100%;
+			left:40%;
 			font-size: 20pt;
 		}
 
 		.lds-ellipsis {
 			display: inline-block;
 			position: relative;
-			width: 80px;
-			height: 50px;
+			left: calc(25% - 96px);
+			width: 50%;
+			height: 20%;
 		}
+
+		.lds-ellipsis img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			object-fit: contain;
+			width:100%;
+			height:100%;
+		}
+
 		.lds-ellipsis div {
 			position: absolute;
 			top: 33px;
-			width: 13px;
-			height: 13px;
+			width: 33px;
+			height: 33px;
 			border-radius: 50%;
-			background: #000000;
+			/* background: #000000; */
 			animation-timing-function: cubic-bezier(0, 1, 1, 0);
 		}
 		.lds-ellipsis div:nth-child(1) {
-			left: 8px;
+			left: 0px;
 			animation: lds-ellipsis1 0.6s infinite;
 		}
 		.lds-ellipsis div:nth-child(2) {
-			left: 8px;
+			left: 0px;
 			animation: lds-ellipsis2 0.6s infinite;
 		}
 		.lds-ellipsis div:nth-child(3) {
-			left: 32px;
+			left: 64px;
 			animation: lds-ellipsis2 0.6s infinite;
 		}
 		.lds-ellipsis div:nth-child(4) {
-			left: 56px;
+			left: 128px;
+			animation: lds-ellipsis2 0.6s infinite;
+		}
+		.lds-ellipsis div:nth-child(5) {
+			left: 192px;
 			animation: lds-ellipsis3 0.6s infinite;
 		}
 		@keyframes lds-ellipsis1 {
@@ -317,7 +402,7 @@
 				transform: translate(0, 0);
 			}
 			100% {
-				transform: translate(24px, 0);
+				transform: translate(64px, 0);
 			}
 		}
 
@@ -332,15 +417,45 @@
 	<script src = "/scripts/main.js"></script>
 
 	<div id = "loadPage">
-		Loading 
-
-		<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-
+		
+		<img id = "loadImg" src = "/images/ui/bg/img/2.png" >
+		<div class="lds-ellipsis">
+			<div><img src = "/images/ui/progress bar/img.png"></div>
+			<div><img src = "/images/ui/progress bar/img.png"></div>
+			<div><img src = "/images/ui/progress bar/img.png"></div>
+			<div><img src = "/images/ui/progress bar/img.png"></div>
+			<div><img src = "/images/ui/progress bar/img.png"></div>
+			<div></div>
+		</div>
+		
 		<div id = "loadObject"> 載入物件 </div>
 	</div>
 
-	<div id = "leaveButton">
-		回遊戲首頁
+	<div id = "backToWix" >
+		<img id = "backToWixImg" src = "../images/ui/button/come back wix/normal.png">
+	</div>
+
+	<div id="leaveWarningModalDiv" class="modal" style="display: none;">
+		<div class="modal-content">
+			<div id ="leaveWarningBGDiv" >
+				<img id = "leaveWarningBGImg" src = "../images/ui/pop up/bottom/white.png">
+		  	</div>
+  
+		  	<img id = "leaveWarningCancel" src = "../images/ui/button/delete/normal.png">
+  
+		  	<div id = "leaveWarningInfo"  >
+				<div id = "leaveWarningInfoText">
+			  		確認回到活動網站嗎？
+				</div>
+		  	</div>
+  
+			<div id="leaveWarningButtonDiv">
+				<div id="leaveWarningComfirm">
+					<img id = "leaveWarningComfirmImg" src = "../images/ui/button/confirm/normal.png">
+				</div> 
+			</div>
+  
+		</div>
 	</div>
 
 	<div id="blocker">
@@ -352,58 +467,111 @@
         </div>
 	</div>
 	
-	<div id="blocker_score" class="modal">
-		<div class="modal-content">
-
-
-			<div id = "previousCoins">原有代幣：</div>
-			<div id = "getCoins">新增代幣：</div>
-			<hr>
-			<div id = "currentCoins">結算代幣：</div>
-			
-			<div id = "score_info"> </div>
-
-
-			<div id = "leaderBn"> <div class="centerText">排行榜</div></div>
-			<div id = "couponPage" > <div class="centerText">去兌換</div></div>
-
+	<div id="fraction">
+		<img id="fractionImg" src= "../images/ui/window/game/fraction.png">
+		<img id="dividerImg" src= "images/fraction_divider.png">
+		<div id="score" >
+			<div id = "scoreText">
+				目前擊中: 0 罐
+			</div>
+		</div>
+		<div id ="ballAmountDiv">
+			<div id="ballAmount">
+				球數： 3
+			</div>
 		</div>
 	</div>
 
-	<div id="leadBnModal" class="modal">
-        <div class="modal-content">
-			<div id="leadBnTitle">
-				<img id="leadBnImg" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/coin.png">
-				<span id="leadBnInfo">永康幣排行榜</span>
-			</div>
-			<table id = "leaderTable" ></table>
-
-			<div id="closeLeadBnModal" >
-				<p  class = "centerText" >關閉</p> 
-			</div>
+	<!-- 排行榜區 -->
+    <div id="leaderModalDiv" class = "modal" style="display: none;">
+		<div id = "leaderModalContentDiv" class="modal-content">
 		  
-        </div>
+		  <div id ="leaderModalBGDiv">
+			<img id = "leaderModalBGImg" src = "/images/ui/window/fraction/pink bottom.png">
+		  </div>
+  
+		  <div id ="leaderModalBGTopDiv" >
+			<img id = "leaderModalTopImg" src = "/images/ui/pop up/top bar/red.png">
+			<div id = "leaderModalBGTopInfo" class = "centerText"> 排行榜 </div>
+		  </div>
+  
+		  <img id = "leaderModalCancel" src = "/images/ui/button/delete/normal.png">
+  
+		  <div id = "leaderModalTable" ></div>
+  
+		  <div id="leaderModalButtonDiv">
+			<div id="leaderModalComfirm">
+			  <img id = "leaderModalComfirmImg" src = "/images/ui/button/confirm/normal.png">
+			</div> 
+		  </div>
+		</div>  
 	</div>
+
+	<!-- 遊戲結算區 -->
+	<div id = "scoreCheckPageDiv" style=" display: none; position: fixed; z-index: 1; text-align: center;" > 
+		<div id = "bgImgDiv">
+			<img id = "bgImg" src = "../images/ui/bg/img/1.png">
+		</div>
+		<div class="modal-content2">
+
+			<div id= "scoreCheckDiv">
+				<div id = "scoreCheckBGDiv">
+					<img id = "scoreCheckBGImg" src = "../images/ui/window/fraction/pink bottom.png">
+				</div>
+
+				<div id = "scoreCheckBGTopDiv">
+					<img id = "scoreCheckBGTopImg" src = "../images/ui/pop up/top bar/red.png">
+					<div id = "scoreCheckTopText">遊戲結算</div>
+				</div>
+
+				<div id= "previousCoinsDiv">
+					<img id = "previousCoinsBGImg" src = "../images/ui/window/fraction/white.png">
+					<div id= "previousCoinsImgDiv">
+						<img id = "previousCoinsImg" src = "../images/ui/img/yongkang coin.png">
+					</div>
+					<div id = "previousCoinsText">原有永康幣</div>
+					<div id = "previousCoinsAmountText">0 枚</div>
+				</div>
+
+				<div id= "getCoinsDiv">
+					<img id = "getCoinsBGImg" src = "../images/ui/window/fraction/white.png">
+					<div id= "getCoinsImgDiv">
+						<img id = "getCoinsImg" src = "../images/ui/img/yongkang coin.png">
+					</div>
+					<div id = "getCoinsText">此次獲得永康幣</div>
+					<div id = "getCoinsAmountText">0 枚</div>
+				</div>
+
+				<div id="coninDividerDiv">
+					<img id="coninDividerImg" src= "../images/ui/divider/pink.png">
+				</div>
+
+				<div id= "currentCoinsDiv">
+					<img id = "currentCoinsBGImg" src = "../images/ui/window/fraction/white.png">
+					<div id= "currentCoinsImgDiv">
+						<img id = "currentCoinsImg" src = "../images/ui/img/yongkang coin.png">
+					</div>
+					<div id = "currentCoinsText">結算永康幣</div>
+					<div id = "currentCoinsAmountText">0 枚</div>
+				</div>
 	
-	<div id="leaveWarning" class="modal">
-		<div class="modal-content">
-			
-			<div id = "warningInfo"> 確認回到遊戲首頁嘛？ </div>
+			</div>
 
+			<div id = "playResultDiv">
+				<img id = "playResultImg" src = "/images/ui/window/login/dialogue.png">
+				<div id = "playResultText"></div>
+			</div>
 
-			<div id = "leaveConfirm"> <div class="centerText">確認</div></div>
-			<div id = "leaveCancel" > <div class="centerText">取消</div></div>
+			<div id = "leaderBdDiv" >
+				<img id = "leaderBdImg" src = "../images/ui/button/fraction/normal.png">
+			</div>
+
+			<div id = "prizeListDiv" >
+				<img id = "prizeListImg" src = "../images/ui/button/award redemption/smoll/normal.png">
+			</div>
 
 		</div>
-	</div>
-
-
-	<div id="scoreDiv">
-		目前擊中: 0 罐
-	</div>
-
-	<div id="ballAmount">
-		球數: 3
+		
 	</div>
 
 	<audio id = "bgAudio" autoplay >
@@ -426,21 +594,30 @@
 			document.getElementById("bgAudio").play();
 		}
 
-		document.getElementById("leaveButton").addEventListener('click', function(){
-			
-			if (blocker_score.style.display == "block"){
-				location.replace("/index.html");
-			}else{
-				leaveWarning.style.display = "block";
-				leaveConfirm.onclick = function(){
-					location.replace("/index.html");
-				}
-				leaveCancel.onclick = function(){
-					leaveWarning.style.display = "none";
-				}
-			}
+		//// 排行榜開關
+		leaderBdImg.onclick = function(){
+			leaderModalDiv.style.display = "block";
+		}
+		leaderModalCancel.onclick = function(){
+			leaderModalDiv.style.display = "none";
+		}
+		leaderModalComfirmImg.onclick = function(){
+			leaderModalDiv.style.display = "none";
+		}
 
-		});
+		//// 處理『返回活動首頁』
+		backToWix.onclick = function(){
+      		leaveWarningModalDiv.style.display = "block";
+		}
+
+		leaveWarningCancel.onclick = function(){
+			leaveWarningModalDiv.style.display = "none";
+		}
+
+		leaveWarningComfirm.onclick = function(){
+			location.href = "/prize-list/index.html";
+		}
+
 		
 	</script>
 
@@ -816,7 +993,7 @@
 		let aRig =  document.getElementById("rig"); //// 原始位置為 (0, 1.6, 0)
 		let aSphere =  document.getElementById("aSphere"); //// 原始位置為 (0, 1, -1)
 		let aRobot = document.getElementById("aRobot");
-		let scoreText = document.getElementById("scoreDiv")
+		let scoreText = document.getElementById("scoreText")
 		let ballAmountText = document.getElementById("ballAmount")
 		let aSphereOriginPosition = aSphere.object3D.position.clone();
 		aSphere.addEventListener("loaded" , function(evt){
@@ -971,11 +1148,15 @@
 		});
 
 		function gameEnd(){
-			console.log("gameEnd start" , blocker_score.style.display );
-			if (blocker_score.style.display == "block"){
+
+			if (scoreCheckPageDiv.style.display == "block"){
+				console.log("gameEnd: already show scoreCheckPageDiv");
 				return;
 			}
-			blocker_score.style.display = "block";
+
+			fraction.style.display = "none";
+			scoreCheckPageDiv.style.display = "block";
+
 
 			let userID;
 			if ( !localStorage.getItem('userID') || !localStorage.getItem('vendor') ){
@@ -1019,47 +1200,41 @@
 				} ).then(function(response) {
 					return response.json();
 				}).then(function(userCoins) {
+
 					let userCurrentCounts = Number(userCoins[0].currentCoins);
 
-					currentCoins.innerHTML = "結算代幣：" + userCurrentCounts + "枚";
-
+					currentCoinsAmountText.innerHTML = userCurrentCounts + " 枚";
 					if ( isPlayed[0] == true ){
+						previousCoinsAmountText.innerHTML = (userCurrentCounts - coins) + " 枚";
+						getCoinsAmountText.innerHTML = coins + " 枚";
 						if (score == 0){
-							previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
-							getCoins.innerHTML = "新增代幣：" + 1 + "枚";
-							score_info.innerHTML = "Sorry! 一個都沒有擊倒<br>不過參與遊戲還是可以獲得一個永康幣喔";
+							playResultText.innerHTML = "Sorry! 一個都沒有擊倒，不過參與遊戲還是可以獲得一個永康幣喔";
 						}else{
-							previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts - coins ) + "枚";
-							getCoins.innerHTML = "新增代幣：" + coins + "枚";
-							score_info.innerHTML = "恭喜你！擊倒 " + score + " 罐<br>獲得" + coins + "個永康幣";
+							playResultText.innerHTML = "恭喜你！擊倒" + score + " 罐，獲得" + coins + "個永康幣";
 						}
-						
-					}else{
-
-						if (score == 0){
-							previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
-							getCoins.innerHTML = "新增代幣：" + 1 + "枚";
-							score_info.innerHTML = "Sorry! 一個都沒有擊倒<br>今日已經遊玩過了，無法獲得永康幣";
-						}else{
-							previousCoins.innerHTML = "原有代幣：" + userCurrentCounts + "枚";
-							getCoins.innerHTML = "新增代幣：" + 0 + "枚";
-							score_info.innerHTML = "恭喜你！擊倒 " + score + " 罐<br>今日已經遊玩過了，無法獲得永康幣";
-						}
-
 						
 					}
-
+					else{
+						previousCoinsAmountText.innerHTML = (userCurrentCounts)+ " 枚";
+						getCoinsAmountText.innerHTML = "0 枚";
+						if (score == 0){
+							playResultText.innerHTML = "Sorry! 一個都沒有擊倒，不過參與遊戲還是可以獲得一個永康幣喔";
+						}else{
+							playResultText.innerHTML = "恭喜你！擊倒 " + score + " 罐，今日已經遊玩過了，無法獲得永康幣";
+						}
+					}
 			
 				});
 
 			});
 
 			//// 點擊『去兌換』
-			couponPage.onclick = function(){
-				location.replace("/prize-list");
+			prizeListDiv.onclick = function(){
+				location.href = "/prize-list/index.html";
 			}
+
 			//// 點擊『排行榜』
-			leaderBn.onclick = function(){
+			leaderBdDiv.onclick = function(){
 				postData = {
 					ID:  userID, 
 					request: 'get',
@@ -1072,28 +1247,39 @@
 				} ).then(function(response) {
 					return response.json();
 				}).then(function(leaderList) {
-					
-					leadBnModal.style.display = 'block';
 
-					console.log("leaderList = " , leaderList );
-					let leaderTable = document.getElementById("leaderTable");
-					leaderTable.innerHTML = "";
-					let thr = leaderTable.insertRow( 0 );
-					let t1 = document.createElement('th') , t2 = document.createElement('th') , t3 = document.createElement('th');
-					t1.innerHTML = "排名";
-					t2.innerHTML = "用戶名稱";
-					t3.innerHTML = "代幣數量";
-					thr.appendChild(t1);
-					thr.appendChild(t2);
-					thr.appendChild(t3);
+
+					leaderModalDiv.style.display = 'block';
+
+					let leaderModalTable = document.getElementById("leaderModalTable");
+					leaderModalTable.innerHTML = "";
+
 					leaderList.forEach((currentValue, index) => {
-						let row = leaderTable.insertRow( index + 1);
-						let rankR = row.insertCell(0);
-						let nameR = row.insertCell(1);
-						let coinsR = row.insertCell(2);
-						rankR.style.width = "20%";
-						nameR.style.width = "50%";
-						coinsR.style.width = "25%";
+						
+						let row = document.createElement("div");
+						row.className = "rankRow";
+
+						let numeralText = document.createElement("p");
+						numeralText.className = "centerP";
+						numeralText.style.color = "#F47165";
+						numeralText.innerHTML = index+1;
+
+						let nameInfoTextDiv = document.createElement("div");
+						let nameInfoNumberDiv = document.createElement("div");
+
+						nameInfoNumberDiv.className = "nameInfoNumberDiv";
+						nameInfoNumberDiv.style.overflow = "hidden";
+						nameInfoTextDiv.className = "nameInfoTextDiv";
+
+						let nameInfoText = document.createElement("p");
+						nameInfoText.className = "centerP";
+						nameInfoText.style.color = "#F47165";
+
+						let nameInfoNumber = document.createElement("p");
+						nameInfoNumber.className = "centerP";
+						nameInfoNumber.style.color = "#F47165";
+						nameInfoNumber.innerHTML = currentValue.couponExchanged;;
+						nameInfoNumberDiv.appendChild(nameInfoNumber);
 
 						let userName;
 						if (currentValue.name == ""){
@@ -1101,10 +1287,38 @@
 						}else{
 						userName = currentValue.name;
 						}
-						rankR.innerHTML = index + 1;
-						nameR.innerHTML = userName;
-						coinsR.innerHTML = currentValue.cumulativeCoins;
-					});
+						nameInfoText.innerHTML = userName;
+						nameInfoTextDiv.appendChild(nameInfoText);
+
+
+						let numeralDiv = document.createElement("div");
+						let nameInfoDiv = document.createElement("div");
+						numeralDiv.className = "rankNumeralDiv";
+						nameInfoDiv.className = "rankNameInfoDiv";
+						nameInfoDiv.style.overflow = "hidden";
+
+						let numeral = new Image();
+						numeral.src = "/images/ui/window/ranked/numeral.png";
+						numeral.className = "rankNumeralImg";
+
+						let nameInfo = new Image();
+						nameInfo.src = "/images/ui/window/ranked/name.png"
+						nameInfo.className = "rankNameInfoImg";
+
+						numeralDiv.appendChild(numeral);
+						numeralDiv.appendChild(numeralText);
+						nameInfoDiv.appendChild(nameInfo);
+						nameInfoDiv.appendChild(nameInfoTextDiv);
+						nameInfoDiv.appendChild(nameInfoNumberDiv);
+						
+						row.appendChild(numeralDiv);
+						row.appendChild(nameInfoDiv);
+						leaderModalTable.appendChild(row);
+
+					});			
+
+
+
 				});
 
 			}

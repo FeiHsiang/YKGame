@@ -4,6 +4,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>射擊小遊戲</title>
+	<link href="./styles/back_to_menu.css" rel="stylesheet">
+	<link href="./styles/fraction.css" rel="stylesheet">
+	<link href="./styles/scoreCheck.css" rel="stylesheet">
 	<style>
 
 		html, body {
@@ -103,68 +106,13 @@
 			white-space:nowrap;
 		}
 		
-		/* 結算畫面  ----------------------- start ---------------------------  */
-
-
-		#blocker_score {
-			display: none;
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0,0,0,0.7);
-			z-index: 1;
-		}
-
-		#previousCoins{
-			margin-top: 40px;
-		}
-
-		#getCoins{
-			margin-top: 20px;
-		}
-
-		#currentCoins{
-			margin-top: 20px;
-		}
-
-		#score_info{
-			right:-40%;
-			width:50%;
-			height:auto;
-			font-size:18px; 
-			color:#00c99c;
-			border: 2px solid white;
-			padding:10px;
-		}
-
-		#leaderBn , #leaveConfirm {
-			position:absolute;
-			bottom: 15px;
-			left:3px;
-			width:40%;
-			height:20%;
-			max-height: 50px;
-			border-radius: 20px;
-			background-color: rgba(80, 160, 150, 1.0);
-			cursor: pointer;
-		}
-
-		#couponPage, #leaveCancel{
-			position:absolute;
-			bottom: 15px;
-			right:3px;
-			width:40%;
-			height:20%;
-			max-height: 50px;
-			border-radius: 20px;
-			background-color: rgba(80, 110, 150, 1.0);
-			cursor: pointer;
-		}
-
-		/* 結算畫面  ----------------------- end ---------------------------  */
+		
 
 		/* 排行榜    ----------------------- start --------------------------- */
 
+		#leaderModalDiv{
+			z-index: 2;
+		}
 
 		#leaderModalBGDiv {
 			top:0%;
@@ -310,51 +258,6 @@
 
 		/* 排行榜    ----------------------- end --------------------------- */
 
-		/* 離開警告  ----------------------- start --------------------------- */
-
-		#warningInfo{
-			text-align: center;
-			top: 40%;
-		}
-		
-		#leaveButton{
-			position: absolute;
-			z-index: 2;
-			font-size: 15pt;
-			color:rgba(0,0,0,0.9);
-			background-color:rgba(220,220,220,1.0);
-			padding: 5px;
-			cursor:pointer;
-		}
-
-		/* 離開警告  ----------------------- end --------------------------- */
-
-
-		#scoreNow{
-			position: absolute;
-			z-index: 2;
-			left :5%;
-			bottom: 2%;		
-			font-size: 18pt;
-			font-family: Arial;
-			color:white;
-			background-color: rgba(0,0,0,0.9);
-		}
-
-		#countdown{
-			position: absolute;
-			z-index: 2;
-			right :5%;
-			bottom: 2%;		
-			font-size: 18pt;
-			font-family: Arial;
-			color:white;
-			background-color: rgba(0,0,0,0.9);
-		}
-
-		.a-dialog-allow-button {
-		  background-color: red;
-		}
 
 		@media screen and (min-width: 300px) and (max-width: 700px) {
 			#aDiv{
@@ -496,10 +399,34 @@
 		<div id = "loadObject"> 載入物件 </div>
 	</div>
 
-	<div id = "leaveButton" >
-		回遊戲首頁
+
+	<div id = "backToWix" >
+		<img id = "backToWixImg" src = "../images/ui/button/come back wix/normal.png">
 	</div>
 
+	<div id="leaveWarningModalDiv" class="modal" style="display: none;">
+		<div class="modal-content">
+			<div id ="leaveWarningBGDiv" >
+				<img id = "leaveWarningBGImg" src = "../images/ui/pop up/bottom/white.png">
+		  	</div>
+  
+		  	<img id = "leaveWarningCancel" src = "../images/ui/button/delete/normal.png">
+  
+		  	<div id = "leaveWarningInfo"  >
+				<div id = "leaveWarningInfoText">
+			  		確認回到活動網站嗎？
+				</div>
+		  	</div>
+  
+			<div id="leaveWarningButtonDiv">
+				<div id="leaveWarningComfirm">
+					<img id = "leaveWarningComfirmImg" src = "../images/ui/button/confirm/normal.png">
+				</div> 
+			</div>
+  
+		</div>
+	</div>
+	
 	<div id="blocker">
 		<div class="modal-content">
 			<div id = "blockerTitle">
@@ -516,19 +443,21 @@
 		</div>
 	</div>
 
-	<div id="blocker_score" class="modal">
-		<div class="modal-content">
-			<div id = "previousCoins">原有代幣：</div>
-			<div id = "getCoins">新增代幣：</div>
-			<hr>
-			<div id = "currentCoins">結算代幣：</div>
-			<div id = "score_info"> </div>
-			<div id = "leaderBn"> <div class="centerText">排行榜</div></div>
-			<div id = "couponPage" > <div class="centerText">去兌換</div></div>
+	<div id="fraction">
+		<img id="fractionImg" src= "../images/ui/window/game/fraction.png">
+		<img id="dividerImg" src= "images/fraction_divider.png">
+		<div id="score" >
+			<div id = "scoreText">
+				分數: 0
+			</div>
+		</div>
+		<div id ="ballAmountDiv">
+			<div id="ballAmount">
+				剩餘時間： 15
+			</div>
 		</div>
 	</div>
 
-	
 	<!-- 排行榜區 -->
     <div id="leaderModalDiv" class = "modal" style="display: none;">
 		<div id = "leaderModalContentDiv" class="modal-content">
@@ -554,25 +483,71 @@
 		</div>  
 	</div>
 
-	<!-- 結算界面 -->
-	<div id="leaveWarning" class="modal">
-		<div class="modal-content">
-			
-			<div id = "warningInfo"> 確認回到遊戲首頁嘛？ </div>
+	<!-- 遊戲結算區 -->
+	<div id = "scoreCheckPageDiv" style=" display: none; position: fixed; z-index: 1; text-align: center;" > 
+		<div id = "bgImgDiv">
+			<img id = "bgImg" src = "../images/ui/bg/img/1.png">
+		</div>
+		<div class="modal-content2">
 
+			<div id= "scoreCheckDiv">
+				<div id = "scoreCheckBGDiv">
+					<img id = "scoreCheckBGImg" src = "../images/ui/window/fraction/pink bottom.png">
+				</div>
 
-			<div id = "leaveConfirm"> <div class="centerText">確認</div></div>
-			<div id = "leaveCancel" > <div class="centerText">取消</div></div>
+				<div id = "scoreCheckBGTopDiv">
+					<img id = "scoreCheckBGTopImg" src = "../images/ui/pop up/top bar/red.png">
+					<div id = "scoreCheckTopText">遊戲結算</div>
+				</div>
+
+				<div id= "previousCoinsDiv">
+					<img id = "previousCoinsBGImg" src = "../images/ui/window/fraction/white.png">
+					<div id= "previousCoinsImgDiv">
+						<img id = "previousCoinsImg" src = "../images/ui/img/yongkang coin.png">
+					</div>
+					<div id = "previousCoinsText">原有永康幣</div>
+					<div id = "previousCoinsAmountText">0 枚</div>
+				</div>
+
+				<div id= "getCoinsDiv">
+					<img id = "getCoinsBGImg" src = "../images/ui/window/fraction/white.png">
+					<div id= "getCoinsImgDiv">
+						<img id = "getCoinsImg" src = "../images/ui/img/yongkang coin.png">
+					</div>
+					<div id = "getCoinsText">此次獲得永康幣</div>
+					<div id = "getCoinsAmountText">0 枚</div>
+				</div>
+
+				<div id="coninDividerDiv">
+					<img id="coninDividerImg" src= "../images/ui/divider/pink.png">
+				</div>
+
+				<div id= "currentCoinsDiv">
+					<img id = "currentCoinsBGImg" src = "../images/ui/window/fraction/white.png">
+					<div id= "currentCoinsImgDiv">
+						<img id = "currentCoinsImg" src = "../images/ui/img/yongkang coin.png">
+					</div>
+					<div id = "currentCoinsText">結算永康幣</div>
+					<div id = "currentCoinsAmountText">0 枚</div>
+				</div>
+	
+			</div>
+
+			<div id = "playResultDiv">
+				<img id = "playResultImg" src = "/images/ui/window/login/dialogue.png">
+				<div id = "playResultText"></div>
+			</div>
+
+			<div id = "leaderBdDiv" >
+				<img id = "leaderBdImg" src = "../images/ui/button/fraction/normal.png">
+			</div>
+
+			<div id = "prizeListDiv" >
+				<img id = "prizeListImg" src = "../images/ui/button/award redemption/smoll/normal.png">
+			</div>
 
 		</div>
-	</div>
-
-	<div id = "scoreNow">
-		分數：0
-	</div>
-
-	<div id = "countdown">
-		時間： 15
+		
 	</div>
 
 	<audio id = "bgAudio" autoplay >
@@ -594,19 +569,29 @@
 			document.getElementById("bgAudio").play();
 		}
 
-		document.getElementById("leaveButton").addEventListener('click', function(){
-			if (blocker_score.style.display == "block"){
-				location.replace("/prize-list/index.html");
-			}else{
-				leaveWarning.style.display = "block";
-				leaveConfirm.onclick = function(){
-					location.replace("/prize-list/index.html");
-				}
-				leaveCancel.onclick = function(){
-					leaveWarning.style.display = "none";
-				}
-			}
-		});
+		//// 排行榜開關
+		leaderBdImg.onclick = function(){
+			leaderModalDiv.style.display = "block";
+		}
+		leaderModalCancel.onclick = function(){
+			leaderModalDiv.style.display = "none";
+		}
+		leaderModalComfirmImg.onclick = function(){
+			leaderModalDiv.style.display = "none";
+		}
+
+		//// 處理『返回活動首頁』
+		backToWix.onclick = function(){
+      		leaveWarningModalDiv.style.display = "block";
+		}
+
+		leaveWarningCancel.onclick = function(){
+			leaveWarningModalDiv.style.display = "none";
+		}
+
+		leaveWarningComfirm.onclick = function(){
+			location.href = "/prize-list/index.html";
+		}
 
 		// blocker.style.display = "none";
 	</script>
@@ -825,7 +810,6 @@
 					loadPage.style.display = "none";
 					blocker.style.display = "block";
 					blocker.style.pointerEvents = "auto";
-					blocker_score.style.pointerEvents = "auto";
 					blockState.innerHTML = "請點擊螢幕來開始遊戲";
 
 				}else{
@@ -1156,7 +1140,7 @@
 						
 						score += Number(note);
 
-						scoreNow.innerText = "分數："+(score);
+						scoreText.innerText = "分數："+(score);
 
 					}
 					
@@ -1176,14 +1160,18 @@
 			}
 
 			function gameEnd(){
-				if (blocker_score.style.display == "block"){
-					console.log("gameEnd: already show blocker_score");
+
+				if (scoreCheckPageDiv.style.display == "block"){
+					console.log("gameEnd: already show scoreCheckPageDiv");
 					return;
 				}
+
+				fraction.style.display = "none";
+				scoreCheckPageDiv.style.display = "block";
+
 				console.log("gameEnd: ctrlObj call clearInterval ");
 				clearInterval(ctrlObj);
 
-				blocker_score.style.display = "block";
 
 				let userID;
 				if ( !localStorage.getItem('userID') || !localStorage.getItem('vendor') ){
@@ -1223,36 +1211,30 @@
 					} ).then(function(response) {
 						return response.json();
 					}).then(function(userCoins) {
+
 						let userCurrentCounts = Number(userCoins[0].currentCoins);
 
-						currentCoins.innerHTML = "結算代幣：" + userCurrentCounts + "枚";
-
+						currentCoinsAmountText.innerHTML = userCurrentCounts + " 枚";
 						if ( isPlayed[0] == true ){
-
-
+							previousCoinsAmountText.innerHTML = (userCurrentCounts - coins) + " 枚";
+							getCoinsAmountText.innerHTML = coins + " 枚";
 							if (score == 0){
-								previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
-								getCoins.innerHTML = "新增代幣：" + 1 + "枚";
-								score_info.innerHTML = "Sorry! 一個氣球都沒有擊中<br>不過參與遊戲還是可以獲得一個永康幣喔";
+								playResultText.innerHTML = "Sorry! 一個都沒有擊中，不過參與遊戲還是可以獲得一個永康幣喔";
 							}else{
-								previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts - coins) + "枚";
-								getCoins.innerHTML = "新增代幣：" + coins + "枚";
-								score_info.innerHTML = "恭喜你！獲得 " + score + " 分<br>獲得" + coins + "個永康幣";
+								playResultText.innerHTML = "恭喜你！獲得" + score + " 分，獲得" + coins + "個永康幣";
 							}
-
-						}else{
-
-							if (score == 0){
-								previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
-								getCoins.innerHTML = "新增代幣：" + 1 + "枚";
-								score_info.innerHTML = "Sorry! 一個都沒有擊中<br>今日已經遊玩過了，無法獲得永康幣";
-							}else{
-								previousCoins.innerHTML = "原有代幣：" + userCurrentCounts + "枚";
-								getCoins.innerHTML = "新增代幣：" + 0 + "枚";
-								score_info.innerHTML = "恭喜你！獲得 " + score + " 分<br>今日已經遊玩過了，無法獲得永康幣";
-							}
-
+							
 						}
+						else{
+							previousCoinsAmountText.innerHTML = (userCurrentCounts)+ " 枚";
+							getCoinsAmountText.innerHTML = "0 枚";
+							if (score == 0){
+								playResultText.innerHTML = "Sorry! 一個都沒有擊中，不過參與遊戲還是可以獲得一個永康幣喔";
+							}else{
+								playResultText.innerHTML = "恭喜你！獲得 " + score + " 分，今日已經遊玩過了，無法獲得永康幣";
+							}
+						}
+
 
 					});
 
@@ -1262,12 +1244,12 @@
 
 				
 				//// 點擊『去兌換』
-				couponPage.onclick = function(){
-					location.replace("/prize-list");
+				prizeListDiv.onclick = function(){
+					location.href = "/prize-list/index.html";
 				}
 
 				//// 點擊『排行榜』
-				leaderBn.onclick = function(){
+				leaderBdDiv.onclick = function(){
 					postData = {
 						ID:  userID, 
 						request: 'get',
@@ -1395,7 +1377,7 @@
 			let intervalId = setInterval(countdownTick, 1000);
 			function countdownTick(){
 				timeLeft--;
-				countdown.textContent = "時間： " + timeLeft;
+				ballAmount.textContent = "剩餘時間： " + timeLeft;
 				if (timeLeft <= 0 || score == 30 ){
 					clearInterval(intervalId);
 					gameEnd();
@@ -1421,11 +1403,6 @@
 			}
 			
 			console.log(" _startCamera callback ");
-			// loadPage.style.display = "none";
-			// blocker.style.display = "block";
-			// blocker.style.pointerEvents = "auto";
-			// blocker_score.style.pointerEvents = "auto";
-			// blockState.innerHTML = "請點擊螢幕來開始遊戲";
 		});
 
 		function startCamera( callback ){

@@ -7,7 +7,7 @@
   max-height: 86px;
   height:auto;
   cursor: pointer;
-  z-index: 90;
+  z-index: 2;
 }
 
 #backToWixImg{
@@ -52,6 +52,7 @@
 
 #leaveWarningInfo {
   position: absolute;
+  text-align: center;
   margin: 15px;
   top:30%;
   width: 96%;

@@ -80,27 +80,6 @@
 			background-color: rgba( 74 , 77 , 84 , 0.85 ); /* Black w/ opacity */
 		}
 
-		/* Modal Content/Box */
-		/* .modal-content {
-			position: relative;
-			background-color: #202125;
-			margin: auto;
-			top: 5%;
-			border-radius: 16px;
-			width: 85vw;
-			height: 75vh;
-			overflow: auto;
-		} */
-
-		/* .modal-content > div {
-			position: relative;
-			margin-left: 2%;
-			margin-right: 2%;
-			width: 90%;
-			color:white;
-			text-align: left;
-			font-size: 20pt;
-		} */
 
 		/* Modal Content/Box */
 		.modal-content {
@@ -132,111 +111,157 @@
 			white-space:nowrap;
 		}
 		
-		/* 結算畫面  ----------------------- start ---------------------------  */
-
-		#blocker_score {
-			display: none;
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0,0,0,0.7);
-			z-index: 1;
-		}
-
-		#previousCoins{
-			margin-top: 40px;
-		}
-
-		#getCoins{
-			margin-top: 20px;
-		}
-
-		#currentCoins{
-			margin-top: 20px;
-		}
-
-		#score_info{
-			right:-40%;
-			width:50%;
-			height:auto;
-			font-size:18px; 
-			color:#00c99c;
-			border: 2px solid white;
-			padding:10px;
-		}
-
-		#leaderBn , #leaveConfirm {
-			position:absolute;
-			bottom: 15px;
-			left:3px;
-			width:40%;
-			height:20%;
-			max-height: 50px;
-			border-radius: 20px;
-			background-color: rgba(80, 160, 150, 1.0);
-			cursor: pointer;
-		}
-
-		#couponPage, #leaveCancel{
-			position:absolute;
-			bottom: 15px;
-			right:3px;
-			width:40%;
-			height:20%;
-			max-height: 50px;
-			border-radius: 20px;
-			background-color: rgba(80, 110, 150, 1.0);
-			cursor: pointer;
-		}
-
-		/* 結算畫面  ----------------------- end ---------------------------  */
-
+	
 		/* 排行榜    ----------------------- start --------------------------- */
 
-		#leadBnTitle{
-			position: relative;
-			margin-top: 15px;
-			margin-bottom: 30px;
-			min-height: 30px;
-			text-align: center;
+		#leaderModalDiv{
+			z-index: 2;
 		}
 
-		#leadBnImg{
+		#leaderModalBGDiv {
+			top:0%;
+			left:0%;
+			width:100%;
+			height:100%;
 			position: absolute;
-			width:60px;
-			height:60px;
-			left:5px ;
 		}
 
-		#leadBnInfo{
-			position: relative;
-			font-size: 30px;
-			color: #afb4f9;
-			left: 32px ;
-			top:15px;
+		#leaderModalBGImg{
+			left: 0%;
+			top: 0%;
+			width: 100%;
+			height:100%;
+			object-fit: fill;
+		}
+		
+		#leaderModalBGTopDiv {
+			left:3%;
+			top:0%;
+			width:94%;
+			height:10%;
+			position: absolute;
 		}
 
-		#leaderTable{
-			margin: auto;
-			width:90%;
+		#leaderModalTopImg{
+			left: 0%;
+			top: 0%;
+			width: 100%;
+			height:100%;
+			object-fit: fill;
+		}
+
+		#leaderModalBGTopInfo {
+			position: absolute;
+			top:50%;
+			margin:0;
 			color:white;
+			font-size: 30pt;
+		}
+
+		#leaderModalCancel  {
+			position: absolute;
+			top:-20px;
+			right:-20px;
+			width:15%;
+			height:15%;
+			max-width: 74px;
+			max-height: 74px;
+			object-fit: contain;
+		}
+
+		#leaderModalTable{
+			position: absolute;
+			margin: auto;
+			width:94%;
+			height:70%;
+			top:12%;
+			left:3%;
+			color:black;
 			font-size:14pt;
 			overflow-wrap:anywhere;
 		}
 
-		#closeLeadBnModal{
-			color: rgba(20,20,20,1.0);
-			background-color: rgba(200,200,200,1.0);
+		#leaderModalButtonDiv {
 			position: absolute;
-			bottom: 10px;
-			width: 40%;
-			height:30px;
-			left:30%;
-			font-size: 18px;
-			cursor: pointer;
+			bottom: 4%;
+			width:100%;
+			height:10%;
+		}
+
+		#leaderModalComfirm {
+			position: absolute;
+			width:50%;
+			left:25%;
+			top: 0%;
+		}
+
+		#leaderModalComfirmImg {
+			width:100%;
+			height: 100%;
+			max-width: 370px;
+			max-height: 86px;
+			object-fit: contain;
+		}
+
+
+		.rankRow{
+			position: relative;
+			width:90%;
+			height:8%;
+			left:4%;
+			margin-top: 1%;
+		}
+
+		.rankNumeralDiv{
+			position: absolute;
+			width:10%;
+			height: 100%;
+			left: 0%;
+		}
+
+		.rankNameInfoDiv{
+			position: absolute;
+			width:85%;
+			height: 100%;
+			left: 15%;
+		}
+
+		.rankNumeralImg, .rankNameInfoImg{
+			width: 100%;
+			height:100%;
+			object-fit: fill;
+		}
+
+		.nameInfoTextDiv{
+			position: absolute;
+			width:70%;
+			height: 100%;
+			top:0%;
+			left:0%;
+			border-right-style: solid;
+			border-right-width: 1px;
+			border-right-color: #F47165;
+		}
+
+		.nameInfoNumberDiv{
+			position: absolute;
+			width:30%;
+			height: 100%;
+			top:0%;
+			left:70%;
+		}
+
+		.centerP {
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			white-space:nowrap;
 		}
 
 		/* 排行榜    ----------------------- end --------------------------- */
+
 
 		/* 離開警告  ----------------------- start --------------------------- */
 
@@ -256,10 +281,19 @@
 			width:100vw;
 			height:100vh;
 			background-color: rgba(128,128,128,0.5);
-			z-index: 99;
+			z-index: 1;
 			text-align: center;
 			font-size: 32pt;
 			line-height: 80vh;
+		}
+
+		#loadImg{
+			object-fit: fill;
+			position: absolute;
+			top:0%;
+			left:0%;
+			width:100vw;
+			height:100vh;
 		}
 
 		#loadObject{
@@ -272,32 +306,47 @@
 		.lds-ellipsis {
 			display: inline-block;
 			position: relative;
-			width: 80px;
-			height: 50px;
+			left: calc(25% - 96px);
+			width: 50%;
+			height: 20%;
 		}
+
+		.lds-ellipsis img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			object-fit: contain;
+			width:100%;
+			height:100%;
+		}
+
 		.lds-ellipsis div {
 			position: absolute;
 			top: 33px;
-			width: 13px;
-			height: 13px;
+			width: 33px;
+			height: 33px;
 			border-radius: 50%;
-			background: #000000;
+			/* background: #000000; */
 			animation-timing-function: cubic-bezier(0, 1, 1, 0);
 		}
 		.lds-ellipsis div:nth-child(1) {
-			left: 8px;
+			left: 0px;
 			animation: lds-ellipsis1 0.6s infinite;
 		}
 		.lds-ellipsis div:nth-child(2) {
-			left: 8px;
+			left: 0px;
 			animation: lds-ellipsis2 0.6s infinite;
 		}
 		.lds-ellipsis div:nth-child(3) {
-			left: 32px;
+			left: 64px;
 			animation: lds-ellipsis2 0.6s infinite;
 		}
 		.lds-ellipsis div:nth-child(4) {
-			left: 56px;
+			left: 128px;
+			animation: lds-ellipsis2 0.6s infinite;
+		}
+		.lds-ellipsis div:nth-child(5) {
+			left: 192px;
 			animation: lds-ellipsis3 0.6s infinite;
 		}
 		@keyframes lds-ellipsis1 {
@@ -321,7 +370,7 @@
 				transform: translate(0, 0);
 			}
 			100% {
-				transform: translate(24px, 0);
+				transform: translate(64px, 0);
 			}
 		}
 
@@ -336,9 +385,16 @@
 	<script src = "/scripts/main.js"></script>
 	
 	<div id = "loadPage">
-		Loading 
-
-		<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+		 
+		<img id = "loadImg" src = "/images/ui/bg/img/2.png" >
+		<div class="lds-ellipsis">
+			<div><img src = "/images/ui/progress bar/img.png"></div>
+			<div><img src = "/images/ui/progress bar/img.png"></div>
+			<div><img src = "/images/ui/progress bar/img.png"></div>
+			<div><img src = "/images/ui/progress bar/img.png"></div>
+			<div><img src = "/images/ui/progress bar/img.png"></div>
+			<div></div>
+		</div>
 
 		<div id = "loadObject"> 載入物件 </div>
 	</div>
@@ -381,47 +437,50 @@
         </div>
 	</div>
 	
-	<div id="blocker_score" class="modal">
-		<div class="modal-content">
-			<div id = "previousCoins">原有代幣：</div>
-			<div id = "getCoins">新增代幣：</div>
-			<hr>
-			<div id = "currentCoins">結算代幣：</div>
-			<div id = "score_info"> </div>
-			<div id = "leaderBn"> <div class="centerText">排行榜</div></div>
-			<div id = "couponPage" > <div class="centerText">去兌換</div></div>
-		</div>
-	</div>
 
-	<div id="leadBnModal" class="modal">
-        <div class="modal-content">
-			<div id="leadBnTitle">
-				<img id="leadBnImg" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/crown.png">
-				<span id="leadBnInfo">永康幣排行榜</span>
-			</div>
-			<table id = "leaderTable" ></table>
-
-			<div id="closeLeadBnModal" >
-				<p  class = "centerText" >關閉</p> 
-			</div>
-		  
-        </div>
-	</div>
-	
 
 	<div id="fraction">
 		<img id="fractionImg" src= "../images/ui/window/game/fraction.png">
 		<img id="dividerImg" src= "images/fraction_divider.png">
 		<div id="score" >
-			分數: 0
+			<div id = "scoreText">
+				分數: 0
+			</div>
 		</div>
-
-		<div id="ballAmount">
-			剩餘球數: 12
+		<div id ="ballAmountDiv">
+			<div id="ballAmount">
+				剩餘球數: 12
+			</div>
 		</div>
 	</div>
 
-	<div id = "scoreCheckPageDiv" style=" display: none; position: fixed; z-index: 89; text-align: center;" > 
+	<!-- 排行榜區 -->
+    <div id="leaderModalDiv" class = "modal" style="display: none;">
+		<div id = "leaderModalContentDiv" class="modal-content">
+		  
+		  <div id ="leaderModalBGDiv">
+			<img id = "leaderModalBGImg" src = "/images/ui/window/fraction/pink bottom.png">
+		  </div>
+  
+		  <div id ="leaderModalBGTopDiv" >
+			<img id = "leaderModalTopImg" src = "/images/ui/pop up/top bar/red.png">
+			<div id = "leaderModalBGTopInfo" class = "centerText"> 排行榜 </div>
+		  </div>
+  
+		  <img id = "leaderModalCancel" src = "/images/ui/button/delete/normal.png">
+  
+		  <div id = "leaderModalTable" ></div>
+  
+		  <div id="leaderModalButtonDiv">
+			<div id="leaderModalComfirm">
+			  <img id = "leaderModalComfirmImg" src = "/images/ui/button/confirm/normal.png">
+			</div> 
+		  </div>
+		</div>  
+	</div>
+
+	<!-- 遊戲結算區 -->
+	<div id = "scoreCheckPageDiv" style=" display: none; position: fixed; z-index: 1; text-align: center;" > 
 		<div id = "bgImgDiv">
 			<img id = "bgImg" src = "../images/ui/bg/img/1.png">
 		</div>
@@ -470,6 +529,11 @@
 	
 			</div>
 
+			<div id = "playResultDiv">
+				<img id = "playResultImg" src = "/images/ui/window/login/dialogue.png">
+				<div id = "playResultText"></div>
+			</div>
+
 			<div id = "leaderBdDiv" >
 				<img id = "leaderBdImg" src = "../images/ui/button/fraction/normal.png">
 			</div>
@@ -483,7 +547,10 @@
 		
 	</div>
 
-	<!-- <script src="js/vconsole.min.js"></script> -->
+	<audio id = "bgAudio" autoplay >
+		<source src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/sound/backgroundAll.mp3" type="audio/mpeg">
+	</audio>
+	<script src="js/vconsole.min.js"></script>
 	<script>
 		// if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
 		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0  ){
@@ -493,23 +560,24 @@
 			console.log("The system is PC: ", window.navigator.userAgent.toLowerCase() );
 		}
 
+		//// 點擊任意位置播放背景音樂
+		document.getElementById("bgAudio").loop = true;
+		document.onclick = function(){
+			document.getElementById("bgAudio").play();
+		}
 		
-
-		document.getElementById("leaveButton").addEventListener('click', function(){
-			
-			if (blocker_score.style.display == "block"){
-				location.replace("/index.html");
-			}else{
-				leaveWarning.style.display = "block";
-				leaveConfirm.onclick = function(){
-					location.replace("/index.html");
-				}
-				leaveCancel.onclick = function(){
-					leaveWarning.style.display = "none";
-				}
-			}
-
-		});
+		
+		//// 排行榜開關
+		leaderBdImg.onclick = function(){
+			leaderModalDiv.style.display = "block";
+		}
+		leaderModalCancel.onclick = function(){
+			leaderModalDiv.style.display = "none";
+		}
+		leaderModalComfirmImg.onclick = function(){
+			leaderModalDiv.style.display = "none";
+		}
+		
 
 	</script>
 
@@ -523,13 +591,16 @@
 		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
 		device-orientation-permission-ui="enabled: true"  shadow="type: pcfsoft"
 		physics="debug: false; friction: 0.005; gravity: -8.0; maxInterval: 0.02566;" >
-			<a-assets id = "aAssets" timeout = "20000">
+			<a-assets id = "aAssets" timeout = "120000">
 
 				<a-asset-item id="baseball" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/baseball.glb"></a-asset-item>
 				<a-asset-item id="baseballShelf" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/baseballShelf2.glb"></a-asset-item>
 				<a-asset-item id="_backgroundBoard" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/background2.glb"></a-asset-item>
 				<a-asset-item id="_flyfloor" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/flyfloor.glb"></a-asset-item>
 				<a-asset-item id="_basket" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/basket_baseball.glb"></a-asset-item>
+
+				<a-asset-item id="_AnninMiru" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/AnninMiru.glb"></a-asset-item>
+				<a-asset-item id="_cheering" name="加油版" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/cheering.glb"></a-asset-item>
 
 				<img id="n1"  crossorigin="anonymous" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/n1.png">
 				<img id="n2"  crossorigin="anonymous" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/n2.png">
@@ -553,8 +624,12 @@
 				</a-entity>
 			</a-entity>
 			
-			<!-- 棒球本身 -->
-			<!-- <a-entity visible = "true" id = "aSphere" position="0 -0.0 1.5" rotation="0 0 0" scale=" 0.3 0.3 0.3 " gltf-model="#baseball" ></a-entity> -->
+
+			<!-- 咪魯 -->
+			<a-entity visible = "true" id = "AnninMiru" position="3 -2 -2" rotation="0 -40 0" scale="3.2 3.2 3.2" gltf-model="#_AnninMiru"></a-entity>
+
+			<!-- 加油版 -->
+			<a-entity visible = "true" id = "cheering" position="2 2.9 -2" rotation="0 0 0" scale=" 2.5 2.5 2.5 " gltf-model="#_cheering" ></a-entity>
 
 			<!-- 背景看板 -->
 			<a-entity visible = "true" id = "backgroundBoard" position="0 -2 -3.2" rotation="0 0 0" scale=" 1.5 1.5 1.5 " gltf-model="#_backgroundBoard" ></a-entity>
@@ -683,6 +758,7 @@
 			blocker.style.display = "none";
 		});
 
+		//// 處理『返回活動首頁』
 		backToWix.onclick = function(){
       		leaveWarningModalDiv.style.display = "block";
 		}
@@ -717,7 +793,7 @@
 		let aSphere =  document.getElementById("aSphere"); //// 原始位置為 (0, 1, -1)
 		let aRobot = document.getElementById("aRobot");
 		let underplane = document.getElementById("underplane");
-		let scoreText = document.getElementById("score")
+		let scoreText = document.getElementById("scoreText")
 		let ballAmountText = document.getElementById("ballAmount")
 		let aSphereOriginPosition = aSphere.object3D.position.clone();
 		// let aSphereOriginPosition = new THREE.Vector3();
@@ -782,7 +858,78 @@
 			evt.detail.model.animationSlices = animationSlices;
 		} );
 
-		
+		//// 將 『咪魯』調整為無光標準，並且增加動畫
+		AnninMiru.setAttribute("animation-mixer" , "clip: Take 001");
+		AnninMiru.addEventListener('model-loaded', function (evt){
+			let objj = evt.detail.model;
+			objj.traverse(node => {
+				if (node.isMesh) {
+					node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+					if (node.material.map){
+						node.material.map.encoding = THREE.GammaEncoding;
+						node.material.map.needsUpdate = true;
+					}
+					node.material.needsUpdate = true;
+				}
+			});
+			let animationSlices = [];
+			animationSlices.push({ 
+				changed:false, 
+				loop:true, 
+				reset:true, 
+				stopHead: false,
+				count: 0, 
+				idle:"mifly168", 
+				uid:"mifly168" 
+			});
+			animationSlices.push({
+				animationName: evt.detail.model.animations[0].name,
+				name: evt.detail.model.animations[0].name,
+				endTime: evt.detail.model.animations[0].duration ,
+				startTime: 0,
+				uid:"mifly168"
+			});
+			evt.detail.model.animationSlices = animationSlices;
+		} );
+
+		cheering.setAttribute("animation-mixer" , "clip: Take 001");
+		cheering.addEventListener('model-loaded', function (evt){
+			let objj = evt.detail.model;
+			objj.traverse(node => {
+				if (node.isMesh) {
+					node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+					if (node.material.map){
+						node.material.map.encoding = THREE.GammaEncoding;
+						node.material.map.needsUpdate = true;
+					}
+					node.material.needsUpdate = true;
+				}
+			});
+
+			let animationSlices = [];
+			animationSlices.push({ 
+				changed:false, 
+				loop:true, 
+				reset:true, 
+				stopHead: false,
+				count: 0, 
+				idle:"mifly169", 
+				uid:"mifly169" 
+			});
+			animationSlices.push({
+				animationName: evt.detail.model.animations[0].name,
+				name: evt.detail.model.animations[0].name,
+				endTime: evt.detail.model.animations[0].duration ,
+				startTime: 0,
+				uid:"mifly169"
+			});
+			evt.detail.model.animationSlices = animationSlices;
+
+
+		} );
+
+
+
 		// let ball = document.getElementById("ball");
 
 		let preMouse = new THREE.Vector2();
@@ -805,7 +952,7 @@
 		// 	}, 1000);
 		// });
 		let boardTable = [0,0,0,0,0,0,0,0,0];
-		let ballAmount = 1;
+		let ballAmount = 12;
 		let score = 0;
 		// 下方平面被撞到 算分並重置
 		// underplane.addEventListener('collide', function(e){
@@ -1172,7 +1319,6 @@
 
 					fraction.style.display = "none";
 					scoreCheckPageDiv.style.display = "block";
-					// blocker_score.style.display = "block";
 
 					let userID;
 					if ( !localStorage.getItem('userID') || !localStorage.getItem('vendor') ){
@@ -1213,42 +1359,25 @@
 						}).then(function(userCoins) {
 							let userCurrentCounts = Number(userCoins[0].currentCoins);
 
-							// currentCoins.innerHTML = "結算代幣：" + userCurrentCounts + "枚";
-
-							// if ( isPlayed[0] == true ){
-
-							// 	if (score == 0){
-							// 		previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
-							// 		getCoins.innerHTML = "新增代幣：" + 1 + "枚";
-							// 		score_info.innerHTML = "Sorry! 一個都沒有擊中<br>不過參與遊戲還是可以獲得一個永康幣喔";
-							// 	}else{
-							// 		previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts - coins) + "枚";
-							// 		getCoins.innerHTML = "新增代幣：" + coins + "枚";
-							// 		score_info.innerHTML = "恭喜你！擊中" + score + " 格<br>獲得" + coins + "個永康幣";
-							// 	}
-
-
-							// }else{
-								
-							// 	if (score == 0){
-							// 		previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
-							// 		getCoins.innerHTML = "新增代幣：" + 1 + "枚";
-							// 		score_info.innerHTML = "Sorry! 一個都沒有擊中<br>今日已經遊玩過了，無法獲得永康幣";
-							// 	}else{
-							// 		previousCoins.innerHTML = "原有代幣：" + userCurrentCounts + "枚";
-							// 		getCoins.innerHTML = "新增代幣：" + 0 + "枚";
-							// 		score_info.innerHTML = "恭喜你！擊中 " + score + " 格<br>今日已經遊玩過了，無法獲得永康幣";
-							// 	}
-
-							// }
 							currentCoinsAmountText.innerHTML = userCurrentCounts + " 枚";
 							if ( isPlayed[0] == true ){
 								previousCoinsAmountText.innerHTML = (userCurrentCounts - coins) + " 枚";
 								getCoinsAmountText.innerHTML = coins + " 枚";
+								if (score == 0){
+									playResultText.innerHTML = "Sorry! 一個都沒有擊中，不過參與遊戲還是可以獲得一個永康幣喔";
+								}else{
+									playResultText.innerHTML = "恭喜你！擊中" + score + " 格，獲得" + coins + "個永康幣";
+								}
+								
 							}
 							else{
 								previousCoinsAmountText.innerHTML = (userCurrentCounts)+ " 枚";
 								getCoinsAmountText.innerHTML = "0 枚";
+								if (score == 0){
+									playResultText.innerHTML = "Sorry! 一個都沒有擊中，不過參與遊戲還是可以獲得一個永康幣喔";
+								}else{
+									playResultText.innerHTML = "恭喜你！擊中 " + score + " 格，今日已經遊玩過了，無法獲得永康幣";
+								}
 							}
 
 						});
@@ -1276,27 +1405,36 @@
 							return response.json();
 						}).then(function(leaderList) {
 							
-							leadBnModal.style.display = 'block';
 
-							console.log("leaderList = " , leaderList );
-							let leaderTable = document.getElementById("leaderTable");
-							leaderTable.innerHTML = "";
-							let thr = leaderTable.insertRow( 0 );
-							let t1 = document.createElement('th') , t2 = document.createElement('th') , t3 = document.createElement('th');
-							t1.innerHTML = "排名";
-							t2.innerHTML = "用戶名稱";
-							t3.innerHTML = "代幣數量";
-							thr.appendChild(t1);
-							thr.appendChild(t2);
-							thr.appendChild(t3);
+							let leaderModalTable = document.getElementById("leaderModalTable");
+							leaderModalTable.innerHTML = "";
+
 							leaderList.forEach((currentValue, index) => {
-								let row = leaderTable.insertRow( index + 1);
-								let rankR = row.insertCell(0);
-								let nameR = row.insertCell(1);
-								let coinsR = row.insertCell(2);
-								rankR.style.width = "20%";
-								nameR.style.width = "50%";
-								coinsR.style.width = "25%";
+								
+								let row = document.createElement("div");
+								row.className = "rankRow";
+
+								let numeralText = document.createElement("p");
+								numeralText.className = "centerP";
+								numeralText.style.color = "#F47165";
+								numeralText.innerHTML = index+1;
+
+								let nameInfoTextDiv = document.createElement("div");
+								let nameInfoNumberDiv = document.createElement("div");
+
+								nameInfoNumberDiv.className = "nameInfoNumberDiv";
+								nameInfoNumberDiv.style.overflow = "hidden";
+								nameInfoTextDiv.className = "nameInfoTextDiv";
+
+								let nameInfoText = document.createElement("p");
+								nameInfoText.className = "centerP";
+								nameInfoText.style.color = "#F47165";
+
+								let nameInfoNumber = document.createElement("p");
+								nameInfoNumber.className = "centerP";
+								nameInfoNumber.style.color = "#F47165";
+								nameInfoNumber.innerHTML = currentValue.couponExchanged;;
+								nameInfoNumberDiv.appendChild(nameInfoNumber);
 
 								let userName;
 								if (currentValue.name == ""){
@@ -1304,17 +1442,42 @@
 								}else{
 								userName = currentValue.name;
 								}
-								rankR.innerHTML = index + 1;
-								nameR.innerHTML = userName;
-								coinsR.innerHTML = currentValue.cumulativeCoins;
-							});
+								nameInfoText.innerHTML = userName;
+								nameInfoTextDiv.appendChild(nameInfoText);
+
+
+								let numeralDiv = document.createElement("div");
+								let nameInfoDiv = document.createElement("div");
+								numeralDiv.className = "rankNumeralDiv";
+								nameInfoDiv.className = "rankNameInfoDiv";
+								nameInfoDiv.style.overflow = "hidden";
+
+								let numeral = new Image();
+								numeral.src = "/images/ui/window/ranked/numeral.png";
+								numeral.className = "rankNumeralImg";
+
+								let nameInfo = new Image();
+								nameInfo.src = "/images/ui/window/ranked/name.png"
+								nameInfo.className = "rankNameInfoImg";
+
+								numeralDiv.appendChild(numeral);
+								numeralDiv.appendChild(numeralText);
+								nameInfoDiv.appendChild(nameInfo);
+								nameInfoDiv.appendChild(nameInfoTextDiv);
+								nameInfoDiv.appendChild(nameInfoNumberDiv);
+								
+								row.appendChild(numeralDiv);
+								row.appendChild(nameInfoDiv);
+								leaderModalTable.appendChild(row);
+
+							});		
+
+
+							
 						});
 
 					}
 
-					closeLeadBnModal.onclick = function(){
-						leadBnModal.style.display = 'none';
-					}
 
 
 				}
