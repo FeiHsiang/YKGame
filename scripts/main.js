@@ -119,6 +119,7 @@ switch (location.pathname) {
 //[start-20201123- fei -0001-adddebug]//
     //// 點擊開啟『介紹遊玩方式』
     gameStartImg.addEventListener('click', function(){
+      aUI.showStartGameIntro();
       gameIntroModal.style.display = "block";
     },false);
     //// 點擊開啟『介紹遊玩方式』

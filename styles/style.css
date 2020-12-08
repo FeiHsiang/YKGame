@@ -250,6 +250,16 @@ body {
   z-index: 3;
 }
 
+#gameIntroModalContent{
+  position: relative;
+  margin: auto;
+  top:5%;
+  border-radius: 16px;
+  width: 85vw;
+  height: 80vh;
+  max-width: 760px;
+}
+
 #gameIntroModalBGTopDiv{
   left:2%;
   top:0%;
@@ -268,8 +278,11 @@ body {
 }
 
 #gameIntroModalBGTopInfo{
+  position: absolute;
+  top:50%;
   margin:0;
   color:white;
+  font-size: 30pt;
 }
 
 
@@ -357,7 +370,7 @@ body {
 
 #gameIntroModalInfo{
   margin:18px;
-  top:0%;
+  top:5%;
   color:#F47165;
   position: absolute;
 }
@@ -366,7 +379,7 @@ body {
   position: absolute;
   bottom: 10px;
   width:100%;
-  height:35%;
+  height:25%;
 }
 
 #leaveWarningButtonDiv , #exchangeIntroButtonDiv{

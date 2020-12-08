@@ -782,7 +782,7 @@ body {
   height: 100%;
   max-width: 370px;
   max-height: 86px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 #gameIntroModalComfirmImg , #gameIntroModalCancelImg {

@@ -130,6 +130,10 @@ class UI {
       }
     }
 
+    //// 『介紹首頁』內容
+    gameIntroModalBGTopInfo.innerHTML = gameTitle; // 兩 html 取相同名稱.
+    gameIntroModalInfo.innerHTML = introText;
+    //// 『兌換區遊戲介紹』內容
     gameIntroModalBGTopInfo.innerHTML = gameTitle;
     gameIntroModalInfo.innerHTML = introText;
 
