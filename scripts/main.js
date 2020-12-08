@@ -53,9 +53,9 @@ let checkLogin = function() {
   else {
 //[start-20201119- fei -0001-debug]//
     //// 測試：不論登入與否，直接顯示
-    console.log("main.js: call selectProgramToRun ");
-    selectProgramToRun(); 
-    return;
+    // console.log("main.js: call selectProgramToRun ");
+    // selectProgramToRun(); 
+    // return;
 //[end---20201119- fei -0001-debug]//
 
     // 沒登入
