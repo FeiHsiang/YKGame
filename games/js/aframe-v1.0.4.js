@@ -71374,7 +71374,7 @@ module.exports.Component = registerComponent('device-orientation-permission-ui',
       self.devicePermissionDialogEl = createPermissionDialog(
 //[start-20201125- fei -0001-mod]//
         // 'This immersive website requires access to your device motion sensors.',
-        '請點擊同意來啟動動作感應器',
+        '請點擊畫面來啟動動作感應器',
 //[end---20201125- fei -0001-mod]//
         self.onDeviceMotionDialogAllowClicked,
         self.onDeviceMotionDialogDenyClicked);
@@ -71457,9 +71457,21 @@ function createPermissionDialog (text, onAllowClicked, onDenyClicked) {
 //[start-20201125- fei -0001-mod]//  
   // acceptButton.innerHTML = 'Allow';
   buttonsContainer.style.display = "block";
-  acceptButton.style.backgroundColor = "#69918b"; 
+  buttonsContainer.style.position = "fixed";
+  buttonsContainer.style.width = "100vw";
+  buttonsContainer.style.height = "100vh";
+  buttonsContainer.style.top = "0%";
+  buttonsContainer.style.left = "0%";
+
+  acceptButton.style.position = "absolute";
+  acceptButton.style.bottom = "0%";
+  acceptButton.style.left = "0%";
+  acceptButton.style.width = "100%";
+  acceptButton.style.height = "100%";
+
+  acceptButton.style.backgroundColor = "rgba(0,0,0,0)"; 
   acceptButton.style.borderRadius = "20px";
-  acceptButton.innerHTML = '同意';
+  acceptButton.innerHTML = '';
 //[end---20201125- fei -0001-mod]//  
   buttonsContainer.appendChild(acceptButton);
 
@@ -71509,14 +71521,37 @@ function createDialog (text, buttonsContainerEl) {
   modalContainer = document.createElement('div');
   modalContainer.classList.add(MODAL_CLASS);
 //[start-20201204- fei -0001-add]//
+  modalContainer.style.backgroundImage = "url('https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/ui/bg/bg_hoonie_milo.png')";
+  modalContainer.style.width = "100vw";
+  modalContainer.style.height = "100vh";
+  modalContainer.style.backgroundSize = "cover";
+  modalContainer.style.backgroundRepeat = "no-repeat";
+
   modalContainer.style.backgroundColor = "rgba(0,0,0,0.7)";
 //[end---20201204- fei -0001-add]//
   modalContainer.setAttribute(constants.AFRAME_INJECTED, '');
 
   dialog = document.createElement('div');
-  dialog.className = DIALOG_CLASS;
+//[start-20201208- fei -0001-remove]//
+  // dialog.className = DIALOG_CLASS;
+//[start-20201208- fei -0001-remove]//
+
   dialog.setAttribute(constants.AFRAME_INJECTED, '');
   modalContainer.appendChild(dialog);
+
+//[start-20201208- fei -0001-add]//
+
+  dialog.style.position = "absolute";
+  dialog.style.width = "70%";
+  dialog.style.height = "30%";
+  dialog.style.top = "10%";
+  dialog.style.left = "15%";
+  dialog.style.color = "white";
+
+  dialog.style.backgroundImage = "url('https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/ui/window/login/dialogue.png')";
+  dialog.style.backgroundSize = "100% 100%";
+  dialog.style.backgroundRepeat = "no-repeat";
+//[end---20201208- fei -0001-add]//
 
   dialogTextContainer = document.createElement('div');
   dialogTextContainer.classList.add(DIALOG_TEXT_CONTAINER_CLASS);

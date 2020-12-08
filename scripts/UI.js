@@ -198,7 +198,7 @@ class UI {
 
           let rem = buyRet[0].couponRemain.coupon001;
           // document.getElementById("poolInfoDivText").innerHTML = "目前剩餘" + rem +"/5000，今日可兌換數量剩餘" + rem;
-          document.getElementById("poolInfoDivText").innerHTML = "活動期間每天可兌換300張15元抵用券，共計發送5000張，今日剩餘" + couponTotal[0].coupon001 +" 張";
+          document.getElementById("poolInfoDivText").innerHTML = "活動期間每天可兌換300張15元抵用券，共計發送5000張，今日剩餘" + rem +" 張";
 
         }
 

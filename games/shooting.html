@@ -75,13 +75,12 @@
 		/* Modal Content/Box */
 		.modal-content {
 			position: relative;
-			background-color: #202125;
 			margin: auto;
 			top: 5%;
 			border-radius: 16px;
 			width: 85vw;
 			height: 75vh;
-			overflow: auto;
+			/* overflow: auto; */
 		}
 
 		.modal-content > div {
@@ -166,47 +165,147 @@
 
 		/* 排行榜    ----------------------- start --------------------------- */
 
-		#leadBnTitle{
-			position: relative;
-			margin-top: 15px;
-			margin-bottom: 30px;
-			min-height: 30px;
-			text-align: center;
-		}
 
-		#leadBnImg{
+		#leaderModalBGDiv {
+			top:0%;
+			left:0%;
+			width:100%;
+			height:100%;
 			position: absolute;
-			width:60px;
-			height:60px;
-			left:5px ;
 		}
 
-		#leadBnInfo{
-			position: relative;
-			font-size: 30px;
-			color: #afb4f9;
-			left: 32px ;
-			top:15px;
+		#leaderModalBGImg{
+			left: 0%;
+			top: 0%;
+			width: 100%;
+			height:100%;
+			object-fit: fill;
+		}
+		
+		#leaderModalBGTopDiv {
+			left:3%;
+			top:0%;
+			width:94%;
+			height:10%;
+			position: absolute;
 		}
 
-		#leaderTable{
-			margin: auto;
-			width:90%;
+		#leaderModalTopImg{
+			left: 0%;
+			top: 0%;
+			width: 100%;
+			height:100%;
+			object-fit: fill;
+		}
+
+		#leaderModalBGTopInfo {
+			position: absolute;
+			top:50%;
+			margin:0;
 			color:white;
+			font-size: 30pt;
+		}
+
+		#leaderModalCancel  {
+			position: absolute;
+			top:-20px;
+			right:-20px;
+			width:15%;
+			height:15%;
+			max-width: 74px;
+			max-height: 74px;
+			object-fit: contain;
+		}
+
+		#leaderModalTable{
+			position: absolute;
+			margin: auto;
+			width:94%;
+			height:70%;
+			top:12%;
+			left:3%;
+			color:black;
 			font-size:14pt;
 			overflow-wrap:anywhere;
 		}
 
-		#closeLeadBnModal{
-			color: rgba(20,20,20,1.0);
-			background-color: rgba(200,200,200,1.0);
+		#leaderModalButtonDiv {
 			position: absolute;
-			bottom: 10px;
-			width: 40%;
-			height:30px;
-			left:30%;
-			font-size: 18px;
-			cursor: pointer;
+			bottom: 4%;
+			width:100%;
+			height:10%;
+		}
+
+		#leaderModalComfirm {
+			position: absolute;
+			width:50%;
+			left:25%;
+			top: 0%;
+		}
+
+		#leaderModalComfirmImg {
+			width:100%;
+			height: 100%;
+			max-width: 370px;
+			max-height: 86px;
+			object-fit: contain;
+		}
+
+
+		.rankRow{
+			position: relative;
+			width:90%;
+			height:8%;
+			left:4%;
+			margin-top: 1%;
+		}
+
+		.rankNumeralDiv{
+			position: absolute;
+			width:10%;
+			height: 100%;
+			left: 0%;
+		}
+
+		.rankNameInfoDiv{
+			position: absolute;
+			width:85%;
+			height: 100%;
+			left: 15%;
+		}
+
+		.rankNumeralImg, .rankNameInfoImg{
+			width: 100%;
+			height:100%;
+			object-fit: fill;
+		}
+
+		.nameInfoTextDiv{
+			position: absolute;
+			width:70%;
+			height: 100%;
+			top:0%;
+			left:0%;
+			border-right-style: solid;
+			border-right-width: 1px;
+			border-right-color: #F47165;
+		}
+
+		.nameInfoNumberDiv{
+			position: absolute;
+			width:30%;
+			height: 100%;
+			top:0%;
+			left:70%;
+		}
+
+		.centerP {
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			white-space:nowrap;
 		}
 
 		/* 排行榜    ----------------------- end --------------------------- */
@@ -284,6 +383,15 @@
 			line-height: 80vh;
 		}
 
+		#loadImg{
+			object-fit: fill;
+			position: absolute;
+			top:0%;
+			left:0%;
+			width:100vw;
+			height:100vh;
+		}
+
 		#loadObject{
 			position: absolute;
 			top:10%;
@@ -294,32 +402,47 @@
 		.lds-ellipsis {
 			display: inline-block;
 			position: relative;
-			width: 80px;
-			height: 50px;
+			left: calc(25% - 96px);
+			width: 50%;
+			height: 20%;
 		}
+
+		.lds-ellipsis img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			object-fit: contain;
+			width:100%;
+			height:100%;
+		}
+
 		.lds-ellipsis div {
 			position: absolute;
 			top: 33px;
-			width: 13px;
-			height: 13px;
+			width: 33px;
+			height: 33px;
 			border-radius: 50%;
-			background: #000000;
+			/* background: #000000; */
 			animation-timing-function: cubic-bezier(0, 1, 1, 0);
 		}
 		.lds-ellipsis div:nth-child(1) {
-			left: 8px;
+			left: 0px;
 			animation: lds-ellipsis1 0.6s infinite;
 		}
 		.lds-ellipsis div:nth-child(2) {
-			left: 8px;
+			left: 0px;
 			animation: lds-ellipsis2 0.6s infinite;
 		}
 		.lds-ellipsis div:nth-child(3) {
-			left: 32px;
+			left: 64px;
 			animation: lds-ellipsis2 0.6s infinite;
 		}
 		.lds-ellipsis div:nth-child(4) {
-			left: 56px;
+			left: 128px;
+			animation: lds-ellipsis2 0.6s infinite;
+		}
+		.lds-ellipsis div:nth-child(5) {
+			left: 192px;
 			animation: lds-ellipsis3 0.6s infinite;
 		}
 		@keyframes lds-ellipsis1 {
@@ -343,7 +466,7 @@
 				transform: translate(0, 0);
 			}
 			100% {
-				transform: translate(24px, 0);
+				transform: translate(64px, 0);
 			}
 		}
 
@@ -359,10 +482,17 @@
 	<script src = "/scripts/main.js"></script>
 	
 	<div id = "loadPage">
-		Loading 
-
-		<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-
+		
+		<img id = "loadImg" src = "/images/ui/bg/img/2.png" >
+		<div class="lds-ellipsis">
+			<div><img src = "/images/ui/progress bar/img.png"></div>
+			<div><img src = "/images/ui/progress bar/img.png"></div>
+			<div><img src = "/images/ui/progress bar/img.png"></div>
+			<div><img src = "/images/ui/progress bar/img.png"></div>
+			<div><img src = "/images/ui/progress bar/img.png"></div>
+			<div></div>
+		</div>
+		
 		<div id = "loadObject"> 載入物件 </div>
 	</div>
 
@@ -373,7 +503,7 @@
 	<div id="blocker">
 		<div class="modal-content">
 			<div id = "blockerTitle">
-				射擊小遊戲
+				射氣球
 			</div>
 			<div id = "blockerInfo"> 
 				滑鼠/手指點擊螢幕來射箭<br/>
@@ -398,21 +528,33 @@
 		</div>
 	</div>
 
-	<div id="leadBnModal" class="modal">
-        <div class="modal-content">
-			<div id="leadBnTitle">
-				<img id="leadBnImg" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/coin.png">
-				<span id="leadBnInfo">永康幣排行榜</span>
-			</div>
-			<table id = "leaderTable" ></table>
-
-			<div id="closeLeadBnModal" >
-				<p  class = "centerText" >關閉</p> 
-			</div>
-		  
-        </div>
-	</div>
 	
+	<!-- 排行榜區 -->
+    <div id="leaderModalDiv" class = "modal" style="display: none;">
+		<div id = "leaderModalContentDiv" class="modal-content">
+		  
+		  <div id ="leaderModalBGDiv">
+			<img id = "leaderModalBGImg" src = "/images/ui/window/fraction/pink bottom.png">
+		  </div>
+  
+		  <div id ="leaderModalBGTopDiv" >
+			<img id = "leaderModalTopImg" src = "/images/ui/pop up/top bar/red.png">
+			<div id = "leaderModalBGTopInfo" class = "centerText"> 排行榜 </div>
+		  </div>
+  
+		  <img id = "leaderModalCancel" src = "/images/ui/button/delete/normal.png">
+  
+		  <div id = "leaderModalTable" ></div>
+  
+		  <div id="leaderModalButtonDiv">
+			<div id="leaderModalComfirm">
+			  <img id = "leaderModalComfirmImg" src = "/images/ui/button/confirm/normal.png">
+			</div> 
+		  </div>
+		</div>  
+	</div>
+
+	<!-- 結算界面 -->
 	<div id="leaveWarning" class="modal">
 		<div class="modal-content">
 			
@@ -433,23 +575,32 @@
 		時間： 15
 	</div>
 
+	<audio id = "bgAudio" autoplay >
+		<source src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/sound/backgroundAll.mp3" type="audio/mpeg">
+	</audio>
+
 	<script src="js/vconsole.min.js"></script>
 	<script>
 		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
-			var vConsole = new VConsole();
+			// var vConsole = new VConsole();
 			console.log("The system is mobile: ", window.navigator.userAgent.toLowerCase() );
 		}else{
 			console.log("The system is PC: ", window.navigator.userAgent.toLowerCase() );
 		}
 
+		//// 點擊任意位置播放背景音樂
+		document.getElementById("bgAudio").loop = true;
+		document.onclick = function(){
+			document.getElementById("bgAudio").play();
+		}
 
 		document.getElementById("leaveButton").addEventListener('click', function(){
 			if (blocker_score.style.display == "block"){
-				location.replace("/index.html");
+				location.replace("/prize-list/index.html");
 			}else{
 				leaveWarning.style.display = "block";
 				leaveConfirm.onclick = function(){
-					location.replace("/index.html");
+					location.replace("/prize-list/index.html");
 				}
 				leaveCancel.onclick = function(){
 					leaveWarning.style.display = "none";
@@ -469,7 +620,7 @@
 	<div id = "aDiv"  >
 		<a-scene id = "aScene" embedded="" vr-mode-ui="enabled: false" 
 		device-orientation-permission-ui="enabled: true"  shadow="type: pcfsoft"
-		physics="debug: false; friction: 50.0 ; restitution: 0.2; gravity: -4.0; maxInterval: 0.0333;" >
+		physics="debug: false; friction: 50.0 ; restitution: 0.2; gravity: -2.0; maxInterval: 0.0333;" >
 			<a-assets id = "aAssets" timeout = "20000">
 
 				<a-asset-item id="_arrow" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Arrow.glb"></a-asset-item>
@@ -477,6 +628,12 @@
 				<a-asset-item id="b1" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/balloon01.glb"></a-asset-item>
 				<a-asset-item id="b2" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/balloon02.glb"></a-asset-item>
 				<a-asset-item id="b3" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/balloon03.glb"></a-asset-item>
+
+				<a-asset-item id="_box" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Box.glb"></a-asset-item>
+				<a-asset-item id="_Hoonie" name="虎妮" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Hoonie.glb"></a-asset-item>
+				<a-asset-item id="_flyfloor" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/flyfloor.glb"></a-asset-item>
+				<a-asset-item id="_cheering" name="加油版" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/cheering.glb"></a-asset-item>
+
 
 			</a-assets>
 
@@ -489,11 +646,18 @@
 				</a-entity>
 			</a-entity>
 
-			<!-- <a-box id = "ground2" width="8" height="0.1" depth="20" position="0 -5 0" visible="true" shadow="receive: true"></a-box> -->
-			<a-plane id = "ground" material="side:double;" position="0 4 -4" rotation="-90 0 0" width="180" height="200" color="#7BC8A4" opacity="1.0" shadow="receive: true" visible="false"></a-plane>
+			<!-- 虎泥 -->
+			<a-entity visible = "true" id = "Hoonie" position="9 -4 -15" rotation="0 -30 0" scale=" 4.5 4.5 4.5 " gltf-model="#_Hoonie" ></a-entity>
 
+			<!-- 加油版 -->
+			<a-entity visible = "true" id = "cheering" position="6 5 -15" rotation="0 0 0" scale="6 6 6" gltf-model="#_cheering" ></a-entity>
 
+			<!-- 寶箱 -->
+			<a-entity visible = "true" id = "box" position="0 -4 -12" rotation="0 90 0" scale=" 4 2.5 4 " gltf-model="#_box" ></a-entity>
 			
+			<!-- 裝飾地板 -->
+			<a-entity visible = "true" id = "flyfloor" position="0 -4 -12" rotation="0 0 0" scale="7.3 7.3 3.3" gltf-model="#_flyfloor" ></a-entity>
+
 			<!-- <a-sky id = "aSky" color="#ECECEC"></a-sky> -->
 
 			<a-entity light="type: ambient; color: #fff; intensity: 1.0" ></a-entity>
@@ -538,6 +702,88 @@
 			// loadPage.style.display = "none";
 		});
 
+		function  modelMeshAnimation(evt){
+			let objj = evt.detail.model;
+			objj.traverse(node => {
+				if (node.isMesh) {
+					node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+					if (node.material.map){
+						node.material.map.encoding = THREE.GammaEncoding;
+						node.material.map.needsUpdate = true;
+					}
+					node.material.needsUpdate = true;
+				}
+			});
+			let animationSlices = [];
+			animationSlices.push({ 
+				changed:false, 
+				loop:true, 
+				reset:true, 
+				stopHead: false,
+				count: 0, 
+				idle:"mifly168", 
+				uid:"mifly168" 
+			});
+			animationSlices.push({
+				animationName: evt.detail.model.animations[0].name,
+				name: evt.detail.model.animations[0].name,
+				endTime: evt.detail.model.animations[0].duration ,
+				startTime: 0,
+				uid:"mifly168"
+			});
+			evt.detail.model.animationSlices = animationSlices;
+		}
+
+		//// 將 『浮空地板』調整為無光標準，並且增加動畫
+		flyfloor.setAttribute("animation-mixer" , "clip: Take 001");
+		flyfloor.addEventListener('model-loaded', modelMeshAnimation );
+		//// 將 『虎泥』調整為無光標準，並且增加動畫
+		Hoonie.setAttribute("animation-mixer" , "clip: Take 001");
+		Hoonie.addEventListener('model-loaded', modelMeshAnimation );
+
+		//// 將 『加油版』調整為無光標準，並且增加動畫
+		cheering.setAttribute("animation-mixer" , "clip: Take 001");
+		cheering.addEventListener('model-loaded', modelMeshAnimation );
+
+		
+
+		//// 將 『寶箱』調整為無光標準，並且增加一次性動畫
+		box.setAttribute("animation-mixer" , "clip: Take 001");
+		box.addEventListener('model-loaded', function(evt){
+			let objj = evt.detail.model;
+			objj.traverse(node => {
+				if (node.isMesh) {
+					node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+					if (node.material.map){
+						node.material.map.encoding = THREE.GammaEncoding;
+						node.material.map.needsUpdate = true;
+					}
+					node.material.needsUpdate = true;
+				}
+			});
+
+			let animationSlices = [];
+			animationSlices.push({ 
+				changed:false, 
+				loop:false, 
+				reset:false, 
+				stopHead: true,
+				count: 1, 
+				idle:"mifly168", 
+				uid:"mifly168" 
+			});
+			animationSlices.push({
+				animationName: evt.detail.model.animations[0].name,
+				name: evt.detail.model.animations[0].name,
+				endTime: evt.detail.model.animations[0].duration ,
+				startTime: 0,
+				uid:"mifly168"
+			});
+			evt.detail.model.animationSlices = animationSlices;
+
+		});
+
+
 		//// 將模型材質設定為無光標準
 		function setModelMesh(evt){
 			let objj = evt.detail.model;
@@ -574,6 +820,14 @@
 				if (bow.components["animation-mixer"].mixer){
 					console.log(" got mixer: " , bow.components["animation-mixer"].mixer );
 					bow.components["animation-mixer"].mixer._actions[0].timeScale = 1.5;
+
+					//// 這邊算是場景最後完成的地方
+					loadPage.style.display = "none";
+					blocker.style.display = "block";
+					blocker.style.pointerEvents = "auto";
+					blocker_score.style.pointerEvents = "auto";
+					blockState.innerHTML = "請點擊螢幕來開始遊戲";
+
 				}else{
 					console.log(" get mixer tick ");
 					setTimeout(tick_getMixer);
@@ -704,7 +958,7 @@
 				let bullet = document.createElement('a-entity');
 				bullet.setAttribute("dynamic-body", "mass: 1; shape: sphere;"); //// 碰撞形狀設為球形，才不會有多次碰撞
 				bullet.setAttribute("object-type", "bullet"); //// 自行設定的類別，為了碰撞時候區隔
-				bullet.setAttribute("scale", "0.6 0.2 0.6");
+				bullet.setAttribute("scale", "1.6 0.2 1.6");
 				bullet.setAttribute("gltf-model", "#_arrow");
 				//// 材質設定為無光標準
 				bullet.addEventListener('model-loaded', setModelMesh );
@@ -788,7 +1042,13 @@
 		blocker.onclick =  function(){
 			console.log(" _blocker clicked");
 			blocker.style.display = "none";
-			randomGenerateObject();
+			//// 0.5s 後播放寶箱動畫
+			box.object3D.children[0].animationSlices[0].changed = true;
+			box.object3D.children[0].animationSlices[0].stopHead = false;
+			setTimeout(function(){
+				randomGenerateObject();
+			}, 800);
+			
 		};
 
 		//// 隨機掉落『禮物』，控制固定速度的功能寫在外面，寫在個別會造成卡頓，在固定的時間內尋找場景中所有符合條件的物件賦予固定落下速度
@@ -812,10 +1072,10 @@
 				//// 使用預先開好的『可選位置』來抽籤決定每個禮物生成的位置。需要限制禮物數量在 15 個。
 				let pIndex = Math.floor( Math.random()*posArray.length );//// 從現有『可選位置』中隨機選一個
 				let getPIndex = posArray[pIndex];//// 取得選中的位置編號 [0-15]
-				let px = Math.floor(getPIndex/4) * 1.3;//// 依照編號計算 x [0-3]
-				let pz = (getPIndex%4) * 1.3 ;            //// 依照編號計算 z [0-3] 
+				let px = Math.floor(getPIndex/4) * 1.6;//// 依照編號計算 x [0-3]
+				let pz = (getPIndex%4) * 1.6 ;            //// 依照編號計算 z [0-3] 
 				posArray.splice(pIndex, 1); //// 刪除『可選位置』中被選到的位置，代表已經被選過
-				let randomPosition = new THREE.Vector3( -1.9 + px, -4 , -9 + pz );
+				let randomPosition = new THREE.Vector3( -1.9 + px, -4 , -15 + pz );
 
 				//// 完全隨機，可能會造成物件重疊，暫時不使用
 				// let randomPosition = new THREE.Vector3( 0, -2, -6);
@@ -836,17 +1096,17 @@
 				if (generatedCount%3 == 0){
 					gift.setAttribute("gltf-model", "#b1");
 					gift.setAttribute("score", "1" );
-					gift.setAttribute("scale", "0.5 0.5 0.5");
+					gift.setAttribute("scale", "1.2 1.2 1.2");
 					gift.setAttribute("velocity", velocity.multiplyScalar(1) );
 				}else if (generatedCount%3 == 1){
 					gift.setAttribute("gltf-model", "#b2");
 					gift.setAttribute("score", "2" );
-					gift.setAttribute("scale", "0.7 0.7 0.7");
+					gift.setAttribute("scale", "1.45 1.45 1.45");
 					gift.setAttribute("velocity", velocity.multiplyScalar(1.5) );
 				}else {
 					gift.setAttribute("gltf-model", "#b3");
 					gift.setAttribute("score", "3" );
-					gift.setAttribute("scale", "0.9 0.9 0.9");
+					gift.setAttribute("scale", "1.7 1.7 1.7");
 					gift.setAttribute("velocity", velocity.multiplyScalar(2.0) );
 				}
 
@@ -899,11 +1159,6 @@
 						scoreNow.innerText = "分數："+(score);
 
 					}
-					//// 假如『禮物』受到『地板』碰撞，刪除禮物
-					if (e.detail.body.el.getAttribute("id") == "ground"){
-						e.detail.target.el.remove();
-					}
-
 					
 
 				});
@@ -1026,27 +1281,38 @@
 						return response.json();
 					}).then(function(leaderList) {
 						
-						leadBnModal.style.display = 'block';
+						leaderModalDiv.style.display = 'block';
 
-						console.log("leaderList = " , leaderList );
-						let leaderTable = document.getElementById("leaderTable");
-						leaderTable.innerHTML = "";
-						let thr = leaderTable.insertRow( 0 );
-						let t1 = document.createElement('th') , t2 = document.createElement('th') , t3 = document.createElement('th');
-						t1.innerHTML = "排名";
-						t2.innerHTML = "用戶名稱";
-						t3.innerHTML = "代幣數量";
-						thr.appendChild(t1);
-						thr.appendChild(t2);
-						thr.appendChild(t3);
+
+						let leaderModalTable = document.getElementById("leaderModalTable");
+						leaderModalTable.innerHTML = "";
+
 						leaderList.forEach((currentValue, index) => {
-							let row = leaderTable.insertRow( index + 1);
-							let rankR = row.insertCell(0);
-							let nameR = row.insertCell(1);
-							let coinsR = row.insertCell(2);
-							rankR.style.width = "20%";
-							nameR.style.width = "50%";
-							coinsR.style.width = "25%";
+							
+							let row = document.createElement("div");
+							row.className = "rankRow";
+
+							let numeralText = document.createElement("p");
+							numeralText.className = "centerP";
+							numeralText.style.color = "#F47165";
+							numeralText.innerHTML = index+1;
+
+							let nameInfoTextDiv = document.createElement("div");
+							let nameInfoNumberDiv = document.createElement("div");
+
+							nameInfoNumberDiv.className = "nameInfoNumberDiv";
+							nameInfoNumberDiv.style.overflow = "hidden";
+							nameInfoTextDiv.className = "nameInfoTextDiv";
+
+							let nameInfoText = document.createElement("p");
+							nameInfoText.className = "centerP";
+							nameInfoText.style.color = "#F47165";
+
+							let nameInfoNumber = document.createElement("p");
+							nameInfoNumber.className = "centerP";
+							nameInfoNumber.style.color = "#F47165";
+							nameInfoNumber.innerHTML = currentValue.couponExchanged;;
+							nameInfoNumberDiv.appendChild(nameInfoNumber);
 
 							let userName;
 							if (currentValue.name == ""){
@@ -1054,23 +1320,51 @@
 							}else{
 							userName = currentValue.name;
 							}
-							rankR.innerHTML = index + 1;
-							nameR.innerHTML = userName;
-							coinsR.innerHTML = currentValue.cumulativeCoins;
-						});
+							nameInfoText.innerHTML = userName;
+							nameInfoTextDiv.appendChild(nameInfoText);
+
+
+							let numeralDiv = document.createElement("div");
+							let nameInfoDiv = document.createElement("div");
+							numeralDiv.className = "rankNumeralDiv";
+							nameInfoDiv.className = "rankNameInfoDiv";
+							nameInfoDiv.style.overflow = "hidden";
+
+							let numeral = new Image();
+							numeral.src = "/images/ui/window/ranked/numeral.png";
+							numeral.className = "rankNumeralImg";
+
+							let nameInfo = new Image();
+							nameInfo.src = "/images/ui/window/ranked/name.png"
+							nameInfo.className = "rankNameInfoImg";
+
+							numeralDiv.appendChild(numeral);
+							numeralDiv.appendChild(numeralText);
+							nameInfoDiv.appendChild(nameInfo);
+							nameInfoDiv.appendChild(nameInfoTextDiv);
+							nameInfoDiv.appendChild(nameInfoNumberDiv);
+							
+							row.appendChild(numeralDiv);
+							row.appendChild(nameInfoDiv);
+							leaderModalTable.appendChild(row);
+
+						});						
 					});
 
 				}
 
-				closeLeadBnModal.onclick = function(){
-					leadBnModal.style.display = 'none';
+				leaderModalCancel.onclick = function(){
+					leaderModalDiv.style.display = 'none';
+				}
+				leaderModalComfirmImg.onclick = function(){
+					leaderModalDiv.style.display = 'none';
 				}
 				
 			}
 
 			//// 控制場景中的『禮物』上升速度，
 			let velocity = new THREE.Vector3(0, 0.75, 0); //// 這邊設置貌似沒有用..
-			let heightThreshold = ground.object3D.position.y;
+			let heightThreshold = 4;
 			var ctrlObj = setInterval(controlObjects, 500 );
 			function controlObjects(){
 				let needRemoved = [];
@@ -1127,11 +1421,11 @@
 			}
 			
 			console.log(" _startCamera callback ");
-			loadPage.style.display = "none";
-			blocker.style.display = "block";
-			blocker.style.pointerEvents = "auto";
-			blocker_score.style.pointerEvents = "auto";
-			blockState.innerHTML = "請點擊螢幕來開始遊戲";
+			// loadPage.style.display = "none";
+			// blocker.style.display = "block";
+			// blocker.style.pointerEvents = "auto";
+			// blocker_score.style.pointerEvents = "auto";
+			// blockState.innerHTML = "請點擊螢幕來開始遊戲";
 		});
 
 		function startCamera( callback ){
