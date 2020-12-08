@@ -483,7 +483,7 @@
 			<a-entity id="rig" position="0 1.6 0" rotation="0 0 0">
 				<a-entity id="aCamera" camera  look-controls="touchEnabled:false" wasd-controls>
 					<a-entity id = "pivotGun" position="0 -0.6 -1.2" rotation="90 0 0" >
-						<a-entity id = "bow" visible = "true" position="0.0 0.05 .0" rotation="-90 0 0" scale=" 0.2 0.2 0.2 " gltf-model="#_bow" ></a-entity>
+						<a-entity id = "bow" visible = "true" position="0.0 0.05 .0" rotation="-90 0 0" scale=" 0.3 0.3 0.3 " gltf-model="#_bow" ></a-entity>
 						<a-entity id = "arrow" visible = "false" position="0 0.13 0" rotation="180 0 0" scale=" 0.6 0.2 0.6 " gltf-model="#_arrow" ></a-entity>
 					</a-entity>
 				</a-entity>
@@ -538,10 +538,37 @@
 			// loadPage.style.display = "none";
 		});
 
+		//// 將模型材質設定為無光標準
+		function setModelMesh(evt){
+			let objj = evt.detail.model;
+			objj.traverse(node => {
+				if (node.isMesh) {
+					node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+					if (node.material.map){
+						node.material.map.encoding = THREE.GammaEncoding;
+						node.material.map.needsUpdate = true;
+					}
+					node.material.needsUpdate = true;
+				}
+			});
+		}
+
 		//// 弓的動畫
 		bow.setAttribute("animation-mixer" , "clip: Take 001");
 		bow.addEventListener('model-loaded', function(evt){
-
+			//// 材質設定為無光標準
+			let objj = evt.detail.model;
+			objj.traverse(node => {
+				if (node.isMesh) {
+					node.material = new THREE.MeshBasicMaterial({color: new THREE.Color(1,1,1), name: node.name, skinning: node.material.skinning, map: node.material.map});
+					if (node.material.map){
+						node.material.map.encoding = THREE.GammaEncoding;
+						node.material.map.needsUpdate = true;
+					}
+					node.material.needsUpdate = true;
+				}
+			});
+			//// 更改動畫速度
 			tick_getMixer();
 			function tick_getMixer(){
 				if (bow.components["animation-mixer"].mixer){
@@ -679,6 +706,8 @@
 				bullet.setAttribute("object-type", "bullet"); //// 自行設定的類別，為了碰撞時候區隔
 				bullet.setAttribute("scale", "0.6 0.2 0.6");
 				bullet.setAttribute("gltf-model", "#_arrow");
+				//// 材質設定為無光標準
+				bullet.addEventListener('model-loaded', setModelMesh );
 
 				let strength = 8.1; // 固定子彈速度
 				if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
@@ -807,12 +836,15 @@
 				if (generatedCount%3 == 0){
 					gift.setAttribute("gltf-model", "#b1");
 					gift.setAttribute("score", "1" );
+					gift.setAttribute("velocity", velocity.multiplyScalar(1) );
 				}else if (generatedCount%3 == 1){
 					gift.setAttribute("gltf-model", "#b2");
 					gift.setAttribute("score", "2" );
+					gift.setAttribute("velocity", velocity.multiplyScalar(1.5) );
 				}else {
 					gift.setAttribute("gltf-model", "#b3");
 					gift.setAttribute("score", "3" );
+					gift.setAttribute("velocity", velocity.multiplyScalar(2) );
 				}
 
 				gift.addEventListener('model-loaded', function(evt){
@@ -833,7 +865,7 @@
 
 				gift.setAttribute("position", randomPosition);
 				gift.setAttribute("scale", "0.9 0.9 0.9");
-				gift.setAttribute("velocity", velocity );
+				// gift.setAttribute("velocity", velocity );
 				// gift.setAttribute("geometry","primitive: sphere; radius: 0.2; segmentsWidth: 18; segmentsHeight: 36 ");
 				
 				gift.setAttribute("shadow","cast:true; receive:true");
@@ -1044,7 +1076,7 @@
 						if (aScene.children[i].getAttribute("object-type") == "gift" ){
 							if (aScene.children[i].body ){
 								// console.log(" ***  " , aScene.children[i].body );
-								aScene.children[i].body.velocity.set( velocity.x, velocity.y, velocity.z );
+								// aScene.children[i].body.velocity.set( velocity.x, velocity.y, velocity.z );
 
 								if (aScene.children[i].body.position.y > heightThreshold){
 									needRemoved.push(aScene.children[i]);
