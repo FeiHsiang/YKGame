@@ -145,6 +145,10 @@ switch (location.pathname) {
     exchangeIntroCancel.onclick = function(){
       exchangeIntroModalDiv.style.display = "none";
     }
+    exchangeIntroComfirmImg.onclick = function(){
+      exchangeIntroModalDiv.style.display = "none";
+    }
+
     //// 點擊開啟『是否返回首頁』
     backToWix.onclick = function(){
       leaveWarningModalDiv.style.display = "block";
