@@ -214,6 +214,7 @@ body {
   max-width: 370px;
   max-height: 86px;
   object-fit: contain;
+  cursor: pointer;
 }
 
 #gameStartIntro{
@@ -233,6 +234,7 @@ body {
   max-width: 370px;
   max-height: 86px;
   object-fit: contain;
+  cursor: pointer;
 }
 
 #myCouponIntro{
@@ -244,6 +246,7 @@ body {
   max-width: 74px;
   max-height: 74px;
   object-fit: contain;
+  cursor: pointer;
 }
 
 #gameIntroModal, #leaveWarningModalDiv , #exchangeIntroModalDiv {
@@ -314,6 +317,7 @@ body {
   max-width: 74px;
   max-height: 74px;
   object-fit: contain;
+  cursor: pointer;
 }
 
 #exchangeIntroTitleDiv{
@@ -418,6 +422,7 @@ body {
   max-width: 370px;
   max-height: 86px;
   object-fit: contain;
+  cursor: pointer;
 }
 
 #gameIntroModalCancelImg , #leaveWarningCancelImg{
@@ -658,6 +663,7 @@ body {
     max-width: 370px;
     max-height: 86px;
     object-fit: contain;
+    cursor: pointer;
   }
 
   #myCouponImg{
@@ -666,6 +672,7 @@ body {
     max-width: 370px;
     max-height: 86px;
     object-fit: contain;
+    cursor: pointer;
   }
 
   #gameIntroModalBGTopDiv{
