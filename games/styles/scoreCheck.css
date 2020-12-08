@@ -1,0 +1,195 @@
+#bgImgDiv{
+    position: absolute;
+    width:100vw;
+    height:100vh;
+    z-index: -1;
+}
+
+#bgImg{
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+}
+
+.modal-content2 {
+    position: relative;
+    /* background-color:white; */
+    margin: auto;
+    top:15%;
+    border-radius: 16px;
+    width: 100vw;
+    height: 100vh;
+    /* max-width: 760px; */
+    /* overflow: hidden; */
+}
+
+.modal-content2 > div {
+    position: relative;
+    margin-left: 0%;
+    margin-right: 0%;
+    width: 90%;
+}
+
+#scoreCheckDiv{
+    position: absolute;
+    left: 7.5%;
+    top:9%;
+    width:85%;
+    height:35%;
+    /* max-width: 456px; */
+    /* max-height: 294px; */
+    /* margin-top: 16px; */
+}
+
+#scoreCheckBGDiv {
+    position: absolute;
+    top: 15%;
+    left: 0%;
+    width:100%;
+    height:100%;
+    font-size: 14pt;
+  }
+  
+#scoreCheckBGImg {
+    width:100%;
+    height:100%;
+    object-fit: fill;
+}
+
+  
+#scoreCheckBGTopDiv{
+    position: absolute;
+    top: 10%;
+    left: 0%;
+    width:100%;
+    height:25%;
+    font-size: 20pt;
+}
+
+#scoreCheckBGTopImg{
+    width:100%;
+    height:100%;
+    object-fit: fill;
+}
+  
+#scoreCheckTopText{
+    color:white;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space:nowrap;
+}
+
+#previousCoinsDiv{
+    position: absolute;
+    top: 40%;
+    left: 5%;
+    width:90%;
+    height:15%;
+    font-size: 20pt;
+}
+
+#getCoinsDiv{
+    position: absolute;
+    top: 62.5%;
+    left: 5%;
+    width:90%;
+    height:15%;
+    font-size: 20pt;
+}
+
+#currentCoinsDiv{
+    position: absolute;
+    top: 92.5%;
+    left: 5%;
+    width:90%;
+    height:15%;
+    font-size: 20pt;
+}
+
+#coninDividerDiv{
+    position: absolute;
+    top: 75%;
+    left: 5%;
+    width:90%;
+    height:1%;
+    font-size: 20pt;
+}
+
+#previousCoinsBGImg, #getCoinsBGImg, #currentCoinsBGImg, #coninDividerImg{
+    width:100%;
+    height:100%;
+    object-fit: fill;
+}
+
+#previousCoinsImgDiv, #getCoinsImgDiv, #currentCoinsImgDiv{
+    position: absolute;
+    top: 5%;
+    left: 3%;
+    width:12%;
+    height:90%;
+}
+
+#previousCoinsImg, #getCoinsImg, #currentCoinsImg{
+    width:100%;
+    height:100%;
+    object-fit: fill;
+}
+
+  
+#previousCoinsText, #getCoinsText, #currentCoinsText{
+    color:#F47165;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(0%, -50%);
+    white-space:nowrap;
+    font-size: 13pt;
+}
+
+#previousCoinsAmountText, #getCoinsAmountText, #currentCoinsAmountText{
+    color:#F47165;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translate(0%, -50%);
+    white-space:nowrap;
+    font-size: 13pt;
+}
+
+#leaderBdDiv{
+    position: absolute;
+    bottom:5px;
+    left:35px;
+    width:30%;
+    max-width: 260px;
+    max-height: 86px;
+    height:auto;
+    cursor: pointer;
+    z-index: 90;
+}
+
+#prizeListDiv{
+    position: absolute;
+    bottom:5px;
+    right:35px;
+    width:30%;
+    max-width: 260px;
+    max-height: 86px;
+    height:auto;
+    cursor: pointer;
+    z-index: 90;
+}
+  
+#leaderBdImg, #prizeListImg{
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+}
+
+
+  

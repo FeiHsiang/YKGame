@@ -7,7 +7,7 @@
   max-height: 86px;
   height:auto;
   cursor: pointer;
-  z-index: 2;
+  z-index: 90;
 }
 
 #backToWixImg{
@@ -17,7 +17,7 @@
 }
 
 #leaveWarningModalDiv{
-  z-index: 3;
+  z-index: 100;
 }
 
 #leaveWarningBGDiv{

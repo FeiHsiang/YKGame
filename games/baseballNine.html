@@ -6,6 +6,7 @@
 	<title>九宮格小遊戲</title>
 	<link href="./styles/back_to_menu.css" rel="stylesheet">
 	<link href="./styles/fraction.css" rel="stylesheet">
+	<link href="./styles/scoreCheck.css" rel="stylesheet">
 	<style>
 
 		/* html, body {
@@ -255,7 +256,7 @@
 			width:100vw;
 			height:100vh;
 			background-color: rgba(128,128,128,0.5);
-			z-index: 1;
+			z-index: 99;
 			text-align: center;
 			font-size: 32pt;
 			line-height: 80vh;
@@ -418,6 +419,68 @@
 		<div id="ballAmount">
 			剩餘球數: 12
 		</div>
+	</div>
+
+	<div id = "scoreCheckPageDiv" style=" display: none; position: fixed; z-index: 89; text-align: center;" > 
+		<div id = "bgImgDiv">
+			<img id = "bgImg" src = "../images/ui/bg/img/1.png">
+		</div>
+		<div class="modal-content2">
+
+			<div id= "scoreCheckDiv">
+				<div id = "scoreCheckBGDiv">
+					<img id = "scoreCheckBGImg" src = "../images/ui/window/fraction/pink bottom.png">
+				</div>
+
+				<div id = "scoreCheckBGTopDiv">
+					<img id = "scoreCheckBGTopImg" src = "../images/ui/pop up/top bar/red.png">
+					<div id = "scoreCheckTopText">遊戲結算</div>
+				</div>
+
+				<div id= "previousCoinsDiv">
+					<img id = "previousCoinsBGImg" src = "../images/ui/window/fraction/white.png">
+					<div id= "previousCoinsImgDiv">
+						<img id = "previousCoinsImg" src = "../images/ui/img/yongkang coin.png">
+					</div>
+					<div id = "previousCoinsText">原有永康幣</div>
+					<div id = "previousCoinsAmountText">0 枚</div>
+				</div>
+
+				<div id= "getCoinsDiv">
+					<img id = "getCoinsBGImg" src = "../images/ui/window/fraction/white.png">
+					<div id= "getCoinsImgDiv">
+						<img id = "getCoinsImg" src = "../images/ui/img/yongkang coin.png">
+					</div>
+					<div id = "getCoinsText">此次獲得永康幣</div>
+					<div id = "getCoinsAmountText">0 枚</div>
+				</div>
+
+				<div id="coninDividerDiv">
+					<img id="coninDividerImg" src= "../images/ui/divider/pink.png">
+				</div>
+
+				<div id= "currentCoinsDiv">
+					<img id = "currentCoinsBGImg" src = "../images/ui/window/fraction/white.png">
+					<div id= "currentCoinsImgDiv">
+						<img id = "currentCoinsImg" src = "../images/ui/img/yongkang coin.png">
+					</div>
+					<div id = "currentCoinsText">結算永康幣</div>
+					<div id = "currentCoinsAmountText">0 枚</div>
+				</div>
+	
+			</div>
+
+			<div id = "leaderBdDiv" >
+				<img id = "leaderBdImg" src = "../images/ui/button/fraction/normal.png">
+			</div>
+
+			<div id = "prizeListDiv" >
+				<img id = "prizeListImg" src = "../images/ui/button/award redemption/smoll/normal.png">
+			</div>
+
+
+		</div>
+		
 	</div>
 
 	<!-- <script src="js/vconsole.min.js"></script> -->
@@ -742,7 +805,7 @@
 		// 	}, 1000);
 		// });
 		let boardTable = [0,0,0,0,0,0,0,0,0];
-		let ballAmount = 12;
+		let ballAmount = 1;
 		let score = 0;
 		// 下方平面被撞到 算分並重置
 		// underplane.addEventListener('collide', function(e){
@@ -1107,7 +1170,9 @@
 		
 				function gameEnd(){
 
-					blocker_score.style.display = "block";
+					fraction.style.display = "none";
+					scoreCheckPageDiv.style.display = "block";
+					// blocker_score.style.display = "block";
 
 					let userID;
 					if ( !localStorage.getItem('userID') || !localStorage.getItem('vendor') ){
@@ -1116,7 +1181,7 @@
 						userID = localStorage.getItem('userID')+"@"+localStorage.getItem('vendor');
 					}
 
-					let coins = Math.ceil(score/3);
+					let coins = score > 0 ? Math.ceil(score/3) : 1;
 					let serverUrl = "https://7leyf90jbd.execute-api.ap-northeast-1.amazonaws.com/prod/yongkangMongoAccess";
 					let	postData = {
 						ID:  userID, 
@@ -1148,33 +1213,42 @@
 						}).then(function(userCoins) {
 							let userCurrentCounts = Number(userCoins[0].currentCoins);
 
-							currentCoins.innerHTML = "結算代幣：" + userCurrentCounts + "枚";
+							// currentCoins.innerHTML = "結算代幣：" + userCurrentCounts + "枚";
 
-							if ( isPlayed[0] == true ){
+							// if ( isPlayed[0] == true ){
 
-								if (score == 0){
-									previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
-									getCoins.innerHTML = "新增代幣：" + 1 + "枚";
-									score_info.innerHTML = "Sorry! 一個都沒有擊中<br>不過參與遊戲還是可以獲得一個永康幣喔";
-								}else{
-									previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts - coins) + "枚";
-									getCoins.innerHTML = "新增代幣：" + coins + "枚";
-									score_info.innerHTML = "恭喜你！擊中" + score + " 格<br>獲得" + coins + "個永康幣";
-								}
+							// 	if (score == 0){
+							// 		previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
+							// 		getCoins.innerHTML = "新增代幣：" + 1 + "枚";
+							// 		score_info.innerHTML = "Sorry! 一個都沒有擊中<br>不過參與遊戲還是可以獲得一個永康幣喔";
+							// 	}else{
+							// 		previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts - coins) + "枚";
+							// 		getCoins.innerHTML = "新增代幣：" + coins + "枚";
+							// 		score_info.innerHTML = "恭喜你！擊中" + score + " 格<br>獲得" + coins + "個永康幣";
+							// 	}
 
 
-							}else{
+							// }else{
 								
-								if (score == 0){
-									previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
-									getCoins.innerHTML = "新增代幣：" + 1 + "枚";
-									score_info.innerHTML = "Sorry! 一個都沒有擊中<br>今日已經遊玩過了，無法獲得永康幣";
-								}else{
-									previousCoins.innerHTML = "原有代幣：" + userCurrentCounts + "枚";
-									getCoins.innerHTML = "新增代幣：" + 0 + "枚";
-									score_info.innerHTML = "恭喜你！擊中 " + score + " 格<br>今日已經遊玩過了，無法獲得永康幣";
-								}
+							// 	if (score == 0){
+							// 		previousCoins.innerHTML = "原有代幣：" + (userCurrentCounts) + "枚";
+							// 		getCoins.innerHTML = "新增代幣：" + 1 + "枚";
+							// 		score_info.innerHTML = "Sorry! 一個都沒有擊中<br>今日已經遊玩過了，無法獲得永康幣";
+							// 	}else{
+							// 		previousCoins.innerHTML = "原有代幣：" + userCurrentCounts + "枚";
+							// 		getCoins.innerHTML = "新增代幣：" + 0 + "枚";
+							// 		score_info.innerHTML = "恭喜你！擊中 " + score + " 格<br>今日已經遊玩過了，無法獲得永康幣";
+							// 	}
 
+							// }
+							currentCoinsAmountText.innerHTML = userCurrentCounts + " 枚";
+							if ( isPlayed[0] == true ){
+								previousCoinsAmountText.innerHTML = (userCurrentCounts - coins) + " 枚";
+								getCoinsAmountText.innerHTML = coins + " 枚";
+							}
+							else{
+								previousCoinsAmountText.innerHTML = (userCurrentCounts)+ " 枚";
+								getCoinsAmountText.innerHTML = "0 枚";
 							}
 
 						});
@@ -1183,12 +1257,12 @@
 					});
 
 					//// 點擊『去兌換』
-					couponPage.onclick = function(){
-						location.replace("/prize-list");
+					prizeListDiv.onclick = function(){
+						location.href = "/prize-list/index.html";
 					}
 
 					//// 點擊『排行榜』
-					leaderBn.onclick = function(){
+					leaderBdDiv.onclick = function(){
 						postData = {
 							ID:  userID, 
 							request: 'get',
