@@ -589,6 +589,14 @@ class UI {
     let content1 = ' 用戶請先於選單（箭頭指引處）選擇 ';
     let content2 = ' 瀏覽器進行遊戲'
     let hint = new Image();
+    
+    hint.style.position = "absolute";
+    hint.style.width = "100vw";
+    hint.style.height = "100vh";
+    hint.style.left = "0";
+    hint.style.top = "0";
+    hint.style.objectFit = "contain";
+
     if (navigator.platform === 'iPhone' || navigator.platform === 'iPad') {
       // hint.src = '../images/ios.jpg';
       hint.src = 'https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/ui/bg/bg_hoonie_milo_IOS.png';
