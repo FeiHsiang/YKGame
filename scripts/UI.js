@@ -73,7 +73,7 @@ class UI {
     let d = currectDate.getDate()  + 0;
 
     location.href = "/games/canKnockdown.html";
-
+    return;
     if (m == 12){
       switch( d%4 ){
         case 1:
