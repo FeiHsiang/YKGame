@@ -568,7 +568,7 @@ body {
   top:5%;
   border-radius: 16px;
   width: 85vw;
-  height: 85vh;
+  height: 80vh;
   max-width: 760px;
   /* overflow: hidden; */
 }
@@ -755,10 +755,19 @@ body {
   object-fit: fill;
 }
 
-#exchangeModalInfo , #useCouponModalInfo , #gameIntroModalInfo {
+#exchangeModalInfo {
   margin:18px;
   top:5%;
   position: absolute;
+}
+
+#useCouponModalInfo , #gameIntroModalInfo{
+  position: absolute;
+  margin: 0;
+  width: 90%;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #personalIntroModalInfo{
@@ -780,10 +789,10 @@ body {
 
 #useCouponModalNumberDiv{
   position: absolute;
-  top:30%;
-  width:90%;
-  height:7%;
-  left:5%;
+  top:32%;
+  width:35%;
+  height:8%;
+  left:2%;
   font-size: 16pt;
 }
 
@@ -887,10 +896,10 @@ body {
 
 #useCouponInputDiv {
   position: absolute;
-  width:92%;
+  width:55%;
   height:8%;
-  top:36%;
-  left: 4%;
+  top:32%;
+  left: 40%;
   border-width: 1px;
   border-radius: 16px;
   border-style: solid;
@@ -900,19 +909,19 @@ body {
 
 #useCouponModalPhoneNumberDiv{
   position: absolute;
-  width:92%;
-  height:7%;
+  width:35%;
+  height:8%;
   top:44%;
-  left: 4%;
+  left: 2%;
   font-size: 16pt;
 }
 
 #useCouponPhoneInputDiv{
   position: absolute;
-  width:92%;
+  width:55%;
   height:8%;
-  top:50%;
-  left: 4%;
+  top:44%;
+  left: 40%;
   border-width: 1px;
   border-radius: 16px;
   border-style: solid;
@@ -922,18 +931,18 @@ body {
 
 #useCouponModalPWDDiv{
   position: absolute;
-  width:92%;
-  height:7%;
-  top:58%;
-  left: 4%;
+  width:35%;
+  height:8%;
+  top:56%;
+  left: 2%;
 }
 
 #useCouponPWDInputDiv{
   position: absolute;
-  width:92%;
+  width:55%;
   height:8%;
-  top:64%;
-  left: 4%;
+  top:56%;
+  left: 40%;
   border-width: 1px;
   border-radius: 16px;
   border-style: solid;
@@ -945,13 +954,13 @@ body {
   position: absolute;
   width:92%;
   height:7%;
-  top:74%;
+  top:70%;
   left: 4%;
   font-size: 16pt;
 }
 
 #useCouponModalRetText{
-  color:white;
+  color:#F47165;
 }
 
 
