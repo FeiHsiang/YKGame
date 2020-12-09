@@ -594,20 +594,35 @@ body {
   max-width: 760px;
 }
 
-
-#exchangeModalBGTopDiv , #gameIntroModalBGTopDiv {
-  left:3%;
+#useCouponModalBGTopDiv{
+  left:5%;
   top:0%;
-  width:94%;
-  height:15%;
+  width:90%;
+  height:10%;
   position: absolute;
 }
 
-#leaderModalBGTopDiv , #useCouponModalBGTopDiv , #personalIntroModalBGTopDiv , #coinIntroModalTitleDiv , #lotteryModalTitleDiv{
+#gameIntroModalBGTopDiv {
+  left:5%;
+  top:0%;
+  width:90%;
+  height:10%;
+  position: absolute;
+}
+
+#leaderModalBGTopDiv {
   left:3%;
   top:0%;
-  width:94%;
+  width:93%;
   height:10%;
+  position: absolute;
+}
+
+#personalIntroModalBGTopDiv , #coinIntroModalTitleDiv , #lotteryModalTitleDiv , #exchangeModalBGTopDiv{
+  left:2%;
+  top:0%;
+  width:96%;
+  height:15%;
   position: absolute;
 }
 
@@ -901,7 +916,7 @@ body {
   top:32%;
   left: 40%;
   border-width: 1px;
-  border-radius: 16px;
+  border-radius: 56px;
   border-style: solid;
   border-color: #F47165;
   font-size: 18pt;
@@ -923,7 +938,7 @@ body {
   top:44%;
   left: 40%;
   border-width: 1px;
-  border-radius: 16px;
+  border-radius: 56px;
   border-style: solid;
   border-color: #F47165;
   font-size: 18pt;
@@ -944,7 +959,7 @@ body {
   top:56%;
   left: 40%;
   border-width: 1px;
-  border-radius: 16px;
+  border-radius: 56px;
   border-style: solid;
   border-color: #F47165;
   font-size: 18pt;

@@ -423,7 +423,7 @@ class UI {
       //// 每當『輸入數量』有變化的時候，檢查是否大於最大允許數量
       document.getElementById("useCouponInputText").onchange = function(){
         console.log(" useCouponInputText onchange: " , document.getElementById("useCouponInputText").value );
-        if ( useCouponInputText.value > useCouponInputText.getAttribute("max") ){
+        if ( Number(useCouponInputText.value) > Number( useCouponInputText.getAttribute("max") ) ){
           // document.getElementById("inputUseCouponError").innerHTML = "您只有" + effectiveCoupon + "張兌換券"
           // document.getElementById("inputUseCouponError").style.visibility = "visible";
 
@@ -497,7 +497,7 @@ class UI {
             //// 複製一份 『有效id陣列』 
             let remainCouponIDList = couponIDList.slice();
             //// 取得『要兌換數量長度的陣列』，並且取出『剩餘陣列』
-            let exchangeCouponIDList = remainCouponIDList.splice(0, useCouponInputText.value );
+            let exchangeCouponIDList = remainCouponIDList.splice(0, Number( useCouponInputText.value ) );
 
             console.log("1 _couponIDList = " , couponIDList , couponIDList.length , exchangeCouponIDList , exchangeCouponIDList.length , remainCouponIDList , remainCouponIDList.length );
 
