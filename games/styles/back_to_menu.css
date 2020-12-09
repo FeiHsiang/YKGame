@@ -20,6 +20,10 @@
   z-index: 100;
 }
 
+#leaveWarningModalContent{
+  height:60vh;
+}
+
 #leaveWarningBGDiv{
   top: 0%;
   left:2%;

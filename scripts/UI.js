@@ -554,12 +554,12 @@ class UI {
     let hint = new Image();
     if (navigator.platform === 'iPhone' || navigator.platform === 'iPad') {
       // hint.src = '../images/ios.jpg';
-      hint.src = 'https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/ui/bg/bg_hoonie_milo.png';
+      hint.src = 'https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/ui/bg/bg_hoonie_milo_IOS.png';
       hint.alt = os[0] + content1 + browser[0] + content2;
     }
     else {
       // hint.src = '../images/android.jpg';
-      hint.src = 'https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/ui/bg/bg_hoonie_milo.png';
+      hint.src = 'https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/ui/bg/bg_hoonie_milo_android.png';
       hint.alt = os[1] + content1 + browser[1] + content2;
     }
     document.body.insertBefore(hint, document.body.children[0]);

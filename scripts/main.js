@@ -92,7 +92,7 @@ switch (location.pathname) {
   case '/change-your-browser/index':
   case '/change-your-browser/index.html':
     
-    break;
+    // break;
     if (!isFacebookApp()) {
       location.replace(`${location.protocol}//${location.host}/`);
     }
