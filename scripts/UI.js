@@ -171,8 +171,10 @@ class UI {
     let currentPoolNumber =  window.couponNumber;
     let buyNumber =  Number(document.getElementById("inputExchangeText").value );
 
-    if (buyNumber == 0 ){
+    if (buyNumber <= 0 ){
       console.log("請輸入想要兌換的數量");
+      document.getElementById("inputExchangeText").value = 0;
+
       document.getElementById("exchangeModalRetDiv").innerHTML = "請輸入想要兌換的數量";
       return;
     }
@@ -217,7 +219,7 @@ class UI {
             requestItem: ''
           };
           aNetworkAgent.sendPost(postData).then(userInfo => {
-            console.log("prize-list after buyCoupons, userInfo=" , userInfo );
+            console.log("prize-list after _buyCoupons, userInfo=" , userInfo );
             localStorage.setItem("_userInfo" , JSON.stringify(userInfo) );
             aUI.updateUserInfo();
           });
@@ -551,11 +553,13 @@ class UI {
     let content2 = ' 瀏覽器進行遊戲'
     let hint = new Image();
     if (navigator.platform === 'iPhone' || navigator.platform === 'iPad') {
-      hint.src = '../images/ios.jpg';
+      // hint.src = '../images/ios.jpg';
+      hint.src = 'https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/ui/bg/bg_hoonie_milo.png';
       hint.alt = os[0] + content1 + browser[0] + content2;
     }
     else {
-      hint.src = '../images/android.jpg';
+      // hint.src = '../images/android.jpg';
+      hint.src = 'https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/ui/bg/bg_hoonie_milo.png';
       hint.alt = os[1] + content1 + browser[1] + content2;
     }
     document.body.insertBefore(hint, document.body.children[0]);

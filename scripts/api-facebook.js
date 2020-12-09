@@ -5,10 +5,13 @@ function fbLogin() {
       console.log("FB.login: connected, loginResponse=", loginResponse);
       localStorage.setItem('token', loginResponse.authResponse.accessToken);
       localStorage.setItem('userID', loginResponse.authResponse.userID);
+
       localStorage.setItem('vendor', 'facebook');
       // FB.api(`/${loginResponse.authResponse.userID}`, 'GET', {"fields":"id,name,email"}, function(response) {
       FB.api('/me', {fields:'id,name,email,gender'} , function(response) {
         console.log('寫入 ID 以及姓名' , response );
+        localStorage.setItem('userName', response.name);
+
         userID = response.id + '@facebook';
         userName = response.name;
         email = response.email? response.email: "";

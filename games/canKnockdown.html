@@ -42,13 +42,53 @@
 		}
 
 		#blocker {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
+			position: absolute;
+			width: 100vw;
+			height: 100vh;
+			background-color: rgba(0,0,0,0.8);
 			z-index: 1;
+			pointer-events: none;
 			display: none;
-        }
+			font-family: "Microsoft JhengHei","微軟正黑體";
+		}
+
+		#blockerTitle{
+			font-size: 24pt;
+			text-align: center;
+			color: white;
+			margin-top:5%;
+			margin-bottom: 10px;
+		}
+
+		#blockerInfo{
+			font-size: 16pt;
+			text-align: center;
+			color:white;
+			margin-top:10%;
+			margin-bottom: 10px;
+		}
+
+		#blockState{
+			font-size: 16pt;
+			text-align: center;
+			color:#F47165;
+			margin-top:10%;
+			margin-bottom: 10px;
+			animation: scale-change 2s infinite;
+			animation-timing-function: linear;
+		}
+
+		@keyframes scale-change {
+			0% {
+				transform: scale(0.9);
+			}
+			50%{
+				transform: scale(1.1);
+			}
+			100% {
+				transform: scale(0.9);
+			}
+		}
 
 		.modal {
 			display: none; /* Hidden by default */
@@ -67,7 +107,7 @@
 			position: relative;
 			/* background-color: #202125; */
 			margin: auto;
-			top: 5%;
+			top: 15%;
 			border-radius: 16px;
 			width: 85vw;
 			height: 75vh;
@@ -459,12 +499,20 @@
 	</div>
 
 	<div id="blocker">
-        <div class="instructions" id = "blocker_info">
-            <span style="font-size:36px">Click to play</span>
-            <br /><br />
-            滑鼠/手指滑動螢幕來丟球<br/>
-            總共3球，看看你能夠得到幾分吧<br/>
-        </div>
+		<div class="modal-content">
+			<div id = "blockerTitle">
+				丟罐子小遊戲
+			</div>
+			<div id = "blockerInfo"> 
+				遊戲介紹：<br>
+				滑鼠/手指滑動銀幕來丟球<br>
+				總共3球，看看你能夠得到幾分吧<br>
+				手機上請轉動裝置來瞄準<br>
+			</div>
+			<div id = "blockState">
+				請點擊螢幕來開始遊戲
+			</div>
+		</div>
 	</div>
 	
 	<div id="fraction">
@@ -780,6 +828,15 @@
 		function removeLoadingPage(){
 			if (isRenderTick == true && sceneReady == true ){
 				loadPage.style.display = "none";
+
+				//// 顯示前置頁面
+				blocker.style.display = "block";
+				blocker.style.pointerEvents = "auto";
+				blockState.innerHTML = "請點擊螢幕來開始遊戲";
+				blocker.onclick =  function(){
+					blocker.style.display = "none";
+				}
+
 				console.log("hidden the loadingPage");
 			}else{
 				console.log("_removeLoadingPage: not yet" , isRenderTick , sceneReady );
@@ -976,11 +1033,6 @@
 			}else{
 				// pivotGun.setAttribute("visible", "false");
 			}
-		});
-
-
-		blocker.addEventListener("click", function(){
-			blocker.style.display = "none";
 		});
 
 		//// 設定場景功能，分為 
@@ -1323,9 +1375,6 @@
 
 			}
 
-			closeLeadBnModal.onclick = function(){
-				leadBnModal.style.display = 'none';
-			}
 		}
 
 		//// 開啟一個固定時間來檢查分數的機制，
@@ -1353,6 +1402,7 @@
 		let touchState = 0; //// 0: 滑鼠沒有按下/手指沒有點擊, 1: 滑鼠已經按下/手指正在點擊, 2: 滑鼠剛剛放開/手指剛剛離開，注意 0 - 2 狀態轉移
 		function vrSceneTouchStart(event){
 
+			document.getElementById("bgAudio").play();
 			if (touchState == 0){
 				touchState = 1;
 				event.preventDefault();

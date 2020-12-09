@@ -37,12 +37,14 @@
 			z-index: 1;
 			pointer-events: none;
 			display: none;
+			font-family: "Microsoft JhengHei","微軟正黑體";
 		}
 
 
 		#blockerTitle{
 			font-size: 24pt;
 			text-align: center;
+			color: white;
 			margin-top:5%;
 			margin-bottom: 10px;
 		}
@@ -50,17 +52,31 @@
 		#blockerInfo{
 			font-size: 16pt;
 			text-align: center;
-			color:#00c99c;
-			margin-top:20%;
+			color:white;
+			margin-top:10%;
 			margin-bottom: 10px;
 		}
 
 		#blockState{
 			font-size: 16pt;
 			text-align: center;
-			color: white;
-			margin-top:20%;
+			color:#F47165;
+			margin-top:10%;
 			margin-bottom: 10px;
+			animation: scale-change 2s infinite;
+			animation-timing-function: linear;
+		}
+
+		@keyframes scale-change {
+			0% {
+				transform: scale(0.9);
+			}
+			50%{
+				transform: scale(1.1);
+			}
+			100% {
+				transform: scale(0.9);
+			}
 		}
 
 		.modal {
@@ -80,7 +96,7 @@
 			position: relative;
 			/* background-color: #202125; */
 			margin: auto;
-			top: 5%;
+			top: 15%;
 			border-radius: 16px;
 			width: 85vw;
 			height: 75vh;
@@ -427,15 +443,14 @@
 	<div id="blocker">
 		<div class="modal-content">
 			<div id = "blockerTitle">
-				射擊小遊戲
+				拉霸機小遊戲
 			</div>
 			<div id = "blockerInfo"> 
-				滑鼠/手指點擊螢幕來射箭<br/>
-				手機上請轉動裝置來瞄準<br>
-				在15秒鐘內擊中禮物氣球<br/>
+				遊戲介紹：<br>
+				滑鼠/手指點擊螢幕來抽獎<br/>
 			</div>
 			<div id = "blockState">
-				載入中...
+				請點擊螢幕來開始遊戲
 			</div>
 		</div>
 	</div>
@@ -681,6 +696,13 @@
 		function removeLoadingPage(){
 			if (isRenderTick == true && sceneReady == true ){
 				loadPage.style.display = "none";
+				//// 顯示前置頁面
+				blocker.style.display = "block";
+				blocker.style.pointerEvents = "auto";
+				blockState.innerHTML = "請點擊螢幕來開始遊戲";
+				blocker.onclick =  function(){
+					blocker.style.display = "none";
+				}
 				console.log("hidden the loadingPage");
 			}else{
 				console.log("_removeLoadingPage: not yet" , isRenderTick , sceneReady );
@@ -907,6 +929,8 @@
 		let played = false;
 		let score;
 		function vrSceneTouchStart(event){
+
+			document.getElementById("bgAudio").play();
 			if (!played){
 				event.preventDefault();
 				score = Math.ceil(Math.random()*3);  

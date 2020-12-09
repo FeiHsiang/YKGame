@@ -91,6 +91,8 @@ switch (location.pathname) {
   case '/change-your-browser/':
   case '/change-your-browser/index':
   case '/change-your-browser/index.html':
+    
+    break;
     if (!isFacebookApp()) {
       location.replace(`${location.protocol}//${location.host}/`);
     }
@@ -246,6 +248,14 @@ switch (location.pathname) {
         aUI.showAllCoupons();
         document.getElementById("exchangeModalDiv").style.display = "block";
       },false);
+
+      ////檢查輸入『兌換折價券數量』的時候，不可小於0
+      document.getElementById("inputExchangeText").onchange = function(){
+        console.log(" inputExchangeText onchange: " , inputExchangeText.value , inputExchangeText.value < 0 );
+        if ( inputExchangeText.value < 0 ){
+          inputExchangeText.value = "0";
+        }
+      }
       //// 確認兌換
       exchangeModalComfirmImg.addEventListener('click', function(){
         aUI.buyCoupons();

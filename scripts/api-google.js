@@ -49,6 +49,7 @@ function googleOnSignIn(user) {
   console.log('ID Token: ' + id_token);
   localStorage.setItem('token', user.getAuthResponse().id_token);
   localStorage.setItem('userID', user.getBasicProfile().getId());
+  localStorage.setItem('userName', user.getBasicProfile().getName());
   localStorage.setItem('vendor', 'google');
   postData = {
     ID: user.getBasicProfile().getId() + '@google',

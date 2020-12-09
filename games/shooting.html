@@ -36,6 +36,7 @@
 			height: 100vh;
 			background-color: rgba(0,0,0,0.8);
 			z-index: 1;
+			font-family: "Microsoft JhengHei","微軟正黑體";
 			pointer-events: none;
 		}
 
@@ -50,18 +51,34 @@
 		#blockerInfo{
 			font-size: 16pt;
 			text-align: center;
-			color:#00c99c;
-			margin-top:20%;
+			color:white;
+			margin-top:10%;
 			margin-bottom: 10px;
 		}
 
 		#blockState{
 			font-size: 16pt;
 			text-align: center;
-			color: white;
-			margin-top:20%;
+			color:#F47165;
+			margin-top:10%;
 			margin-bottom: 10px;
+
+			animation: scale-change 2s infinite;
+			animation-timing-function: linear;
 		}
+		
+		@keyframes scale-change {
+			0% {
+				transform: scale(0.9);
+			}
+			50%{
+				transform: scale(1.1);
+			}
+			100% {
+				transform: scale(0.9);
+			}
+		}
+
 
 		.modal {
 			display: none; /* Hidden by default */
@@ -79,7 +96,7 @@
 		.modal-content {
 			position: relative;
 			margin: auto;
-			top: 5%;
+			top: 15%;
 			border-radius: 16px;
 			width: 85vw;
 			height: 75vh;
@@ -433,12 +450,13 @@
 				射氣球
 			</div>
 			<div id = "blockerInfo"> 
-				滑鼠/手指點擊螢幕來射箭<br/>
+				遊戲介紹：<br>
+				滑鼠/手指點擊螢幕來射箭<br>
 				手機上請轉動裝置來瞄準<br>
-				在15秒鐘內擊中禮物氣球<br/>
+				在15秒鐘內擊中禮物氣球<br>
 			</div>
 			<div id = "blockState">
-				載入中...
+				請點擊螢幕來開始遊戲
 			</div>
 		</div>
 	</div>
@@ -810,7 +828,6 @@
 					loadPage.style.display = "none";
 					blocker.style.display = "block";
 					blocker.style.pointerEvents = "auto";
-					blockState.innerHTML = "請點擊螢幕來開始遊戲";
 
 				}else{
 					console.log(" get mixer tick ");
@@ -910,6 +927,8 @@
 		
 		let shootState = 0;
 		function vrSceneTouchEnd(event){
+
+			document.getElementById("bgAudio").play();
 			if (shootState == 0){
 				// event.preventDefault();
 				// event.stopPropagation();
