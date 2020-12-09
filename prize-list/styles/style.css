@@ -478,7 +478,7 @@ body {
   width:33%;
   height:10%;
   bottom: 2%;
-  left: 10%;
+  left: calc( 10% - 0px );
   max-width: 180px;
   max-height: 80px;
 
@@ -502,11 +502,11 @@ body {
 
 #startGameBnDiv{
   position: absolute;
-  width:45%;
+  width:33%;
   height:10%;
   bottom: 2%;
-  right: 10%;
-  max-width: 250px;
+  left: calc(57% + 1px );
+  max-width: 180px;
   max-height: 80px;
 }
 
@@ -534,7 +534,7 @@ body {
   }
 
   #startGameBnDiv{
-    left: calc(50% );  
+    left: calc(50% + 50px);  
   }
 
 }
