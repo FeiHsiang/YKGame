@@ -588,15 +588,23 @@ class UI {
     let browser = ['Safari', 'Chrome'];
     let content1 = ' 用戶請先於選單（箭頭指引處）選擇 ';
     let content2 = ' 瀏覽器進行遊戲'
+    
+    let container = document.createElement("div");
     let hint = new Image();
     
+    hint.style.width = "100%";
+    hint.style.height = "100%";
     hint.style.position = "absolute";
-    hint.style.width = "100vw";
-    hint.style.height = "100vh";
-    hint.style.left = "0";
-    hint.style.top = "0";
     hint.style.objectFit = "contain";
 
+    container.style.position = "absolute";
+    container.style.width = "100vw";
+    container.style.height = "100vh";
+    container.style.left = "0";
+    container.style.top = "0";
+    
+    container.appendChild(hint);
+    
     if (navigator.platform === 'iPhone' || navigator.platform === 'iPad') {
       // hint.src = '../images/ios.jpg';
       hint.src = 'https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/ui/bg/bg_hoonie_milo_IOS.png';
@@ -607,7 +615,7 @@ class UI {
       hint.src = 'https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/ui/bg/bg_hoonie_milo_android.png';
       hint.alt = os[1] + content1 + browser[1] + content2;
     }
-    document.body.insertBefore(hint, document.body.children[0]);
+    document.body.insertBefore(container, document.body.children[0]);
   }
 
   showLoginButton() {
