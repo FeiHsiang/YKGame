@@ -71,6 +71,9 @@ class UI {
     let currectDate = new Date();
     let m = currectDate.getMonth() + 1;
     let d = currectDate.getDate()  + 0;
+
+    location.href = "/games/canKnockdown.html";
+
     if (m == 12){
       switch( d%4 ){
         case 1:
@@ -129,6 +132,9 @@ class UI {
           break;
       }
     }
+
+    gameTitle = "丟罐子";
+    introText = '歡迎來到丟罐子小遊戲！玩家共有三次機會，請透過滑鼠或手指滑動螢幕丟向前方的罐子，丟倒越多分數越高，最高可獲得3個永康幣，快來挑戰看看吧！';
 
     //// 『介紹首頁』內容
     gameIntroModalBGTopInfo.innerHTML = gameTitle; // 兩 html 取相同名稱.
@@ -429,7 +435,7 @@ class UI {
 
           useCouponInputText.value = useCouponInputText.getAttribute("max");
         }
-        if ( Number.isInteger( Number(useCouponInputText.value)) == false ){
+        if ( Number.isInteger( Number(useCouponInputText.value)) == false || Number(useCouponInputText.value) < 0 ){
           useCouponInputText.value = 0;
         }
       }
@@ -469,10 +475,10 @@ class UI {
             return;
           }
 
-          if ( Number.isInteger( Number(useCouponInputText.value)) == false  ){
-            console.log(" wanted = float ");
+          if ( Number.isInteger( Number(useCouponInputText.value)) == false || Number(useCouponInputText.value) < 0 ){
+            console.log(" wanted = float or minus ");
             document.getElementById("useCouponModalRetText").style.color = "red";
-            document.getElementById("useCouponModalRetText").innerHTML = "請輸入整數";
+            document.getElementById("useCouponModalRetText").innerHTML = "請輸入正整數";
             return;
           }
 
@@ -524,6 +530,9 @@ class UI {
               
               if (exchangeRet[0].status == true){
                 let currentCouponNumber = remainCouponIDList.length;
+
+                //// 每成功使用一次兌換券，將密碼回覆為不存在狀態 
+                document.getElementById('useCouponPWDInputText').value = "";
 
                 //// 設定『最大使用數量』
                 useCouponInputText.setAttribute("max", currentCouponNumber);
