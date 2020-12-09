@@ -594,6 +594,8 @@ class UI {
     
     hint.style.width = "100%";
     hint.style.height = "100%";
+    hint.style.left = "0";
+    hint.style.top = "0";
     hint.style.position = "absolute";
     hint.style.objectFit = "contain";
 
@@ -604,7 +606,7 @@ class UI {
     container.style.top = "0";
     
     container.appendChild(hint);
-    
+
     if (navigator.platform === 'iPhone' || navigator.platform === 'iPad') {
       // hint.src = '../images/ios.jpg';
       hint.src = 'https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/ui/bg/bg_hoonie_milo_IOS.png';
