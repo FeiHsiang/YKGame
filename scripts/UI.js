@@ -537,6 +537,10 @@ class UI {
                 document.getElementById("useCouponModalRetText").style.color = "#F47165";
                 document.getElementById("useCouponModalRetText").innerHTML = "成功使用 " + useCouponInputText.value + " 張折價券！"
 
+                //// 於『兌換區』顯示『累計抽獎次』，有效張數 - 兌換成功張數 = 剩餘有效張數。
+                effectiveCoupon -= Number(useCouponInputText.value);
+                document.getElementById("myExchangeNumberInfoP").innerHTML =  userCouponList.length - effectiveCoupon;
+
                 //// 重設『使用張數』
                 useCouponInputText.value = 0;
                 

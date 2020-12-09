@@ -616,7 +616,9 @@
 
 			<div id = "playResultDiv">
 				<img id = "playResultImg" src = "/images/ui/window/login/dialogue.png">
-				<div id = "playResultText"></div>
+				<div id = "playResultTextDiv">
+					<div id = "playResultText"></div>
+				</div>
 			</div>
 
 			<div id = "leaderBdDiv" >
@@ -1670,9 +1672,15 @@
 		// renderTick();
 		startCamera( function(){
 			renderTick();	
-			if (self.video){
-				self.video.play();
-			}
+
+			setTimeout(function(){
+				// renderTick();
+				//// 即使沒開相機，也能玩
+				if (self.video){
+					self.video.play();
+				}
+			} , 1000);
+
 			// loadPage.style.display = "none";
 			isRenderTick = true;
 		});
@@ -1711,6 +1719,7 @@
 				let onError = function(err) { 
 					console.error(" _startCamera error:", err); 
 					//// 即使沒開相機，也能玩
+					aScene.setAttribute("background" , "color: #FFF3D8");
 					if (callback){
 						callback();
 					}

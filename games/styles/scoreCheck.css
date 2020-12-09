@@ -178,7 +178,7 @@
     object-fit: fill;
 }
 
-#playResultText{
+#playResultTextDiv{
     position: absolute;
     width: 82%;
     height:85%;
@@ -187,6 +187,15 @@
     color:white;
     font-size: 15pt;
     font-family: "Microsoft JhengHei","微軟正黑體";
+}
+
+#playResultText{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
 }
 
 
