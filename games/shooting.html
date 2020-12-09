@@ -676,6 +676,7 @@
 				<a-asset-item id="_Hoonie" name="虎妮" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Hoonie.glb"></a-asset-item>
 				<a-asset-item id="_flyfloor" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/flyfloor.glb"></a-asset-item>
 				<a-asset-item id="_cheering" name="加油版" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/cheering.glb"></a-asset-item>
+				<a-asset-item id="_heart" name="準心" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/heart.glb"></a-asset-item>
 
 
 			</a-assets>
@@ -686,6 +687,9 @@
 						<a-entity id = "bow" visible = "true" position="0.0 0.05 .0" rotation="-90 0 0" scale=" 0.3 0.3 0.3 " gltf-model="#_bow" ></a-entity>
 						<a-entity id = "arrow" visible = "false" position="0 0.13 0" rotation="180 0 0" scale=" 0.6 0.2 0.6 " gltf-model="#_arrow" ></a-entity>
 					</a-entity>
+
+					<a-entity id = "heart" visible = "true" position="0 2 -8" rotation="0 0 0" scale=" 1 1 1 " gltf-model="#_heart" ></a-entity>
+
 				</a-entity>
 			</a-entity>
 
@@ -957,6 +961,10 @@
 				if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
 					pivotGun.object3D.rotation.x = (70 + 40*(1+mouse.y) )/180*Math.PI;
 					pivotGun.object3D.rotation.y = -90*mouse.x/180*Math.PI;
+
+
+					heart.object3D.position.x = mouse.x* (Math.tan( 40/180*Math.PI )*8 ) ;
+					heart.object3D.position.y = mouse.y* (Math.tan( 40/180*Math.PI )*8 ) + 1.6;
 
 					// let pr = pivotGun.object3D.rotation;
 					// console.log("mR=" , pr.x*180/Math.PI , pr.y*180/Math.PI );
