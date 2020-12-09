@@ -105,9 +105,9 @@
 
 		.modal-content > div {
 			position: relative;
-			margin-left: 2%;
-			margin-right: 2%;
-			width: 90%;
+			/* margin-left: 2%; */
+			/* margin-right: 2%; */
+			/* width: 90%; */
 			color:white;
 			text-align: left;
 			font-size: 20pt;
@@ -331,7 +331,7 @@
 		.lds-ellipsis {
 			display: inline-block;
 			position: relative;
-			left: calc(25% - 96px);
+			left: calc(25% - 105px);
 			width: 50%;
 			height: 20%;
 		}
@@ -1030,7 +1030,7 @@
 					//// 手機端：透過點擊的位置決定發射的方向，透過轉動手機來調整視角。
 
 					////
-					//// 方案一：不論畫面轉動，依照點擊銀幕位置決定箭矢的射出角度。
+					//// 方案一：不論畫面轉動，依照點擊螢幕位置決定箭矢的射出角度。
 					////
 					//// 計算箭矢的角度
 					// let bulletRotation = new THREE.Euler();
@@ -1042,7 +1042,7 @@
 					// let velocity = new THREE.Vector3(0,1,0).applyEuler( bulletRotation ).multiplyScalar( strength ); //// 方向為朝著槍管方向指向射出
 
 					////
-					//// 方案二：不論點擊銀幕位置，箭矢保持從預設弓的位置射出，方向也固定。角度從相機來
+					//// 方案二：不論點擊螢幕位置，箭矢保持從預設弓的位置射出，方向也固定。角度從相機來
 					////
 					
 					let bulletRotation = aCamera.object3D.rotation.clone();
@@ -1225,6 +1225,7 @@
 
 				fraction.style.display = "none";
 				scoreCheckPageDiv.style.display = "block";
+				scoreCheckPageDiv.style.overflow = "auto";
 
 				console.log("gameEnd: ctrlObj call clearInterval ");
 				clearInterval(ctrlObj);
@@ -1237,7 +1238,9 @@
 					userID = localStorage.getItem('userID')+"@"+localStorage.getItem('vendor');
 				}
 
-				let coins = Math.ceil(score/10);
+				// let coins = Math.ceil(score/10);
+				let coins = score > 0 ? Math.ceil(score/10) : 1;
+
 				let serverUrl = "https://7leyf90jbd.execute-api.ap-northeast-1.amazonaws.com/prod/yongkangMongoAccess";
 				let	postData = {
 					// ID: "test3"+"@"+"google",

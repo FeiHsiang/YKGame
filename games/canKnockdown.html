@@ -116,9 +116,9 @@
 
 		.modal-content > div {
 			position: relative;
-			margin-left: 2%;
-			margin-right: 2%;
-			width: 90%;
+			/* margin-left: 2%; */
+			/* margin-right: 2%; */
+			/* width: 90%; */
 			color:white;
 			text-align: left;
 			font-size: 20pt;
@@ -387,7 +387,7 @@
 		.lds-ellipsis {
 			display: inline-block;
 			position: relative;
-			left: calc(25% - 96px);
+			left: calc(25% - 105px);
 			width: 50%;
 			height: 20%;
 		}
@@ -514,7 +514,7 @@
 			</div>
 			<div id = "blockerInfo"> 
 				遊戲介紹：<br>
-				滑鼠/手指滑動銀幕來丟球<br>
+				滑鼠/手指滑動螢幕來丟球<br>
 				總共3球，看看你能夠得到幾分吧<br>
 				手機上請轉動裝置來瞄準<br>
 			</div>
@@ -639,7 +639,7 @@
 	<script>
 		// if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
 		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 ){
-			var vConsole = new VConsole();
+			// var vConsole = new VConsole();
 			console.log("The system is mobile: ", window.navigator.userAgent.toLowerCase() );
 		}else{
 			console.log("The system is PC: ", window.navigator.userAgent.toLowerCase() );
@@ -1246,6 +1246,7 @@
 			fraction.style.display = "none";
 			scoreCheckPageDiv.style.display = "block";
 
+			scoreCheckPageDiv.style.overflow = "auto";
 
 			let userID;
 			if ( !localStorage.getItem('userID') || !localStorage.getItem('vendor') ){
@@ -1254,7 +1255,8 @@
 				userID = localStorage.getItem('userID')+"@"+localStorage.getItem('vendor');
 			}
 
-			let coins = Math.ceil(score/3);
+			// let coins = Math.ceil(score/3);
+			let coins = score > 0 ? Math.ceil(score/3) : 1;
 			if (coins > 3){
 				coins = 3;
 			}
@@ -1573,7 +1575,7 @@
 				
 				//// 投擲預設的球物件
 				let dragX, dragY, dragLength;
-				//// 在手指於銀幕上滑動的時候會紀錄下最多四個位置。每次手指離開銀幕則 list 會歸零回 x = 0, y = -2
+				//// 在手指於螢幕上滑動的時候會紀錄下最多四個位置。每次手指離開螢幕則 list 會歸零回 x = 0, y = -2
 				//// 計算使用者手指的軌跡方式如下，先找出『有效的滑動位置』（y方向大於 -2 者才能算）。
 				//// 假如『有效的滑動位置』數量超過一，則計算起始與終點的距離，再除上『有效數量』
 				let effectiveMouses = []

@@ -192,7 +192,7 @@
 
 #leaderBdDiv{
     position: absolute;
-    bottom:12%;
+    bottom:15%;
     left:35px;
     width:30%;
     max-width: 260px;
@@ -204,7 +204,7 @@
 
 #prizeListDiv{
     position: absolute;
-    bottom:12%;
+    bottom:15%;
     right:35px;
     width:30%;
     max-width: 260px;

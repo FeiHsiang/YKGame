@@ -171,6 +171,9 @@ class UI {
     let currentPoolNumber =  window.couponNumber;
     let buyNumber =  Number(document.getElementById("inputExchangeText").value );
 
+    //// 設『預買數量』為0
+    document.getElementById("inputExchangeText").value = 0;
+    
     if (buyNumber <= 0 || Number.isInteger(buyNumber) == false ){
       console.log("請輸入想要兌換的數量");
       document.getElementById("inputExchangeText").value = 0;
@@ -184,6 +187,9 @@ class UI {
       return;
     }
 
+
+    exchangeModalComfirmImg.style.pointerEvents = "none";
+
     //// 嘗試購買兌換券
     postData = {
       ID: localStorage.getItem('userID')+"@"+localStorage.getItem('vendor'), 
@@ -192,6 +198,9 @@ class UI {
     };
     aNetworkAgent.sendPost(postData).then( buyRet => {
       console.log("buyRet=" , buyRet);
+
+      exchangeModalComfirmImg.style.pointerEvents = "auto";
+
       //// 處理線上剩餘兌換券數量
       if (buyRet[0]){
         if (buyRet[0].couponRemain.coupon001){
@@ -512,6 +521,7 @@ class UI {
 
               //// 重新開啟按鈕事件
               useCouponModalComfirmImg.style.pointerEvents = "auto";
+              
               if (exchangeRet[0].status == true){
                 let currentCouponNumber = remainCouponIDList.length;
 

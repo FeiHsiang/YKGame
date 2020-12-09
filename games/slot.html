@@ -105,9 +105,9 @@
 
 		.modal-content > div {
 			position: relative;
-			margin-left: 2%;
-			margin-right: 2%;
-			width: 90%;
+			/* margin-left: 2%; */
+			/* margin-right: 2%; */
+			/* width: 90%; */
 			color:white;
 			text-align: left;
 			font-size: 20pt;
@@ -329,7 +329,7 @@
 		.lds-ellipsis {
 			display: inline-block;
 			position: relative;
-			left: calc(25% - 96px);
+			left: calc(25% - 105px);
 			width: 50%;
 			height: 20%;
 		}
@@ -564,7 +564,7 @@
 	<script src="js/vconsole.min.js"></script>
 	<script>
 		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
-			var vConsole = new VConsole();
+			// var vConsole = new VConsole();
 			console.log("The system is mobile: ", window.navigator.userAgent.toLowerCase() );
 		}else{
 			console.log("The system is PC: ", window.navigator.userAgent.toLowerCase() );
@@ -989,6 +989,8 @@
 		function gameEnd(){
 
 			scoreCheckPageDiv.style.display = "block";
+
+			scoreCheckPageDiv.style.overflow = "auto";
 
 			let userID;
 			if ( !localStorage.getItem('userID') || !localStorage.getItem('vendor') ){
