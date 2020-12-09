@@ -564,7 +564,7 @@
 	<script src="js/vconsole.min.js"></script>
 	<script>
 		if ( window.navigator.userAgent.toLowerCase().indexOf("mobile") >= 0 && window.navigator.userAgent.toLowerCase().indexOf("chrome") < 0 ){
-			// var vConsole = new VConsole();
+			var vConsole = new VConsole();
 			console.log("The system is mobile: ", window.navigator.userAgent.toLowerCase() );
 		}else{
 			console.log("The system is PC: ", window.navigator.userAgent.toLowerCase() );
@@ -1300,8 +1300,12 @@
 				
 				});
 
+			}else{
+				if (callback){
+					callback();
+				}
 			}
-
+			
 			console.log(" +++++++ ");
 		}
 
