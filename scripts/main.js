@@ -252,7 +252,7 @@ switch (location.pathname) {
       ////檢查輸入『兌換折價券數量』的時候，不可小於0
       document.getElementById("inputExchangeText").onchange = function(){
         console.log(" inputExchangeText onchange: " , inputExchangeText.value , inputExchangeText.value < 0 );
-        if ( inputExchangeText.value < 0 ){
+        if ( inputExchangeText.value < 0 || Number.isInteger( Number(inputExchangeText.value) ) == false ){
           inputExchangeText.value = "0";
         }
       }

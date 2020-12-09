@@ -620,6 +620,35 @@
 			location.href = "/prize-list/index.html";
 		}
 
+		//// 只有特定日期才可以遊玩
+		// checkGameDate();
+		function checkGameDate(){
+			let currectDate = new Date();
+			let m = currectDate.getMonth() + 1;
+			let d = currectDate.getDate()  + 0;
+			if (m == 12){
+				switch( d%4 ){
+					case 1:
+					//// 9 13 17 21 25 29 射氣球 可以遊玩
+					// location.href = "/index.html";
+					break;
+					case 2:
+					//// 10 14 18 22 26 30 丟罐子 不可遊玩
+					location.href = "/index.html";
+					break;
+					case 3:
+					//// 7 11 15 19 23 27 31 拉霸機 不可遊玩
+					location.href = "/index.html";
+					break;
+					case 0:
+					//// 12 16 20 24 28  棒球九宮格 不可遊玩
+					location.href = "/index.html";
+					break;
+				}
+			}
+		}
+
+
 		// blocker.style.display = "none";
 	</script>
 
@@ -651,7 +680,7 @@
 
 			<a-entity id="rig" position="0 1.6 0" rotation="0 0 0">
 				<a-entity id="aCamera" camera  look-controls="touchEnabled:false" wasd-controls>
-					<a-entity id = "pivotGun" position="0 -0.6 -1.2" rotation="90 0 0" >
+					<a-entity id = "pivotGun" position="0 -0.5 -1.2" rotation="90 0 0" >
 						<a-entity id = "bow" visible = "true" position="0.0 0.05 .0" rotation="-90 0 0" scale=" 0.3 0.3 0.3 " gltf-model="#_bow" ></a-entity>
 						<a-entity id = "arrow" visible = "false" position="0 0.13 0" rotation="180 0 0" scale=" 0.6 0.2 0.6 " gltf-model="#_arrow" ></a-entity>
 					</a-entity>

@@ -171,7 +171,7 @@ class UI {
     let currentPoolNumber =  window.couponNumber;
     let buyNumber =  Number(document.getElementById("inputExchangeText").value );
 
-    if (buyNumber <= 0 ){
+    if (buyNumber <= 0 || Number.isInteger(buyNumber) == false ){
       console.log("請輸入想要兌換的數量");
       document.getElementById("inputExchangeText").value = 0;
 
@@ -420,6 +420,9 @@ class UI {
 
           useCouponInputText.value = useCouponInputText.getAttribute("max");
         }
+        if ( Number.isInteger( Number(useCouponInputText.value)) == false ){
+          useCouponInputText.value = 0;
+        }
       }
 
       
@@ -443,7 +446,7 @@ class UI {
 
         //// 為求統一，確認與取消按鈕都在這裡架構
         document.getElementById("useCouponModalComfirmImg").onclick = function(){
-          let password = Number(document.getElementById('useCouponPWDInputText').value);
+          let password = document.getElementById('useCouponPWDInputText').value;
           if (couponIDList.length == 0){
             console.log(" _couponIDList empty ");
             document.getElementById("useCouponModalRetText").style.color = "red";
@@ -457,6 +460,13 @@ class UI {
             return;
           }
 
+          if ( Number.isInteger( Number(useCouponInputText.value)) == false  ){
+            console.log(" wanted = float ");
+            document.getElementById("useCouponModalRetText").style.color = "red";
+            document.getElementById("useCouponModalRetText").innerHTML = "請輸入整數";
+            return;
+          }
+
           if ( Number( useCouponInputText.value ) > couponIDList.length ){
             console.log(" 想兌換的數量超過擁有的數量 " , useCouponInputText.value , couponIDList.length  );
             document.getElementById("useCouponModalRetText").style.color = "red";
@@ -466,14 +476,22 @@ class UI {
             return;
           }
 
-
-          if (password < 1000 || password > 9999 ){
+          //// 改為前端不檢查密碼長度，都交給後端處理密碼
+          // if (password < 1000 || password > 9999 && false ){
+          if ( false ){
             console.log(" password error = " , password   );
             document.getElementById("useCouponModalRetText").style.color = "red";
             document.getElementById("useCouponModalRetText").innerHTML = ".密碼錯誤.";
             
           }else {
-            console.log("1 _couponIDList = " , couponIDList , couponIDList.length );
+
+            //// 複製一份 『有效id陣列』 
+            let remainCouponIDList = couponIDList.slice();
+            //// 取得『要兌換數量長度的陣列』，並且取出『剩餘陣列』
+            let exchangeCouponIDList = remainCouponIDList.splice(0, useCouponInputText.value );
+
+            console.log("1 _couponIDList = " , couponIDList , couponIDList.length , exchangeCouponIDList , exchangeCouponIDList.length , remainCouponIDList , remainCouponIDList.length );
+
             //// 向後端發送『使用兌換券』事件
             postData = {
               request: 'exchange',
@@ -481,7 +499,7 @@ class UI {
                 userID: localStorage.getItem('userID')+"@"+localStorage.getItem('vendor') ,
                 phoneNum: document.getElementById("useCouponPhoneInputText").value,
                 code:password.toString(), 
-                _id: couponIDList.splice(0, useCouponInputText.value ) 
+                _id: exchangeCouponIDList
               }, //// 從最前面的兌換券開始使用，數量按使用者選擇。
             };
             //// 先關閉按鈕事件，以免多次觸發
@@ -489,11 +507,13 @@ class UI {
 
             aNetworkAgent.sendPost(postData).then(exchangeRet => {
               console.log("exchangeRet = " , exchangeRet , exchangeRet[0].status );
-              console.log("2 _couponIDList = " , couponIDList , couponIDList.length );
+              
+              console.log("2 _couponIDList = " , couponIDList , couponIDList.length , exchangeCouponIDList , exchangeCouponIDList.length , remainCouponIDList , remainCouponIDList.length );
+
               //// 重新開啟按鈕事件
               useCouponModalComfirmImg.style.pointerEvents = "auto";
               if (exchangeRet[0].status == true){
-                let currentCouponNumber = couponIDList.length;
+                let currentCouponNumber = remainCouponIDList.length;
 
                 //// 設定『最大使用數量』
                 useCouponInputText.setAttribute("max", currentCouponNumber);
@@ -510,6 +530,9 @@ class UI {
                 //// 重設『使用張數』
                 useCouponInputText.value = 0;
                 
+                //// 重設『有效id陣列』
+                couponIDList = remainCouponIDList;
+
               }else{
 
                 document.getElementById("useCouponModalRetText").style.color = "red";

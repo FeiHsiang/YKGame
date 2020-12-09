@@ -587,6 +587,33 @@
 			leaderModalDiv.style.display = "none";
 		}
 
+		//// 只有特定日期才可以遊玩
+		// checkGameDate();
+		function checkGameDate(){
+			let currectDate = new Date();
+			let m = currectDate.getMonth() + 1;
+			let d = currectDate.getDate()  + 0;
+			if (m == 12){
+				switch( d%4 ){
+					case 1:
+					//// 13 17 21 25 29 射氣球 不可遊玩
+					location.href = "/index.html";
+					break;
+					case 2:
+					//// 10 14 18 22 26 30 丟罐子 不可遊玩
+					location.href = "/index.html";
+					break;
+					case 3:
+					//// 7 11 15 19 23 27 31 拉霸機 可以遊玩
+					// location.href = "/games/slot.html";
+					break;
+					case 0:
+					//// 12 16 20 24 28  棒球九宮格 不可遊玩
+					location.href = "/index.html";
+					break;
+				}
+			}
+		}
 
 		// blocker.style.display = "none";
 	</script>
