@@ -71526,8 +71526,10 @@ function createDialog (text, buttonsContainerEl) {
   modalContainer.style.height = "100vh";
   modalContainer.style.backgroundSize = "cover";
   modalContainer.style.backgroundRepeat = "no-repeat";
+  modalContainer.style.backgroundPosition = "center";
+  modalContainer.style.position = "absolute";
 
-  modalContainer.style.backgroundColor = "rgba(0,0,0,0.7)";
+  // modalContainer.style.backgroundColor = "rgba(0,0,0,0.7)";
 //[end---20201204- fei -0001-add]//
   modalContainer.setAttribute(constants.AFRAME_INJECTED, '');
 
@@ -71543,7 +71545,7 @@ function createDialog (text, buttonsContainerEl) {
 
   dialog.style.position = "absolute";
   dialog.style.width = "70%";
-  dialog.style.height = "30%";
+  dialog.style.height = "20%";
   dialog.style.top = "10%";
   dialog.style.left = "15%";
   dialog.style.color = "white";
@@ -71553,15 +71555,30 @@ function createDialog (text, buttonsContainerEl) {
   dialog.style.backgroundRepeat = "no-repeat";
 //[end---20201208- fei -0001-add]//
 
-  dialogTextContainer = document.createElement('div');
-  dialogTextContainer.classList.add(DIALOG_TEXT_CONTAINER_CLASS);
-  dialog.appendChild(dialogTextContainer);
+//[start-20201209- fei -0001-remove]//
+  // dialogTextContainer = document.createElement('div');
+  // dialogTextContainer.classList.add(DIALOG_TEXT_CONTAINER_CLASS);
+  // dialog.appendChild(dialogTextContainer);
+//[end---20201209- fei -0001-remove]//
 
   dialogText = document.createElement('div');
   dialogText.classList.add(DIALOG_TEXT_CLASS);
+//[start-20201209- fei -0001-add]//
+  dialogText.style.margin = "0";
+  dialogText.style.left = "50%";
+  dialogText.style.top = "45%";
+  dialogText.style.width = "100%";
+  dialogText.style.transform = "translate(-50% , -50%)";
+  dialogText.style.position = "absolute";
+  
+//[end---20201209- fei -0001-add]//
   dialogText.innerHTML = text;
-  dialogTextContainer.appendChild(dialogText);
 
+//[start-20201209- fei -0001-mod]//  
+  // dialogTextContainer.appendChild(dialogText); // origin
+  dialog.appendChild(dialogText);
+
+//[end---20201209- fei -0001-mod]//
   dialog.appendChild(buttonsContainerEl);
 
   return modalContainer;
