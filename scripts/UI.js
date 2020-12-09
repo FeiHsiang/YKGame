@@ -106,7 +106,7 @@ class UI {
         case 1:
           //// 13 17 21 25 29 射氣球
           gameTitle = "射氣球";
-          introText = '歡迎來到射氣球小遊戲！玩家共有10秒的時間，請透過滑鼠或手指點擊螢幕射擊前方的氣球，每個氣球上有代表的分數射擊越多分數越高最高可獲得3個永康幣，快來挑戰看看吧！';
+          introText = '歡迎來到射氣球小遊戲！玩家共有15秒的時間，請透過滑鼠或手指點擊螢幕射擊前方的氣球，每個氣球上有代表的分數射擊越多分數越高最高可獲得3個永康幣，快來挑戰看看吧！';
 
           break;
         case 2:
@@ -351,7 +351,7 @@ class UI {
       // document.getElementById("myExchangeNumberInfoP").innerHTML =  userInfo[0].cumulativeCoins ;
 
       //// 『兌換折價券』上顯示『永康幣數量』
-      document.getElementById("exchangeModalMyInfo").innerHTML = "您用有" + userInfo[0].currentCoins + "枚永康幣" ;
+      document.getElementById("exchangeModalMyInfo").innerHTML = "您擁有" + userInfo[0].currentCoins + "枚永康幣" ;
 
     }
 

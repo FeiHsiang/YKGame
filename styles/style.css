@@ -105,8 +105,8 @@ body {
 
 #couponIntroContainer{
   width: 80%;
-  height: 25%;
-  position: relative;
+  height: 30%;
+  position: absolute;
   margin-top: 16px;
   left:10%;
   /* background-color: white; */
@@ -126,7 +126,7 @@ body {
   object-fit: fill;
 }
 
-#couponIntroContainerInfo{
+#couponIntroContainerInfoDiv{
   color:white;
   margin-top: 15px;
   margin-bottom: 15px;
@@ -135,6 +135,18 @@ body {
 
   position: absolute;
   top:3%;
+  left:2%;
+  width:85%;
+  height:75%;
+}
+
+#couponIntroContainerInfo{
+  margin: 0;
+  position: absolute;
+  width:100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #gameIntoContainer{
@@ -228,6 +240,7 @@ body {
   max-width: 74px;
   max-height: 74px;
   object-fit: contain;
+  display: none;
 }
 
 #myCouponImg{
@@ -249,6 +262,7 @@ body {
   max-height: 74px;
   object-fit: contain;
   cursor: pointer;
+  display: none;
 }
 
 #gameIntroModal, #leaveWarningModalDiv , #exchangeIntroModalDiv , #gameInfoModalDiv {
@@ -375,11 +389,23 @@ body {
   object-fit: fill;
 }
 
-#gameIntroModalInfo{
+#gameIntroModalInfoDiv{
   margin:18px;
-  top:5%;
+  top:0%;
+  left:0%;
+  width:90%;
+  height:90%;
   color:#F47165;
   position: absolute;
+}
+
+#gameIntroModalInfo{
+  margin: 0;
+  position: absolute;
+  width:100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #gameIntroModalButtonDiv {
@@ -489,7 +515,7 @@ body {
     width: 80%;
     height:auto;
     max-width: 543px;
-    max-height: 256px;
+    max-height: 320px;
     margin-left: auto;
     margin-right: auto;
 
@@ -502,21 +528,36 @@ body {
   #introFrameImg{
     width: 100%;
     height:100%;
-    max-width: 650px;
-    max-height: 306px;
+    /* max-width: 650px; */
+    /* max-height: 306px; */
     position: relative;
     object-fit: fill;
   }
 
-  #couponIntroContainerInfo{
+  #couponIntroContainerInfoDiv{
     color:white;
     margin-top: 15px;
     margin-bottom: 15px;
     margin-left: 5%;
     margin-right: 8%;
-
+  
     position: absolute;
     top:3%;
+    left:2%;
+    width:85%;
+    height:75%;
+  }
+  
+  #couponIntroContainerInfo{
+    color:white;
+  
+    margin: 0;
+    position: absolute;
+    width:100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
   }
 
   #backToWix{
