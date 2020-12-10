@@ -11,6 +11,26 @@
     object-fit: cover;
 }
 
+#bgModelImgDiv{
+    position: absolute;
+    overflow: hidden;
+    z-index: -1;
+    width:80%;
+    height: 36%;
+    left: 5%;
+    top: 63%;
+}
+
+#bgModelImg{
+    position: absolute;
+    width:100%;
+    height:200%;
+    left: 0%;
+    top:0%;
+    object-fit: contain;
+}
+
+
 .modal-content2 {
     position: relative;
     /* background-color:white; */
@@ -43,7 +63,7 @@
 
 #scoreCheckBGDiv {
     position: absolute;
-    top: 15%;
+    top: 0%;
     left: 0%;
     width:100%;
     height:100%;
@@ -59,7 +79,7 @@
   
 #scoreCheckBGTopDiv{
     position: absolute;
-    top: 10%;
+    top: 0%;
     left: 0%;
     width:100%;
     height:25%;
@@ -84,7 +104,7 @@
 
 #previousCoinsDiv{
     position: absolute;
-    top: 40%;
+    top: 30%;
     left: 5%;
     width:90%;
     height:15%;
@@ -93,7 +113,7 @@
 
 #getCoinsDiv{
     position: absolute;
-    top: 62.5%;
+    top: 52.5%;
     left: 5%;
     width:90%;
     height:15%;
@@ -102,7 +122,7 @@
 
 #currentCoinsDiv{
     position: absolute;
-    top: 92.5%;
+    top: 80%;
     left: 5%;
     width:90%;
     height:15%;
@@ -111,7 +131,7 @@
 
 #coninDividerDiv{
     position: absolute;
-    top: 75%;
+    top: 65%;
     left: 5%;
     width:90%;
     height:1%;
@@ -165,7 +185,7 @@
     position: absolute;
     width: 75%;
     height:17%;
-    top:50%;
+    top: 46%;
     left:7.5%;
 }
 

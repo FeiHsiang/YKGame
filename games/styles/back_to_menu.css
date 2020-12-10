@@ -1,10 +1,10 @@
 #backToWix{
   position: absolute;
-  top:16px;
-  left:35px;
+  top:1%;
+  left:8%;
   width:30%;
-  max-width: 260px;
-  max-height: 86px;
+  max-width: 220px;
+  max-height: 77px;
   height:auto;
   cursor: pointer;
   z-index: 2;

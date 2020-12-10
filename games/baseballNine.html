@@ -350,7 +350,8 @@
 			position: absolute;
 			top:10%;
 			left:40%;
-			font-size: 20pt;
+			font-size: 18pt;
+			color: #F47165;
 		}
 
 		.lds-ellipsis {
@@ -446,7 +447,7 @@
 			<div></div>
 		</div>
 
-		<div id = "loadObject"> 載入物件 </div>
+		<div id = "loadObject"> 載入中 </div>
 	</div>
 	
 	<div id = "backToWix" >
@@ -541,6 +542,9 @@
 	<div id = "scoreCheckPageDiv" style=" display: none; position: fixed; z-index: 1; text-align: center;" > 
 		<div id = "bgImgDiv">
 			<img id = "bgImg" src = "../images/ui/bg/img/1.png">
+		</div>
+		<div id = "bgModelImgDiv">
+			<img id = "bgModelImg" src = "/images/ui/img/milo2.png">
 		</div>
 		<div class="modal-content2">
 
@@ -639,7 +643,7 @@
 		}
 		
 		//// 只有特定日期才可以遊玩
-		// checkGameDate();
+		checkGameDate();
 		function checkGameDate(){
 			let currectDate = new Date();
 			let m = currectDate.getMonth() + 1;
@@ -805,12 +809,12 @@
 		document.getElementById("aAssets").addEventListener("progress", function(ret){
 			if (ret.detail.loadedBytes == ret.detail.totalBytes ){
 				console.log(" _aAssets: progress: ret=" , ret.target.id , assetList.length , document.getElementById("aAssets").children.length );
-				loadObject.innerHTML = ret.target.id;
+				// loadObject.innerHTML = ret.target.id;
 				assetList.push(ret.target.id);
 			}
 			if (assetList.length == 5 ){
 				console.log(" _aAssets: progress: load done ? ");
-				loadObject.innerHTML = "物件載入完成";
+				// loadObject.innerHTML = "物件載入完成";
 				sceneReady = true;
 			}
 			

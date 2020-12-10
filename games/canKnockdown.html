@@ -381,7 +381,8 @@
 			position: absolute;
 			top:10%;
 			left:40%;
-			font-size: 20pt;
+			font-size: 18pt;
+			color: #F47165;
 		}
 
 		.lds-ellipsis {
@@ -477,7 +478,7 @@
 			<div></div>
 		</div>
 		
-		<div id = "loadObject"> 載入物件 </div>
+		<div id = "loadObject"> 載入中 </div>
 	</div>
 
 	<div id = "backToWix" >
@@ -568,6 +569,9 @@
 	<div id = "scoreCheckPageDiv" style=" display: none; position: fixed; z-index: 1; text-align: center;" > 
 		<div id = "bgImgDiv">
 			<img id = "bgImg" src = "../images/ui/bg/img/1.png">
+		</div>
+		<div id = "bgModelImgDiv">
+			<img id = "bgModelImg" src = "/images/ui/img/milo2.png">
 		</div>
 		<div class="modal-content2">
 
@@ -678,7 +682,7 @@
 		}
 
 		//// 只有特定日期才可以遊玩
-		// checkGameDate();
+		checkGameDate();
 		function checkGameDate(){
 			let currectDate = new Date();
 			let m = currectDate.getMonth() + 1;
@@ -691,7 +695,7 @@
 					break;
 					case 2:
 					//// 10 14 18 22 26 30 丟罐子 可以遊玩
-					location.href = "/index.html";
+					// location.href = "/index.html";
 					break;
 					case 3:
 					//// 7 11 15 19 23 27 31 拉霸機 不可遊玩
@@ -841,12 +845,12 @@
 
 			if (ret.detail.loadedBytes == ret.detail.totalBytes ){
 				console.log(" _aAssets: progress: ret=" , ret.target.id , "done"  );
-				loadObject.innerHTML = ret.target.id + " done"   ;
+				// loadObject.innerHTML = ret.target.id + " done"   ;
 				assetList.push(ret.target.id);
 			}
 			if (assetList.length == document.getElementById("aAssets").children.length ){
 				console.log(" _aAssets: progress: load done ? ");
-				loadObject.innerHTML = "物件載入完成";
+				// loadObject.innerHTML = "物件載入完成";
 				sceneReady = true;
 			}
 		});

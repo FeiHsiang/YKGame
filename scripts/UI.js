@@ -72,8 +72,9 @@ class UI {
     let m = currectDate.getMonth() + 1;
     let d = currectDate.getDate()  + 0;
 
-    location.href = "/games/canKnockdown.html";
-    return;
+    // location.href = "/games/canKnockdown.html";
+    // return;
+    
     if (m == 12){
       switch( d%4 ){
         case 1:
@@ -133,8 +134,8 @@ class UI {
       }
     }
 
-    gameTitle = "丟罐子";
-    introText = '歡迎來到丟罐子小遊戲！玩家共有三次機會，請透過滑鼠或手指滑動螢幕丟向前方的罐子，丟倒越多分數越高，最高可獲得3個永康幣，快來挑戰看看吧！';
+    // gameTitle = "丟罐子";
+    // introText = '歡迎來到丟罐子小遊戲！玩家共有三次機會，請透過滑鼠或手指滑動螢幕丟向前方的罐子，丟倒越多分數越高，最高可獲得3個永康幣，快來挑戰看看吧！';
 
     //// 『介紹首頁』內容
     gameIntroModalBGTopInfo.innerHTML = gameTitle; // 兩 html 取相同名稱.
