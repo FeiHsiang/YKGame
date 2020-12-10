@@ -74,7 +74,7 @@ class UI {
 
     // location.href = "/games/canKnockdown.html";
     // return;
-    
+
     if (m == 12){
       switch( d%4 ){
         case 1:
@@ -302,7 +302,7 @@ class UI {
         nameInfoNumberDiv.appendChild(nameInfoNumber);
 
         let userName;
-        if (currentValue.name == ""){
+        if (currentValue.name == "" || currentValue.name == null ){
           userName = "user";
         }else{
           userName = currentValue.name;
