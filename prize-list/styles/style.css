@@ -9,7 +9,7 @@ html {
 
 body {
   text-align: center;
-  background-image: url("/images/ui/bg/img/1.png");
+  background-image: url("https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/bg/img/1.png");
   /* background-color: #202125; */
   background-size: 100% 100%; 
   font-size:20pt;
