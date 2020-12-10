@@ -71525,8 +71525,8 @@ function createDialog (text, buttonsContainerEl) {
 
   modalContainer.style.top = "0";
   // modalContainer.style.bottom = "0";
-  // modalContainer.style.left = "0";
-  modalContainer.style.right = "0";
+  modalContainer.style.left = "0";
+  // modalContainer.style.right = "0";
   modalContainer.style.zIndex = "9999999";
 
   modalContainer.style.backgroundImage = "url('https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/ui/bg/bg_hoonie_milo.png')";
@@ -71535,7 +71535,7 @@ function createDialog (text, buttonsContainerEl) {
   modalContainer.style.backgroundSize = "cover";
   modalContainer.style.backgroundRepeat = "no-repeat";
   modalContainer.style.backgroundPosition = "center";
-  modalContainer.style.position = "absolute";
+  modalContainer.style.position = "fixed";
   modalContainer.style.overflow = "hidden";
 
   // modalContainer.style.backgroundColor = "rgba(0,0,0,0.7)";
