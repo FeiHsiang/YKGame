@@ -71469,8 +71469,8 @@ function createPermissionDialog (text, onAllowClicked, onDenyClicked) {
   acceptButton.style.width = "100%";
   acceptButton.style.height = "100%";
 
-  acceptButton.style.backgroundColor = "rgba(0,0,0,0)"; 
-  acceptButton.style.borderRadius = "20px";
+  acceptButton.style.backgroundColor = "rgba(0,0,0,0.0)"; 
+  acceptButton.style.borderRadius = "0px";
   acceptButton.innerHTML = '';
 //[end---20201125- fei -0001-mod]//  
   buttonsContainer.appendChild(acceptButton);
@@ -71519,8 +71519,16 @@ function createDialog (text, buttonsContainerEl) {
   var dialogText;
 
   modalContainer = document.createElement('div');
-  modalContainer.classList.add(MODAL_CLASS);
 //[start-20201204- fei -0001-add]//
+
+  // modalContainer.classList.add(MODAL_CLASS);
+
+  modalContainer.style.top = "0";
+  // modalContainer.style.bottom = "0";
+  // modalContainer.style.left = "0";
+  modalContainer.style.right = "0";
+  modalContainer.style.zIndex = "9999999";
+
   modalContainer.style.backgroundImage = "url('https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/images/ui/bg/bg_hoonie_milo.png')";
   modalContainer.style.width = "100vw";
   modalContainer.style.height = "100vh";
@@ -71528,6 +71536,7 @@ function createDialog (text, buttonsContainerEl) {
   modalContainer.style.backgroundRepeat = "no-repeat";
   modalContainer.style.backgroundPosition = "center";
   modalContainer.style.position = "absolute";
+  modalContainer.style.overflow = "hidden";
 
   // modalContainer.style.backgroundColor = "rgba(0,0,0,0.7)";
 //[end---20201204- fei -0001-add]//
