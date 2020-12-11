@@ -1067,9 +1067,12 @@
 			} );
 		}
 
-	
+		function isMobile() {
+			return (/Android/i.test(navigator.userAgent) || /iPhone|iPad|iPod/i.test(navigator.userAgent) || navigator.maxTouchPoints > 1 );
+		};
 		aCamera.addEventListener('loaded', function(evt) { 
-			if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
+			// if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
+			if ( !isMobile() ){
 				console.log(" PC, remove look wasd control ");
 				aCamera.removeAttribute("look-controls");
 				aCamera.removeAttribute("wasd-controls");

@@ -916,8 +916,12 @@
 		let pivotGun = document.getElementById("pivotGun");
 		
 		//// 假如在電腦上，取消 look-control 功能，假如在手機上，隱藏槍
+		function isMobile() {
+			return (/Android/i.test(navigator.userAgent) || /iPhone|iPad|iPod/i.test(navigator.userAgent) || navigator.maxTouchPoints > 1 );
+		};
 		aCamera.addEventListener('loaded', function(evt) { 
-			if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
+			// if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
+			if ( !isMobile() ){
 				console.log(" PC, remove look wasd control ");
 				aCamera.removeAttribute("look-controls");
 				aCamera.removeAttribute("wasd-controls");
@@ -962,7 +966,8 @@
 
 			if (aScene.camera){
 					//// 電腦端，需要用滑鼠控制槍管， x[70, 150], y[-90, 90];
-				if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
+				// if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
+				if ( !isMobile() ){ 	
 					pivotGun.object3D.rotation.x = (70 + 40*(1+mouse.y) )/180*Math.PI;
 					pivotGun.object3D.rotation.y = -90*mouse.x/180*Math.PI;
 
@@ -1019,7 +1024,8 @@
 				bullet.addEventListener('model-loaded', setModelMesh );
 
 				let strength = 8.1; // 固定子彈速度
-				if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
+				// if (window.navigator.userAgent.toLowerCase().indexOf("mobile") < 0){
+				if ( !isMobile() ){
 					//// 電腦端： 透過點擊的位置決定發射的方向，固定畫面視角。
 
 					let bulletQuat = new THREE.Quaternion();
