@@ -53,8 +53,10 @@ let checkLogin = function() {
   else {
 //[start-20201119- fei -0001-debug]//
     //// 測試：不論登入與否，直接顯示
-    // console.log("main.js: call selectProgramToRun ");
-    // selectProgramToRun(); 
+    // console.log("main.js: call selectProgramToRun " , typeof(selectProgramToRun) );
+    // if (typeof(selectProgramToRun) == "function" ){
+    //   selectProgramToRun(); 
+    // }
     // return;
 //[end---20201119- fei -0001-debug]//
 
@@ -161,7 +163,7 @@ switch (location.pathname) {
     }
 
     //// 點擊開啟『是否返回首頁』
-    backToWix.onclick = function(){
+    backToWixImg.onclick = function(){
       leaveWarningModalDiv.style.display = "block";
     }
 

@@ -13,8 +13,23 @@
     <meta property="fb:app_id" content="790562841436344">
     <title>遊戲介紹</title>
     <link href="./styles/style.css" rel="stylesheet">
+
+    <link rel="preload" href="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/start/pressed.png" as="image" crossorigin/>
+    <link rel="preload" href="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/award redemption/pressed.png" as="image" crossorigin/>
+
+    <link rel="preload" href="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/confirm/pressed.png" as="image" crossorigin/>
+    <link rel="preload" href="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/no/pressed.png" as="image" crossorigin/>
+  
+    <link rel="preload" href="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/come back wix/pressed.png" as="image" crossorigin/>
+
   </head>
   <body>
+
+    <!-- <script src="games/js/vconsole.min.js"></script>
+    <script>
+      var vConsole = new VConsole();
+    </script> -->
+
     <div id="account-info"></div>
 
     <div id = "bgImgDiv">
@@ -31,7 +46,8 @@
     </div>
 
     <div id = "backToWix" >
-      <img id = "backToWixImg" src = "https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/come back wix/normal.png">
+      <!-- <img id = "backToWixImg" src = "https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/come back wix/normal.png"> -->
+      <div id = "backToWixImg" ontouchstart=""></div>
     </div>
 
     <div id = "couponIntroContainer">
@@ -66,11 +82,11 @@
     </div>
     <div class="two-button-div" id="after-login">
       <div id = "gameStartDiv">
-        <img src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/start/normal.png" alt="開始遊戲" id="gameStartImg" class="clickable-button">
+        <div id = "gameStartImg" alt="開始遊戲" ontouchstart=""></div>
         <img src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/Introduction/normal.png" alt="我的兌換券" id="gameStartIntro" class="clickable-button">
       </div>
       <div id = "myCouponDiv">
-        <img src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/award redemption/normal.png" alt="我的兌換券" id="myCouponImg" class="clickable-button">
+        <div id = "myCouponImg" alt="我的兌換券" ontouchstart="" ></div>
         <img src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/Introduction/normal.png" alt="我的兌換券" id="myCouponIntro" class="clickable-button">
       </div>
     </div>
@@ -97,10 +113,10 @@
 
         <div id="gameIntroModalButtonDiv">
           <div id="gameIntroModalComfirm">
-            <img id = "gameIntroModalComfirmImg" src = "https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/confirm/normal.png">
+            <div id = "gameIntroModalComfirmImg" ontouchstart="" ></div>
           </div> 
           <div id="gameIntroModalCancel">
-            <img id = "gameIntroModalCancelImg" src = "https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/no/normal.png">
+            <div id = "gameIntroModalCancelImg" ontouchstart="" ></div>
           </div>
         </div>
 

@@ -64137,9 +64137,6 @@ PosePredictor.prototype.getPrediction = function (currentQ, gyro, timestampS) {
 };
 function FusionPoseSensor(kFilter, predictionTime, yawOnly, isDebug) {
 
-//[start-20201211- fei -0001-debug]//
-  console.log(" **********  aframe: _FusionPoseSensor: init  ");
-//[end---20201211- fei -0001-debug]//
   this.yawOnly = yawOnly;
   this.accelerometer = new Vector3();
   this.gyroscope = new Vector3();
@@ -65408,9 +65405,6 @@ var DefaultConfig = {
 
 function WebVRPolyfill(config) {
 
-//[start-20201211- fei -0001-debug]//
-  console.log(" **********  aframe:  _WebVRPolyfill =" , config );
-//[end---20201211- fei -0001-debug]//
   this.config = extend(extend({}, DefaultConfig), config);
   this.polyfillDisplays = [];
   this.enabled = false;
