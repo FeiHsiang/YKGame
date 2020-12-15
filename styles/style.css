@@ -506,6 +506,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  margin: auto;
 }
 
 #gameIntroModalComfirmImg:active{
@@ -522,6 +523,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  margin: auto;
 }
 
 #gameIntroModalCancelImg:active{
@@ -644,7 +646,7 @@ body {
   }
 
   #backToWix{
-    position: relative;
+    position: absolute;
     float:left;
     left:1%;
     top:1%;
