@@ -13236,6 +13236,9 @@ var World = /*#__PURE__*/function (_EventTarget) {
 
     for (i = 0; i !== N; i++) {
       var _bi2 = bodies[i];
+//[start-20201215- fei -0001-add]//
+      if (!_bi2) continue;
+//[end---20201215- fei -0001-add]//
 
       if (_bi2.wakeUpAfterNarrowphase) {
         _bi2.wakeUp();
@@ -13272,7 +13275,9 @@ var World = /*#__PURE__*/function (_EventTarget) {
 
     for (i = 0; i !== N; i++) {
       var _bi3 = bodies[i];
-
+//[start-20201215- fei -0001-add]//
+      if (!_bi3) continue;
+//[end---20201215- fei -0001-add]//
       if (_bi3.type & DYNAMIC) {
         // Only for dynamic bodies
         var ld = pow(1.0 - _bi3.linearDamping, dt);
@@ -13291,7 +13296,9 @@ var World = /*#__PURE__*/function (_EventTarget) {
 
     for (i = 0; i !== N; i++) {
       var _bi4 = bodies[i];
-
+//[start-20201215- fei -0001-add]//
+      if (!_bi4) continue;
+//[end---20201215- fei -0001-add]//
       if (_bi4.preStep) {
         _bi4.preStep.call(_bi4);
       }
@@ -13309,6 +13316,9 @@ var World = /*#__PURE__*/function (_EventTarget) {
     var quatNormalizeFast = this.quatNormalizeFast;
 
     for (i = 0; i !== N; i++) {
+//[start-20201215- fei -0001-add]//
+      if (!bodies[i]) continue;
+//[end---20201215- fei -0001-add]//
       bodies[i].integrate(dt, quatNormalize, quatNormalizeFast);
     }
 
@@ -13326,6 +13336,9 @@ var World = /*#__PURE__*/function (_EventTarget) {
 
     for (i = 0; i !== N; i++) {
       var _bi5 = bodies[i];
+//[start-20201215- fei -0001-add]//
+      if (!_bi5) continue;
+//[end---20201215- fei -0001-add]//
       var postStep = _bi5.postStep;
 
       if (postStep) {
@@ -13341,7 +13354,9 @@ var World = /*#__PURE__*/function (_EventTarget) {
 
       for (i = 0; i !== N; i++) {
         var _bi6 = bodies[i];
-
+//[start-20201215- fei -0001-add]//
+        if (!_bi6) continue;
+//[end---20201215- fei -0001-add]//
         _bi6.sleepTick(this.time);
 
         if (_bi6.sleepState !== Body.SLEEPING) {

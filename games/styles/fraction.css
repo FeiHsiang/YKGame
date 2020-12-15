@@ -4,8 +4,8 @@
     bottom:2%;
     left:5%;
     width:90%;
-    /* max-width: 650px; */
-    /* max-height: 106px; */
+    max-width: 650px;
+    max-height: 106px;
     height:8%;
     cursor: pointer;
     z-index: 2;
@@ -78,4 +78,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     white-space:nowrap;
+}
+
+@media screen and (min-width:650px) {
+    #fraction{
+        left: calc(50% - 325px);
+    }
 }

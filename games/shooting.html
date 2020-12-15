@@ -18,6 +18,14 @@
 			width:100vw;
 			height:100vh;
 			margin: 0;
+
+			outline:none;
+			-webkit-tap-highlight-color: rgba(0,0,0,0);
+			-moz-user-select: none;
+			-webkit-user-select: none; 
+			-ms-user-select:none; 
+			user-select:none;
+			-o-user-select:none;
 		}
 
 		#aDiv{
@@ -672,9 +680,9 @@
 
 				<a-asset-item id="_arrow" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Arrow.glb"></a-asset-item>
 				<a-asset-item id="_bow" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/BowAnimation2.glb"></a-asset-item>
-				<a-asset-item id="b1" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/balloon01.glb"></a-asset-item>
-				<a-asset-item id="b2" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/balloon02.glb"></a-asset-item>
-				<a-asset-item id="b3" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/balloon03.glb"></a-asset-item>
+				<a-asset-item id="b1" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/balloon01_animation.glb"></a-asset-item>
+				<a-asset-item id="b2" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/balloon02_animation.glb"></a-asset-item>
+				<a-asset-item id="b3" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/balloon03_animation.glb"></a-asset-item>
 
 				<a-asset-item id="_box" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Box.glb"></a-asset-item>
 				<a-asset-item id="_Hoonie" name="虎妮" src="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/ARGame/games/model/Hoonie.glb"></a-asset-item>
@@ -1171,6 +1179,7 @@
 					gift.setAttribute("velocity", velocity.multiplyScalar(2.0) );
 				}
 
+				gift.setAttribute("animation-mixer" , "clip: Take 001");
 				gift.addEventListener('model-loaded', function(evt){
 					//// 材質處理，無光標準
 					evt.detail.model;
@@ -1185,6 +1194,26 @@
 							node.material.needsUpdate = true;
 						}
 					});
+
+					let animationSlices = [];
+					animationSlices.push({ 
+						changed:false, 
+						loop:false, 
+						reset:false, 
+						stopHead: true,
+						count: 1, 
+						idle:"mifly168", 
+						uid:"mifly168" 
+					});
+					animationSlices.push({
+						animationName: evt.detail.model.animations[0].name,
+						name: evt.detail.model.animations[0].name,
+						endTime: evt.detail.model.animations[0].duration ,
+						startTime: 0.9,
+						uid:"mifly168"
+					});
+					evt.detail.model.animationSlices = animationSlices;
+
 				});
 
 				gift.setAttribute("position", randomPosition);
@@ -1207,9 +1236,11 @@
 						}
 						//// 刪除禮物
 						if (e.detail.target.el.object3D.el){
-							// console.log(" remove target " , e.detail.target.el.object3D  );
+							console.log(" remove target " , e.detail.target.el.object3D  );
 							// e.detail.target.el.remove();
-							e.detail.target.el.object3D.el.remove();
+							// e.detail.target.el.object3D.el.remove();
+							e.detail.target.el.object3D.children[0].animationSlices[0].changed = true;
+							e.detail.target.el.object3D.children[0].animationSlices[0].stopHead = false;
 						}
 
 						let note = e.detail.target.el.getAttribute("score");
@@ -1218,6 +1249,7 @@
 						score += Number(note);
 
 						scoreText.innerText = "分數："+(score);
+						e.detail.target.el.object3D.el.removeAttribute("static-body");
 
 					}
 					
