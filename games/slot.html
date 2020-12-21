@@ -1023,6 +1023,8 @@
 
 			// let coins = score;
 			let coins = score > 0 ? score : 1;
+			coins *= 3;
+
 			let serverUrl = "https://7leyf90jbd.execute-api.ap-northeast-1.amazonaws.com/prod/yongkangMongoAccess";
 			let	postData = {
 				// ID: "test3"+"@"+"google",
@@ -1060,7 +1062,7 @@
 						previousCoinsAmountText.innerHTML = (userCurrentCounts - coins) + " 枚";
 						getCoinsAmountText.innerHTML = coins + " 枚";
 						if (score == 0){
-							playResultText.innerHTML = "Sorry! 一個都沒有擊中，不過參與遊戲還是可以獲得一個永康幣喔";
+							playResultText.innerHTML = "Sorry! 一個都沒有擊中，不過參與遊戲還是可以獲得" + coins + "個永康幣喔";
 						}else{
 							playResultText.innerHTML = "恭喜你！抽到" + score + " 分，獲得" + coins + "個永康幣";
 						}
