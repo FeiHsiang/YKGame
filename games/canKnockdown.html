@@ -128,7 +128,7 @@
 			/* margin-right: 2%; */
 			/* width: 90%; */
 			color:white;
-			text-align: left;
+			text-align: center;
 			font-size: 20pt;
 		}
 
@@ -686,16 +686,33 @@
 		}
 
 		leaveWarningComfirm.onclick = function(){
-			location.href = "/prize-list/index.html";
+			// location.href = "/prize-list/index.html";
+			
+			let currectDate = new Date();
+			let y = currectDate.getYear();
+			let m = currectDate.getMonth() + 1;
+			let d = currectDate.getDate()  + 0;
+			if (y==120 && m == 12 && d < 28){
+				location.href = "/prize-list/index.html";
+			}else {
+				location.href = "/index.html";
+			}
 		}
 
 		//// 只有特定日期才可以遊玩
 		checkGameDate();
 		function checkGameDate(){
 			let currectDate = new Date();
+			let y = currectDate.getYear();
 			let m = currectDate.getMonth() + 1;
 			let d = currectDate.getDate()  + 0;
-			if (m == 12){
+			if (y == 120 && m == 12){
+
+				if (d >= 28 ){
+					scoreCheckPageDiv.style.display = "none";
+					return;
+				}
+
 				switch( d%4 ){
 					case 1:
 					//// 9 13 17 21 25 29 射氣球 不可遊玩
@@ -714,6 +731,8 @@
 					location.href = "/index.html";
 					break;
 				}
+			}else{
+				scoreCheckPageDiv.style.display = "none";
 			}
 		}
 
@@ -1254,6 +1273,16 @@
 		});
 
 		function gameEnd(){
+
+			let currectDate = new Date();
+			let y = currectDate.getYear();
+			let m = currectDate.getMonth() + 1;
+			let d = currectDate.getDate()  + 0;
+			if (y== 120 && m == 12 && d < 28){
+				//// do nothing
+			}else {
+				return;//// 不顯示結束頁面也不與後端溝通
+			}
 
 			if (scoreCheckPageDiv.style.display == "block"){
 				console.log("gameEnd: already show scoreCheckPageDiv");

@@ -18,6 +18,27 @@ class UI {
   showAfterLoginCoupon() {
     document.getElementById('before-login').style.display = 'none';
     document.getElementById('after-login').style.display = 'block';
+
+
+    let currectDate = new Date();
+    let y = currectDate.getYear();
+    let m = currectDate.getMonth() + 1;
+    let d = currectDate.getDate()  + 0;
+    if (y =="120" && m == 12 && d < 28 ){
+      //// 什麼都不用作
+    }else {
+      //// 假如超過 12/27 取消『登入與活動相關功能與顯示』並且開啟『選擇遊戲清單』
+      
+      document.getElementById('after-login').style.display = 'none';
+      document.getElementById('gameIntoContainer').style.display = 'block';    
+      document.getElementById('backToWix').style.display = 'none';
+      document.getElementById('couponIntroContainer').style.display = 'none';
+      document.getElementById('gameIntoContainer').style.top = '3%';
+
+    }
+
+    //// 取消『登入與活動相關功能與顯示』並且開啟『選擇遊戲清單』 完成
+
     document.getElementById('account-info').textContent = `Hello ${userName}. ${userID}`;
     let couponIntroText = "歡迎來到永康幣兌換區！獲得的永康幣除了同時增加抽 iPhone 12 mini 的機會，也可用來兌換永康商圈指定店家的15元折價券喔！";
     document.getElementById('couponIntroContainerInfo').innerHTML = couponIntroText;

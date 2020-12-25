@@ -58,6 +58,21 @@ let checkLogin = function() {
     //   selectProgramToRun(); 
     // }
     // return;
+
+    //// 假如超過 12/27 取消『檢查登入』並且開啟『選擇遊戲清單』
+    let currectDate = new Date();
+    let y = currectDate.getYear();
+    let m = currectDate.getMonth() + 1;
+    let d = currectDate.getDate()  + 0;
+    if (y == "120" && m == 12 && d < 28 ){
+      //// 什麼都不用作
+    }else{
+      if (typeof(selectProgramToRun) == "function" ){
+        selectProgramToRun(); 
+      }
+      return;
+    }
+
 //[end---20201119- fei -0001-debug]//
 
     // 沒登入
