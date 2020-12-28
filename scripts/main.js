@@ -223,6 +223,8 @@ switch (location.pathname) {
     // let logout = document.getElementById('logout');
     // logout.addEventListener('click', clearLSLogout, false);
 
+    //// 20201228 活動結束
+    location.replace("/");
     //// 假如 localStorage 內的使用者登入資訊有誤，則返回首頁
     if (localStorage.getItem('vendor') != "google" && localStorage.getItem('vendor') != "facebook" && false  ){
       // alert('登入供應商有誤，請重新登入！');
