@@ -614,6 +614,346 @@ class UI {
    
   }
 
+  getWinnerList(){
+
+    postData = {
+      request: 'getWinnerList',
+    };
+    aNetworkAgent.sendPost(postData).then(winnerNameList => {
+      console.log( " _getWinnerList: winnerNameList= " , winnerNameList );
+    });
+
+  }
+
+  getCouponPool(){
+
+    postData = {
+      request: 'getCouponPool',
+    };
+    aNetworkAgent.sendPost(postData).then(pools => {
+      console.log( " getCouponPool: pools= " , pools );
+      
+
+
+      let uc = 0;
+      let stores = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+      
+      let us = [];
+
+      for (let i = 0; i < pools.length; i++ ){
+        if (pools[i].exchangeCode == ""){
+          uc += 1;
+        }
+        if (pools[i].exchangeCode == "J23156383"){
+          stores[0] += 1;
+        }
+        if (pools[i].exchangeCode == "M76935058"){
+          stores[1] += 1;
+        }
+        if (pools[i].exchangeCode == "S42337527"){
+          stores[2] += 1;
+        }
+        if (pools[i].exchangeCode == "U25570858"){
+          stores[3] += 1;
+        }
+        if (pools[i].exchangeCode == "S16752391"){
+          stores[4] += 1;
+        }
+        if (pools[i].exchangeCode == "S24808433"){
+          // us.push( pools[i] );
+          stores[5] += 1;
+        }
+        if (pools[i].exchangeCode == "S20479439"){
+          stores[6] += 1;
+        }
+        if (pools[i].exchangeCode == "S97455293"){
+          stores[7] += 1;
+        }
+        if (pools[i].exchangeCode == "J42738207"){
+          stores[8] += 1;
+        }
+        if (pools[i].exchangeCode == "F27751102"){
+          stores[9] += 1;
+        }
+        if (pools[i].exchangeCode == "H13084214"){
+          stores[10] += 1;
+        }
+        if (pools[i].exchangeCode == "F80286718"){
+          stores[11] += 1;
+        }
+        if (pools[i].exchangeCode == "Y76844894"){
+          stores[12] += 1;
+        }
+        if (pools[i].exchangeCode == "S42994965"){
+          stores[13] += 1;
+        }
+        if (pools[i].exchangeCode == "U25554267"){
+          stores[14] += 1;
+        }
+        if (pools[i].exchangeCode == "K42487898"){
+          stores[15] += 1;
+        }
+        if (pools[i].exchangeCode == "N52788660"){
+          stores[16] += 1;
+        }
+        if (pools[i].exchangeCode == "H24546190"){
+          stores[17] += 1;
+        }
+      }
+
+      // console.log(" stores = " , stores, uc , us ) ;
+      // console.log(" stores = " , stores, uc , us ) ;
+      // console.log(" stores = " , stores, uc , us ) ;
+
+
+
+    });
+
+  }
+
+
+  getUserNameLiet(){
+    console.log(" UI.js : _getUserNameLiet ");
+    
+
+    postData = {
+      request: 'getPool',
+    };
+    aNetworkAgent.sendPost(postData).then(userNameList => {
+      console.log( " _getPool: userNameList= " , userNameList );
+
+      if (userNameList[0]){
+
+        //// 不顯示
+        // couponCountP.innerHTML = "兌換券數：" + userNameList[0].Info.total_coupon_exchanged;
+        // userCountP.innerHTML = "總人數：" + userNameList[0].Info.total_qualified_user;
+        
+        userNameListContainerInfoDiv.innerHTML = "";
+
+        window.userList = userNameList[0].List;
+
+        userNameList[0].List.forEach((currentValue, index) => {
+
+          // if (currentValue.phoneNum.length == 10 ){
+          //   console.log("%c" + currentValue.phoneNum , "color:black"  );
+          // }else{
+          //   console.log(currentValue);
+          //   console.log("%c" + currentValue.phoneNum , "color:red"  );
+          // }
+
+          let row = document.createElement("div");
+          row.className = "rankRow";
+  
+          let numeralText = document.createElement("p");
+          numeralText.className = "centerP";
+          numeralText.style.color = "#F47165";
+          numeralText.innerHTML = index+1;
+  
+          let nameInfoTextDiv = document.createElement("div");
+          let nameInfoNumberDiv = document.createElement("div");
+  
+          nameInfoNumberDiv.className = "nameInfoNumberDiv";
+          nameInfoNumberDiv.style.overflow = "hidden";
+          nameInfoTextDiv.className = "nameInfoTextDiv";
+  
+          let nameInfoText = document.createElement("p");
+          nameInfoText.className = "centerP";
+          nameInfoText.style.color = "#F47165";
+  
+          let nameInfoNumber = document.createElement("p");
+          nameInfoNumber.className = "leftP";
+          nameInfoNumber.style.color = "#F47165";
+          // nameInfoNumber.innerHTML = currentValue.couponExchanged;
+          
+          //// 第二欄位顯示信箱
+          let email1 = currentValue.email.split("@")[0];
+          nameInfoNumber.innerHTML = email1;
+
+          nameInfoNumberDiv.appendChild(nameInfoNumber);
+  
+          let userName;
+          if (currentValue.name == "" || currentValue.name == null ){
+            userName = "user";
+          }else{
+            userName = currentValue.name;
+          }
+          nameInfoText.innerHTML = userName;
+          nameInfoTextDiv.appendChild(nameInfoText);
+  
+  
+          let numeralDiv = document.createElement("div");
+          let nameInfoDiv = document.createElement("div");
+          numeralDiv.className = "rankNumeralDiv";
+          nameInfoDiv.className = "rankNameInfoDiv";
+          nameInfoDiv.style.overflow = "hidden";
+  
+          let numeral = new Image();
+          numeral.src = "/images/ui/window/ranked/numeral.png";
+          numeral.className = "rankNumeralImg";
+  
+          let nameInfo = new Image();
+          nameInfo.src = "/images/ui/window/ranked/name.png"
+          nameInfo.className = "rankNameInfoImg";
+  
+          numeralDiv.appendChild(numeral);
+          numeralDiv.appendChild(numeralText);
+          nameInfoDiv.appendChild(nameInfo);
+          nameInfoDiv.appendChild(nameInfoTextDiv);
+          nameInfoDiv.appendChild(nameInfoNumberDiv);
+          
+          row.appendChild(numeralDiv);
+          row.appendChild(nameInfoDiv);
+          userNameListContainerInfoDiv.appendChild(row);
+  
+        });
+
+        
+
+
+      }
+
+
+    });
+
+  }
+
+  draw(){
+
+    let prizeItem = document.getElementsByClassName("prizeSelect")[0].id ;
+    
+    
+    function setWinnder( prize , currentValue ){
+
+      let row = document.createElement("div");
+      row.className = "rankRow";
+
+      let numeralText = document.createElement("p");
+      numeralText.className = "centerP";
+      numeralText.style.color = "#F47165";
+      numeralText.innerHTML = prize;
+
+      let nameInfoTextDiv = document.createElement("div");
+      let nameInfoNumberDiv = document.createElement("div");
+
+      nameInfoNumberDiv.className = "nameInfoNumberDiv";
+      nameInfoNumberDiv.style.overflow = "hidden";
+      nameInfoTextDiv.className = "nameInfoTextDiv";
+
+      let nameInfoText = document.createElement("p");
+      nameInfoText.className = "centerP";
+      nameInfoText.style.color = "#F47165";
+
+      let nameInfoNumber = document.createElement("p");
+      nameInfoNumber.className = "leftP";
+      nameInfoNumber.style.color = "#F47165";
+      // nameInfoNumber.innerHTML = currentValue.couponExchanged;
+      
+      //// 第二欄位顯示信箱
+      let email1 = currentValue.email.split("@")[0];
+      nameInfoNumber.innerHTML = email1;
+
+      nameInfoNumberDiv.appendChild(nameInfoNumber);
+
+      let userName;
+      if (currentValue.name == "" || currentValue.name == null ){
+        userName = "user";
+      }else{
+        userName = currentValue.name;
+      }
+      nameInfoText.innerHTML = userName;
+      nameInfoTextDiv.appendChild(nameInfoText);
+
+      let numeralDiv = document.createElement("div");
+      let nameInfoDiv = document.createElement("div");
+      numeralDiv.className = "prizeName";
+      nameInfoDiv.className = "winnerNameInfoDiv";
+      nameInfoDiv.style.overflow = "hidden";
+
+      // let numeral = new Image();
+      // numeral.src = "/images/ui/lottery/button/選項/" + prize + ".png";
+      // numeral.className = "prizeImg";
+
+      let nameInfo = new Image();
+      nameInfo.src = "/images/ui/window/ranked/name.png"
+      nameInfo.className = "rankNameInfoImg";
+
+      // numeralDiv.appendChild(numeral);
+      numeralDiv.appendChild(numeralText);
+      nameInfoDiv.appendChild(nameInfo);
+      nameInfoDiv.appendChild(nameInfoTextDiv);
+      nameInfoDiv.appendChild(nameInfoNumberDiv);
+      
+      row.appendChild(numeralDiv);
+      row.appendChild(nameInfoDiv);
+      winnerNameListContainerInfoDiv.appendChild(row);
+    }
+
+
+    console.log("  _draw call " , prizeItem );
+
+    postData = {
+      request: 'draw',
+      requestItem: {
+        num:1,
+        prize:1
+      }
+    };
+
+    let prizeNameInfo ;
+    switch(prizeItem){
+
+      case "iphone":
+        prizeNameInfo = "iphone";
+        postData.requestItem.num = 1;
+        postData.requestItem.prize = 1;
+        break;
+
+      case "ring":
+      
+        prizeNameInfo = "手環";
+        postData.requestItem.num = 10;
+        postData.requestItem.prize = 2;
+
+        break;
+
+      case "tableware":
+        prizeNameInfo = "餐具";
+        postData.requestItem.num = 10;
+        postData.requestItem.prize = 3;
+       
+
+        break;
+  
+      case "cup":
+        
+        prizeNameInfo = "環保杯";
+        postData.requestItem.num = 20;
+        postData.requestItem.prize = 4;
+
+        break;
+      
+      default:
+        console.log(" _draw: shoudnt happen");      
+
+    }
+
+    aNetworkAgent.sendPost(postData).then( winnerList => {
+      console.log(" _draw , winnerList=" , winnerList  );
+
+      winnerList.forEach((currentValue, index) => {
+        setWinnder( prizeNameInfo , currentValue );
+      });
+
+      aUI.getUserNameLiet();
+
+    });
+
+
+  }
+
+
+
+
   showChangeBrowserPage() {
     let os = ['iPhone', 'Android'];
     let browser = ['Safari', 'Chrome'];

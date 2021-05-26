@@ -411,6 +411,47 @@ switch (location.pathname) {
 
     break;
 
+  case '/lottery/':
+  case '/lottery/index':
+  case '/lottery/index.html':
+
+    console.log(" -------------***************** ");
+    
+    aUI.getUserNameLiet();
+
+    iphone.onclick = function(){
+      iphone.className = "prizeSelect";
+      ring.className = "";
+      tableware.className = "";
+      cup.className = "";
+    }
+    ring.onclick = function(){
+      iphone.className = "";
+      ring.className = "prizeSelect";
+      tableware.className = "";
+      cup.className = "";
+    }
+    tableware.onclick = function(){
+      iphone.className = "";
+      ring.className = "";
+      tableware.className = "prizeSelect";
+      cup.className = "";
+    }
+    cup.onclick = function(){
+      iphone.className = "";
+      ring.className = "";
+      tableware.className = "";
+      cup.className = "prizeSelect";
+    }
+
+    getLotteryImg.onclick = function(){
+      aUI.draw();
+      
+    }
+
+
+    break;
+
   default:
     isChangeBrowserPage = false;
     break;

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="MIND & IDEA FLY CO., LTD.">
+    <meta name="description" content="永康商圈專案">
+    <meta property="og:url" content="https://ssl-api-makar-apps.miflyservice.com:8080/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="yongkong market website">
+    <meta property="og:description" content="永康商圈專案">
+    <meta property="og:image" content="https://www.makerar.com/banner/1569506677.jpg">
+    <meta property="fb:app_id" content="790562841436344">
+    <title>遊戲介紹</title>
+    <link href="styles/style.css" rel="stylesheet">
+
+    <link rel="preload" href="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/start/pressed.png" as="image" crossorigin/>
+    <link rel="preload" href="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/award redemption/pressed.png" as="image" crossorigin/>
+
+    <link rel="preload" href="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/confirm/pressed.png" as="image" crossorigin/>
+    <link rel="preload" href="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/no/pressed.png" as="image" crossorigin/>
+  
+    <link rel="preload" href="https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/button/come back wix/pressed.png" as="image" crossorigin/>
+
+  </head>
+  <body>
+
+    <!-- <script src="games/js/vconsole.min.js"></script>
+    <script>
+      var vConsole = new VConsole();
+    </script> -->
+
+
+    <div id = "bgImgDiv">
+      <img id = "bgImg" src = "https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/bg/img/1.png">
+    </div>
+
+    <!-- <div id = "modelDiv">
+      <div id = "miloDiv">
+        <img id = "miloImg" src = "https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/img/milo2.png" class="unselected">
+      </div>
+      <div id = "hoonieDiv">
+        <img id = "hoonieImg" src = "https://yongkangfile.s3-ap-northeast-1.amazonaws.com/images/ui/img/hoonie2.png" class="unselected">
+      </div>
+    </div> -->
+
+    <!-- 獎項區域 -->
+    <div id = "prizeListDiv">
+      <img id = "iphone" src = "/images/ui/lottery/button/選項/iphone.png">
+      <img id = "ring" src = "/images/ui/lottery/button/選項/ring.png">
+      <img id = "tableware" src = "/images/ui/lottery/button/選項/tableware.png">
+      <img id = "cup" class="prizeSelect" src = "/images/ui/lottery/button/選項/cup.png">
+    </div>
+
+    <!-- 抽獎者區域 -->
+    <img id = "userNameListTopImg" src = "/images/ui/lottery/lottery list.png" >
+    <div id = "userNameListContainer">
+      <img id = "userNameListImg" src = "/images/ui/lottery/list.png">
+
+      <div id = "userNameListTitle" style="display: block;" >
+        <div id = "userNumber">
+          <p id = "userNumberP" class="centerP">編號</p>
+        </div>
+        <div id = "userName">
+          <p id = "userNameP" class="centerP">姓名</p>
+        </div>
+        <div id = "userEmail">
+          <p id = "userEmailP" class="centerP">信箱</p>
+        </div>
+      </div>
+
+      <div id = "userNameListContainerInfoDiv"></div>
+
+      <div id = "userTotalInfoDiv" style="display: none;" >
+        <div id = "couponCount">
+          <p id = "couponCountP" class="centerP">兌換券數：</p>
+        </div>
+        <div id = "userCount">
+          <p id = "userCountP" class="centerP">總人數：</p>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- 中獎者區域 -->
+    <img id = "winnerNameListTopImg" src = "/images/ui/lottery/winner list bar.png" >
+    <div id = "winnerNameListContainer">
+      <img id = "winnerNameImg" src = "/images/ui/lottery/list.png">
+
+      <div id = "winnerNameListTitle" style="display: block;" >
+        <div id = "winnerPrize">
+          <p id = "winnerPrizeP" class="centerP">獎項</p>
+        </div>
+        <div id = "winnerName">
+          <p id = "winnerNameP" class="centerP">姓名</p>
+        </div>
+        <div id = "winnerEmail">
+          <p id = "winnerEmailP" class="centerP">信箱</p>
+        </div>
+      </div>
+
+      <div id = "winnerNameListContainerInfoDiv"></div>
+    </div>
+
+
+    <div id = "getLotteryDiv"  >
+      <img id = "getLotteryImg" src = "/images/ui/lottery/button/lottery/normal.png" >
+    </div>
+
+
+    <script src="/scripts/NetworkAgent.js"></script>
+    <script src="/scripts/UI.js"></script>
+    <script src="/scripts/globalVariables.js"></script>
+    <script src="/scripts/main.js"></script>
+  </body>
+</html>

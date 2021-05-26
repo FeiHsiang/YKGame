@@ -1,0 +1,668 @@
+html {
+  width: 100vw;
+  /* max-width: 100vw; */
+  /* min-height: 100vh; */
+  /* overflow: hidden; */
+  background-image: url("/images/ui/lottery/bottom.png");
+}
+
+body {
+  text-align: center;
+  background-image: url("/images/ui/lottery/bottom.png");
+  background-size: 100% 100%; 
+  font-size:20pt;
+  margin:0px;
+  max-width: 100vw;
+  min-height: 100vh;
+  width: 100vw;
+  height:100vh;
+  /* overflow: hidden; */
+  font-family: "Microsoft JhengHei","微軟正黑體";
+  outline:none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+#bgImgDiv{
+  position: absolute;
+  width:100vw;
+  height:100vh;
+  z-index: -1;
+}
+
+#bgImg{
+  width: 100%;
+  height:100%;
+  object-fit: cover;
+}
+
+#modelDiv{
+  position: absolute;
+  width:100vw;
+  height:100vh;
+  /* z-index: 2; */
+}
+
+#miloDiv{
+  position: absolute;
+  width:54%;
+  left: 0%;
+  height:auto;
+  bottom: 10%;
+  max-width: 350px;
+  max-height: 600px;
+  z-index: 2;
+}
+
+#miloImg {
+  width: 100%;
+  height:100%;
+  max-width: 421px;
+  max-height: 740px;
+  object-fit: contain;
+}
+
+#hoonieDiv{
+  position: absolute;
+  width:55%;
+  right:0%;
+  height:auto;
+  bottom: 10%;
+  max-width: 350px;
+  max-height: 600px;
+  z-index: 2;
+}
+
+#hoonieImg{
+  width: 100%;
+  height:100%;
+  max-width: 446px;
+  max-height: 756px;
+  object-fit: contain;
+}
+
+/* 抽獎者清單 */
+
+#userNameListContainer{
+  width: 80%;
+  height: 30%;
+  position: absolute;
+  margin-top: 16px;
+  left:10%;
+  top:7%;
+  /* background-color: white; */
+  text-align: justify;
+  font-size:14pt;
+  font-family: "Microsoft JhengHei","微軟正黑體";
+  line-height: 120%;
+}
+
+#userNameListImg{
+  width: 100%;
+  height:100%;
+  /* max-width: 650px; */
+  /* max-height: 306px; */
+  object-fit: fill;
+}
+
+#userNameListContainerInfoDiv{
+  color:white;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 5%;
+  margin-right: 8%;
+
+  overflow: auto;
+
+  position: absolute;
+  top:0%;
+  left:2%;
+  width:85%;
+  height:75%;
+}
+
+#userNameListContainerInfo{
+  margin: 0;
+  position: absolute;
+  width:100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/* 中獎者清單 */
+
+#winnerNameListContainer{
+  width: 80%;
+  height: 30%;
+  position: absolute;
+  margin-top: 16px;
+  right:10%;
+  top:7%;
+  /* background-color: white; */
+  text-align: justify;
+  font-size:14pt;
+  font-family: "Microsoft JhengHei","微軟正黑體";
+  line-height: 120%;
+}
+
+#winnerNameImg{
+  width: 100%;
+  height:100%;
+  /* max-width: 650px; */
+  /* max-height: 306px; */
+  object-fit: fill;
+}
+
+#winnerNameListContainerInfoDiv{
+  color:white;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 5%;
+  margin-right: 8%;
+
+  overflow: auto;
+
+  position: absolute;
+  top:0%;
+  left:2%;
+  width:85%;
+  height:75%;
+}
+
+#winnerNameListContainerInfo{
+  margin: 0;
+  position: absolute;
+  width:100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+
+
+
+
+
+/* class part start */
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  /* https://stackoverflow.com/questions/10075524/sizing-div-based-on-window-width/35237091#35237091 */
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height */
+  background-color: rgba( 74 , 77 , 84 , 0.85 ); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  position: relative;
+  /* background-color:white; */
+  margin: auto;
+  top:15%;
+  border-radius: 16px;
+  width: 85vw;
+  height: 60vh;
+  max-width: 760px;
+  /* overflow: hidden; */
+}
+
+.modal-content > div {
+  position: relative;
+  margin-left: 2%;
+  margin-right: 2%;
+  width: 90%;
+}
+
+.centerText {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space:nowrap;
+}
+
+.unselected{
+  -moz-user-select: none;
+  -webkit-user-select: none; 
+  -ms-user-select:none; 
+  user-select:none;
+  -o-user-select:none;
+  outline:none;
+}
+
+
+/* 抽獎者內容格式 仿製排行榜 */
+
+.rankRow{
+  position: relative;
+  width:90%;
+  /* height:8%; */
+  height: 25px;
+  left:4%;
+  margin-top: 1%;
+}
+
+.rankNumeralDiv{
+  position: absolute;
+  width:10%;
+  height: 100%;
+  left: 0%;
+}
+
+.rankNameInfoDiv{
+  position: absolute;
+  width:85%;
+  height: 100%;
+  left: 15%;
+}
+
+.rankNumeralImg, .rankNameInfoImg{
+  width: 100%;
+  height:100%;
+  object-fit: fill;
+}
+
+.nameInfoTextDiv{
+  position: absolute;
+  width:70%;
+  height: 100%;
+  top:0%;
+  left:0%;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-right-color: #F47165;
+
+}
+
+.nameInfoNumberDiv{
+  position: absolute;
+  width:30%;
+  height: 100%;
+  top:0%;
+  left:70%;
+}
+
+
+.prizeSelect {
+  border-radius: 100px;
+  border-color: #ff9b82;
+  border-width: 10px;
+  border-style: solid;
+}
+
+.centerP {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space:nowrap;
+}
+
+.leftP {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  /* left: 50%; */
+  transform: translate( 5%, -50%);
+  /* white-space:nowrap; */
+}
+
+.prizeImg{
+  width: 100%;
+  height: 100%;
+  object-fit:contain;
+}
+
+.prizeName{
+  position: absolute;
+  width:15%;
+  height: 100%;
+  left: 0%;
+}
+
+.winnerNameInfoDiv{
+  position: absolute;
+  width:80%;
+  height: 100%;
+  left: 15%;
+}
+
+
+@media screen and (min-width:550px) {
+
+
+  #bgImg{
+    width: 100%;
+    height:100%;
+    object-fit: cover;
+  }
+
+  #modelDiv{
+    position: absolute;
+    width:100vw;
+    height:100vh;
+    /* z-index: 2; */
+  }
+
+  #miloDiv{
+    position: absolute;
+    width:54%;
+    left: 0%;
+    float:left;
+    height:auto;
+    bottom: 3%;
+    max-width: 350px;
+    max-height: 600px;
+    z-index: 2;
+  }
+
+  #miloImg {
+    width: 100%;
+    height:100%;
+    max-width: 421px;
+    max-height: 740px;
+    object-fit: contain;
+  }
+
+  #hoonieDiv{
+    position: absolute;
+    width:55%;
+    right:0%;
+    float:left;
+    height:auto;
+    bottom: 3%;
+    max-width: 350px;
+    max-height: 600px;
+    z-index: 2;
+  }
+
+  #hoonieImg{
+    width: 100%;
+    height:100%;
+    max-width: 446px;
+    max-height: 756px;
+    object-fit: contain;
+  }
+
+
+
+  /* 獎項按鈕 */
+
+  #prizeListDiv{
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    left: 0%;
+    top: 2%;
+  }
+
+  #iphone , #ring , #tableware , #cup{
+    width: 20%;
+    margin-left: 1%;
+  }
+
+ 
+  
+  /* 使用者清單 */
+
+  #userNameListTopImg{
+    position: absolute;
+    top:20%;
+    left:10%;
+    width: 35%;
+    height: auto;
+    max-width: 580px;
+    max-height: 70px;
+  }
+
+  #userNameListContainer{
+    position: absolute;
+    float:center;
+    top:30%;
+    left:10%;
+    width: 35%;
+    height:40%;
+    max-width: 580px;
+    max-height: 507px;
+    margin-left: auto;
+    margin-right: auto;
+
+    color:#F47165;
+
+    text-align: justify;
+    font-size:14pt;
+    font-family: "Microsoft JhengHei","微軟正黑體";
+    line-height: 120%;
+  }
+
+  #userNameListImg{
+    width: 100%;
+    height:100%;
+    /* max-width: 650px; */
+    /* max-height: 306px; */
+    position: relative;
+    object-fit: fill;
+  }
+
+  #userNameListTitle{
+    position: absolute;
+    top:1%;
+    left: 0%;
+    width: 100%;
+    height: 12%;
+  }
+
+  #userNumber{
+    position: absolute;
+    top:0%;
+    left: 1%;
+    width: 25%;
+    height: 100%;
+  }
+
+  #userName{
+    position: absolute;
+    top:0%;
+    left: 30%;
+    width: 25%;
+    height: 100%;
+  }
+
+  #userEmail{
+    position: absolute;
+    top:0%;
+    left: 60%;
+    width: 25%;
+    height: 100%;
+  }
+
+
+
+
+
+
+  #userNameListContainerInfoDiv{
+    color:black;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 5%;
+    margin-right: 8%;
+  
+    position: absolute;
+    top:10%;
+    left:2%;
+    width:85%;
+    height:80%;
+  }
+
+  #userNameListContainerInfo{
+    color:black;
+  
+    margin: 0;
+    position: absolute;
+    width:100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+  }
+
+  #userTotalInfoDiv{
+    position: absolute;
+    bottom: 2%;
+    left: 5%;
+    height: 12%;
+    width: 85%;
+  }
+
+  #couponCount{
+    position: absolute;
+    bottom: 0%;
+    left: 5%;
+    height: 100%;
+    width: 40%;
+  }
+
+  #userCount{
+    position: absolute;
+    bottom: 0%;
+    right: 5%;
+    height: 100%;
+    width: 40%;
+  }
+
+
+
+  /* 中獎者清單 */
+  
+  #winnerNameListTopImg{
+    position: absolute;
+    top:20%;
+    right:10%;
+    width: 35%;
+    height: auto;
+    max-width: 580px;
+    max-height: 70px;
+  }
+
+  #winnerNameListContainer{
+    position: absolute;
+    float:center;
+    top:30%;
+    right:10%;
+    width: 35%;
+    height:40%;
+    max-width: 580px;
+    max-height: 507px;
+    margin-left: auto;
+    margin-right: auto;
+
+    color:#F47165;
+
+    text-align: justify;
+    font-size:14pt;
+    font-family: "Microsoft JhengHei","微軟正黑體";
+    line-height: 120%;
+  }
+
+  #winnerNameImg{
+    width: 100%;
+    height:100%;
+    /* max-width: 650px; */
+    /* max-height: 306px; */
+    position: relative;
+    object-fit: fill;
+  }
+
+  #winnerNameListContainerInfoDiv{
+    color:black;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 5%;
+    margin-right: 8%;
+  
+    position: absolute;
+    top:10%;
+    left:2%;
+    width:85%;
+    height:80%;
+  }
+
+  #winnerNameListContainerInfo{
+    color:black;
+  
+    margin: 0;
+    position: absolute;
+    width:100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+  }
+
+  #winnerNameListTitle{
+    position: absolute;
+    top:1%;
+    left: 0%;
+    width: 100%;
+    height: 12%;
+  }
+
+  #winnerPrize{
+    position: absolute;
+    top:0%;
+    left: 1%;
+    width: 25%;
+    height: 100%;
+  }
+
+  #winnerName{
+    position: absolute;
+    top:0%;
+    left: 30%;
+    width: 25%;
+    height: 100%;
+  }
+
+  #winnerEmail{
+    position: absolute;
+    top:0%;
+    left: 60%;
+    width: 25%;
+    height: 100%;
+  }
+
+
+
+
+  /* 抽獎按鈕 */
+
+  #getLotteryDiv{
+    position: absolute;
+    bottom: 2%;
+    left:25%;
+    width:50%;
+    height:8%;  
+  }
+
+  #getLotteryImg{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+
+
+}
+
+
+/*  ------------------------------------------------------------------------------------------------------------------------------------------  */
